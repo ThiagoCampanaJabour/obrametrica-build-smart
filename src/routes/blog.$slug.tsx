@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead, SITE_URL } from "@/lib/seo";
-import { BLOG_POSTS, getPostBySlug, formatDate } from "@/data/blog-posts";
+import { BLOG_POSTS, getPostBySlug, formatDate, type BlogPost } from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -80,7 +80,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPostPage() {
-  const { post } = Route.useLoaderData();
+  const { post } = Route.useLoaderData() as { post: BlogPost };
   const related = BLOG_POSTS.filter(
     (p) => p.slug !== post.slug && p.category === post.category,
   ).slice(0, 3);
