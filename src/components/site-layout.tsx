@@ -12,13 +12,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   );
 }
 
-export function PagePlaceholder({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+export function PagePlaceholder({ title, description }: { title: string; description: string }) {
   return (
     <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       <span className="inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-foreground">

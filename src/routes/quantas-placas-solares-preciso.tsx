@@ -1,8 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  CalculatorShell, NumberField, ResultPanel, SubmitRow,
-  useCalcForm, validatePositive, fmt,
+  CalculatorShell,
+  NumberField,
+  ResultPanel,
+  SubmitRow,
+  useCalcForm,
+  validatePositive,
+  fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 
@@ -14,12 +19,23 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/quantas-placas-solares-preciso")({
-  head: () => pageHead({
-    title: "Quantas Placas Solares Eu Preciso? Calculadora Gratuita | ObraMétrica",
-    description: "Descubra quantas placas solares você precisa a partir do consumo mensal em kWh, com potência estimada e produção mensal.",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Quantas Placas Solares Eu Preciso? Calculadora Gratuita | ObraMétrica",
+      description:
+        "Descubra quantas placas solares você precisa a partir do consumo mensal em kWh, com potência estimada e produção mensal.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Placas Solares",
+        url: `https://obrametrica.com.br${PATH}`,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Any",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+      },
+    }),
   component: PlacasSolares,
 });
 
@@ -28,7 +44,11 @@ const PANEL_POWER_KW = 0.55;
 
 function PlacasSolares() {
   const [consumption, setConsumption] = useState("");
-  const [result, setResult] = useState<{ panels: number; power: number; production: number } | null>(null);
+  const [result, setResult] = useState<{
+    panels: number;
+    power: number;
+    production: number;
+  } | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { submitted, onSubmit } = useCalcForm();
 
@@ -42,7 +62,11 @@ function PlacasSolares() {
     setResult({ panels, power: panels * PANEL_POWER_KW, production: panels * PANEL_MONTHLY_KWH });
   };
 
-  const reset = () => { setConsumption(""); setResult(null); setErrors({}); };
+  const reset = () => {
+    setConsumption("");
+    setResult(null);
+    setErrors({});
+  };
 
   return (
     <CalculatorShell
@@ -51,16 +75,28 @@ function PlacasSolares() {
       breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, calculate)} noValidate>
-        <NumberField id="consumption" label="Consumo mensal em kWh" unit="kWh/mês" step="0.1"
-          value={consumption} onChange={setConsumption}
-          error={submitted ? errors.consumption : undefined} />
-        <div className="mt-6"><SubmitRow onReset={reset} /></div>
+        <NumberField
+          id="consumption"
+          label="Consumo mensal em kWh"
+          unit="kWh/mês"
+          step="0.1"
+          value={consumption}
+          onChange={setConsumption}
+          error={submitted ? errors.consumption : undefined}
+        />
+        <div className="mt-6">
+          <SubmitRow onReset={reset} />
+        </div>
       </form>
 
       {result && (
         <ResultPanel
           items={[
-            { label: "Quantidade de placas", value: `${result.panels} ${result.panels === 1 ? "placa" : "placas"}`, highlight: true },
+            {
+              label: "Quantidade de placas",
+              value: `${result.panels} ${result.panels === 1 ? "placa" : "placas"}`,
+              highlight: true,
+            },
             { label: "Potência estimada do sistema", value: `${fmt(result.power, 2)} kW` },
             { label: "Produção mensal estimada", value: `${fmt(result.production, 0)} kWh/mês` },
           ]}
@@ -68,8 +104,9 @@ function PlacasSolares() {
       )}
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Cálculo baseado em placas de {PANEL_MONTHLY_KWH} kWh/mês (aprox. {fmt(PANEL_POWER_KW * 1000, 0)} W por placa).
-        Valores podem variar conforme região, orientação e sombreamento.
+        Cálculo baseado em placas de {PANEL_MONTHLY_KWH} kWh/mês (aprox.{" "}
+        {fmt(PANEL_POWER_KW * 1000, 0)} W por placa). Valores podem variar conforme região,
+        orientação e sombreamento.
       </p>
     </CalculatorShell>
   );

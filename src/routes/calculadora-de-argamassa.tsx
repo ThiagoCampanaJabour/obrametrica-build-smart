@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  CalculatorShell, NumberField, SelectField, SubmitRow, ResultPanel,
-  useCalcForm, validatePositive, fmt,
+  CalculatorShell,
+  NumberField,
+  SelectField,
+  SubmitRow,
+  ResultPanel,
+  useCalcForm,
+  validatePositive,
+  fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 
@@ -14,12 +20,23 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/calculadora-de-argamassa")({
-  head: () => pageHead({
-    title: "Calculadora de Argamassa — Sacos por m² | ObraMétrica",
-    description: "Calcule a quantidade de argamassa colante por m² para uso interno (5 kg), externo (6 kg) ou porcelanato (7 kg).",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Calculadora de Argamassa — Sacos por m² | ObraMétrica",
+      description:
+        "Calcule a quantidade de argamassa colante por m² para uso interno (5 kg), externo (6 kg) ou porcelanato (7 kg).",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Argamassa",
+        url: `https://obrametrica.com.br${PATH}`,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Any",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+      },
+    }),
   component: ArgamassaCalc,
 });
 
@@ -44,7 +61,10 @@ function ArgamassaCalc() {
   };
 
   const reset = () => {
-    setArea(""); setTipo("interno"); setErrors({}); setResult(null);
+    setArea("");
+    setTipo("interno");
+    setErrors({});
+    setResult(null);
   };
 
   return (
@@ -54,10 +74,19 @@ function ArgamassaCalc() {
       breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
-        <NumberField id="area" label="Área a assentar" unit="m²"
-          value={area} onChange={setArea} error={errors.area} />
+        <NumberField
+          id="area"
+          label="Área a assentar"
+          unit="m²"
+          value={area}
+          onChange={setArea}
+          error={errors.area}
+        />
         <SelectField<Tipo>
-          id="tipo" label="Tipo de aplicação" value={tipo} onChange={setTipo}
+          id="tipo"
+          label="Tipo de aplicação"
+          value={tipo}
+          onChange={setTipo}
           options={[
             { value: "interno", label: "Interno (5 kg/m²)" },
             { value: "externo", label: "Externo (6 kg/m²)" },

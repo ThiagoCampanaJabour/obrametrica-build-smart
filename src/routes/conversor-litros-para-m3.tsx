@@ -10,12 +10,14 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/conversor-litros-para-m3")({
-  head: () => pageHead({
-    title: "Conversor de Litros para m³ — Online e Grátis | ObraMétrica",
-    description: "Converta litros (L) para metros cúbicos (m³) instantaneamente. 1.000 litros = 1 m³.",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Conversor de Litros para m³ — Online e Grátis | ObraMétrica",
+      description:
+        "Converta litros (L) para metros cúbicos (m³) instantaneamente. 1.000 litros = 1 m³.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+    }),
   component: () => (
     <UnitConverter
       title="Conversor de Litros para m³"

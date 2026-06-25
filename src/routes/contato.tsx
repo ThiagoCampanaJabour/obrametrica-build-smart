@@ -5,15 +5,17 @@ import { pageHead } from "@/lib/seo";
 const PATH = "/contato";
 
 export const Route = createFileRoute("/contato")({
-  head: () => pageHead({
-    title: "Contato — Fale com a ObraMétrica",
-    description: "Entre em contato com a equipe da ObraMétrica para sugestões, dúvidas ou parcerias.",
-    path: PATH,
-    breadcrumbs: [
-      { name: "Início", path: "/" },
-      { name: "Contato", path: PATH },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Contato — Fale com a ObraMétrica",
+      description:
+        "Entre em contato com a equipe da ObraMétrica para sugestões, dúvidas ou parcerias.",
+      path: PATH,
+      breadcrumbs: [
+        { name: "Início", path: "/" },
+        { name: "Contato", path: PATH },
+      ],
+    }),
   component: () => (
     <SiteLayout>
       <PagePlaceholder

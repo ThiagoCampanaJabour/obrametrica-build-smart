@@ -29,7 +29,10 @@ export function SiteHeader() {
               key={item.to}
               to={item.to}
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent/20 hover:text-foreground"
-              activeProps={{ className: "rounded-md px-3 py-2 text-sm font-semibold text-foreground bg-accent/30" }}
+              activeProps={{
+                className:
+                  "rounded-md px-3 py-2 text-sm font-semibold text-foreground bg-accent/30",
+              }}
               activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
@@ -49,7 +52,10 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="lg:hidden border-t border-border bg-background" aria-label="Navegação móvel">
+        <nav
+          className="lg:hidden border-t border-border bg-background"
+          aria-label="Navegação móvel"
+        >
           <div className="mx-auto max-w-7xl px-4 py-3 flex flex-col gap-1 sm:px-6">
             {navItems.map((item) => (
               <Link
@@ -57,7 +63,10 @@ export function SiteHeader() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-accent/20 hover:text-foreground"
-                activeProps={{ className: "rounded-md px-3 py-2 text-sm font-semibold text-foreground bg-accent/30" }}
+                activeProps={{
+                  className:
+                    "rounded-md px-3 py-2 text-sm font-semibold text-foreground bg-accent/30",
+                }}
                 activeOptions={{ exact: item.to === "/" }}
               >
                 {item.label}

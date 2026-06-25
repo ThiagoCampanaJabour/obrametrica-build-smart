@@ -557,7 +557,10 @@ export const BLOG_POSTS: BlogPost[] = [
       "A energia solar fotovoltaica é uma tecnologia madura, segura e financeiramente atraente. Com componentes simples e manutenção reduzida, ela transforma a luz do sol em economia real para o consumidor, com benefício ambiental significativo.",
       "Para começar a planejar o seu sistema, use nossa calculadora online de painéis solares e descubra quantas placas você precisa com base no seu consumo atual.",
     ],
-    relatedTool: { label: "Calculadora de Placas Solares", path: "/quantas-placas-solares-preciso" },
+    relatedTool: {
+      label: "Calculadora de Placas Solares",
+      path: "/quantas-placas-solares-preciso",
+    },
   },
 
   {
@@ -647,7 +650,10 @@ export const BLOG_POSTS: BlogPost[] = [
       "Calcular o número de placas solares é uma conta simples quando você conhece seu consumo médio e o rendimento por painel. Para a maioria das residências, 6 a 10 painéis são suficientes para cobrir todo o consumo e gerar economia significativa.",
       "Use nossa calculadora online de placas solares para obter uma estimativa personalizada baseada no seu consumo real.",
     ],
-    relatedTool: { label: "Calculadora de Placas Solares", path: "/quantas-placas-solares-preciso" },
+    relatedTool: {
+      label: "Calculadora de Placas Solares",
+      path: "/quantas-placas-solares-preciso",
+    },
   },
 
   {
@@ -810,8 +816,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         question: "Como converter 50.000 m² em hectares?",
-        answer:
-          "Divida 50.000 por 10.000. O resultado é 5 hectares.",
+        answer: "Divida 50.000 por 10.000. O resultado é 5 hectares.",
       },
       {
         question: "Hectare é a mesma coisa que alqueire?",
@@ -820,8 +825,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         question: "Qual a diferença entre hectare e km²?",
-        answer:
-          "1 km² equivale a 100 hectares, ou seja, 1.000.000 de metros quadrados.",
+        answer: "1 km² equivale a 100 hectares, ou seja, 1.000.000 de metros quadrados.",
       },
     ],
     conclusion: [
@@ -896,23 +900,19 @@ export const BLOG_POSTS: BlogPost[] = [
     faq: [
       {
         question: "Quantos litros tem 1 m³?",
-        answer:
-          "Exatamente 1.000 litros.",
+        answer: "Exatamente 1.000 litros.",
       },
       {
         question: "Como converter 2.500 litros em m³?",
-        answer:
-          "Divida 2.500 por 1.000. O resultado é 2,5 m³.",
+        answer: "Divida 2.500 por 1.000. O resultado é 2,5 m³.",
       },
       {
         question: "1 m³ de água pesa quanto?",
-        answer:
-          "Aproximadamente 1.000 kg ou 1 tonelada, considerando água a 4°C.",
+        answer: "Aproximadamente 1.000 kg ou 1 tonelada, considerando água a 4°C.",
       },
       {
         question: "Caixa d'água de 1000 L corresponde a quanto em m³?",
-        answer:
-          "Exatamente 1 m³.",
+        answer: "Exatamente 1 m³.",
       },
     ],
     conclusion: [

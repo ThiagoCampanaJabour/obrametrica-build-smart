@@ -10,12 +10,14 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/conversor-m2-para-hectare")({
-  head: () => pageHead({
-    title: "Conversor de m² para Hectare — Online e Grátis | ObraMétrica",
-    description: "Converta metros quadrados (m²) para hectares (ha) instantaneamente. 1 hectare = 10.000 m².",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Conversor de m² para Hectare — Online e Grátis | ObraMétrica",
+      description:
+        "Converta metros quadrados (m²) para hectares (ha) instantaneamente. 1 hectare = 10.000 m².",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+    }),
   component: () => (
     <UnitConverter
       title="Conversor de m² para Hectare"

@@ -42,7 +42,7 @@ export const Route = createFileRoute("/blog/$slug")({
         publisher: {
           "@type": "Organization",
           name: "ObraMétrica",
-          logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.ico` },
+          logo: { "@type": "ImageObject", url: `${SITE_URL}/obrametrica-logo.jpg` },
         },
         mainEntityOfPage: `${SITE_URL}${path}`,
       },
@@ -55,10 +55,7 @@ export const Route = createFileRoute("/blog/$slug")({
         <p className="mt-4 text-muted-foreground">
           O artigo que você procura pode ter sido movido ou ainda não existe.
         </p>
-        <Link
-          to="/blog"
-          className="mt-6 inline-flex items-center gap-2 text-primary font-semibold"
-        >
+        <Link to="/blog" className="mt-6 inline-flex items-center gap-2 text-primary font-semibold">
           <ArrowLeft className="h-4 w-4" /> Voltar ao Blog
         </Link>
       </section>
@@ -126,12 +123,9 @@ function BlogPostPage() {
 
         <AdMiddle />
 
-
         {post.sections.map((sec, idx) => (
           <section key={idx} className="mt-10">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">
-              {sec.heading}
-            </h2>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">{sec.heading}</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
               {sec.paragraphs.map((p, i) => (
                 <p key={`s${idx}-p${i}`}>{p}</p>
@@ -155,9 +149,7 @@ function BlogPostPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">
-            Conclusão
-          </h2>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Conclusão</h2>
           <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
             {post.conclusion.map((p, i) => (
               <p key={`c-${i}`}>{p}</p>
@@ -167,21 +159,18 @@ function BlogPostPage() {
 
         <AdBottom />
 
-
         {post.relatedTool && (
           <aside className="mt-10 flex flex-col gap-3 rounded-2xl bg-primary p-6 text-primary-foreground sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-wider opacity-80">
-                Ferramenta relacionada
-              </p>
+              <p className="text-sm uppercase tracking-wider opacity-80">Ferramenta relacionada</p>
               <p className="mt-1 text-lg font-semibold">{post.relatedTool.label}</p>
             </div>
-            <a
-              href={post.relatedTool.path}
+            <Link
+              to={post.relatedTool.path as string}
               className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-semibold text-accent-foreground hover:opacity-90"
             >
               Acessar <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </aside>
         )}
 
@@ -200,15 +189,13 @@ function BlogPostPage() {
                   text: f.answer,
                 },
               })),
-            }),
+            }).replace(/</g, "\\u003c"),
           }}
         />
 
         {related.length > 0 && (
           <section className="mt-16 border-t border-border pt-10">
-            <h2 className="text-xl font-bold tracking-tight text-foreground">
-              Continue lendo
-            </h2>
+            <h2 className="text-xl font-bold tracking-tight text-foreground">Continue lendo</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {related.map((r) => (
                 <Link
@@ -217,12 +204,8 @@ function BlogPostPage() {
                   params={{ slug: r.slug }}
                   className="rounded-xl border border-border bg-card p-4 hover:shadow-md transition"
                 >
-                  <p className="text-xs font-semibold text-primary">
-                    {r.category}
-                  </p>
-                  <p className="mt-2 font-semibold leading-snug text-foreground">
-                    {r.title}
-                  </p>
+                  <p className="text-xs font-semibold text-primary">{r.category}</p>
+                  <p className="mt-2 font-semibold leading-snug text-foreground">{r.title}</p>
                 </Link>
               ))}
             </div>

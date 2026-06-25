@@ -55,9 +55,8 @@ function BlogIndex() {
             Blog ObraMétrica
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Guias, tutoriais e referências práticas sobre construção civil,
-            energia solar e conversores técnicos. Conteúdo focado em quem
-            executa e decide.
+            Guias, tutoriais e referências práticas sobre construção civil, energia solar e
+            conversores técnicos. Conteúdo focado em quem executa e decide.
           </p>
         </header>
 
@@ -73,17 +72,11 @@ function BlogIndex() {
                 {post.category}
               </span>
               <h2 className="mt-4 text-xl font-bold leading-snug text-foreground">
-                <Link
-                  to="/blog/$slug"
-                  params={{ slug: post.slug }}
-                  className="hover:text-primary"
-                >
+                <Link to="/blog/$slug" params={{ slug: post.slug }} className="hover:text-primary">
                   {post.title}
                 </Link>
               </h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                {post.description}
-              </p>
+              <p className="mt-3 text-sm text-muted-foreground">{post.description}</p>
               <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" aria-hidden />

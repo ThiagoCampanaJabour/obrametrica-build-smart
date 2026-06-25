@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  CalculatorShell, NumberField, SubmitRow, ResultPanel,
-  useCalcForm, validatePositive, fmt,
+  CalculatorShell,
+  NumberField,
+  SubmitRow,
+  ResultPanel,
+  useCalcForm,
+  validatePositive,
+  fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 
@@ -14,12 +19,23 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/calculadora-de-piso")({
-  head: () => pageHead({
-    title: "Calculadora de Piso — Caixas e Área com 10% de Sobra | ObraMétrica",
-    description: "Calcule a área total do ambiente e a quantidade de caixas de piso necessárias, já com 10% de sobra.",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Calculadora de Piso — Caixas e Área com 10% de Sobra | ObraMétrica",
+      description:
+        "Calcule a área total do ambiente e a quantidade de caixas de piso necessárias, já com 10% de sobra.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Piso",
+        url: `https://obrametrica.com.br${PATH}`,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Any",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+      },
+    }),
   component: PisoCalc,
 });
 
@@ -27,8 +43,14 @@ function PisoCalc() {
   const [comprimento, setComprimento] = useState("");
   const [largura, setLargura] = useState("");
   const [m2Caixa, setM2Caixa] = useState("");
-  const [result, setResult] = useState<null | { area: number; areaSobra: number; caixas: number }>(null);
-  const [errors, setErrors] = useState<{ comprimento?: string; largura?: string; m2Caixa?: string }>({});
+  const [result, setResult] = useState<null | { area: number; areaSobra: number; caixas: number }>(
+    null,
+  );
+  const [errors, setErrors] = useState<{
+    comprimento?: string;
+    largura?: string;
+    m2Caixa?: string;
+  }>({});
   const { onSubmit } = useCalcForm();
 
   const submit = () => {
@@ -44,7 +66,11 @@ function PisoCalc() {
   };
 
   const reset = () => {
-    setComprimento(""); setLargura(""); setM2Caixa(""); setErrors({}); setResult(null);
+    setComprimento("");
+    setLargura("");
+    setM2Caixa("");
+    setErrors({});
+    setResult(null);
   };
 
   return (
@@ -55,12 +81,30 @@ function PisoCalc() {
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
         <div className="grid gap-4 sm:grid-cols-3">
-          <NumberField id="comprimento" label="Comprimento" unit="m"
-            value={comprimento} onChange={setComprimento} error={errors.comprimento} />
-          <NumberField id="largura" label="Largura" unit="m"
-            value={largura} onChange={setLargura} error={errors.largura} />
-          <NumberField id="m2Caixa" label="m² por caixa" unit="m²/cx"
-            value={m2Caixa} onChange={setM2Caixa} error={errors.m2Caixa} />
+          <NumberField
+            id="comprimento"
+            label="Comprimento"
+            unit="m"
+            value={comprimento}
+            onChange={setComprimento}
+            error={errors.comprimento}
+          />
+          <NumberField
+            id="largura"
+            label="Largura"
+            unit="m"
+            value={largura}
+            onChange={setLargura}
+            error={errors.largura}
+          />
+          <NumberField
+            id="m2Caixa"
+            label="m² por caixa"
+            unit="m²/cx"
+            value={m2Caixa}
+            onChange={setM2Caixa}
+            error={errors.m2Caixa}
+          />
         </div>
         <SubmitRow onReset={reset} />
       </form>
@@ -70,7 +114,11 @@ function PisoCalc() {
           items={[
             { label: "Área total", value: `${fmt(result.area)} m²` },
             { label: "Com 10% de sobra", value: `${fmt(result.areaSobra)} m²` },
-            { label: "Quantidade de caixas", value: `${fmt(result.caixas, 0)} cx`, highlight: true },
+            {
+              label: "Quantidade de caixas",
+              value: `${fmt(result.caixas, 0)} cx`,
+              highlight: true,
+            },
           ]}
         />
       )}

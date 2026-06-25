@@ -26,11 +26,7 @@ function AdSlot({
   children?: ReactNode;
 }) {
   return (
-    <aside
-      aria-label={label}
-      data-ad-slot={id}
-      className="mx-auto my-8 w-full max-w-3xl"
-    >
+    <aside aria-label={label} data-ad-slot={id} className="mx-auto my-8 w-full max-w-3xl">
       <div
         className="flex items-center justify-center rounded-md border border-dashed border-border bg-muted/30 px-4 text-xs uppercase tracking-wider text-muted-foreground"
         style={{ minHeight }}

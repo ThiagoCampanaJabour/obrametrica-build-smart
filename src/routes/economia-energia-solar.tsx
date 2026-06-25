@@ -1,8 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  CalculatorShell, NumberField, ResultPanel, SubmitRow,
-  useCalcForm, validatePositive, fmt,
+  CalculatorShell,
+  NumberField,
+  ResultPanel,
+  SubmitRow,
+  useCalcForm,
+  validatePositive,
+  fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 
@@ -14,12 +19,23 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/economia-energia-solar")({
-  head: () => pageHead({
-    title: "Economia com Energia Solar — Calculadora Mensal, Anual e 10 Anos | ObraMétrica",
-    description: "Estime quanto você pode economizar instalando energia solar: economia mensal, anual e em 10 anos.",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Economia com Energia Solar — Calculadora Mensal, Anual e 10 Anos | ObraMétrica",
+      description:
+        "Estime quanto você pode economizar instalando energia solar: economia mensal, anual e em 10 anos.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Economia com Energia Solar",
+        url: `https://obrametrica.com.br${PATH}`,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Any",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+      },
+    }),
   component: EconomiaSolar,
 });
 
@@ -27,7 +43,11 @@ const DEFAULT_SAVINGS_RATE = 0.9;
 
 function EconomiaSolar() {
   const [billValue, setBillValue] = useState("");
-  const [result, setResult] = useState<{ monthly: number; yearly: number; tenYears: number } | null>(null);
+  const [result, setResult] = useState<{
+    monthly: number;
+    yearly: number;
+    tenYears: number;
+  } | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { submitted, onSubmit } = useCalcForm();
 
@@ -42,7 +62,11 @@ function EconomiaSolar() {
     setResult({ monthly, yearly, tenYears: yearly * 10 });
   };
 
-  const reset = () => { setBillValue(""); setResult(null); setErrors({}); };
+  const reset = () => {
+    setBillValue("");
+    setResult(null);
+    setErrors({});
+  };
   const currency = (n: number) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   return (
@@ -52,15 +76,23 @@ function EconomiaSolar() {
       breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, calculate)} noValidate>
-        <NumberField id="billValue" label="Valor atual da conta" unit="R$"
-          value={billValue} onChange={setBillValue}
-          error={submitted ? errors.billValue : undefined} />
+        <NumberField
+          id="billValue"
+          label="Valor atual da conta"
+          unit="R$"
+          value={billValue}
+          onChange={setBillValue}
+          error={submitted ? errors.billValue : undefined}
+        />
         <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4">
           <p className="text-sm text-muted-foreground">
-            Economia padrão estimada: <strong className="text-foreground">{fmt(DEFAULT_SAVINGS_RATE * 100, 0)}%</strong>
+            Economia padrão estimada:{" "}
+            <strong className="text-foreground">{fmt(DEFAULT_SAVINGS_RATE * 100, 0)}%</strong>
           </p>
         </div>
-        <div className="mt-6"><SubmitRow onReset={reset} /></div>
+        <div className="mt-6">
+          <SubmitRow onReset={reset} />
+        </div>
       </form>
 
       {result && (
@@ -74,8 +106,8 @@ function EconomiaSolar() {
       )}
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Estimativa considera redução de {fmt(DEFAULT_SAVINGS_RATE * 100, 0)}% na conta de luz.
-        A economia real pode variar conforme concessionária, tarifas e perfil de consumo.
+        Estimativa considera redução de {fmt(DEFAULT_SAVINGS_RATE * 100, 0)}% na conta de luz. A
+        economia real pode variar conforme concessionária, tarifas e perfil de consumo.
       </p>
     </CalculatorShell>
   );

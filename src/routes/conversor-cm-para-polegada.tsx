@@ -10,12 +10,14 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/conversor-cm-para-polegada")({
-  head: () => pageHead({
-    title: "Conversor de cm para Polegada — Online e Grátis | ObraMétrica",
-    description: "Converta centímetros (cm) para polegadas (in) instantaneamente. 1 polegada = 2,54 cm.",
-    path: PATH,
-    breadcrumbs: CRUMBS,
-  }),
+  head: () =>
+    pageHead({
+      title: "Conversor de cm para Polegada — Online e Grátis | ObraMétrica",
+      description:
+        "Converta centímetros (cm) para polegadas (in) instantaneamente. 1 polegada = 2,54 cm.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
+    }),
   component: () => (
     <UnitConverter
       title="Conversor de cm para Polegada"
