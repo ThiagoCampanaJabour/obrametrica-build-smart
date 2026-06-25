@@ -6,18 +6,22 @@ export function CalculatorShell({
   title,
   description,
   children,
+  backTo = "/construcao-civil",
+  backLabel = "Voltar para Construção Civil",
 }: {
   title: string;
   description: string;
   children: ReactNode;
+  backTo?: string;
+  backLabel?: string;
 }) {
   return (
     <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
       <Link
-        to="/construcao-civil"
+        to={backTo}
         className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground"
       >
-        <ArrowLeft className="h-4 w-4" /> Voltar para Construção Civil
+        <ArrowLeft className="h-4 w-4" /> {backLabel}
       </Link>
       <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         {title}
