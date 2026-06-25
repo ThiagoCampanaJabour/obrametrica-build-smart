@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { SITE_URL } from "@/lib/seo";
+import { BLOG_POSTS } from "@/data/blog-posts";
 
 interface Entry {
   path: string;
@@ -24,6 +25,11 @@ const ENTRIES: Entry[] = [
   { path: "/conversor-cm-para-polegada", changefreq: "monthly", priority: "0.7" },
   { path: "/conversor-litros-para-m3", changefreq: "monthly", priority: "0.7" },
   { path: "/blog", changefreq: "weekly", priority: "0.6" },
+  ...BLOG_POSTS.map((p) => ({
+    path: `/blog/${p.slug}`,
+    changefreq: "monthly" as const,
+    priority: "0.7",
+  })),
   { path: "/sobre", changefreq: "yearly", priority: "0.4" },
   { path: "/contato", changefreq: "yearly", priority: "0.4" },
 ];
