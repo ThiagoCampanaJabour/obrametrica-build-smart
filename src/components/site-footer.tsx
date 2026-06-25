@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/obrametrica-logo.jpg.asset.json";
+const LOGO_URL = "/obrametrica-logo.jpg";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
