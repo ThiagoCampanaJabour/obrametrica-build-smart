@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead, SITE_URL } from "@/lib/seo";
 import { BLOG_POSTS, getPostBySlug, formatDate, type BlogPost } from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
