@@ -3,8 +3,7 @@ export const SITE_URL = "https://obrametrica.com.br";
 export const SITE_NAME = "ObraMétrica";
 export const SITE_DESCRIPTION =
   "Cálculos inteligentes para construir melhor. Calculadoras para construção civil, energia solar e conversores técnicos.";
-export const SITE_LOGO =
-  "/__l5e/assets-v1/a92b4722-d022-4d03-8eb0-5e0b031f4cf9/obrametrica-logo.jpg";
+export const SITE_LOGO = "/obrametrica-logo.jpg";
 
 export type Crumb = { name: string; path: string };
 

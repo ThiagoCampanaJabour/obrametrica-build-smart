@@ -1,4 +1,5 @@
 import { ChevronRight, Home } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import type { Crumb } from "@/lib/seo";
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
@@ -15,10 +16,14 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
                   {it.name}
                 </span>
               ) : (
-                <a href={it.path} className="inline-flex items-center gap-1 hover:text-foreground">
+                <Link
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  to={it.path as any}
+                  className="inline-flex items-center gap-1 hover:text-foreground"
+                >
                   {i === 0 && <Home className="h-3.5 w-3.5" aria-hidden />}
                   {it.name}
-                </a>
+                </Link>
               )}
             </li>
           );

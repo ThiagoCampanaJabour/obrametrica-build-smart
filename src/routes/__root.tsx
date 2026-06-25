@@ -72,7 +72,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const FAVICON = "/__l5e/assets-v1/a92b4722-d022-4d03-8eb0-5e0b031f4cf9/obrametrica-logo.jpg";
+const FAVICON = "/obrametrica-logo.jpg";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
