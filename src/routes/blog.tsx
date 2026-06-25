@@ -64,13 +64,7 @@ function BlogIndex() {
         <AdTop />
 
         <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, idx) => (
-            <>
-            {idx === 6 && (
-              <div key="ad-mid" className="sm:col-span-2 lg:col-span-3">
-                <AdMiddle />
-              </div>
-            )}
+          {posts.map((post) => (
             <article
               key={post.slug}
               className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md"
@@ -112,6 +106,9 @@ function BlogIndex() {
             </article>
           ))}
         </div>
+
+        <AdMiddle />
+        <AdBottom />
       </section>
     </SiteLayout>
   );
