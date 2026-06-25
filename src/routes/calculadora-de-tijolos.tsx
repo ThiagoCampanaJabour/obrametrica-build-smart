@@ -126,5 +126,6 @@ function TijolosCalc() {
         />
       )}
     </CalculatorShell>
+  )
   );
 }
