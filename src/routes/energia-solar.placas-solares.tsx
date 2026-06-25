@@ -62,6 +62,8 @@ function PlacasSolares() {
     <CalculatorShell
       title="Quantas Placas Solares Preciso"
       description="Informe seu consumo mensal de energia elétrica para estimar o número de placas, potência do sistema e produção mensal."
+      backTo="/energia-solar"
+      backLabel="Voltar para Energia Solar"
     >
       <form onSubmit={(e) => onSubmit(e, calculate)} noValidate>
         <div className="grid gap-6">

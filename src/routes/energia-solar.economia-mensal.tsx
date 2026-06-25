@@ -62,6 +62,8 @@ function EconomiaMensal() {
     <CalculatorShell
       title="Economia Mensal"
       description="Informe o valor atual da conta de luz para estimar a economia com um sistema de energia solar."
+      backTo="/energia-solar"
+      backLabel="Voltar para Energia Solar"
     >
       <form onSubmit={(e) => onSubmit(e, calculate)} noValidate>
         <div className="grid gap-6">
