@@ -165,12 +165,12 @@ function BlogPostPage() {
               <p className="text-sm uppercase tracking-wider opacity-80">Ferramenta relacionada</p>
               <p className="mt-1 text-lg font-semibold">{post.relatedTool.label}</p>
             </div>
-            <Link
-              to={post.relatedTool.path as string}
+            <a
+              href={post.relatedTool.path}
               className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-semibold text-accent-foreground hover:opacity-90"
             >
               Acessar <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
           </aside>
         )}
 

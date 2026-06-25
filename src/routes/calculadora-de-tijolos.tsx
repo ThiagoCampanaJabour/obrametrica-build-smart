@@ -42,7 +42,7 @@ export const Route = createFileRoute("/calculadora-de-tijolos")({
 });
 
 type Tipo = "9x19x19" | "11x14x24" | "14x19x29";
-const CONSUMO: Record<Tipo, number> = { "9x19x19": 25, "11x14x24": 22, "14x19x29": 17 };
+const CONSUMO: Record<Tipo, number> = { "9x19x19": 25, "11x14x24": 22, "14x19x29": 16 };
 
 function TijolosCalc() {
   const [comprimento, setComprimento] = useState("");
@@ -110,7 +110,7 @@ function TijolosCalc() {
           options={[
             { value: "9x19x19", label: "9×19×19 cm (25 tijolos/m²)" },
             { value: "11x14x24", label: "11×14×24 cm (22 tijolos/m²)" },
-            { value: "14x19x29", label: "14×19×29 cm (17 tijolos/m²)" },
+            { value: "14x19x29", label: "14×19×29 cm (16 tijolos/m²)" },
           ]}
         />
         <SubmitRow onReset={reset} />
