@@ -16,19 +16,6 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
-import { Route as ConversoresIndexRouteImport } from './routes/conversores.index'
-import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
-import { Route as EnergiaSolarPlacasSolaresRouteImport } from './routes/energia-solar.placas-solares'
-import { Route as EnergiaSolarEconomiaMensalRouteImport } from './routes/energia-solar.economia-mensal'
-import { Route as ConversoresM2HectareRouteImport } from './routes/conversores.m2-hectare'
-import { Route as ConversoresLitrosM3RouteImport } from './routes/conversores.litros-m3'
-import { Route as ConversoresCmPolegadaRouteImport } from './routes/conversores.cm-polegada'
-import { Route as ConstrucaoCivilTintaRouteImport } from './routes/construcao-civil.tinta'
-import { Route as ConstrucaoCivilTijolosRouteImport } from './routes/construcao-civil.tijolos'
-import { Route as ConstrucaoCivilPisoRouteImport } from './routes/construcao-civil.piso'
-import { Route as ConstrucaoCivilConcretoRouteImport } from './routes/construcao-civil.concreto'
-import { Route as ConstrucaoCivilArgamassaRouteImport } from './routes/construcao-civil.argamassa'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
@@ -65,138 +52,34 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EnergiaSolarIndexRoute = EnergiaSolarIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => EnergiaSolarRoute,
-} as any)
-const ConversoresIndexRoute = ConversoresIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ConversoresRoute,
-} as any)
-const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ConstrucaoCivilRoute,
-} as any)
-const EnergiaSolarPlacasSolaresRoute =
-  EnergiaSolarPlacasSolaresRouteImport.update({
-    id: '/placas-solares',
-    path: '/placas-solares',
-    getParentRoute: () => EnergiaSolarRoute,
-  } as any)
-const EnergiaSolarEconomiaMensalRoute =
-  EnergiaSolarEconomiaMensalRouteImport.update({
-    id: '/economia-mensal',
-    path: '/economia-mensal',
-    getParentRoute: () => EnergiaSolarRoute,
-  } as any)
-const ConversoresM2HectareRoute = ConversoresM2HectareRouteImport.update({
-  id: '/m2-hectare',
-  path: '/m2-hectare',
-  getParentRoute: () => ConversoresRoute,
-} as any)
-const ConversoresLitrosM3Route = ConversoresLitrosM3RouteImport.update({
-  id: '/litros-m3',
-  path: '/litros-m3',
-  getParentRoute: () => ConversoresRoute,
-} as any)
-const ConversoresCmPolegadaRoute = ConversoresCmPolegadaRouteImport.update({
-  id: '/cm-polegada',
-  path: '/cm-polegada',
-  getParentRoute: () => ConversoresRoute,
-} as any)
-const ConstrucaoCivilTintaRoute = ConstrucaoCivilTintaRouteImport.update({
-  id: '/tinta',
-  path: '/tinta',
-  getParentRoute: () => ConstrucaoCivilRoute,
-} as any)
-const ConstrucaoCivilTijolosRoute = ConstrucaoCivilTijolosRouteImport.update({
-  id: '/tijolos',
-  path: '/tijolos',
-  getParentRoute: () => ConstrucaoCivilRoute,
-} as any)
-const ConstrucaoCivilPisoRoute = ConstrucaoCivilPisoRouteImport.update({
-  id: '/piso',
-  path: '/piso',
-  getParentRoute: () => ConstrucaoCivilRoute,
-} as any)
-const ConstrucaoCivilConcretoRoute = ConstrucaoCivilConcretoRouteImport.update({
-  id: '/concreto',
-  path: '/concreto',
-  getParentRoute: () => ConstrucaoCivilRoute,
-} as any)
-const ConstrucaoCivilArgamassaRoute =
-  ConstrucaoCivilArgamassaRouteImport.update({
-    id: '/argamassa',
-    path: '/argamassa',
-    getParentRoute: () => ConstrucaoCivilRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
-  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
+  '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
-  '/conversores': typeof ConversoresRouteWithChildren
-  '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
-  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
-  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
-  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
-  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
-  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
-  '/conversores/cm-polegada': typeof ConversoresCmPolegadaRoute
-  '/conversores/litros-m3': typeof ConversoresLitrosM3Route
-  '/conversores/m2-hectare': typeof ConversoresM2HectareRoute
-  '/energia-solar/economia-mensal': typeof EnergiaSolarEconomiaMensalRoute
-  '/energia-solar/placas-solares': typeof EnergiaSolarPlacasSolaresRoute
-  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
-  '/conversores/': typeof ConversoresIndexRoute
-  '/energia-solar/': typeof EnergiaSolarIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
-  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
-  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
-  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
-  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
-  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
-  '/conversores/cm-polegada': typeof ConversoresCmPolegadaRoute
-  '/conversores/litros-m3': typeof ConversoresLitrosM3Route
-  '/conversores/m2-hectare': typeof ConversoresM2HectareRoute
-  '/energia-solar/economia-mensal': typeof EnergiaSolarEconomiaMensalRoute
-  '/energia-solar/placas-solares': typeof EnergiaSolarPlacasSolaresRoute
-  '/construcao-civil': typeof ConstrucaoCivilIndexRoute
-  '/conversores': typeof ConversoresIndexRoute
-  '/energia-solar': typeof EnergiaSolarIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
-  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
+  '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
-  '/conversores': typeof ConversoresRouteWithChildren
-  '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
-  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
-  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
-  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
-  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
-  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
-  '/conversores/cm-polegada': typeof ConversoresCmPolegadaRoute
-  '/conversores/litros-m3': typeof ConversoresLitrosM3Route
-  '/conversores/m2-hectare': typeof ConversoresM2HectareRoute
-  '/energia-solar/economia-mensal': typeof EnergiaSolarEconomiaMensalRoute
-  '/energia-solar/placas-solares': typeof EnergiaSolarPlacasSolaresRoute
-  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
-  '/conversores/': typeof ConversoresIndexRoute
-  '/energia-solar/': typeof EnergiaSolarIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -208,38 +91,15 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/energia-solar'
     | '/sobre'
-    | '/construcao-civil/argamassa'
-    | '/construcao-civil/concreto'
-    | '/construcao-civil/piso'
-    | '/construcao-civil/tijolos'
-    | '/construcao-civil/tinta'
-    | '/conversores/cm-polegada'
-    | '/conversores/litros-m3'
-    | '/conversores/m2-hectare'
-    | '/energia-solar/economia-mensal'
-    | '/energia-solar/placas-solares'
-    | '/construcao-civil/'
-    | '/conversores/'
-    | '/energia-solar/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/blog'
-    | '/contato'
-    | '/sobre'
-    | '/construcao-civil/argamassa'
-    | '/construcao-civil/concreto'
-    | '/construcao-civil/piso'
-    | '/construcao-civil/tijolos'
-    | '/construcao-civil/tinta'
-    | '/conversores/cm-polegada'
-    | '/conversores/litros-m3'
-    | '/conversores/m2-hectare'
-    | '/energia-solar/economia-mensal'
-    | '/energia-solar/placas-solares'
     | '/construcao-civil'
+    | '/contato'
     | '/conversores'
     | '/energia-solar'
+    | '/sobre'
   id:
     | '__root__'
     | '/'
@@ -249,28 +109,15 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/energia-solar'
     | '/sobre'
-    | '/construcao-civil/argamassa'
-    | '/construcao-civil/concreto'
-    | '/construcao-civil/piso'
-    | '/construcao-civil/tijolos'
-    | '/construcao-civil/tinta'
-    | '/conversores/cm-polegada'
-    | '/conversores/litros-m3'
-    | '/conversores/m2-hectare'
-    | '/energia-solar/economia-mensal'
-    | '/energia-solar/placas-solares'
-    | '/construcao-civil/'
-    | '/conversores/'
-    | '/energia-solar/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
-  ConstrucaoCivilRoute: typeof ConstrucaoCivilRouteWithChildren
+  ConstrucaoCivilRoute: typeof ConstrucaoCivilRoute
   ContatoRoute: typeof ContatoRoute
-  ConversoresRoute: typeof ConversoresRouteWithChildren
-  EnergiaSolarRoute: typeof EnergiaSolarRouteWithChildren
+  ConversoresRoute: typeof ConversoresRoute
+  EnergiaSolarRoute: typeof EnergiaSolarRoute
   SobreRoute: typeof SobreRoute
 }
 
@@ -325,163 +172,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/energia-solar/': {
-      id: '/energia-solar/'
-      path: '/'
-      fullPath: '/energia-solar/'
-      preLoaderRoute: typeof EnergiaSolarIndexRouteImport
-      parentRoute: typeof EnergiaSolarRoute
-    }
-    '/conversores/': {
-      id: '/conversores/'
-      path: '/'
-      fullPath: '/conversores/'
-      preLoaderRoute: typeof ConversoresIndexRouteImport
-      parentRoute: typeof ConversoresRoute
-    }
-    '/construcao-civil/': {
-      id: '/construcao-civil/'
-      path: '/'
-      fullPath: '/construcao-civil/'
-      preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/energia-solar/placas-solares': {
-      id: '/energia-solar/placas-solares'
-      path: '/placas-solares'
-      fullPath: '/energia-solar/placas-solares'
-      preLoaderRoute: typeof EnergiaSolarPlacasSolaresRouteImport
-      parentRoute: typeof EnergiaSolarRoute
-    }
-    '/energia-solar/economia-mensal': {
-      id: '/energia-solar/economia-mensal'
-      path: '/economia-mensal'
-      fullPath: '/energia-solar/economia-mensal'
-      preLoaderRoute: typeof EnergiaSolarEconomiaMensalRouteImport
-      parentRoute: typeof EnergiaSolarRoute
-    }
-    '/conversores/m2-hectare': {
-      id: '/conversores/m2-hectare'
-      path: '/m2-hectare'
-      fullPath: '/conversores/m2-hectare'
-      preLoaderRoute: typeof ConversoresM2HectareRouteImport
-      parentRoute: typeof ConversoresRoute
-    }
-    '/conversores/litros-m3': {
-      id: '/conversores/litros-m3'
-      path: '/litros-m3'
-      fullPath: '/conversores/litros-m3'
-      preLoaderRoute: typeof ConversoresLitrosM3RouteImport
-      parentRoute: typeof ConversoresRoute
-    }
-    '/conversores/cm-polegada': {
-      id: '/conversores/cm-polegada'
-      path: '/cm-polegada'
-      fullPath: '/conversores/cm-polegada'
-      preLoaderRoute: typeof ConversoresCmPolegadaRouteImport
-      parentRoute: typeof ConversoresRoute
-    }
-    '/construcao-civil/tinta': {
-      id: '/construcao-civil/tinta'
-      path: '/tinta'
-      fullPath: '/construcao-civil/tinta'
-      preLoaderRoute: typeof ConstrucaoCivilTintaRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/construcao-civil/tijolos': {
-      id: '/construcao-civil/tijolos'
-      path: '/tijolos'
-      fullPath: '/construcao-civil/tijolos'
-      preLoaderRoute: typeof ConstrucaoCivilTijolosRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/construcao-civil/piso': {
-      id: '/construcao-civil/piso'
-      path: '/piso'
-      fullPath: '/construcao-civil/piso'
-      preLoaderRoute: typeof ConstrucaoCivilPisoRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/construcao-civil/concreto': {
-      id: '/construcao-civil/concreto'
-      path: '/concreto'
-      fullPath: '/construcao-civil/concreto'
-      preLoaderRoute: typeof ConstrucaoCivilConcretoRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/construcao-civil/argamassa': {
-      id: '/construcao-civil/argamassa'
-      path: '/argamassa'
-      fullPath: '/construcao-civil/argamassa'
-      preLoaderRoute: typeof ConstrucaoCivilArgamassaRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
-    }
   }
 }
-
-interface ConstrucaoCivilRouteChildren {
-  ConstrucaoCivilArgamassaRoute: typeof ConstrucaoCivilArgamassaRoute
-  ConstrucaoCivilConcretoRoute: typeof ConstrucaoCivilConcretoRoute
-  ConstrucaoCivilPisoRoute: typeof ConstrucaoCivilPisoRoute
-  ConstrucaoCivilTijolosRoute: typeof ConstrucaoCivilTijolosRoute
-  ConstrucaoCivilTintaRoute: typeof ConstrucaoCivilTintaRoute
-  ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
-}
-
-const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
-  ConstrucaoCivilArgamassaRoute: ConstrucaoCivilArgamassaRoute,
-  ConstrucaoCivilConcretoRoute: ConstrucaoCivilConcretoRoute,
-  ConstrucaoCivilPisoRoute: ConstrucaoCivilPisoRoute,
-  ConstrucaoCivilTijolosRoute: ConstrucaoCivilTijolosRoute,
-  ConstrucaoCivilTintaRoute: ConstrucaoCivilTintaRoute,
-  ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
-}
-
-const ConstrucaoCivilRouteWithChildren = ConstrucaoCivilRoute._addFileChildren(
-  ConstrucaoCivilRouteChildren,
-)
-
-interface ConversoresRouteChildren {
-  ConversoresCmPolegadaRoute: typeof ConversoresCmPolegadaRoute
-  ConversoresLitrosM3Route: typeof ConversoresLitrosM3Route
-  ConversoresM2HectareRoute: typeof ConversoresM2HectareRoute
-  ConversoresIndexRoute: typeof ConversoresIndexRoute
-}
-
-const ConversoresRouteChildren: ConversoresRouteChildren = {
-  ConversoresCmPolegadaRoute: ConversoresCmPolegadaRoute,
-  ConversoresLitrosM3Route: ConversoresLitrosM3Route,
-  ConversoresM2HectareRoute: ConversoresM2HectareRoute,
-  ConversoresIndexRoute: ConversoresIndexRoute,
-}
-
-const ConversoresRouteWithChildren = ConversoresRoute._addFileChildren(
-  ConversoresRouteChildren,
-)
-
-interface EnergiaSolarRouteChildren {
-  EnergiaSolarEconomiaMensalRoute: typeof EnergiaSolarEconomiaMensalRoute
-  EnergiaSolarPlacasSolaresRoute: typeof EnergiaSolarPlacasSolaresRoute
-  EnergiaSolarIndexRoute: typeof EnergiaSolarIndexRoute
-}
-
-const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
-  EnergiaSolarEconomiaMensalRoute: EnergiaSolarEconomiaMensalRoute,
-  EnergiaSolarPlacasSolaresRoute: EnergiaSolarPlacasSolaresRoute,
-  EnergiaSolarIndexRoute: EnergiaSolarIndexRoute,
-}
-
-const EnergiaSolarRouteWithChildren = EnergiaSolarRoute._addFileChildren(
-  EnergiaSolarRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
-  ConstrucaoCivilRoute: ConstrucaoCivilRouteWithChildren,
+  ConstrucaoCivilRoute: ConstrucaoCivilRoute,
   ContatoRoute: ContatoRoute,
-  ConversoresRoute: ConversoresRouteWithChildren,
-  EnergiaSolarRoute: EnergiaSolarRouteWithChildren,
+  ConversoresRoute: ConversoresRoute,
+  EnergiaSolarRoute: EnergiaSolarRoute,
   SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
