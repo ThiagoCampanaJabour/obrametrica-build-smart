@@ -72,23 +72,35 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const FAVICON = "/__l5e/assets-v1/a92b4722-d022-4d03-8eb0-5e0b031f4cf9/obrametrica-logo.jpg";
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ObraMétrica · Cálculos inteligentes para construir melhor" },
-      { name: "description", content: "Portal de calculadoras para construção civil, energia solar e conversores técnicos." },
+      { name: "theme-color", content: "#16345F" },
       { name: "author", content: "ObraMétrica" },
-      { property: "og:title", content: "ObraMétrica" },
-      { property: "og:description", content: "Cálculos inteligentes para construir melhor." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { httpEquiv: "Content-Language", content: "pt-BR" },
+      { property: "og:site_name", content: "ObraMétrica" },
+      { property: "og:locale", content: "pt_BR" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/jpeg", href: FAVICON },
+      { rel: "apple-touch-icon", href: FAVICON },
+    ],
+    scripts: [
       {
-        rel: "stylesheet",
-        href: appCss,
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "ObraMétrica",
+          url: "https://obrametrica.com.br",
+          logo: `https://obrametrica.com.br${FAVICON}`,
+          slogan: "Cálculos inteligentes para construir melhor.",
+        }),
       },
     ],
   }),
@@ -100,7 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
