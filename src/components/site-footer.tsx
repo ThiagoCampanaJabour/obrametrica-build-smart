@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="bg-background inline-block rounded-md p-2">
-              <img src={logo.url} alt="ObraMétrica" className="h-12 w-auto" />
+              <img src={LOGO_URL} alt="ObraMétrica" width="144" height="48" loading="lazy" className="h-12 w-auto" />
             </div>
             <p className="mt-4 max-w-md text-sm text-primary-foreground/80">
               Cálculos inteligentes para construir melhor. Calculadoras para construção civil,
