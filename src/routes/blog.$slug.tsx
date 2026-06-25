@@ -116,11 +116,16 @@ function BlogPostPage() {
           </div>
         </header>
 
+        <AdTop />
+
         <div className="mt-8 space-y-5 text-lg leading-relaxed text-foreground/90">
           {post.intro.map((p, i) => (
             <p key={`intro-${i}`}>{p}</p>
           ))}
         </div>
+
+        <AdMiddle />
+
 
         {post.sections.map((sec, idx) => (
           <section key={idx} className="mt-10">
@@ -159,6 +164,9 @@ function BlogPostPage() {
             ))}
           </div>
         </section>
+
+        <AdBottom />
+
 
         {post.relatedTool && (
           <aside className="mt-10 flex flex-col gap-3 rounded-2xl bg-primary p-6 text-primary-foreground sm:flex-row sm:items-center sm:justify-between">
