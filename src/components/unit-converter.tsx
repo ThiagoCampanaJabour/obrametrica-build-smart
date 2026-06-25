@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { ArrowRightLeft } from "lucide-react";
 import { SiteLayout } from "./site-layout";
 import { Breadcrumbs } from "./breadcrumbs";
+import { AdTop, AdMiddle, AdBottom } from "./ads";
 import type { Crumb } from "@/lib/seo";
 
 export function UnitConverter({
@@ -43,7 +44,9 @@ export function UnitConverter({
         </h1>
         <p className="mt-2 text-muted-foreground">{description}</p>
 
-        <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">
+        <AdTop />
+
+        <div className="mt-2 rounded-xl border border-border bg-card p-6 shadow-sm">
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <label htmlFor="fromValue" className="block text-sm font-medium text-foreground">
@@ -84,6 +87,9 @@ export function UnitConverter({
             <p className="mt-1 text-sm text-muted-foreground">{formula}</p>
           </div>
         </div>
+
+        <AdMiddle />
+        <AdBottom />
       </section>
     </SiteLayout>
   );
