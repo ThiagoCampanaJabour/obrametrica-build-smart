@@ -10,10 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
+import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
+import { Route as ConversorM2ParaHectareRouteImport } from './routes/conversor-m2-para-hectare'
+import { Route as ConversorLitrosParaM3RouteImport } from './routes/conversor-litros-para-m3'
+import { Route as ConversorCmParaPolegadaRouteImport } from './routes/conversor-cm-para-polegada'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
+import { Route as CalculadoraDeTintaRouteImport } from './routes/calculadora-de-tinta'
+import { Route as CalculadoraDeTijolosRouteImport } from './routes/calculadora-de-tijolos'
+import { Route as CalculadoraDePisoRouteImport } from './routes/calculadora-de-piso'
+import { Route as CalculadoraDeConcretoRouteImport } from './routes/calculadora-de-concreto'
+import { Route as CalculadoraDeArgamassaRouteImport } from './routes/calculadora-de-argamassa'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,14 +32,40 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuantasPlacasSolaresPrecisoRoute =
+  QuantasPlacasSolaresPrecisoRouteImport.update({
+    id: '/quantas-placas-solares-preciso',
+    path: '/quantas-placas-solares-preciso',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
   id: '/energia-solar',
   path: '/energia-solar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EconomiaEnergiaSolarRoute = EconomiaEnergiaSolarRouteImport.update({
+  id: '/economia-energia-solar',
+  path: '/economia-energia-solar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConversoresRoute = ConversoresRouteImport.update({
   id: '/conversores',
   path: '/conversores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConversorM2ParaHectareRoute = ConversorM2ParaHectareRouteImport.update({
+  id: '/conversor-m2-para-hectare',
+  path: '/conversor-m2-para-hectare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConversorLitrosParaM3Route = ConversorLitrosParaM3RouteImport.update({
+  id: '/conversor-litros-para-m3',
+  path: '/conversor-litros-para-m3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConversorCmParaPolegadaRoute = ConversorCmParaPolegadaRouteImport.update({
+  id: '/conversor-cm-para-polegada',
+  path: '/conversor-cm-para-polegada',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -40,6 +76,31 @@ const ContatoRoute = ContatoRouteImport.update({
 const ConstrucaoCivilRoute = ConstrucaoCivilRouteImport.update({
   id: '/construcao-civil',
   path: '/construcao-civil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeTintaRoute = CalculadoraDeTintaRouteImport.update({
+  id: '/calculadora-de-tinta',
+  path: '/calculadora-de-tinta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeTijolosRoute = CalculadoraDeTijolosRouteImport.update({
+  id: '/calculadora-de-tijolos',
+  path: '/calculadora-de-tijolos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDePisoRoute = CalculadoraDePisoRouteImport.update({
+  id: '/calculadora-de-piso',
+  path: '/calculadora-de-piso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeConcretoRoute = CalculadoraDeConcretoRouteImport.update({
+  id: '/calculadora-de-concreto',
+  path: '/calculadora-de-concreto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeArgamassaRoute = CalculadoraDeArgamassaRouteImport.update({
+  id: '/calculadora-de-argamassa',
+  path: '/calculadora-de-argamassa',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -56,29 +117,59 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
+  '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
+  '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
+  '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
+  '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
+  '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
+  '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
+  '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
+  '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
+  '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
+  '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
+  '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
+  '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
+  '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
+  '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
+  '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
@@ -86,38 +177,78 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/blog'
+    | '/calculadora-de-argamassa'
+    | '/calculadora-de-concreto'
+    | '/calculadora-de-piso'
+    | '/calculadora-de-tijolos'
+    | '/calculadora-de-tinta'
     | '/construcao-civil'
     | '/contato'
+    | '/conversor-cm-para-polegada'
+    | '/conversor-litros-para-m3'
+    | '/conversor-m2-para-hectare'
     | '/conversores'
+    | '/economia-energia-solar'
     | '/energia-solar'
+    | '/quantas-placas-solares-preciso'
     | '/sobre'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/blog'
+    | '/calculadora-de-argamassa'
+    | '/calculadora-de-concreto'
+    | '/calculadora-de-piso'
+    | '/calculadora-de-tijolos'
+    | '/calculadora-de-tinta'
     | '/construcao-civil'
     | '/contato'
+    | '/conversor-cm-para-polegada'
+    | '/conversor-litros-para-m3'
+    | '/conversor-m2-para-hectare'
     | '/conversores'
+    | '/economia-energia-solar'
     | '/energia-solar'
+    | '/quantas-placas-solares-preciso'
     | '/sobre'
   id:
     | '__root__'
     | '/'
     | '/blog'
+    | '/calculadora-de-argamassa'
+    | '/calculadora-de-concreto'
+    | '/calculadora-de-piso'
+    | '/calculadora-de-tijolos'
+    | '/calculadora-de-tinta'
     | '/construcao-civil'
     | '/contato'
+    | '/conversor-cm-para-polegada'
+    | '/conversor-litros-para-m3'
+    | '/conversor-m2-para-hectare'
     | '/conversores'
+    | '/economia-energia-solar'
     | '/energia-solar'
+    | '/quantas-placas-solares-preciso'
     | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
+  CalculadoraDeArgamassaRoute: typeof CalculadoraDeArgamassaRoute
+  CalculadoraDeConcretoRoute: typeof CalculadoraDeConcretoRoute
+  CalculadoraDePisoRoute: typeof CalculadoraDePisoRoute
+  CalculadoraDeTijolosRoute: typeof CalculadoraDeTijolosRoute
+  CalculadoraDeTintaRoute: typeof CalculadoraDeTintaRoute
   ConstrucaoCivilRoute: typeof ConstrucaoCivilRoute
   ContatoRoute: typeof ContatoRoute
+  ConversorCmParaPolegadaRoute: typeof ConversorCmParaPolegadaRoute
+  ConversorLitrosParaM3Route: typeof ConversorLitrosParaM3Route
+  ConversorM2ParaHectareRoute: typeof ConversorM2ParaHectareRoute
   ConversoresRoute: typeof ConversoresRoute
+  EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRoute
+  QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
   SobreRoute: typeof SobreRoute
 }
 
@@ -130,6 +261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quantas-placas-solares-preciso': {
+      id: '/quantas-placas-solares-preciso'
+      path: '/quantas-placas-solares-preciso'
+      fullPath: '/quantas-placas-solares-preciso'
+      preLoaderRoute: typeof QuantasPlacasSolaresPrecisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/energia-solar': {
       id: '/energia-solar'
       path: '/energia-solar'
@@ -137,11 +275,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/economia-energia-solar': {
+      id: '/economia-energia-solar'
+      path: '/economia-energia-solar'
+      fullPath: '/economia-energia-solar'
+      preLoaderRoute: typeof EconomiaEnergiaSolarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/conversores': {
       id: '/conversores'
       path: '/conversores'
       fullPath: '/conversores'
       preLoaderRoute: typeof ConversoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conversor-m2-para-hectare': {
+      id: '/conversor-m2-para-hectare'
+      path: '/conversor-m2-para-hectare'
+      fullPath: '/conversor-m2-para-hectare'
+      preLoaderRoute: typeof ConversorM2ParaHectareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conversor-litros-para-m3': {
+      id: '/conversor-litros-para-m3'
+      path: '/conversor-litros-para-m3'
+      fullPath: '/conversor-litros-para-m3'
+      preLoaderRoute: typeof ConversorLitrosParaM3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conversor-cm-para-polegada': {
+      id: '/conversor-cm-para-polegada'
+      path: '/conversor-cm-para-polegada'
+      fullPath: '/conversor-cm-para-polegada'
+      preLoaderRoute: typeof ConversorCmParaPolegadaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -156,6 +322,41 @@ declare module '@tanstack/react-router' {
       path: '/construcao-civil'
       fullPath: '/construcao-civil'
       preLoaderRoute: typeof ConstrucaoCivilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-tinta': {
+      id: '/calculadora-de-tinta'
+      path: '/calculadora-de-tinta'
+      fullPath: '/calculadora-de-tinta'
+      preLoaderRoute: typeof CalculadoraDeTintaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-tijolos': {
+      id: '/calculadora-de-tijolos'
+      path: '/calculadora-de-tijolos'
+      fullPath: '/calculadora-de-tijolos'
+      preLoaderRoute: typeof CalculadoraDeTijolosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-piso': {
+      id: '/calculadora-de-piso'
+      path: '/calculadora-de-piso'
+      fullPath: '/calculadora-de-piso'
+      preLoaderRoute: typeof CalculadoraDePisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-concreto': {
+      id: '/calculadora-de-concreto'
+      path: '/calculadora-de-concreto'
+      fullPath: '/calculadora-de-concreto'
+      preLoaderRoute: typeof CalculadoraDeConcretoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-argamassa': {
+      id: '/calculadora-de-argamassa'
+      path: '/calculadora-de-argamassa'
+      fullPath: '/calculadora-de-argamassa'
+      preLoaderRoute: typeof CalculadoraDeArgamassaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -178,10 +379,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
+  CalculadoraDeArgamassaRoute: CalculadoraDeArgamassaRoute,
+  CalculadoraDeConcretoRoute: CalculadoraDeConcretoRoute,
+  CalculadoraDePisoRoute: CalculadoraDePisoRoute,
+  CalculadoraDeTijolosRoute: CalculadoraDeTijolosRoute,
+  CalculadoraDeTintaRoute: CalculadoraDeTintaRoute,
   ConstrucaoCivilRoute: ConstrucaoCivilRoute,
   ContatoRoute: ContatoRoute,
+  ConversorCmParaPolegadaRoute: ConversorCmParaPolegadaRoute,
+  ConversorLitrosParaM3Route: ConversorLitrosParaM3Route,
+  ConversorM2ParaHectareRoute: ConversorM2ParaHectareRoute,
   ConversoresRoute: ConversoresRoute,
+  EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRoute,
+  QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
   SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport

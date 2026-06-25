@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://obrametrica.com.br/sitemap.xml
