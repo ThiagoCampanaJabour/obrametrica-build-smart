@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
+import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { Building2, Sun, Calculator, ArrowRight } from "lucide-react";
 import { pageHead, SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 
@@ -49,6 +50,10 @@ function Index() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AdTop />
+      </div>
+
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold tracking-tight text-foreground">Categorias</h2>
         <p className="mt-2 text-muted-foreground">Escolha uma categoria para começar.</p>
@@ -66,7 +71,12 @@ function Index() {
             </Link>
           ))}
         </div>
+        <AdMiddle />
       </section>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AdBottom />
+      </div>
     </SiteLayout>
   );
 }
