@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Wall, Boxes, LayoutGrid, Paintbrush, Layers, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/construcao-civil/")({
   component: ConstrucaoCivilIndex,
 });
 
 const calcs = [
-  { to: "/construcao-civil/tijolos" as const, icon: Wall, title: "Calculadora de Tijolos", desc: "Quantidade de tijolos por área e tipo." },
+  { to: "/construcao-civil/tijolos" as const, icon: Hammer, title: "Calculadora de Tijolos", desc: "Quantidade de tijolos por área e tipo." },
   { to: "/construcao-civil/concreto" as const, icon: Boxes, title: "Calculadora de Concreto", desc: "Volume de concreto em m³." },
   { to: "/construcao-civil/piso" as const, icon: LayoutGrid, title: "Calculadora de Piso", desc: "Área e quantidade de caixas com sobra." },
   { to: "/construcao-civil/tinta" as const, icon: Paintbrush, title: "Calculadora de Tinta", desc: "Litros necessários por demão." },
