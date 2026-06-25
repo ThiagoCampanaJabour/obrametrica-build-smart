@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead } from "@/lib/seo";
 import { BLOG_POSTS, formatDate } from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
@@ -60,8 +61,16 @@ function BlogIndex() {
           </p>
         </header>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+        <AdTop />
+
+        <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, idx) => (
+            <>
+            {idx === 6 && (
+              <div key="ad-mid" className="sm:col-span-2 lg:col-span-3">
+                <AdMiddle />
+              </div>
+            )}
             <article
               key={post.slug}
               className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md"
