@@ -9,8 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
+import { Route as ConversoresRouteImport } from './routes/conversores'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
+  id: '/energia-solar',
+  path: '/energia-solar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConversoresRoute = ConversoresRouteImport.update({
+  id: '/conversores',
+  path: '/conversores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConstrucaoCivilRoute = ConstrucaoCivilRouteImport.update({
+  id: '/construcao-civil',
+  path: '/construcao-civil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +55,116 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/construcao-civil': typeof ConstrucaoCivilRoute
+  '/contato': typeof ContatoRoute
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/construcao-civil': typeof ConstrucaoCivilRoute
+  '/contato': typeof ContatoRoute
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/construcao-civil': typeof ConstrucaoCivilRoute
+  '/contato': typeof ContatoRoute
+  '/conversores': typeof ConversoresRoute
+  '/energia-solar': typeof EnergiaSolarRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/construcao-civil'
+    | '/contato'
+    | '/conversores'
+    | '/energia-solar'
+    | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/blog'
+    | '/construcao-civil'
+    | '/contato'
+    | '/conversores'
+    | '/energia-solar'
+    | '/sobre'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/construcao-civil'
+    | '/contato'
+    | '/conversores'
+    | '/energia-solar'
+    | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogRoute: typeof BlogRoute
+  ConstrucaoCivilRoute: typeof ConstrucaoCivilRoute
+  ContatoRoute: typeof ContatoRoute
+  ConversoresRoute: typeof ConversoresRoute
+  EnergiaSolarRoute: typeof EnergiaSolarRoute
+  SobreRoute: typeof SobreRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energia-solar': {
+      id: '/energia-solar'
+      path: '/energia-solar'
+      fullPath: '/energia-solar'
+      preLoaderRoute: typeof EnergiaSolarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conversores': {
+      id: '/conversores'
+      path: '/conversores'
+      fullPath: '/conversores'
+      preLoaderRoute: typeof ConversoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/construcao-civil': {
+      id: '/construcao-civil'
+      path: '/construcao-civil'
+      fullPath: '/construcao-civil'
+      preLoaderRoute: typeof ConstrucaoCivilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +177,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogRoute: BlogRoute,
+  ConstrucaoCivilRoute: ConstrucaoCivilRoute,
+  ContatoRoute: ContatoRoute,
+  ConversoresRoute: ConversoresRoute,
+  EnergiaSolarRoute: EnergiaSolarRoute,
+  SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

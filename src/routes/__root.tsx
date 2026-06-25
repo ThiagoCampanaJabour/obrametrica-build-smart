@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "ObraMétrica · Cálculos inteligentes para construir melhor" },
+      { name: "description", content: "Portal de calculadoras para construção civil, energia solar e conversores técnicos." },
+      { name: "author", content: "ObraMétrica" },
+      { property: "og:title", content: "ObraMétrica" },
+      { property: "og:description", content: "Cálculos inteligentes para construir melhor." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
