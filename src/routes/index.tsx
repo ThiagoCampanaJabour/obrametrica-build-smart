@@ -1,29 +1,91 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteLayout } from "@/components/site-layout";
+import { Building2, Sun, Calculator, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "ObraMétrica · Cálculos inteligentes para construir melhor" },
+      {
+        name: "description",
+        content:
+          "Portal de calculadoras para construção civil, energia solar e conversores técnicos. Ferramentas precisas para profissionais e entusiastas.",
+      },
+      { property: "og:title", content: "ObraMétrica · Cálculos inteligentes para construir melhor" },
+      {
+        property: "og:description",
+        content:
+          "Calculadoras para construção civil, energia solar e conversores técnicos.",
+      },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const categories = [
+  {
+    to: "/construcao-civil" as const,
+    icon: Building2,
+    title: "Construção Civil",
+    desc: "Concreto, alvenaria, pisos, telhados e muito mais.",
+  },
+  {
+    to: "/energia-solar" as const,
+    icon: Sun,
+    title: "Energia Solar",
+    desc: "Dimensionamento de sistemas, geração e retorno.",
+  },
+  {
+    to: "/conversores" as const,
+    icon: Calculator,
+    title: "Conversores",
+    desc: "Unidades técnicas para o dia a dia da obra.",
+  },
+];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <SiteLayout>
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent-foreground">
+              ObraMétrica
+            </span>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
+              Cálculos inteligentes para{" "}
+              <span className="text-accent">construir melhor</span>.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-primary-foreground/80">
+              Portal de calculadoras para construção civil, energia solar e conversores
+              técnicos. Ferramentas precisas, rápidas e gratuitas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Categorias</h2>
+        <p className="mt-2 text-muted-foreground">Escolha uma categoria para começar.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {categories.map(({ to, icon: Icon, title, desc }) => (
+            <Link
+              key={to}
+              to={to}
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-accent hover:shadow-lg"
+            >
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/20 text-foreground">
+                <Icon className="h-6 w-6" />
+              </div>
+              <h3 className="mt-4 text-xl font-semibold text-foreground">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-foreground group-hover:text-accent-foreground">
+                Explorar <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </SiteLayout>
   );
 }
