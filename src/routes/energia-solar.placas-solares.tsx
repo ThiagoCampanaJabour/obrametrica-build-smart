@@ -14,9 +14,16 @@ export const Route = createFileRoute("/energia-solar/placas-solares")({
   head: () => ({
     meta: [
       { title: "Quantas Placas Solares Preciso · ObraMétrica" },
-      { name: "description", content: "Calcule a quantidade de placas solares necessárias a partir do consumo mensal em kWh." },
+      {
+        name: "description",
+        content:
+          "Calcule a quantidade de placas solares necessárias a partir do consumo mensal em kWh.",
+      },
       { property: "og:title", content: "Quantas Placas Solares Preciso · ObraMétrica" },
-      { property: "og:description", content: "Dimensionamento de placas solares por consumo mensal." },
+      {
+        property: "og:description",
+        content: "Dimensionamento de placas solares por consumo mensal.",
+      },
     ],
   }),
   component: PlacasSolares,
@@ -104,7 +111,9 @@ function PlacasSolares() {
       )}
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Cálculo baseado em placas de {PANEL_MONTHLY_KWH} kWh/mês (aprox. {fmt(PANEL_POWER_KW * 1000, 0)} W por placa). Valores podem variar conforme a região, orientação e sombreamento.
+        Cálculo baseado em placas de {PANEL_MONTHLY_KWH} kWh/mês (aprox.{" "}
+        {fmt(PANEL_POWER_KW * 1000, 0)} W por placa). Valores podem variar conforme a região,
+        orientação e sombreamento.
       </p>
     </CalculatorShell>
   );

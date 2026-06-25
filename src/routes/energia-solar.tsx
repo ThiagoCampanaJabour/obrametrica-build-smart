@@ -5,7 +5,10 @@ export const Route = createFileRoute("/energia-solar")({
   head: () => ({
     meta: [
       { title: "Energia Solar · ObraMétrica" },
-      { name: "description", content: "Calculadoras de energia solar: dimensionamento, economia e payback." },
+      {
+        name: "description",
+        content: "Calculadoras de energia solar: dimensionamento, economia e payback.",
+      },
       { property: "og:title", content: "Energia Solar · ObraMétrica" },
       { property: "og:description", content: "Calculadoras de energia solar." },
     ],

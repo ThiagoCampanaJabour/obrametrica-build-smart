@@ -14,7 +14,10 @@ export const Route = createFileRoute("/energia-solar/economia-mensal")({
   head: () => ({
     meta: [
       { title: "Economia Mensal · ObraMétrica" },
-      { name: "description", content: "Estime a economia mensal, anual e em 10 anos com energia solar." },
+      {
+        name: "description",
+        content: "Estime a economia mensal, anual e em 10 anos com energia solar.",
+      },
       { property: "og:title", content: "Economia Mensal · ObraMétrica" },
       { property: "og:description", content: "Calculadora de economia com energia solar." },
     ],
@@ -55,8 +58,7 @@ function EconomiaMensal() {
     setErrors({});
   };
 
-  const currency = (n: number) =>
-    n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const currency = (n: number) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   return (
     <CalculatorShell
@@ -81,7 +83,8 @@ function EconomiaMensal() {
 
         <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4">
           <p className="text-sm text-muted-foreground">
-            Economia padrão estimada: <strong className="text-foreground">{fmt(DEFAULT_SAVINGS_RATE * 100, 0)}%</strong>
+            Economia padrão estimada:{" "}
+            <strong className="text-foreground">{fmt(DEFAULT_SAVINGS_RATE * 100, 0)}%</strong>
           </p>
         </div>
 
@@ -111,7 +114,8 @@ function EconomiaMensal() {
       )}
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Estimativa considera redução de {fmt(DEFAULT_SAVINGS_RATE * 100, 0)}% na conta de luz. A economia real pode variar conforme a concessionária, tarifas e perfil de consumo.
+        Estimativa considera redução de {fmt(DEFAULT_SAVINGS_RATE * 100, 0)}% na conta de luz. A
+        economia real pode variar conforme a concessionária, tarifas e perfil de consumo.
       </p>
     </CalculatorShell>
   );

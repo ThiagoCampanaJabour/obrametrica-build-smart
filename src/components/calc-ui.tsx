@@ -27,9 +27,7 @@ export function CalculatorShell({
         {title}
       </h1>
       <p className="mt-2 text-muted-foreground">{description}</p>
-      <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">
-        {children}
-      </div>
+      <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
     </section>
   );
 }
@@ -149,9 +147,7 @@ export function ResultPanel({
 }) {
   return (
     <div className="mt-6 rounded-lg border border-accent/40 bg-accent/10 p-5">
-      <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-        Resultado
-      </h2>
+      <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">Resultado</h2>
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
         {items.map((it) => (
           <div
