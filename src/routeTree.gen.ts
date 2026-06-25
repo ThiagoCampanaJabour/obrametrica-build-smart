@@ -16,6 +16,12 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
+import { Route as ConstrucaoCivilTintaRouteImport } from './routes/construcao-civil.tinta'
+import { Route as ConstrucaoCivilTijolosRouteImport } from './routes/construcao-civil.tijolos'
+import { Route as ConstrucaoCivilPisoRouteImport } from './routes/construcao-civil.piso'
+import { Route as ConstrucaoCivilConcretoRouteImport } from './routes/construcao-civil.concreto'
+import { Route as ConstrucaoCivilArgamassaRouteImport } from './routes/construcao-civil.argamassa'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
@@ -52,34 +58,82 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ConstrucaoCivilRoute,
+} as any)
+const ConstrucaoCivilTintaRoute = ConstrucaoCivilTintaRouteImport.update({
+  id: '/tinta',
+  path: '/tinta',
+  getParentRoute: () => ConstrucaoCivilRoute,
+} as any)
+const ConstrucaoCivilTijolosRoute = ConstrucaoCivilTijolosRouteImport.update({
+  id: '/tijolos',
+  path: '/tijolos',
+  getParentRoute: () => ConstrucaoCivilRoute,
+} as any)
+const ConstrucaoCivilPisoRoute = ConstrucaoCivilPisoRouteImport.update({
+  id: '/piso',
+  path: '/piso',
+  getParentRoute: () => ConstrucaoCivilRoute,
+} as any)
+const ConstrucaoCivilConcretoRoute = ConstrucaoCivilConcretoRouteImport.update({
+  id: '/concreto',
+  path: '/concreto',
+  getParentRoute: () => ConstrucaoCivilRoute,
+} as any)
+const ConstrucaoCivilArgamassaRoute =
+  ConstrucaoCivilArgamassaRouteImport.update({
+    id: '/argamassa',
+    path: '/argamassa',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
-  '/construcao-civil': typeof ConstrucaoCivilRoute
+  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
   '/contato': typeof ContatoRoute
   '/conversores': typeof ConversoresRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
+  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
+  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
+  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
+  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
+  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
+  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
-  '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
   '/conversores': typeof ConversoresRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
+  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
+  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
+  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
+  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
+  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
+  '/construcao-civil': typeof ConstrucaoCivilIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
-  '/construcao-civil': typeof ConstrucaoCivilRoute
+  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
   '/contato': typeof ContatoRoute
   '/conversores': typeof ConversoresRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/sobre': typeof SobreRoute
+  '/construcao-civil/argamassa': typeof ConstrucaoCivilArgamassaRoute
+  '/construcao-civil/concreto': typeof ConstrucaoCivilConcretoRoute
+  '/construcao-civil/piso': typeof ConstrucaoCivilPisoRoute
+  '/construcao-civil/tijolos': typeof ConstrucaoCivilTijolosRoute
+  '/construcao-civil/tinta': typeof ConstrucaoCivilTintaRoute
+  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,15 +145,26 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/energia-solar'
     | '/sobre'
+    | '/construcao-civil/argamassa'
+    | '/construcao-civil/concreto'
+    | '/construcao-civil/piso'
+    | '/construcao-civil/tijolos'
+    | '/construcao-civil/tinta'
+    | '/construcao-civil/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/blog'
-    | '/construcao-civil'
     | '/contato'
     | '/conversores'
     | '/energia-solar'
     | '/sobre'
+    | '/construcao-civil/argamassa'
+    | '/construcao-civil/concreto'
+    | '/construcao-civil/piso'
+    | '/construcao-civil/tijolos'
+    | '/construcao-civil/tinta'
+    | '/construcao-civil'
   id:
     | '__root__'
     | '/'
@@ -109,12 +174,18 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/energia-solar'
     | '/sobre'
+    | '/construcao-civil/argamassa'
+    | '/construcao-civil/concreto'
+    | '/construcao-civil/piso'
+    | '/construcao-civil/tijolos'
+    | '/construcao-civil/tinta'
+    | '/construcao-civil/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
-  ConstrucaoCivilRoute: typeof ConstrucaoCivilRoute
+  ConstrucaoCivilRoute: typeof ConstrucaoCivilRouteWithChildren
   ContatoRoute: typeof ContatoRoute
   ConversoresRoute: typeof ConversoresRoute
   EnergiaSolarRoute: typeof EnergiaSolarRoute
@@ -172,13 +243,77 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/construcao-civil/': {
+      id: '/construcao-civil/'
+      path: '/'
+      fullPath: '/construcao-civil/'
+      preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/construcao-civil/tinta': {
+      id: '/construcao-civil/tinta'
+      path: '/tinta'
+      fullPath: '/construcao-civil/tinta'
+      preLoaderRoute: typeof ConstrucaoCivilTintaRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/construcao-civil/tijolos': {
+      id: '/construcao-civil/tijolos'
+      path: '/tijolos'
+      fullPath: '/construcao-civil/tijolos'
+      preLoaderRoute: typeof ConstrucaoCivilTijolosRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/construcao-civil/piso': {
+      id: '/construcao-civil/piso'
+      path: '/piso'
+      fullPath: '/construcao-civil/piso'
+      preLoaderRoute: typeof ConstrucaoCivilPisoRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/construcao-civil/concreto': {
+      id: '/construcao-civil/concreto'
+      path: '/concreto'
+      fullPath: '/construcao-civil/concreto'
+      preLoaderRoute: typeof ConstrucaoCivilConcretoRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/construcao-civil/argamassa': {
+      id: '/construcao-civil/argamassa'
+      path: '/argamassa'
+      fullPath: '/construcao-civil/argamassa'
+      preLoaderRoute: typeof ConstrucaoCivilArgamassaRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
   }
 }
+
+interface ConstrucaoCivilRouteChildren {
+  ConstrucaoCivilArgamassaRoute: typeof ConstrucaoCivilArgamassaRoute
+  ConstrucaoCivilConcretoRoute: typeof ConstrucaoCivilConcretoRoute
+  ConstrucaoCivilPisoRoute: typeof ConstrucaoCivilPisoRoute
+  ConstrucaoCivilTijolosRoute: typeof ConstrucaoCivilTijolosRoute
+  ConstrucaoCivilTintaRoute: typeof ConstrucaoCivilTintaRoute
+  ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
+}
+
+const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
+  ConstrucaoCivilArgamassaRoute: ConstrucaoCivilArgamassaRoute,
+  ConstrucaoCivilConcretoRoute: ConstrucaoCivilConcretoRoute,
+  ConstrucaoCivilPisoRoute: ConstrucaoCivilPisoRoute,
+  ConstrucaoCivilTijolosRoute: ConstrucaoCivilTijolosRoute,
+  ConstrucaoCivilTintaRoute: ConstrucaoCivilTintaRoute,
+  ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
+}
+
+const ConstrucaoCivilRouteWithChildren = ConstrucaoCivilRoute._addFileChildren(
+  ConstrucaoCivilRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
-  ConstrucaoCivilRoute: ConstrucaoCivilRoute,
+  ConstrucaoCivilRoute: ConstrucaoCivilRouteWithChildren,
   ContatoRoute: ContatoRoute,
   ConversoresRoute: ConversoresRoute,
   EnergiaSolarRoute: EnergiaSolarRoute,
