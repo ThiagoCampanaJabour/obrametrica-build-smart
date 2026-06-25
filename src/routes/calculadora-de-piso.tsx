@@ -4,15 +4,21 @@ import {
   CalculatorShell, NumberField, SubmitRow, ResultPanel,
   useCalcForm, validatePositive, fmt,
 } from "@/components/calc-ui";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/construcao-civil/piso")({
-  head: () => ({
-    meta: [
-      { title: "Calculadora de Piso · ObraMétrica" },
-      { name: "description", content: "Calcule a área e a quantidade de caixas de piso necessárias, já com 10% de sobra." },
-      { property: "og:title", content: "Calculadora de Piso · ObraMétrica" },
-      { property: "og:description", content: "Área e caixas de piso com 10% de sobra." },
-    ],
+const PATH = "/calculadora-de-piso";
+const CRUMBS = [
+  { name: "Início", path: "/" },
+  { name: "Construção Civil", path: "/construcao-civil" },
+  { name: "Calculadora de Piso", path: PATH },
+];
+
+export const Route = createFileRoute("/calculadora-de-piso")({
+  head: () => pageHead({
+    title: "Calculadora de Piso — Caixas e Área com 10% de Sobra | ObraMétrica",
+    description: "Calcule a área total do ambiente e a quantidade de caixas de piso necessárias, já com 10% de sobra.",
+    path: PATH,
+    breadcrumbs: CRUMBS,
   }),
   component: PisoCalc,
 });
@@ -34,9 +40,7 @@ function PisoCalc() {
       const area = c.value * l.value;
       const areaSobra = area * 1.1;
       setResult({ area, areaSobra, caixas: Math.ceil(areaSobra / m.value) });
-    } else {
-      setResult(null);
-    }
+    } else setResult(null);
   };
 
   const reset = () => {
@@ -47,6 +51,7 @@ function PisoCalc() {
     <CalculatorShell
       title="Calculadora de Piso"
       description="Informe as dimensões do ambiente e a metragem de cada caixa de piso."
+      breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
         <div className="grid gap-4 sm:grid-cols-3">

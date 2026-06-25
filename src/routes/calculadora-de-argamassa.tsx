@@ -4,15 +4,21 @@ import {
   CalculatorShell, NumberField, SelectField, SubmitRow, ResultPanel,
   useCalcForm, validatePositive, fmt,
 } from "@/components/calc-ui";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/construcao-civil/argamassa")({
-  head: () => ({
-    meta: [
-      { title: "Calculadora de Argamassa · ObraMétrica" },
-      { name: "description", content: "Calcule a quantidade de argamassa colante por m² para uso interno, externo ou porcelanato." },
-      { property: "og:title", content: "Calculadora de Argamassa · ObraMétrica" },
-      { property: "og:description", content: "Sacos de argamassa por aplicação." },
-    ],
+const PATH = "/calculadora-de-argamassa";
+const CRUMBS = [
+  { name: "Início", path: "/" },
+  { name: "Construção Civil", path: "/construcao-civil" },
+  { name: "Calculadora de Argamassa", path: PATH },
+];
+
+export const Route = createFileRoute("/calculadora-de-argamassa")({
+  head: () => pageHead({
+    title: "Calculadora de Argamassa — Sacos por m² | ObraMétrica",
+    description: "Calcule a quantidade de argamassa colante por m² para uso interno (5 kg), externo (6 kg) ou porcelanato (7 kg).",
+    path: PATH,
+    breadcrumbs: CRUMBS,
   }),
   component: ArgamassaCalc,
 });
@@ -34,9 +40,7 @@ function ArgamassaCalc() {
     if (a.value) {
       const total = a.value * CONSUMO_KG_M2[tipo];
       setResult({ total, sacos: Math.ceil(total / SACO_KG) });
-    } else {
-      setResult(null);
-    }
+    } else setResult(null);
   };
 
   const reset = () => {
@@ -47,6 +51,7 @@ function ArgamassaCalc() {
     <CalculatorShell
       title="Calculadora de Argamassa"
       description="Consumo médio: 5 kg/m² (interno), 6 kg/m² (externo), 7 kg/m² (porcelanato). Sacos de 20 kg."
+      breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
         <NumberField id="area" label="Área a assentar" unit="m²"

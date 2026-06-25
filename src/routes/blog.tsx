@@ -1,13 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout, PagePlaceholder } from "@/components/site-layout";
+import { pageHead } from "@/lib/seo";
+
+const PATH = "/blog";
 
 export const Route = createFileRoute("/blog")({
-  head: () => ({
-    meta: [
-      { title: "Blog · ObraMétrica" },
-      { name: "description", content: "Artigos e conteúdos sobre construção civil, energia solar e engenharia." },
-      { property: "og:title", content: "Blog · ObraMétrica" },
-      { property: "og:description", content: "Conteúdo técnico para construir melhor." },
+  head: () => pageHead({
+    title: "Blog ObraMétrica — Artigos sobre Construção e Energia Solar",
+    description: "Artigos, dicas e tutoriais sobre construção civil, energia solar e engenharia para profissionais e entusiastas.",
+    path: PATH,
+    breadcrumbs: [
+      { name: "Início", path: "/" },
+      { name: "Blog", path: PATH },
     ],
   }),
   component: () => (

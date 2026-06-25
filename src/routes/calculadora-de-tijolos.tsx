@@ -4,15 +4,32 @@ import {
   CalculatorShell, NumberField, SelectField, SubmitRow, ResultPanel,
   useCalcForm, validatePositive, fmt,
 } from "@/components/calc-ui";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/construcao-civil/tijolos")({
-  head: () => ({
-    meta: [
-      { title: "Calculadora de Tijolos · ObraMétrica" },
-      { name: "description", content: "Calcule a quantidade de tijolos por m² conforme o tipo (9x19x19, 11x14x24, 14x19x29) com 10% de perda." },
-      { property: "og:title", content: "Calculadora de Tijolos · ObraMétrica" },
-      { property: "og:description", content: "Quantidade de tijolos por área e tipo." },
+const PATH = "/calculadora-de-tijolos";
+const TITLE = "Calculadora de Tijolos — Quantidade por m² | ObraMétrica";
+const DESC =
+  "Calcule a quantidade exata de tijolos por m² para tijolos 9×19×19, 11×14×24 e 14×19×29, já com 10% de perda incluído.";
+
+export const Route = createFileRoute("/calculadora-de-tijolos")({
+  head: () => pageHead({
+    title: TITLE,
+    description: DESC,
+    path: PATH,
+    breadcrumbs: [
+      { name: "Início", path: "/" },
+      { name: "Construção Civil", path: "/construcao-civil" },
+      { name: "Calculadora de Tijolos", path: PATH },
     ],
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Calculadora de Tijolos",
+      url: `https://obrametrica.com.br${PATH}`,
+      applicationCategory: "UtilityApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+    },
   }),
   component: TijolosCalc,
 });
@@ -31,15 +48,12 @@ function TijolosCalc() {
   const submit = () => {
     const c = validatePositive(comprimento, "Comprimento");
     const a = validatePositive(altura, "Altura");
-    const errs = { comprimento: c.error, altura: a.error };
-    setErrors(errs);
+    setErrors({ comprimento: c.error, altura: a.error });
     if (c.value && a.value) {
       const area = c.value * a.value;
       const qtd = area * CONSUMO[tipo];
       setResult({ area, qtd: Math.ceil(qtd), qtdPerda: Math.ceil(qtd * 1.1) });
-    } else {
-      setResult(null);
-    }
+    } else setResult(null);
   };
 
   const reset = () => {
@@ -50,6 +64,11 @@ function TijolosCalc() {
     <CalculatorShell
       title="Calculadora de Tijolos"
       description="Informe a área da parede e o tipo de tijolo para calcular a quantidade necessária."
+      breadcrumbs={[
+        { name: "Início", path: "/" },
+        { name: "Construção Civil", path: "/construcao-civil" },
+        { name: "Calculadora de Tijolos", path: PATH },
+      ]}
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
         <div className="grid gap-4 sm:grid-cols-2">

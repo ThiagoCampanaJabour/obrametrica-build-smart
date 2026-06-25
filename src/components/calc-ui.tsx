@@ -1,34 +1,30 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { SiteLayout } from "./site-layout";
+import { Breadcrumbs } from "./breadcrumbs";
+import type { Crumb } from "@/lib/seo";
 
 export function CalculatorShell({
   title,
   description,
   children,
-  backTo = "/construcao-civil",
-  backLabel = "Voltar para Construção Civil",
+  breadcrumbs,
 }: {
   title: string;
   description: string;
   children: ReactNode;
-  backTo?: string;
-  backLabel?: string;
+  breadcrumbs: Crumb[];
 }) {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <Link
-        to={backTo}
-        className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" /> {backLabel}
-      </Link>
-      <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        {title}
-      </h1>
-      <p className="mt-2 text-muted-foreground">{description}</p>
-      <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
-    </section>
+    <SiteLayout>
+      <section className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+        <Breadcrumbs items={breadcrumbs} />
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          {title}
+        </h1>
+        <p className="mt-2 text-muted-foreground">{description}</p>
+        <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
+      </section>
+    </SiteLayout>
   );
 }
 
@@ -165,9 +161,6 @@ export function ResultPanel({
   );
 }
 
-/**
- * Validates a numeric string. Empty, non-numeric, negative, or zero values are rejected.
- */
 export function validatePositive(raw: string, label: string): { value?: number; error?: string } {
   if (raw.trim() === "") return { error: `${label} é obrigatório.` };
   const n = Number(raw);

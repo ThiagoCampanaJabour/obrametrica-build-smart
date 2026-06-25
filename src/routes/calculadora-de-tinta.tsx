@@ -4,20 +4,26 @@ import {
   CalculatorShell, NumberField, SubmitRow, ResultPanel,
   useCalcForm, validatePositive, fmt,
 } from "@/components/calc-ui";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/construcao-civil/tinta")({
-  head: () => ({
-    meta: [
-      { title: "Calculadora de Tinta · ObraMétrica" },
-      { name: "description", content: "Calcule a quantidade de tinta em litros considerando 1 L por 5 m² por demão." },
-      { property: "og:title", content: "Calculadora de Tinta · ObraMétrica" },
-      { property: "og:description", content: "Litros de tinta por demão." },
-    ],
+const PATH = "/calculadora-de-tinta";
+const CRUMBS = [
+  { name: "Início", path: "/" },
+  { name: "Construção Civil", path: "/construcao-civil" },
+  { name: "Calculadora de Tinta", path: PATH },
+];
+
+export const Route = createFileRoute("/calculadora-de-tinta")({
+  head: () => pageHead({
+    title: "Calculadora de Tinta — Litros por m² e Demão | ObraMétrica",
+    description: "Calcule quantos litros de tinta você precisa considerando rendimento de 1 L para cada 5 m² por demão.",
+    path: PATH,
+    breadcrumbs: CRUMBS,
   }),
   component: TintaCalc,
 });
 
-const RENDIMENTO_M2_POR_LITRO = 5; // 1 L cobre 5 m² por demão
+const RENDIMENTO_M2_POR_LITRO = 5;
 
 function TintaCalc() {
   const [comprimento, setComprimento] = useState("");
@@ -36,9 +42,7 @@ function TintaCalc() {
       const area = c.value * a.value;
       const litros = (area * d.value) / RENDIMENTO_M2_POR_LITRO;
       setResult({ area, litros, litrosRec: Math.ceil(litros * 1.1) });
-    } else {
-      setResult(null);
-    }
+    } else setResult(null);
   };
 
   const reset = () => {
@@ -49,6 +53,7 @@ function TintaCalc() {
     <CalculatorShell
       title="Calculadora de Tinta"
       description="Considera rendimento médio de 1 litro para cada 5 m² por demão."
+      breadcrumbs={CRUMBS}
     >
       <form onSubmit={(e) => onSubmit(e, submit)} className="space-y-4" noValidate>
         <div className="grid gap-4 sm:grid-cols-3">
