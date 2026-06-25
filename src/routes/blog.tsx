@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead } from "@/lib/seo";
 import { BLOG_POSTS, formatDate } from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
@@ -60,7 +61,9 @@ function BlogIndex() {
           </p>
         </header>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <AdTop />
+
+        <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <article
               key={post.slug}
@@ -103,6 +106,9 @@ function BlogIndex() {
             </article>
           ))}
         </div>
+
+        <AdMiddle />
+        <AdBottom />
       </section>
     </SiteLayout>
   );

@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { SiteLayout } from "./site-layout";
 import { Breadcrumbs } from "./breadcrumbs";
+import { AdTop, AdMiddle, AdBottom } from "./ads";
 import type { Crumb } from "@/lib/seo";
 
 export function CalculatorShell({
@@ -22,7 +23,10 @@ export function CalculatorShell({
           {title}
         </h1>
         <p className="mt-2 text-muted-foreground">{description}</p>
-        <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
+        <AdTop />
+        <div className="mt-2 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
+        <AdMiddle />
+        <AdBottom />
       </section>
     </SiteLayout>
   );
