@@ -18,7 +18,17 @@ const serverEntryShimPlugin = () => ({
     const indexPath = join(outDir, "index.mjs");
     const shimPath = join(outDir, "server.js");
     if (existsSync(indexPath) && !existsSync(shimPath)) {
-      writeFileSync(shimPath, 'export { default } from "./index.mjs";\n', "utf8");
+      writeFileSync(
+        shimPath,
+        'import mod from "./index.mjs";\n' +
+          "export default {\n" +
+          "  fetch(request, env, ctx) {\n" +
+          "    try { Object.defineProperty(request, 'ip', { value: void 0, writable: true, configurable: true }); } catch {}\n" +
+          "    return mod.fetch(request, env, ctx);\n" +
+          "  }\n" +
+          "};\n",
+        "utf8",
+      );
     }
   },
 });
