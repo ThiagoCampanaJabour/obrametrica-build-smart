@@ -12,4 +12,13 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    // Align the Nitro server entry filename with what TanStack Start's preview plugin expects,
+    // so `vite preview` can load the SSR handler without a 500 "Cannot find module" error.
+    rollupConfig: {
+      output: {
+        entryFileNames: "server.js",
+      },
+    },
+  },
 });
