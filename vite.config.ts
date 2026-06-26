@@ -5,24 +5,20 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import { fileURLToPath } from "node:url";
-import { writeFileSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const serverEntryShimPlugin = () => ({
   name: "tanstack-start-server-entry-shim",
+  // TanStack Start's preview plugin expects the server entry at
+  // dist/server/server.js, but Nitro emits it as dist/server/index.mjs.
+  // Write a tiny re-export shim so `vite preview` can load it.
   closeBundle: () => {
     const outDir = join(process.cwd(), "dist", "server");
     const indexPath = join(outDir, "index.mjs");
     const shimPath = join(outDir, "server.js");
-    try {
-      import("node:fs").then(({ statSync }) => {
-        if (statSync(indexPath).isFile()) {
-          writeFileSync(shimPath, 'export { default } from "./index.mjs";\n', "utf8");
-        }
-      }).catch(() => {});
-    } catch {
-      // ignore: preview or non-nitro build
+    if (existsSync(indexPath) && !existsSync(shimPath)) {
+      writeFileSync(shimPath, 'export { default } from "./index.mjs";\n', "utf8");
     }
   },
 });
