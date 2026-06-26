@@ -24,7 +24,7 @@ const serverEntryShimPlugin = () => ({
           "export default {\n" +
           "  fetch(request, env, ctx) {\n" +
           "    try { Object.defineProperty(request, 'ip', { value: void 0, writable: true, configurable: true }); } catch {}\n" +
-          "    return mod.fetch(request, env, ctx);\n" +
+          "    return mod.fetch(request, env ?? {}, ctx ?? {});\n" +
           "  }\n" +
           "};\n",
         "utf8",
