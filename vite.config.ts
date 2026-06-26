@@ -41,6 +41,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    // Pin production builds to the Vercel preset (the Lovable sandbox still forces
+    // cloudflare-module locally, so this only applies to self-hosted/Vercel builds).
+    preset: "vercel",
+  },
   vite: {
     plugins: [serverEntryShimPlugin()],
   },
