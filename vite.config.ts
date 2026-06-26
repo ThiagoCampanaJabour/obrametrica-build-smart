@@ -24,8 +24,8 @@ const serverEntryShimPlugin = () => ({
           "export default {\n" +
           "  fetch(request, env, ctx) {\n" +
           "    try { Object.defineProperty(request, 'ip', { value: void 0, writable: true, configurable: true }); } catch {}\n" +
-          "    const safeCtx = { context: { waitUntil: () => {} }, ...(ctx || {}) };\n" +
-          "    if (!safeCtx.context.waitUntil) safeCtx.context.waitUntil = () => {};\n" +
+          "    const safeCtx = { waitUntil: () => {}, ...(ctx || {}) };\n" +
+          "    if (!safeCtx.waitUntil) safeCtx.waitUntil = () => {};\n" +
           "    return mod.fetch(request, env ?? {}, safeCtx);\n" +
           "  }\n" +
           "};\n",
