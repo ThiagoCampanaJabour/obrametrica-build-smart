@@ -5,9 +5,12 @@ import { BLOG_POSTS } from "@/data/blog-posts";
 
 interface Entry {
   path: string;
+  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
+
+const LASTMOD = new Date().toISOString().slice(0, 10);
 
 const ENTRIES: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
