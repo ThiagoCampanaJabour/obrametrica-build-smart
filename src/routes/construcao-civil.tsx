@@ -90,6 +90,7 @@ function ConstrucaoCivilPage() {
             </Link>
           ))}
         </div>
+        <CategoryLatestPosts slug="construcao-civil" />
       </section>
     </SiteLayout>
   );
