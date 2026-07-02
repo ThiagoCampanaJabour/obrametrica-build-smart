@@ -179,6 +179,15 @@ export function ResultPanel({
   );
 }
 
+export function validatePositive(raw: string, label: string): { value?: number; error?: string } {
+  if (raw.trim() === "") return { error: `${label} é obrigatório.` };
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return { error: `${label} deve ser um número válido.` };
+  if (n < 0) return { error: `${label} não pode ser negativo.` };
+  if (n === 0) return { error: `${label} deve ser maior que zero.` };
+  return { value: n };
+}
+
 
 export function useCalcForm() {
   const [submitted, setSubmitted] = useState(false);
