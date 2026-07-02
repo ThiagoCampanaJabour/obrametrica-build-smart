@@ -11,6 +11,7 @@ import {
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { calcTinta } from "@/lib/formulas";
 
 
 const PATH = "/calculadora-de-tinta";
@@ -43,8 +44,6 @@ export const Route = createFileRoute("/calculadora-de-tinta")({
 });
 
 
-const RENDIMENTO_M2_POR_LITRO = 5;
-
 function TintaCalc() {
   const [comprimento, setComprimento] = useState("");
   const [altura, setAltura] = useState("");
@@ -62,11 +61,8 @@ function TintaCalc() {
     const a = validatePositive(altura, "Altura");
     const d = validatePositive(demaos, "Demãos");
     setErrors({ comprimento: c.error, altura: a.error, demaos: d.error });
-    if (c.value && a.value && d.value) {
-      const area = c.value * a.value;
-      const litros = (area * d.value) / RENDIMENTO_M2_POR_LITRO;
-      setResult({ area, litros, litrosRec: Math.ceil(litros * 1.1) });
-    } else setResult(null);
+    if (c.value && a.value && d.value) setResult(calcTinta(c.value, a.value, d.value));
+    else setResult(null);
   };
 
   const reset = () => {
