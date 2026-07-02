@@ -134,7 +134,20 @@ export function CalcExtras({ id }: { id: string }) {
     <div className="mx-auto mt-8 max-w-3xl space-y-6 px-4 sm:px-6 lg:px-8 print:hidden">
       <Section icon={BookOpen} title="Introdução">
         <p className="leading-relaxed">{c.intro}</p>
+        {c.context?.map((p, i) => (
+          <p key={i} className="mt-3 leading-relaxed">{p}</p>
+        ))}
       </Section>
+
+      {c.whenToUse && c.whenToUse.length > 0 && (
+        <Section icon={Lightbulb} title="Quando usar">
+          <ul className="list-disc space-y-2 pl-5">
+            {c.whenToUse.map((s, i) => (
+              <li key={i}>{s}</li>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       <Section icon={Calculator} title="Como funciona">
         <ol className="list-decimal space-y-2 pl-5">
@@ -157,7 +170,7 @@ export function CalcExtras({ id }: { id: string }) {
         )}
       </Section>
 
-      <Section icon={Layers} title="Exemplo prático">
+      <Section icon={Layers} title="Exemplos práticos">
         <p className="font-medium text-foreground">{c.example.scenario}</p>
         <ol className="mt-3 list-decimal space-y-1 pl-5">
           {c.example.steps.map((s, i) => (
@@ -167,7 +180,21 @@ export function CalcExtras({ id }: { id: string }) {
         <p className="mt-4 rounded-md border border-accent/40 bg-accent/10 p-3 text-foreground">
           <strong>Resultado:</strong> {c.example.result}
         </p>
+        {c.moreExamples?.map((ex, i) => (
+          <div key={i} className="mt-6 border-t border-border pt-4">
+            <p className="font-medium text-foreground">{ex.scenario}</p>
+            <ol className="mt-3 list-decimal space-y-1 pl-5">
+              {ex.steps.map((s, j) => (
+                <li key={j}>{s}</li>
+              ))}
+            </ol>
+            <p className="mt-4 rounded-md border border-accent/40 bg-accent/10 p-3 text-foreground">
+              <strong>Resultado:</strong> {ex.result}
+            </p>
+          </div>
+        ))}
       </Section>
+
 
       <Section icon={Lightbulb} title="Dicas">
         <ul className="list-disc space-y-2 pl-5">
