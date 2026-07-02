@@ -170,6 +170,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/jpeg", href: FAVICON },
       { rel: "apple-touch-icon", href: FAVICON },
+      // Performance: pré-carrega o logo do cabeçalho (acima da dobra em todas as páginas).
+      {
+        rel: "preload",
+        as: "image",
+        href: "/obrametrica-logo-sm.webp",
+        type: "image/webp",
+        fetchPriority: "high",
+      },
       // Performance: pré-conecta com Google Tag Manager e Analytics para
       // reduzir latência de scripts de medição sem impactar LCP.
       { rel: "preconnect", href: "https://www.googletagmanager.com", crossOrigin: "" },
