@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { UnitConverter } from "@/components/unit-converter";
 import { pageHead } from "@/lib/seo";
-import { faqSchemaFor } from "@/data/calculators";
+import { allSchemasFor } from "@/data/calculators";
 import { litrosParaM3 } from "@/lib/formulas";
 
 const PATH = "/conversor-litros-para-m3";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/conversor-litros-para-m3")({
         "Converta litros (L) para metros cúbicos (m³) instantaneamente. 1.000 litros = 1 m³.",
       path: PATH,
       breadcrumbs: CRUMBS,
-      extraSchemas: [faqSchemaFor(PATH)],
+      extraSchemas: allSchemasFor(PATH),
     }),
   component: () => (
     <UnitConverter

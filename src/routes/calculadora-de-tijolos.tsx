@@ -11,7 +11,7 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
-import { faqSchemaFor } from "@/data/calculators";
+import { allSchemasFor } from "@/data/calculators";
 import { calcTijolos, type TijoloTipo } from "@/lib/formulas";
 
 
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/calculadora-de-tijolos")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
-      extraSchemas: [faqSchemaFor(PATH)],
+      extraSchemas: allSchemasFor(PATH),
     }),
   component: TijolosCalc,
 });
