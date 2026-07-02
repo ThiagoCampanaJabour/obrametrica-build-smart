@@ -254,6 +254,55 @@ export function CalcExtras({ id }: { id: string }) {
           </ul>
         </Section>
       )}
+
+      <SiloArticlesForCalc path={c.path} />
     </div>
+  );
+}
+
+/**
+ * Bloco SILO: lista os últimos artigos do blog na mesma categoria da
+ * calculadora, com link para a categoria completa do blog. Fortalece
+ * o interlink calculadora → conteúdo → categoria.
+ */
+function SiloArticlesForCalc({ path }: { path: string }) {
+  const silo = getSiloForCalc(path);
+  if (!silo) return null;
+  const posts = getLatestPostsByCategoryName(silo.name, 3);
+  if (posts.length === 0) return null;
+
+  return (
+    <Section icon={BookText} title="Artigos relacionados no blog">
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <Link
+              to="/blog/$slug"
+              params={{ slug: post.slug }}
+              className="flex h-full flex-col rounded-lg border border-border bg-background p-3 text-sm transition-colors hover:border-accent hover:bg-accent/10"
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                {post.category}
+              </span>
+              <span className="mt-1 font-medium leading-snug text-foreground">
+                {post.title}
+              </span>
+              <span className="mt-2 text-xs text-muted-foreground">
+                {formatDate(post.date)} · {post.readingTime} min
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 text-sm">
+        <Link
+          to="/blog/categoria/$categoria"
+          params={{ categoria: silo.slug }}
+          className="font-semibold text-primary hover:underline"
+        >
+          Ver todos os artigos de {silo.name} →
+        </Link>
+      </div>
+    </Section>
   );
 }
