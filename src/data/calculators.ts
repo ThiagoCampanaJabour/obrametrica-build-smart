@@ -196,33 +196,37 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     howItWorks: [
       "Meça o comprimento e a largura do cômodo em metros.",
       "Informe quantos m² cada caixa cobre (consulte a embalagem).",
-      "A calculadora divide a área pela cobertura da caixa e adiciona a perda.",
+      "A calculadora aplica automaticamente 10% de sobra sobre a área e divide pela cobertura da caixa.",
     ],
     formula: {
-      expression: "Caixas = (Comprimento × Largura × (1 + Perda)) / m² por caixa",
-      legend: ["Perda típica: 10% para peças retangulares, 15% para peças grandes ou instaladas em diagonal."],
+      expression: "Caixas = (Comprimento × Largura × 1,10) / m² por caixa",
+      legend: [
+        "10% é a sobra padrão adotada — cobre recortes usuais em ambientes retangulares.",
+        "Para paginação diagonal, espinha de peixe ou peças muito grandes, informe uma área ~5% maior que a real.",
+      ],
     },
     example: {
-      scenario: "Sala de 5 m × 4 m, piso com 2,5 m² por caixa, perda de 10%.",
+      scenario: "Sala de 5 m × 4 m, piso com 2,5 m² por caixa.",
       steps: [
         "Área = 5 × 4 = 20 m²",
-        "Área com perda = 20 × 1,10 = 22 m²",
+        "Área com 10% de sobra = 20 × 1,10 = 22 m²",
         "Caixas = 22 / 2,5 = 8,8 → arredondar para 9",
       ],
       result: "Compre 9 caixas de piso.",
     },
     tips: [
       "Reserve pelo menos uma caixa extra para reposições futuras — lotes diferentes podem variar de tom.",
-      "Para instalação em diagonal ou paginação de espinha de peixe, aumente a perda para 15%.",
+      "Para instalação em diagonal ou espinha de peixe, aumente manualmente a área informada em 5%.",
       "Confira o lote da mercadoria; caixas do mesmo lote garantem uniformidade de cor.",
     ],
     errors: [
-      "Arredondar caixas para baixo — sempre arredonde para cima.",
-      "Ignorar perdas em ambientes irregulares ou com muitos recortes.",
-      "Esquecer de somar áreas de nichos e degraus.",
+      "Arredondar caixas para baixo — a calculadora já arredonda para cima automaticamente.",
+      "Ignorar recortes complexos em ambientes com muitos ângulos.",
+      "Esquecer de somar áreas de nichos e degraus na medição.",
     ],
     table: {
-      caption: "Margem de perda recomendada por tipo de instalação",
+      caption:
+        "Margem de perda de referência por tipo de instalação (a calculadora aplica 10%; use os valores abaixo como guia para ajustar sua área)",
       headers: ["Instalação", "Perda sugerida"],
       rows: [
         ["Paginação reta (peças pequenas)", "10%"],
@@ -234,11 +238,11 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     faq: [
       {
         q: "Quantos m² de piso comprar a mais?",
-        a: "Reserve entre 10% e 15% de perda para recortes. Para paginações diagonais, chegue a 15%–20%.",
+        a: "A calculadora já adiciona 10% de sobra. Para paginação diagonal ou peças grandes, informe uma área 5% maior.",
       },
       {
         q: "Como calcular caixas de porcelanato?",
-        a: "Divida a área total (já com perda) pelo rendimento da caixa em m². Sempre arredonde para cima.",
+        a: "Divida a área total (já com sobra) pelo rendimento da caixa em m². A calculadora faz esse cálculo automaticamente e arredonda para cima.",
       },
       {
         q: "Vale a pena comprar caixas extras?",
@@ -246,7 +250,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
       {
         q: "Piso e porcelanato usam a mesma calculadora?",
-        a: "Sim. O cálculo é o mesmo: área do ambiente × margem de perda ÷ m² por caixa.",
+        a: "Sim. O cálculo é o mesmo: área do ambiente × margem de sobra ÷ m² por caixa.",
       },
     ],
     related: [REL_ARGAMASSA, REL_TINTA, REL_TIJOLOS, REL_M2_HA],
@@ -258,26 +262,31 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     intro:
       "Calcule quantos litros de tinta você precisa para pintar paredes, tetos ou fachadas. O resultado considera o número de demãos e o rendimento médio informado pelo fabricante.",
     howItWorks: [
-      "Meça a área a ser pintada (comprimento × altura).",
-      "Informe o rendimento em m²/L da tinta escolhida (verifique na lata).",
+      "Meça a área a ser pintada (comprimento × altura da parede).",
       "Escolha o número de demãos — o padrão é 2.",
-      "A calculadora divide a área total pintada pelo rendimento.",
+      "A calculadora adota rendimento médio de 5 m²/L por demão, valor conservador que cobre a maioria das tintas látex do mercado.",
+      "Sugerimos comprar +10% para retoques e reposição futura.",
     ],
     formula: {
-      expression: "Litros = (Área × Nº de demãos) / Rendimento (m²/L)",
+      expression: "Litros = (Área × Nº de demãos) / 5 m²/L",
+      legend: [
+        "5 m²/L é um valor conservador que considera perdas por absorção e aplicação.",
+        "Tintas premium podem render até 12 m²/L — nesse caso o resultado terá folga extra.",
+      ],
     },
     example: {
-      scenario: "Sala com 40 m² de paredes, tinta com rendimento de 10 m²/L, 2 demãos.",
+      scenario: "Sala com 40 m² de paredes, 2 demãos.",
       steps: [
         "Área pintada = 40 × 2 = 80 m²",
-        "Litros = 80 / 10 = 8 L",
+        "Litros = 80 / 5 = 16 L",
+        "Com folga de 10% ≈ 18 L recomendados",
       ],
-      result: "Compre 8 litros de tinta (uma lata de 3,6 L + uma de 18 L, ou duas galões de 3,6 L).",
+      result: "Compre 18 litros de tinta (por exemplo: 1 lata de 18 L).",
     },
     tips: [
       "Superfícies novas ou muito porosas exigem uma demão de selador antes da tinta.",
       "Cores fortes (vermelho, amarelo, preto) muitas vezes exigem 3 demãos.",
-      "Confira o rendimento na lata — ele varia bastante entre marcas e linhas (econômica, premium).",
+      "Se a tinta da lata anunciar rendimento maior (10–12 m²/L), sobrará material — sem risco de faltar.",
     ],
     errors: [
       "Não descontar portas e janelas superestima o consumo.",
@@ -285,7 +294,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "Diluir excessivamente a tinta reduz cobertura e obriga a comprar mais.",
     ],
     table: {
-      caption: "Rendimento médio por tipo de tinta",
+      caption: "Rendimento típico anunciado por tipo de tinta (referência)",
       headers: ["Tipo de tinta", "Rendimento por demão"],
       rows: [
         ["Látex PVA econômica", "8 a 10 m²/L"],
@@ -296,8 +305,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     faq: [
       {
-        q: "Quantos litros de tinta para 1 cômodo?",
-        a: "Um quarto de 12 m² tem cerca de 32 m² de paredes. Com tinta de rendimento 10 m²/L e 2 demãos, são aproximadamente 6,4 L.",
+        q: "Por que a calculadora usa 5 m²/L?",
+        a: "É um valor conservador que garante margem de segurança. Assim, mesmo tintas mais econômicas ou paredes porosas ficam cobertas sem sobrar viagem à loja.",
       },
       {
         q: "Quantas demãos são necessárias?",
@@ -305,11 +314,11 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
       {
         q: "Preciso descontar portas e janelas?",
-        a: "Sim. Some as áreas de portas e janelas e subtraia da área total das paredes.",
+        a: "Sim. Some as áreas de portas e janelas e subtraia da área total das paredes antes de calcular.",
       },
       {
-        q: "Qual o rendimento médio da tinta látex?",
-        a: "Entre 8 e 12 m² por litro por demão, dependendo da qualidade e da textura da superfície.",
+        q: "Vai sobrar tinta?",
+        a: "Pode sobrar, sim. Isso é intencional: guardar 1–2 litros do mesmo lote garante retoques futuros com a cor exata.",
       },
     ],
     related: [REL_ARGAMASSA, REL_PISO, REL_TIJOLOS, REL_M2_HA],
@@ -328,21 +337,22 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     formula: {
       expression: "Sacos = (Área × Consumo por m²) / 20 kg",
       legend: [
-        "AC-I (interno): 4 kg/m²",
-        "AC-II (áreas externas): 5 kg/m²",
-        "AC-III (piscinas / porcelanato): 6 kg/m²",
+        "Interno (AC-I): 5 kg/m²",
+        "Externo (AC-II): 6 kg/m²",
+        "Porcelanato (AC-III): 7 kg/m²",
+        "A calculadora adota valores conservadores para evitar falta de material.",
       ],
     },
     example: {
       scenario: "Cozinha de 15 m² com porcelanato assentado com argamassa AC-III.",
       steps: [
-        "Consumo estimado = 15 × 6 = 90 kg",
-        "Sacos de 20 kg = 90 / 20 = 4,5 → arredondar para 5",
+        "Consumo estimado = 15 × 7 = 105 kg",
+        "Sacos de 20 kg = 105 / 20 = 5,25 → arredondar para 6",
       ],
-      result: "Compre 5 sacos de argamassa AC-III.",
+      result: "Compre 6 sacos de argamassa AC-III.",
     },
     tips: [
-      "Utilize sempre o tipo correto: AC-III é obrigatório para porcelanato e áreas externas.",
+      "Utilize sempre o tipo correto: AC-III é obrigatório para porcelanato e áreas externas molhadas.",
       "Prepare a quantidade que consegue usar em até 2 horas para evitar desperdício.",
       "Umedeça a superfície antes de aplicar, mas nunca deixe empoçado.",
     ],
@@ -352,18 +362,18 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "Ignorar o consumo maior em peças grandes (60×60 cm ou mais).",
     ],
     table: {
-      caption: "Consumo médio de argamassa por tipo",
+      caption: "Consumo médio de argamassa adotado pela calculadora",
       headers: ["Tipo", "Aplicação", "Consumo médio"],
       rows: [
-        ["AC-I", "Áreas internas secas", "4 kg/m²"],
-        ["AC-II", "Áreas externas e molhadas", "5 kg/m²"],
-        ["AC-III", "Porcelanato e piscinas", "6 kg/m²"],
+        ["AC-I", "Áreas internas secas", "5 kg/m²"],
+        ["AC-II", "Áreas externas e molhadas", "6 kg/m²"],
+        ["AC-III", "Porcelanato e piscinas", "7 kg/m²"],
       ],
     },
     faq: [
       {
         q: "Quantos sacos de argamassa por m²?",
-        a: "Depende do tipo: AC-I consome 4 kg/m², AC-II 5 kg/m² e AC-III 6 kg/m². Um saco de 20 kg cobre entre 3,3 e 5 m².",
+        a: "Depende do tipo: AC-I consome cerca de 5 kg/m², AC-II 6 kg/m² e AC-III 7 kg/m². Um saco de 20 kg rende entre 2,8 e 4 m² conforme a aplicação.",
       },
       {
         q: "Qual argamassa usar para porcelanato?",

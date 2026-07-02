@@ -92,6 +92,27 @@ function useGtmPageView() {
   }, [pathname, search]);
 }
 
+/**
+ * Injeta o script oficial do Google AdSense apenas no cliente após a
+ * hidratação. Evita mismatch de SSR (o AdSense insere <ins> no body
+ * antes de o React montar a árvore).
+ */
+function useAdSense() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (document.getElementById("google-adsense")) return;
+    const s = document.createElement("script");
+    s.id = "google-adsense";
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    s.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542";
+    document.head.appendChild(s);
+  }, []);
+}
+
+
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -198,15 +219,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         id: "gtm-head",
         children: GTM_HEAD_SNIPPET,
       },
-      // Google AdSense - script oficial para verificação do site.
-      // `id` garante instância única mesmo em navegações SPA/re-renders.
-      {
-        id: "google-adsense",
-        async: true,
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542",
-        crossOrigin: "anonymous",
-      },
-
+      // Nota: o script do Google AdSense é injetado no cliente após a
+      // hidratação (ver useAdSense em RootComponent). Injetar via <head>
+      // SSR provoca mismatch de hidratação porque o AdSense insere <ins>
+      // no <body> antes do React montar a árvore.
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -254,6 +270,9 @@ function RootComponent() {
   useGoogleAnalytics();
   // Registra page_view no dataLayer em toda navegação SPA (sem duplicação).
   useGtmPageView();
+  // Injeta o script do AdSense apenas após a hidratação para evitar
+  // mismatch (o AdSense insere <ins> no body antes do React montar).
+  useAdSense();
 
   return (
     <QueryClientProvider client={queryClient}>
