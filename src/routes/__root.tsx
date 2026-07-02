@@ -197,6 +197,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {/* Google Tag Manager (noscript) - fallback para navegadores sem JS. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -207,6 +216,8 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useGoogleAnalytics();
+  // Registra page_view no dataLayer em toda navegação SPA (sem duplicação).
+  useGtmPageView();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -215,3 +226,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
