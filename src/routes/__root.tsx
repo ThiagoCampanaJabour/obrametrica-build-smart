@@ -8,21 +8,32 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import {
+  GTM_EVENTS,
+  GTM_HEAD_SNIPPET,
+  GTM_ID,
+  ensureDataLayer,
+  trackEvent,
+} from "../lib/gtm";
 
 const GA_MEASUREMENT_ID = "G-4G3TWXJHBC";
 const GA_ENABLED = import.meta.env.PROD;
 
 declare global {
   interface Window {
-    dataLayer: unknown[];
     gtag: (...args: unknown[]) => void;
   }
 }
 
+/**
+ * Registra o Google Analytics 4 (gtag.js). O envio automático de
+ * page_view fica desabilitado (send_page_view: false) para não
+ * duplicar com o evento SPA disparado via dataLayer/GTM.
+ */
 function useGoogleAnalytics() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const search = useRouterState({ select: (s) => s.location.searchStr });
@@ -40,7 +51,7 @@ function useGoogleAnalytics() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() {
       // eslint-disable-next-line prefer-rest-params
-      window.dataLayer.push(arguments);
+      window.dataLayer.push(arguments as unknown as unknown[]);
     };
     window.gtag("js", new Date());
     window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
@@ -51,6 +62,30 @@ function useGoogleAnalytics() {
     const page_path = `${pathname}${search ? `?${search}` : ""}`;
     window.gtag("event", "page_view", {
       page_path,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [pathname, search]);
+}
+
+/**
+ * Envia page_view ao dataLayer em toda navegação SPA.
+ * Uma ref evita disparos duplicados para a mesma URL.
+ */
+function useGtmPageView() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const search = useRouterState({ select: (s) => s.location.searchStr });
+  const lastPath = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    ensureDataLayer();
+    const fullPath = `${pathname}${search ? `?${search}` : ""}`;
+    if (lastPath.current === fullPath) return;
+    lastPath.current = fullPath;
+
+    trackEvent(GTM_EVENTS.pageView, {
+      page_path: fullPath,
       page_location: window.location.href,
       page_title: document.title,
     });
@@ -136,6 +171,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: FAVICON },
     ],
     scripts: [
+      // Google Tag Manager - snippet oficial injetado no <head>.
+      // Carregado uma única vez (id evita duplicação em re-renders/SSR).
+      {
+        id: "gtm-head",
+        children: GTM_HEAD_SNIPPET,
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -162,6 +203,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {/* Google Tag Manager (noscript) - fallback para navegadores sem JS. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -172,6 +222,8 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useGoogleAnalytics();
+  // Registra page_view no dataLayer em toda navegação SPA (sem duplicação).
+  useGtmPageView();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -180,3 +232,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
