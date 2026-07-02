@@ -35,6 +35,8 @@ const ENTRIES: Entry[] = [
   })),
   { path: "/sobre", changefreq: "yearly", priority: "0.4" },
   { path: "/contato", changefreq: "yearly", priority: "0.4" },
+  { path: "/politica-de-privacidade", changefreq: "yearly", priority: "0.3" },
+
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({

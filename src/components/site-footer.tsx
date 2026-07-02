@@ -59,6 +59,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/politica-de-privacidade" className="hover:text-accent">
+                  Política de Privacidade
+                </Link>
+              </li>
+              <li>
                 <Link to="/contato" className="hover:text-accent">
                   Contato
                 </Link>
