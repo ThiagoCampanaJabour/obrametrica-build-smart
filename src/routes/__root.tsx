@@ -92,6 +92,24 @@ function useGtmPageView() {
   }, [pathname, search]);
 }
 
+/**
+ * Injeta o script oficial do Google AdSense apenas no cliente após a
+ * hidratação. Evita mismatch de SSR (o AdSense insere <ins> no body
+ * antes de o React montar a árvore).
+ */
+function useAdSense() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (document.getElementById("google-adsense")) return;
+    const s = document.createElement("script");
+    s.id = "google-adsense";
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    s.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542";
+    document.head.appendChild(s);
+  }, []);
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
