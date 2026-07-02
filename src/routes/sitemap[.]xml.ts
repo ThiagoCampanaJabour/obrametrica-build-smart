@@ -28,6 +28,11 @@ const ENTRIES: Entry[] = [
   { path: "/conversor-cm-para-polegada", changefreq: "monthly", priority: "0.7" },
   { path: "/conversor-litros-para-m3", changefreq: "monthly", priority: "0.7" },
   { path: "/blog", changefreq: "weekly", priority: "0.6" },
+  ...BLOG_CATEGORIES.map((c) => ({
+    path: `/blog/categoria/${c.slug}`,
+    changefreq: "weekly" as const,
+    priority: "0.6",
+  })),
   ...BLOG_POSTS.map((p) => ({
     path: `/blog/${p.slug}`,
     changefreq: "monthly" as const,
