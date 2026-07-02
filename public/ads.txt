@@ -1,0 +1,9 @@
+# ads.txt — Obra Métrica
+#
+# Este arquivo será populado com a linha oficial do Google AdSense
+# assim que a conta for aprovada. Formato esperado:
+#
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+#
+# Enquanto isso, mantemos o arquivo publicado (evita 404 nos crawlers do
+# AdSense) sem declarar vendedores autorizados.
