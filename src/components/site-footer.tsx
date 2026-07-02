@@ -15,6 +15,7 @@ export function SiteFooter() {
                 width="144"
                 height="48"
                 loading="lazy"
+                decoding="async"
                 className="h-12 w-auto"
               />
             </div>
