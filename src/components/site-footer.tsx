@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-const LOGO_URL = "/obrametrica-logo.jpg";
+const LOGO_URL = "/obrametrica-logo-sm.webp";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -15,6 +15,7 @@ export function SiteFooter() {
                 width="144"
                 height="48"
                 loading="lazy"
+                decoding="async"
                 className="h-12 w-auto"
               />
             </div>
