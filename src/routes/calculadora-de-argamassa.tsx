@@ -11,6 +11,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/calculadora-de-argamassa";
 const CRUMBS = [
@@ -36,9 +38,11 @@ export const Route = createFileRoute("/calculadora-de-argamassa")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: ArgamassaCalc,
 });
+
 
 type Tipo = "interno" | "externo" | "porcelanato";
 const CONSUMO_KG_M2: Record<Tipo, number> = { interno: 5, externo: 6, porcelanato: 7 };

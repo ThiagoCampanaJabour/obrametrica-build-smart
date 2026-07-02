@@ -10,6 +10,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/economia-energia-solar";
 const CRUMBS = [
@@ -35,9 +37,11 @@ export const Route = createFileRoute("/economia-energia-solar")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: EconomiaSolar,
 });
+
 
 const DEFAULT_SAVINGS_RATE = 0.9;
 
