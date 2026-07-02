@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -11,6 +12,50 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const GA_MEASUREMENT_ID = "G-4G3TWXJHBC";
+const GA_ENABLED = import.meta.env.PROD;
+
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+  }
+}
+
+function useGoogleAnalytics() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const search = useRouterState({ select: (s) => s.location.searchStr });
+
+  useEffect(() => {
+    if (!GA_ENABLED || typeof window === "undefined") return;
+    if (document.getElementById("ga4-script")) return;
+
+    const script = document.createElement("script");
+    script.id = "ga4-script";
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
+  }, []);
+
+  useEffect(() => {
+    if (!GA_ENABLED || typeof window === "undefined" || !window.gtag) return;
+    const page_path = `${pathname}${search ? `?${search}` : ""}`;
+    window.gtag("event", "page_view", {
+      page_path,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [pathname, search]);
+}
 
 function NotFoundComponent() {
   return (
@@ -126,6 +171,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useGoogleAnalytics();
 
   return (
     <QueryClientProvider client={queryClient}>
