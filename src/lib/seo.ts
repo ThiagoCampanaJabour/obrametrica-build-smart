@@ -70,5 +70,15 @@ export function pageHead(opts: {
       children: JSON.stringify(opts.schema),
     });
   }
+  if (opts.extraSchemas) {
+    for (const s of opts.extraSchemas) {
+      if (!s) continue;
+      scripts.push({
+        type: "application/ld+json",
+        children: JSON.stringify(s),
+      });
+    }
+  }
+
   return { meta, links, scripts };
 }
