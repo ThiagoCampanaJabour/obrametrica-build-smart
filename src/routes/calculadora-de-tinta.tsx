@@ -79,6 +79,7 @@ function TintaCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Tinta"
       description="Considera rendimento médio de 1 litro para cada 5 m² por demão."
       breadcrumbs={CRUMBS}

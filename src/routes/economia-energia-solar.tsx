@@ -75,6 +75,7 @@ function EconomiaSolar() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Economia com Energia Solar"
       description="Informe o valor atual da conta de luz para estimar a economia com um sistema de energia solar."
       breadcrumbs={CRUMBS}

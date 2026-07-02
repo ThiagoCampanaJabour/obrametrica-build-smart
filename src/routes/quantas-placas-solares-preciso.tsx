@@ -74,6 +74,7 @@ function PlacasSolares() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Quantas Placas Solares Preciso"
       description="Informe seu consumo mensal de energia elétrica para estimar o número de placas, potência do sistema e produção mensal."
       breadcrumbs={CRUMBS}

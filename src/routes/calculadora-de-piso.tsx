@@ -79,6 +79,7 @@ function PisoCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Piso"
       description="Informe as dimensões do ambiente e a metragem de cada caixa de piso."
       breadcrumbs={CRUMBS}

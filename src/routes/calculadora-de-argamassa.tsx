@@ -73,6 +73,7 @@ function ArgamassaCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Argamassa"
       description="Consumo médio: 5 kg/m² (interno), 6 kg/m² (externo), 7 kg/m² (porcelanato). Sacos de 20 kg."
       breadcrumbs={CRUMBS}

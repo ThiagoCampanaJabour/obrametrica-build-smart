@@ -79,6 +79,7 @@ function TijolosCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Tijolos"
       description="Informe a área da parede e o tipo de tijolo para calcular a quantidade necessária."
       breadcrumbs={[

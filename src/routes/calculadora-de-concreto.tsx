@@ -74,6 +74,7 @@ function ConcretoCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Concreto"
       description="Informe as três dimensões em metros para obter o volume de concreto necessário."
       breadcrumbs={CRUMBS}

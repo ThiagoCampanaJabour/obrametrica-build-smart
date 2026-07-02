@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { UnitConverter } from "@/components/unit-converter";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
 
 const PATH = "/conversor-cm-para-polegada";
 const CRUMBS = [
@@ -17,9 +18,11 @@ export const Route = createFileRoute("/conversor-cm-para-polegada")({
         "Converta centímetros (cm) para polegadas (in) instantaneamente. 1 polegada = 2,54 cm.",
       path: PATH,
       breadcrumbs: CRUMBS,
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: () => (
     <UnitConverter
+      extrasId={PATH}
       title="Conversor de cm para Polegada"
       description="Converta centímetros para polegadas em tempo real."
       fromLabel="Valor em centímetros"
