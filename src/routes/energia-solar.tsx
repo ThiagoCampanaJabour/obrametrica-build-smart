@@ -72,6 +72,7 @@ function EnergiaSolarPage() {
             </Link>
           ))}
         </div>
+        <CategoryLatestPosts slug="energia-solar" />
       </section>
     </SiteLayout>
   );
