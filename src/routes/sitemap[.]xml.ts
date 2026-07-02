@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { SITE_URL } from "@/lib/seo";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import { BLOG_POSTS, BLOG_CATEGORIES } from "@/data/blog-posts";
 
 interface Entry {
   path: string;
