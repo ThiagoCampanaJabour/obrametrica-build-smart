@@ -921,6 +921,220 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedTool: { label: "Conversor Litros para m³", path: "/conversor-litros-para-m3" },
   },
+  {
+    slug: "traco-de-argamassa-para-assentamento-e-reboco",
+    title: "Traço de argamassa: guia prático para assentamento e reboco",
+    description:
+      "Entenda os principais traços de argamassa para assentamento, chapisco e reboco, com proporções, consumo por m² e dicas para evitar fissuras.",
+    category: "Construção Civil",
+    date: "2025-02-05",
+    readingTime: 8,
+    intro: [
+      "O traço da argamassa define a qualidade, a durabilidade e o desempenho de praticamente todos os revestimentos e alvenarias de uma obra. Uma dosagem mal calibrada gera fissuras, descolamento e retrabalho — problemas que costumam aparecer meses depois da conclusão, quando o custo de correção é muito maior.",
+      "Neste guia você vai entender os principais traços utilizados no Brasil, quando aplicar cada um deles e como calcular o consumo de cimento, cal e areia por metro quadrado.",
+    ],
+    sections: [
+      {
+        heading: "O que é o traço de uma argamassa",
+        paragraphs: [
+          "O traço é a proporção entre os materiais que compõem a argamassa: normalmente cimento, cal, areia e água. Ele é expresso em volume (por exemplo, 1:2:8 significa uma parte de cimento, duas de cal e oito de areia) e determina propriedades como resistência, trabalhabilidade e aderência.",
+          "A escolha do traço depende da função da argamassa. Argamassa estrutural precisa ser mais rica em cimento, enquanto argamassas de reboco pedem mais cal para reduzir a retração e evitar fissuras. Copiar traço de uma etapa para outra é um dos erros mais comuns em obras pequenas.",
+        ],
+      },
+      {
+        heading: "Traços mais usados no Brasil",
+        paragraphs: [
+          "Para assentamento de alvenaria de vedação, o traço 1:2:8 (cimento, cal e areia) é o mais aceito, oferecendo boa aderência sem excesso de rigidez. Em alvenaria estrutural, utiliza-se traços mais fortes, como 1:0,5:4,5, seguindo o projeto.",
+          "No chapisco, camada de aderência aplicada antes do reboco, o traço padrão é 1:3 (cimento e areia grossa), com consistência fluida. Para o reboco, o traço 1:2:9 é largamente adotado em áreas internas, enquanto fachadas pedem argamassas mais impermeáveis, com adição de aditivo hidrofugante.",
+          "Contrapisos utilizam traços mais secos, geralmente 1:4 ou 1:5 (cimento e areia média), buscando resistência ao desgaste e nivelamento.",
+        ],
+      },
+      {
+        heading: "Consumo por metro quadrado",
+        paragraphs: [
+          "O consumo médio de argamassa para reboco em espessura de 2 centímetros gira em torno de 20 litros por metro quadrado. Para chapisco, considere cerca de 4 a 5 litros por metro quadrado. Já no assentamento de alvenaria comum, o consumo depende do tipo de bloco: fica entre 12 e 25 litros por metro quadrado de parede.",
+          "Traduzindo em materiais, cada metro cúbico de argamassa 1:2:8 exige aproximadamente 190 kg de cimento, 90 kg de cal hidratada e 1,1 m³ de areia. Esses valores servem como referência para pedidos e planejamento de canteiro.",
+        ],
+      },
+      {
+        heading: "Dicas para evitar fissuras e descolamento",
+        paragraphs: [
+          "Respeite o tempo mínimo de cura entre camadas: chapisco por pelo menos 3 dias antes do emboço, e emboço por pelo menos 7 dias antes do reboco fino. Aplicar camadas sobre superfícies úmidas e não curadas é uma das principais causas de patologia em fachadas.",
+          "Molhe bem a alvenaria antes do chapisco, use areia peneirada e livre de matéria orgânica, e evite dosar 'no olho'. Um simples balde padronizado como medida já reduz drasticamente a variabilidade do traço em obras pequenas.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Posso usar o mesmo traço para assentamento e reboco?",
+        answer:
+          "Não é recomendado. Argamassa de assentamento é mais rica em cimento, enquanto o reboco precisa de mais cal para reduzir retração e fissuração.",
+      },
+      {
+        question: "Qual traço de argamassa para chapisco?",
+        answer:
+          "O padrão é 1:3 (cimento e areia grossa) com consistência fluida, aplicado sobre superfície molhada para garantir aderência do reboco.",
+      },
+      {
+        question: "Quanto de cimento gasto por m² de reboco?",
+        answer:
+          "Para reboco de 2 cm com traço 1:2:9, o consumo médio é de cerca de 4 kg de cimento por metro quadrado.",
+      },
+      {
+        question: "Argamassa industrializada compensa?",
+        answer:
+          "Sim, principalmente em obras menores. Ela oferece dosagem controlada, menos perda e agilidade, reduzindo o risco de traço mal executado.",
+      },
+    ],
+    conclusion: [
+      "O traço correto é o que separa uma parede que dura décadas de uma que apresenta fissuras já no primeiro ano. Dominar as proporções básicas, respeitar tempos de cura e padronizar o processo é o caminho para qualidade real.",
+      "Para calcular a quantidade exata de argamassa, aproveite a nossa calculadora online e planeje o pedido dos materiais com precisão.",
+    ],
+    relatedTool: { label: "Calculadora de Argamassa", path: "/calculadora-de-argamassa" },
+  },
+
+  {
+    slug: "inversor-solar-como-escolher-e-dimensionar",
+    title: "Inversor solar: como escolher e dimensionar corretamente",
+    description:
+      "Entenda o papel do inversor solar, os tipos disponíveis (string, microinversor, híbrido) e como dimensionar de acordo com a potência do sistema.",
+    category: "Energia Solar",
+    date: "2025-02-10",
+    readingTime: 9,
+    intro: [
+      "O inversor é o cérebro de qualquer sistema fotovoltaico. Ele converte a energia gerada pelas placas (em corrente contínua) para a forma utilizada na rede elétrica (corrente alternada). Escolher e dimensionar corretamente esse equipamento define não só a geração da usina, mas também a segurança, a vida útil e o retorno financeiro do investimento.",
+      "Neste artigo explicamos como funciona um inversor solar, os principais tipos disponíveis no mercado brasileiro e o passo a passo para dimensionar o modelo certo.",
+    ],
+    sections: [
+      {
+        heading: "O que faz um inversor solar",
+        paragraphs: [
+          "As placas fotovoltaicas geram corrente contínua (CC) a partir da radiação solar. Essa corrente não pode ser usada diretamente pelos aparelhos residenciais ou injetada na rede da concessionária. O inversor faz essa conversão para corrente alternada (CA), na tensão e frequência exigidas pelo padrão local.",
+          "Além da conversão, o inversor monitora a produção, protege contra falhas (curto-circuito, sobretensão, ilhamento) e comunica os dados a aplicativos, permitindo acompanhar em tempo real quanto o sistema está gerando.",
+        ],
+      },
+      {
+        heading: "Tipos de inversor solar",
+        paragraphs: [
+          "O inversor string é o mais comum em residências e pequenas empresas. Ele conecta várias placas em série (a 'string'), oferecendo bom custo-benefício, mas fica limitado ao painel de pior desempenho da série — importante em telhados com sombreamento parcial.",
+          "O microinversor é instalado individualmente em cada placa. Isso maximiza a geração em situações de sombra, sujeira ou orientações diferentes, mas encarece a instalação. É ideal para telhados irregulares ou consumidores que exigem monitoramento por módulo.",
+          "O inversor híbrido combina rede elétrica e baterias, permitindo armazenar energia para uso noturno ou em falhas da rede. É a base para sistemas com backup e para o modelo emergente de autoconsumo com armazenamento.",
+        ],
+      },
+      {
+        heading: "Como dimensionar a potência do inversor",
+        paragraphs: [
+          "A regra geral é que a potência nominal do inversor seja próxima da potência do arranjo fotovoltaico, aceitando-se sobrecarga (oversizing) de 20% a 30%. Um sistema com 6 kWp de painéis pode ser conectado a um inversor de 5 kW, aproveitando melhor a curva de geração real.",
+          "É importante respeitar a faixa de tensão de entrada (MPPT) do inversor. Placas em série somam tensão; um dimensionamento incorreto pode ultrapassar o limite máximo do equipamento, causando falhas e perda de garantia.",
+          "Considere também o número de MPPTs (rastreadores de máxima potência). Cada MPPT gerencia um conjunto independente de placas. Telhados com múltiplas orientações se beneficiam de inversores com mais de um MPPT.",
+        ],
+      },
+      {
+        heading: "Boas práticas de instalação",
+        paragraphs: [
+          "Instale o inversor em local ventilado, protegido de sol direto e chuva. A temperatura excessiva reduz o rendimento e pode desligar o equipamento por proteção térmica. Sempre respeite as distâncias mínimas do manual do fabricante.",
+          "Use cabos e proteções (DPS, disjuntores, string boxes) corretamente dimensionados. Um projeto elétrico bem executado é o que garante a segurança do sistema por 20 anos ou mais — vida útil típica das placas.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Posso usar inversor de potência menor que o sistema?",
+        answer:
+          "Sim, é o chamado oversizing. Aceita-se até 30% de sobrecarga, aproveitando melhor a curva real de geração das placas.",
+      },
+      {
+        question: "Microinversor vale a pena?",
+        answer:
+          "Sim quando há sombreamento parcial, telhados de múltiplas orientações ou quando se deseja monitoramento por módulo.",
+      },
+      {
+        question: "Qual a vida útil de um inversor solar?",
+        answer:
+          "Entre 10 e 15 anos, contra 25 anos das placas. É comum trocar o inversor uma vez ao longo da vida útil do sistema.",
+      },
+      {
+        question: "Preciso de inversor híbrido para ter energia na queda de luz?",
+        answer:
+          "Sim. Sistemas convencionais on-grid desligam automaticamente quando a rede cai (anti-ilhamento). Para backup, é necessário inversor híbrido com baterias.",
+      },
+    ],
+    conclusion: [
+      "Escolher o inversor certo é tão estratégico quanto escolher as placas. Ele impacta diretamente na geração, na segurança e no retorno financeiro do sistema fotovoltaico.",
+      "Para descobrir quantas placas o seu consumo exige e obter uma base para dimensionar o inversor, utilize nossa calculadora.",
+    ],
+    relatedTool: { label: "Quantas Placas Solares Preciso", path: "/quantas-placas-solares-preciso" },
+  },
+
+  {
+    slug: "como-converter-metros-para-pes",
+    title: "Como converter metros para pés (m para ft) com precisão",
+    description:
+      "Aprenda a converter metros para pés usando a relação oficial 1 m = 3,28084 ft. Exemplos práticos, tabela de referência e usos comuns.",
+    category: "Conversores",
+    date: "2025-02-14",
+    readingTime: 6,
+    intro: [
+      "A conversão entre metros e pés é uma das mais requisitadas por profissionais que trabalham com produtos importados, projetos internacionais, aviação, náutica e engenharia. O sistema imperial ainda predomina em países como Estados Unidos e Reino Unido, então é comum receber medidas em pés e precisar converter para metros — ou vice-versa.",
+      "Neste guia rápido você entenderá a fórmula de conversão, verá exemplos práticos e aprenderá a evitar os erros mais comuns na hora de trabalhar com as duas unidades.",
+    ],
+    sections: [
+      {
+        heading: "A relação oficial entre metro e pé",
+        paragraphs: [
+          "1 metro equivale a exatamente 3,28084 pés. Para converter metros em pés, basta multiplicar o valor por 3,28084. Para converter pés em metros, divide-se o valor por 3,28084 (ou multiplica por 0,3048).",
+          "Essa relação é padronizada internacionalmente pelo sistema SI e pelo International Yard and Pound Agreement de 1959. Todos os cálculos oficiais utilizam essa mesma constante, independentemente do país.",
+        ],
+      },
+      {
+        heading: "Exemplos práticos",
+        paragraphs: [
+          "Uma altura de 1,80 metro corresponde a 1,80 × 3,28084 = 5,905 pés, ou aproximadamente 5 pés e 11 polegadas. Já um ambiente com pé-direito de 2,70 metros equivale a 8,86 pés.",
+          "No sentido inverso: uma prancha de 8 pés equivale a 8 × 0,3048 = 2,44 metros. Um teto padrão americano de 9 pés corresponde a 2,74 metros.",
+        ],
+      },
+      {
+        heading: "Tabela rápida de referência",
+        paragraphs: [
+          "1 m = 3,28 ft. 2 m = 6,56 ft. 5 m = 16,40 ft. 10 m = 32,81 ft. 20 m = 65,62 ft. 50 m = 164,04 ft. 100 m = 328,08 ft.",
+          "Para pés em metros: 1 ft = 0,30 m. 5 ft = 1,52 m. 10 ft = 3,05 m. 20 ft = 6,10 m. 50 ft = 15,24 m. 100 ft = 30,48 m.",
+        ],
+      },
+      {
+        heading: "Onde essa conversão é mais usada",
+        paragraphs: [
+          "Aviação: altitudes de aeronaves são medidas em pés em quase todo o mundo. Náutica: profundidade e comprimento de embarcações frequentemente aparecem em pés. Engenharia e construção: equipamentos, containers, tubulações e ferramentas importadas dos EUA geralmente vêm com medidas em pés e polegadas.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Quanto é 1 metro em pés exatamente?",
+        answer:
+          "1 metro equivale a 3,28084 pés. Para conversões rápidas, arredondar para 3,28 já é suficiente na maioria dos casos.",
+      },
+      {
+        question: "Como converter pés em metros?",
+        answer:
+          "Multiplique o valor em pés por 0,3048, ou divida por 3,28084. Ambas as operações levam ao mesmo resultado.",
+      },
+      {
+        question: "Quantos pés tem uma pessoa de 1,70 m?",
+        answer:
+          "1,70 × 3,28084 = 5,577 pés, ou aproximadamente 5 pés e 7 polegadas.",
+      },
+      {
+        question: "A conversão vale para pés quadrados também?",
+        answer:
+          "Não diretamente. Para áreas, a relação é 1 m² = 10,7639 ft². Para volumes, 1 m³ = 35,3147 ft³.",
+      },
+    ],
+    conclusion: [
+      "Converter metros em pés é uma operação simples, mas exige o uso do fator correto para evitar erros que se propagam em projetos internacionais.",
+      "Explore nossos conversores online para transformar qualquer medida em segundos, com precisão profissional.",
+    ],
+    relatedTool: { label: "Conversores Técnicos", path: "/conversores" },
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
@@ -930,4 +1144,54 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 export function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-");
   return `${d}/${m}/${y}`;
+}
+
+// ============================================================
+// Categorias
+// ============================================================
+export type BlogCategory = {
+  slug: string;
+  name: string;
+  description: string;
+};
+
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  {
+    slug: "construcao-civil",
+    name: "Construção Civil",
+    description:
+      "Artigos, guias e tutoriais sobre alvenaria, concreto, revestimentos e planejamento de obras.",
+  },
+  {
+    slug: "energia-solar",
+    name: "Energia Solar",
+    description:
+      "Conteúdo sobre dimensionamento, economia e tecnologia de sistemas fotovoltaicos residenciais e comerciais.",
+  },
+  {
+    slug: "conversores",
+    name: "Conversores",
+    description:
+      "Explicações e guias práticos sobre conversões de unidades usadas em engenharia e construção.",
+  },
+];
+
+export function categoryToSlug(name: string): string {
+  const found = BLOG_CATEGORIES.find((c) => c.name === name);
+  if (found) return found.slug;
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+export function getCategoryBySlug(slug: string): BlogCategory | undefined {
+  return BLOG_CATEGORIES.find((c) => c.slug === slug);
+}
+
+export function getPostsByCategorySlug(slug: string): BlogPost[] {
+  const cat = getCategoryBySlug(slug);
+  if (!cat) return [];
+  return BLOG_POSTS.filter((p) => p.category === cat.name);
 }
