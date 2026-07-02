@@ -102,7 +102,7 @@ function TijolosCalc() {
             error={errors.altura}
           />
         </div>
-        <SelectField<Tipo>
+        <SelectField<TijoloTipo>
           id="tipo"
           label="Tipo de tijolo"
           value={tipo}
