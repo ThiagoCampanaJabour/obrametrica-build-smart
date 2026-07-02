@@ -232,7 +232,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {/* Google Tag Manager (noscript) - fallback para navegadores sem JS. */}
         <noscript>
           <iframe
