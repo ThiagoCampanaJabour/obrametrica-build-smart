@@ -11,6 +11,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/calculadora-de-tijolos";
 const TITLE = "Calculadora de Tijolos — Quantidade por m² | ObraMétrica";
@@ -37,9 +39,11 @@ export const Route = createFileRoute("/calculadora-de-tijolos")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: TijolosCalc,
 });
+
 
 type Tipo = "9x19x19" | "11x14x24" | "14x19x29";
 const CONSUMO: Record<Tipo, number> = { "9x19x19": 25, "11x14x24": 22, "14x19x29": 16 };
@@ -75,6 +79,7 @@ function TijolosCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Tijolos"
       description="Informe a área da parede e o tipo de tijolo para calcular a quantidade necessária."
       breadcrumbs={[

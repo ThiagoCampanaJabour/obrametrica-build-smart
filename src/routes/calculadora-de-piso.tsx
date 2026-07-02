@@ -10,6 +10,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/calculadora-de-piso";
 const CRUMBS = [
@@ -35,9 +37,11 @@ export const Route = createFileRoute("/calculadora-de-piso")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: PisoCalc,
 });
+
 
 function PisoCalc() {
   const [comprimento, setComprimento] = useState("");
@@ -75,6 +79,7 @@ function PisoCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Piso"
       description="Informe as dimensões do ambiente e a metragem de cada caixa de piso."
       breadcrumbs={CRUMBS}

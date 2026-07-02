@@ -10,6 +10,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/quantas-placas-solares-preciso";
 const CRUMBS = [
@@ -35,9 +37,11 @@ export const Route = createFileRoute("/quantas-placas-solares-preciso")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: PlacasSolares,
 });
+
 
 const PANEL_MONTHLY_KWH = 65;
 const PANEL_POWER_KW = 0.55;
@@ -70,6 +74,7 @@ function PlacasSolares() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Quantas Placas Solares Preciso"
       description="Informe seu consumo mensal de energia elétrica para estimar o número de placas, potência do sistema e produção mensal."
       breadcrumbs={CRUMBS}

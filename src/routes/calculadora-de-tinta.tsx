@@ -10,6 +10,8 @@ import {
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
+
 
 const PATH = "/calculadora-de-tinta";
 const CRUMBS = [
@@ -35,9 +37,11 @@ export const Route = createFileRoute("/calculadora-de-tinta")({
         operatingSystem: "Any",
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: TintaCalc,
 });
+
 
 const RENDIMENTO_M2_POR_LITRO = 5;
 
@@ -75,6 +79,7 @@ function TintaCalc() {
 
   return (
     <CalculatorShell
+      extrasId={PATH}
       title="Calculadora de Tinta"
       description="Considera rendimento médio de 1 litro para cada 5 m² por demão."
       breadcrumbs={CRUMBS}

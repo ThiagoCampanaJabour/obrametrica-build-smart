@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { SiteLayout } from "./site-layout";
 import { Breadcrumbs } from "./breadcrumbs";
 import { AdTop, AdMiddle, AdBottom } from "./ads";
+import { CalcExtras, ResultActions } from "./calc-extras";
 import type { Crumb } from "@/lib/seo";
 
 export function CalculatorShell({
@@ -9,11 +10,14 @@ export function CalculatorShell({
   description,
   children,
   breadcrumbs,
+  extrasId,
 }: {
   title: string;
   description: string;
   children: ReactNode;
   breadcrumbs: Crumb[];
+  /** Path da calculadora — carrega conteúdo enriquecido do registro. */
+  extrasId?: string;
 }) {
   return (
     <SiteLayout>
@@ -26,11 +30,15 @@ export function CalculatorShell({
         <AdTop />
         <div className="mt-2 rounded-xl border border-border bg-card p-6 shadow-sm">{children}</div>
         <AdMiddle />
-        <AdBottom />
       </section>
+      {extrasId && <CalcExtras id={extrasId} />}
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <AdBottom />
+      </div>
     </SiteLayout>
   );
 }
+
 
 export function NumberField({
   id,
@@ -142,9 +150,14 @@ export function SubmitRow({ onReset }: { onReset: () => void }) {
 
 export function ResultPanel({
   items,
+  shareText,
 }: {
   items: ReadonlyArray<{ label: string; value: string; highlight?: boolean }>;
+  /** Texto usado pelos botões copiar/compartilhar. Se omitido, deriva dos items. */
+  shareText?: string;
 }) {
+  const text =
+    shareText ?? items.map((it) => `${it.label}: ${it.value}`).join(" | ");
   return (
     <div className="mt-6 rounded-lg border border-accent/40 bg-accent/10 p-5">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">Resultado</h2>
@@ -161,6 +174,7 @@ export function ResultPanel({
           </div>
         ))}
       </dl>
+      <ResultActions text={text} />
     </div>
   );
 }
@@ -173,6 +187,7 @@ export function validatePositive(raw: string, label: string): { value?: number; 
   if (n === 0) return { error: `${label} deve ser maior que zero.` };
   return { value: n };
 }
+
 
 export function useCalcForm() {
   const [submitted, setSubmitted] = useState(false);

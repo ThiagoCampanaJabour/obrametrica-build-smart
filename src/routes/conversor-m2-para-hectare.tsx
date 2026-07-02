@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { UnitConverter } from "@/components/unit-converter";
 import { pageHead } from "@/lib/seo";
+import { faqSchemaFor } from "@/data/calculators";
 
 const PATH = "/conversor-m2-para-hectare";
 const CRUMBS = [
@@ -17,9 +18,11 @@ export const Route = createFileRoute("/conversor-m2-para-hectare")({
         "Converta metros quadrados (m²) para hectares (ha) instantaneamente. 1 hectare = 10.000 m².",
       path: PATH,
       breadcrumbs: CRUMBS,
+      extraSchemas: [faqSchemaFor(PATH)],
     }),
   component: () => (
     <UnitConverter
+      extrasId={PATH}
       title="Conversor de m² para Hectare"
       description="Converta metros quadrados para hectares em tempo real."
       fromLabel="Valor em metros quadrados"

@@ -19,7 +19,10 @@ export function pageHead(opts: {
   type?: "website" | "article";
   breadcrumbs?: Crumb[];
   schema?: Record<string, unknown>;
+  /** Schemas adicionais (ex.: FAQPage em calculadoras). */
+  extraSchemas?: Array<Record<string, unknown> | undefined>;
 }): { meta: HeadMeta[]; links: HeadLink[]; scripts: HeadScript[] } {
+
   const url = `${SITE_URL}${opts.path}`;
   const rawImage = opts.image ?? SITE_LOGO;
   const image = rawImage.startsWith("http") ? rawImage : `${SITE_URL}${rawImage}`;
@@ -67,5 +70,15 @@ export function pageHead(opts: {
       children: JSON.stringify(opts.schema),
     });
   }
+  if (opts.extraSchemas) {
+    for (const s of opts.extraSchemas) {
+      if (!s) continue;
+      scripts.push({
+        type: "application/ld+json",
+        children: JSON.stringify(s),
+      });
+    }
+  }
+
   return { meta, links, scripts };
 }
