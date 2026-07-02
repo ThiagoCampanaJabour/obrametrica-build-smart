@@ -171,6 +171,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: FAVICON },
     ],
     scripts: [
+      // Google Tag Manager - snippet oficial injetado no <head>.
+      // Carregado uma única vez (id evita duplicação em re-renders/SSR).
+      {
+        id: "gtm-head",
+        children: GTM_HEAD_SNIPPET,
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
