@@ -54,6 +54,16 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/contato" className="hover:text-accent">
+                  Contato
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="hover:text-accent">
+                  FAQ
+                </Link>
+              </li>
+              <li>
                 <Link to="/blog" className="hover:text-accent">
                   Blog
                 </Link>
@@ -64,12 +74,23 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/contato" className="hover:text-accent">
-                  Contato
+                <Link to="/politica-de-cookies" className="hover:text-accent">
+                  Política de Cookies
+                </Link>
+              </li>
+              <li>
+                <Link to="/termos-de-uso" className="hover:text-accent">
+                  Termos de Uso
+                </Link>
+              </li>
+              <li>
+                <Link to="/aviso-legal" className="hover:text-accent">
+                  Aviso Legal
                 </Link>
               </li>
             </ul>
           </div>
+
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-xs text-primary-foreground/70">

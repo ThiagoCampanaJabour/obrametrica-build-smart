@@ -35,9 +35,13 @@ const ENTRIES: Entry[] = [
   })),
   { path: "/sobre", changefreq: "yearly", priority: "0.4" },
   { path: "/contato", changefreq: "yearly", priority: "0.4" },
+  { path: "/faq", changefreq: "monthly", priority: "0.5" },
   { path: "/politica-de-privacidade", changefreq: "yearly", priority: "0.3" },
-
+  { path: "/politica-de-cookies", changefreq: "yearly", priority: "0.3" },
+  { path: "/termos-de-uso", changefreq: "yearly", priority: "0.3" },
+  { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
 ];
+
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
