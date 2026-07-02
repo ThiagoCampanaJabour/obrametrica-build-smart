@@ -193,6 +193,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         id: "gtm-head",
         children: GTM_HEAD_SNIPPET,
       },
+      // Google AdSense - script oficial para verificação do site.
+      // `id` garante instância única mesmo em navegações SPA/re-renders.
+      {
+        id: "google-adsense",
+        async: true,
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542",
+        crossOrigin: "anonymous",
+      },
+
       {
         type: "application/ld+json",
         children: JSON.stringify({
