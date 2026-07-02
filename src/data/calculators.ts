@@ -704,9 +704,10 @@ export function getCalculator(path: string): CalculatorContent | undefined {
   return CALCULATORS[path];
 }
 
+const SITE_URL = "https://obrametrica.com.br";
+
 /**
  * Gera o schema FAQPage (Schema.org) a partir da FAQ da calculadora.
- * Retorna undefined se não houver calculadora cadastrada.
  */
 export function faqSchemaFor(path: string): Record<string, unknown> | undefined {
   const c = CALCULATORS[path];
@@ -720,4 +721,49 @@ export function faqSchemaFor(path: string): Record<string, unknown> | undefined 
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   };
+}
+
+/**
+ * Gera o schema HowTo (Schema.org) a partir dos passos de "howItWorks".
+ */
+export function howToSchemaFor(path: string): Record<string, unknown> | undefined {
+  const c = CALCULATORS[path];
+  if (!c) return undefined;
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `Como usar a ${c.name}`,
+    description: c.intro,
+    step: c.howItWorks.map((text, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: `Passo ${i + 1}`,
+      text,
+    })),
+  };
+}
+
+/**
+ * Gera o schema WebApplication (Schema.org) para a calculadora.
+ */
+export function webAppSchemaFor(path: string): Record<string, unknown> | undefined {
+  const c = CALCULATORS[path];
+  if (!c) return undefined;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: c.name,
+    url: `${SITE_URL}${c.path}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    description: c.intro,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+  };
+}
+
+/**
+ * Retorna FAQ + HowTo + WebApplication schemas prontos para `extraSchemas`.
+ */
+export function allSchemasFor(path: string): Array<Record<string, unknown> | undefined> {
+  return [faqSchemaFor(path), howToSchemaFor(path), webAppSchemaFor(path)];
 }
