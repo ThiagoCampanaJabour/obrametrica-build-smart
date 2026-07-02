@@ -214,7 +214,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "ObraMétrica",
           url: "https://obrametrica.com.br",
-          logo: `https://obrametrica.com.br${FAVICON}`,
+          logo: `https://obrametrica.com.br${OG_LOGO}`,
           slogan: "Cálculos inteligentes para construir melhor.",
         }),
       },
