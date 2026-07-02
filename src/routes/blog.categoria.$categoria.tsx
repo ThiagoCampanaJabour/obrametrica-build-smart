@@ -11,7 +11,8 @@ import {
   type BlogCategory,
   type BlogPost,
 } from "@/data/blog-posts";
-import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowRight, ArrowLeft, Calculator } from "lucide-react";
+import { getSiloByName } from "@/data/silo";
 
 export const Route = createFileRoute("/blog/categoria/$categoria")({
   loader: ({ params }) => {
