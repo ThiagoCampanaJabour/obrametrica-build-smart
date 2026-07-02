@@ -9,10 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
@@ -27,9 +30,15 @@ import { Route as CalculadoraDePisoRouteImport } from './routes/calculadora-de-p
 import { Route as CalculadoraDeConcretoRouteImport } from './routes/calculadora-de-concreto'
 import { Route as CalculadoraDeArgamassaRouteImport } from './routes/calculadora-de-argamassa'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
+  id: '/termos-de-uso',
+  path: '/termos-de-uso',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -49,6 +58,16 @@ const QuantasPlacasSolaresPrecisoRoute =
 const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
   id: '/politica-de-privacidade',
   path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeCookiesRoute = PoliticaDeCookiesRouteImport.update({
+  id: '/politica-de-cookies',
+  path: '/politica-de-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
@@ -121,6 +140,11 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvisoLegalRoute = AvisoLegalRouteImport.update({
+  id: '/aviso-legal',
+  path: '/aviso-legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -134,6 +158,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
@@ -148,14 +173,18 @@ export interface FileRoutesByFullPath {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/faq': typeof FaqRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
@@ -170,15 +199,19 @@ export interface FileRoutesByTo {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/faq': typeof FaqRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
@@ -193,16 +226,20 @@ export interface FileRoutesById {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/faq': typeof FaqRoute
+  '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/aviso-legal'
     | '/blog'
     | '/calculadora-de-argamassa'
     | '/calculadora-de-concreto'
@@ -217,14 +254,18 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/faq'
+    | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/aviso-legal'
     | '/blog'
     | '/calculadora-de-argamassa'
     | '/calculadora-de-concreto'
@@ -239,14 +280,18 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/faq'
+    | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
   id:
     | '__root__'
     | '/'
+    | '/aviso-legal'
     | '/blog'
     | '/calculadora-de-argamassa'
     | '/calculadora-de-concreto'
@@ -261,15 +306,19 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/faq'
+    | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AvisoLegalRoute: typeof AvisoLegalRoute
   BlogRoute: typeof BlogRouteWithChildren
   CalculadoraDeArgamassaRoute: typeof CalculadoraDeArgamassaRoute
   CalculadoraDeConcretoRoute: typeof CalculadoraDeConcretoRoute
@@ -284,14 +333,24 @@ export interface RootRouteChildren {
   ConversoresRoute: typeof ConversoresRoute
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRoute
+  FaqRoute: typeof FaqRoute
+  PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
+  TermosDeUsoRoute: typeof TermosDeUsoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termos-de-uso': {
+      id: '/termos-de-uso'
+      path: '/termos-de-uso'
+      fullPath: '/termos-de-uso'
+      preLoaderRoute: typeof TermosDeUsoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -318,6 +377,20 @@ declare module '@tanstack/react-router' {
       path: '/politica-de-privacidade'
       fullPath: '/politica-de-privacidade'
       preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-cookies': {
+      id: '/politica-de-cookies'
+      path: '/politica-de-cookies'
+      fullPath: '/politica-de-cookies'
+      preLoaderRoute: typeof PoliticaDeCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia-solar': {
@@ -418,6 +491,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aviso-legal': {
+      id: '/aviso-legal'
+      path: '/aviso-legal'
+      fullPath: '/aviso-legal'
+      preLoaderRoute: typeof AvisoLegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -447,6 +527,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AvisoLegalRoute: AvisoLegalRoute,
   BlogRoute: BlogRouteWithChildren,
   CalculadoraDeArgamassaRoute: CalculadoraDeArgamassaRoute,
   CalculadoraDeConcretoRoute: CalculadoraDeConcretoRoute,
@@ -461,21 +542,14 @@ const rootRouteChildren: RootRouteChildren = {
   ConversoresRoute: ConversoresRoute,
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRoute,
+  FaqRoute: FaqRoute,
+  PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
+  TermosDeUsoRoute: TermosDeUsoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
