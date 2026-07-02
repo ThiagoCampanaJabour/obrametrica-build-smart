@@ -11,6 +11,7 @@ import {
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { calcConcreto } from "@/lib/formulas";
 
 
 const PATH = "/calculadora-de-concreto";
@@ -60,7 +61,7 @@ function ConcretoCalc() {
     const l = validatePositive(largura, "Largura");
     const e = validatePositive(espessura, "Espessura");
     setErrors({ comprimento: c.error, largura: l.error, espessura: e.error });
-    if (c.value && l.value && e.value) setResult({ volume: c.value * l.value * e.value });
+    if (c.value && l.value && e.value) setResult(calcConcreto(c.value, l.value, e.value));
     else setResult(null);
   };
 

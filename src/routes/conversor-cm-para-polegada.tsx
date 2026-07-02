@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { UnitConverter } from "@/components/unit-converter";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { cmParaPolegada } from "@/lib/formulas";
 
 const PATH = "/conversor-cm-para-polegada";
 const CRUMBS = [
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/conversor-cm-para-polegada")({
       fromUnit="cm"
       toLabel="Valor em polegadas"
       toUnit="in"
-      convert={(cm) => cm / 2.54}
+      convert={cmParaPolegada}
       formula={<>1 polegada = 2,54 cm. Divida o valor em cm por 2,54.</>}
       breadcrumbs={CRUMBS}
     />

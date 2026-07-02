@@ -11,6 +11,7 @@ import {
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { calcPiso } from "@/lib/formulas";
 
 
 const PATH = "/calculadora-de-piso";
@@ -62,11 +63,8 @@ function PisoCalc() {
     const l = validatePositive(largura, "Largura");
     const m = validatePositive(m2Caixa, "m² por caixa");
     setErrors({ comprimento: c.error, largura: l.error, m2Caixa: m.error });
-    if (c.value && l.value && m.value) {
-      const area = c.value * l.value;
-      const areaSobra = area * 1.1;
-      setResult({ area, areaSobra, caixas: Math.ceil(areaSobra / m.value) });
-    } else setResult(null);
+    if (c.value && l.value && m.value) setResult(calcPiso(c.value, l.value, m.value));
+    else setResult(null);
   };
 
   const reset = () => {

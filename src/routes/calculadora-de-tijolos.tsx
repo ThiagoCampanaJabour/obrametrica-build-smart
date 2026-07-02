@@ -12,6 +12,7 @@ import {
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { calcTijolos, type TijoloTipo } from "@/lib/formulas";
 
 
 const PATH = "/calculadora-de-tijolos";
@@ -45,13 +46,10 @@ export const Route = createFileRoute("/calculadora-de-tijolos")({
 });
 
 
-type Tipo = "9x19x19" | "11x14x24" | "14x19x29";
-const CONSUMO: Record<Tipo, number> = { "9x19x19": 25, "11x14x24": 22, "14x19x29": 16 };
-
 function TijolosCalc() {
   const [comprimento, setComprimento] = useState("");
   const [altura, setAltura] = useState("");
-  const [tipo, setTipo] = useState<Tipo>("9x19x19");
+  const [tipo, setTipo] = useState<TijoloTipo>("9x19x19");
   const [result, setResult] = useState<null | { area: number; qtd: number; qtdPerda: number }>(
     null,
   );
@@ -62,11 +60,8 @@ function TijolosCalc() {
     const c = validatePositive(comprimento, "Comprimento");
     const a = validatePositive(altura, "Altura");
     setErrors({ comprimento: c.error, altura: a.error });
-    if (c.value && a.value) {
-      const area = c.value * a.value;
-      const qtd = area * CONSUMO[tipo];
-      setResult({ area, qtd: Math.ceil(qtd), qtdPerda: Math.ceil(qtd * 1.1) });
-    } else setResult(null);
+    if (c.value && a.value) setResult(calcTijolos(c.value, a.value, tipo));
+    else setResult(null);
   };
 
   const reset = () => {
@@ -107,7 +102,7 @@ function TijolosCalc() {
             error={errors.altura}
           />
         </div>
-        <SelectField<Tipo>
+        <SelectField<TijoloTipo>
           id="tipo"
           label="Tipo de tijolo"
           value={tipo}
