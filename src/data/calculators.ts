@@ -73,6 +73,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Calculadora de Tijolos",
     intro:
       "Calcule quantos tijolos são necessários para levantar uma parede a partir da sua área e do tipo de bloco escolhido. A ferramenta já considera 10% de perdas com quebras e cortes, valor usual em obras residenciais.",
+    context: [
+      "O cálculo de tijolos é uma das primeiras etapas do orçamento de uma obra de alvenaria. Errar a quantidade impacta diretamente o cronograma: pedir a menos obriga a interromper o serviço para uma nova compra, e pedir a mais imobiliza capital e ocupa espaço no canteiro.",
+      "Além do tipo de tijolo, o rendimento por metro quadrado varia com a espessura da junta de argamassa e a qualidade do assentamento. Por isso, a calculadora adota o consumo médio de mercado e acrescenta 10% de perda — uma margem confortável para obras residenciais convencionais.",
+    ],
+    whenToUse: [
+      "Levantar paredes de vedação em obras residenciais.",
+      "Orçar reformas com ampliação de cômodos ou muros.",
+      "Comparar rapidamente o custo entre tipos diferentes de tijolo.",
+    ],
     howItWorks: [
       "Informe o comprimento e a altura da parede em metros.",
       "Escolha o tipo de tijolo cerâmico. Cada tipo tem um consumo médio conhecido por metro quadrado.",
@@ -91,6 +100,18 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Serão necessários aproximadamente 385 tijolos.",
     },
+    moreExamples: [
+      {
+        scenario: "Muro externo de 20 m de comprimento por 2 m de altura com bloco cerâmico 11×14×24 cm.",
+        steps: [
+          "Área = 20 × 2 = 40 m²",
+          "Consumo do bloco ≈ 22 un/m²",
+          "Quantidade bruta = 40 × 22 = 880 tijolos",
+          "Com 10% de perda = 880 × 1,10 = 968 tijolos",
+        ],
+        result: "Compre 968 tijolos para o muro.",
+      },
+    ],
     tips: [
       "Desconte áreas de portas e janelas do total antes de calcular.",
       "Compre sempre a quantidade com folga: sobra de 5% a 10% evita interromper a obra.",
@@ -136,6 +157,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Calculadora de Concreto",
     intro:
       "Calcule o volume de concreto necessário para vigas, pilares, lajes, sapatas ou contrapisos. A ferramenta retorna o volume em metros cúbicos (m³), unidade padrão para pedidos em usinas dosadoras.",
+    context: [
+      "O concreto é o material mais utilizado na construção civil e também o que mais gera perdas quando o volume é mal estimado. Uma sapata de fundação, por exemplo, precisa ser concretada em uma única etapa — se o caminhão-betoneira chegar com menos que o necessário, é preciso emendar em outro dia, comprometendo a resistência da peça.",
+      "Para peças com forma irregular (blocos escalonados, vigas invertidas, escadas), calcule cada trecho separadamente e some os volumes ao final. A calculadora funciona muito bem para elementos retangulares, que representam a maioria das aplicações residenciais.",
+    ],
+    whenToUse: [
+      "Estimar volume para pedir concreto usinado.",
+      "Calcular fundações, pilares, vigas e lajes.",
+      "Orçar contrapisos e calçadas.",
+    ],
     howItWorks: [
       "Informe o comprimento, a largura e a espessura da peça em metros.",
       "A calculadora multiplica as três dimensões para obter o volume total.",
@@ -153,6 +183,17 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Peça aproximadamente 2,5 m³ de concreto.",
     },
+    moreExamples: [
+      {
+        scenario: "10 pilares de 20 × 20 cm com 3 m de altura cada.",
+        steps: [
+          "Volume por pilar = 0,20 × 0,20 × 3 = 0,12 m³",
+          "Total = 10 × 0,12 = 1,2 m³",
+          "Com 5% de perda ≈ 1,26 m³",
+        ],
+        result: "Encomende 1,3 m³ de concreto para os pilares.",
+      },
+    ],
     tips: [
       "Use sempre metros em todas as dimensões. Uma espessura em cm distorce o resultado em 100 vezes.",
       "Para peças grandes, prefira concreto usinado — a mistura é mais uniforme e reduz perdas.",
@@ -199,6 +240,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Calculadora de Piso",
     intro:
       "Descubra quantas caixas de piso ou porcelanato comprar para o seu ambiente. A calculadora considera a área do cômodo, o rendimento da caixa e uma margem de perda para recortes.",
+    context: [
+      "A escolha do piso é uma das decisões mais visíveis da obra. Comprar poucas caixas obriga a esperar novo lote (com risco de variação de tom), e comprar muitas gera desperdício financeiro. A calculadora resolve essa dúvida antes da visita à loja.",
+      "Peças grandes (60×60 cm ou mais) e paginações diagonais geram mais recortes: se for o seu caso, informe uma área ligeiramente maior que a real para que a margem de sobra de 10% cubra os cortes extras com folga.",
+    ],
+    whenToUse: [
+      "Comprar piso cerâmico, porcelanato ou lajota.",
+      "Orçar retrofit ou substituição de revestimento.",
+      "Comparar rendimento entre modelos com m² diferentes por caixa.",
+    ],
     howItWorks: [
       "Meça o comprimento e a largura do cômodo em metros.",
       "Informe quantos m² cada caixa cobre (consulte a embalagem).",
@@ -220,6 +270,16 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Compre 9 caixas de piso.",
     },
+    moreExamples: [
+      {
+        scenario: "Sala e cozinha integradas com 32 m², porcelanato de 2,32 m² por caixa.",
+        steps: [
+          "Área com 10% de sobra = 32 × 1,10 = 35,2 m²",
+          "Caixas = 35,2 / 2,32 = 15,17 → 16 caixas",
+        ],
+        result: "Compre 16 caixas de porcelanato.",
+      },
+    ],
     tips: [
       "Reserve pelo menos uma caixa extra para reposições futuras — lotes diferentes podem variar de tom.",
       "Para instalação em diagonal ou espinha de peixe, aumente manualmente a área informada em 5%.",
@@ -267,6 +327,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Calculadora de Tinta",
     intro:
       "Calcule quantos litros de tinta você precisa para pintar paredes, tetos ou fachadas. O resultado considera o número de demãos e o rendimento médio informado pelo fabricante.",
+    context: [
+      "Comprar tinta em quantidade adequada evita duas dores comuns: interromper a pintura para nova compra (com risco de o novo lote apresentar tonalidade ligeiramente diferente) ou terminar com galões cheios que secam antes de serem utilizados em retoques.",
+      "Latas de 18 L rendem, em média, 90 m² por demão com tinta látex acrílica premium. Já as latas de 3,6 L são ideais para ambientes pequenos como banheiros e closets. A calculadora considera um rendimento conservador para garantir que o material chegue ao fim do serviço.",
+    ],
+    whenToUse: [
+      "Pintar paredes internas ou externas de residências.",
+      "Repintar fachadas ou muros de comércio.",
+      "Estimar o custo da mão de obra por m² pintado.",
+    ],
     howItWorks: [
       "Meça a área a ser pintada (comprimento × altura da parede).",
       "Escolha o número de demãos — o padrão é 2.",
@@ -289,6 +358,17 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Compre 18 litros de tinta (por exemplo: 1 lata de 18 L).",
     },
+    moreExamples: [
+      {
+        scenario: "Fachada com 120 m² pintada com 2 demãos.",
+        steps: [
+          "Área pintada = 120 × 2 = 240 m²",
+          "Litros = 240 / 5 = 48 L",
+          "Com folga ≈ 3 latas de 18 L (54 L)",
+        ],
+        result: "Compre 3 latas de 18 L da mesma cor e lote.",
+      },
+    ],
     tips: [
       "Superfícies novas ou muito porosas exigem uma demão de selador antes da tinta.",
       "Cores fortes (vermelho, amarelo, preto) muitas vezes exigem 3 demãos.",
@@ -335,6 +415,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Calculadora de Argamassa",
     intro:
       "Calcule quantos sacos de argamassa colante são necessários para assentar piso, revestimento ou porcelanato. O resultado considera o consumo médio por m² e o rendimento do saco.",
+    context: [
+      "A argamassa colante é o elo entre o revestimento e a base. Escolher o tipo errado (ou economizar na quantidade) é a principal causa de descolamento de pisos e azulejos, um dos serviços mais caros de refazer em uma obra.",
+      "Peças maiores exigem cordões de argamassa mais altos e, portanto, mais material. Se você trabalha com porcelanato 60×60 cm ou maior, considere acrescentar 15% ao total sugerido pela calculadora.",
+    ],
+    whenToUse: [
+      "Assentar piso cerâmico, porcelanato ou pastilhas.",
+      "Revestir áreas molhadas (banheiros, cozinhas, áreas externas).",
+      "Estimar quantos sacos comprar em uma reforma.",
+    ],
     howItWorks: [
       "Informe a área a ser assentada em metros quadrados.",
       "Escolha o tipo de argamassa (AC-I, AC-II ou AC-III) — cada uma tem consumo específico.",
@@ -357,6 +446,16 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Compre 6 sacos de argamassa AC-III.",
     },
+    moreExamples: [
+      {
+        scenario: "Área externa de 40 m² com cerâmica assentada em AC-II.",
+        steps: [
+          "Consumo estimado = 40 × 6 = 240 kg",
+          "Sacos de 20 kg = 240 / 20 = 12 sacos",
+        ],
+        result: "Compre 12 sacos de argamassa AC-II.",
+      },
+    ],
     tips: [
       "Utilize sempre o tipo correto: AC-III é obrigatório para porcelanato e áreas externas molhadas.",
       "Prepare a quantidade que consegue usar em até 2 horas para evitar desperdício.",
@@ -402,6 +501,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Quantas placas solares preciso?",
     intro:
       "Estime a quantidade de placas fotovoltaicas necessárias para atender o consumo mensal da sua residência ou empresa. O cálculo considera a potência dos módulos e a irradiação solar da região.",
+    context: [
+      "Dimensionar um sistema fotovoltaico começa por entender o consumo real da residência ou empresa. Um sistema subdimensionado deixa parte da conta a pagar; um sobredimensionado gera crédito de energia que nem sempre é recuperado, pois a distribuidora limita a compensação ao mesmo mês em muitos casos.",
+      "A irradiação solar (kWh/m²/dia) varia bastante pelo Brasil. Regiões do Nordeste podem gerar 20% mais energia com a mesma placa instalada no Sul. A calculadora considera essa diferença para retornar um número realista.",
+    ],
+    whenToUse: [
+      "Orçar um sistema fotovoltaico residencial.",
+      "Comparar o número de placas necessárias entre regiões.",
+      "Validar rapidamente uma proposta comercial.",
+    ],
     howItWorks: [
       "Informe o consumo médio mensal em kWh (veja a conta de luz).",
       "Escolha a região para usar a irradiação média local.",
@@ -424,6 +532,17 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "São necessárias aproximadamente 6 placas de 550 W.",
     },
+    moreExamples: [
+      {
+        scenario: "Comércio no Nordeste consumindo 1.200 kWh/mês (irradiação 5,8 kWh/m²/dia).",
+        steps: [
+          "Geração diária = 1.200 / 30 = 40 kWh/dia",
+          "Potência do sistema = 40 / (5,8 × 0,80) = 8,6 kWp",
+          "Placas de 550 W = 8.600 / 550 ≈ 16 placas",
+        ],
+        result: "São necessárias aproximadamente 16 placas de 550 W.",
+      },
+    ],
     tips: [
       "Analise 12 meses de consumo para captar variações sazonais.",
       "Prefira dimensionar o sistema para 100% do consumo médio anual.",
@@ -471,6 +590,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Economia com Energia Solar",
     intro:
       "Simule quanto você pode economizar por mês instalando energia solar. O cálculo compara o valor da sua conta de luz atual com a estimativa de geração do sistema fotovoltaico.",
+    context: [
+      "A energia solar fotovoltaica se pagou, em média, em 4 a 6 anos no Brasil em 2025. Com o aumento sequencial das tarifas de energia e o desconto oferecido por muitos fornecedores, o retorno tende a se acelerar nos próximos anos.",
+      "É importante lembrar que a conta de luz nunca chega a zero: sempre há a taxa mínima (custo de disponibilidade) da concessionária. Ainda assim, sistemas bem dimensionados eliminam mais de 90% do valor mensal.",
+    ],
+    whenToUse: [
+      "Comparar propostas de instaladores fotovoltaicos.",
+      "Justificar o investimento para outros decisores.",
+      "Projetar a economia acumulada em 5, 10 e 25 anos.",
+    ],
     howItWorks: [
       "Informe o valor médio da sua conta de luz em reais.",
       "Informe o percentual do consumo que o sistema atenderá (100% é o mais comum).",
@@ -487,6 +615,17 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
       result: "Economia estimada de R$ 475/mês ou R$ 5.700/ano.",
     },
+    moreExamples: [
+      {
+        scenario: "Comércio com conta de R$ 1.200/mês e sistema para 90% do consumo.",
+        steps: [
+          "Economia mensal = 1.200 × 0,90 = R$ 1.080",
+          "Economia anual = 1.080 × 12 = R$ 12.960",
+          "Em 5 anos ≈ R$ 64.800",
+        ],
+        result: "Economia estimada de R$ 1.080/mês (R$ 64,8 mil em 5 anos).",
+      },
+    ],
     tips: [
       "Considere a taxa mínima da distribuidora — mesmo com solar você paga o custo de disponibilidade.",
       "O payback médio de um sistema residencial no Brasil está entre 4 e 6 anos.",
@@ -533,6 +672,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Conversor m² para Hectare",
     intro:
       "Converta metros quadrados (m²) para hectares (ha) de forma rápida. Muito utilizado em agrimensura, agricultura e loteamentos.",
+    context: [
+      "O hectare é a unidade padrão para áreas rurais e loteamentos no Brasil. Escrituras, matrículas de imóveis e projetos agropecuários costumam informar a área em hectares, enquanto plantas urbanas trabalham em metros quadrados.",
+      "Se você recebeu a medida em m² e precisa cadastrar em sistemas como CAR ou SIGEF (que exigem hectares), esta conversão é obrigatória. Divida por 10.000 e pronto.",
+    ],
+    whenToUse: [
+      "Interpretar áreas de escrituras rurais.",
+      "Cadastrar terrenos em sistemas ambientais.",
+      "Comparar tamanhos de terrenos ou fazendas.",
+    ],
     howItWorks: [
       "Digite o valor em metros quadrados.",
       "A calculadora divide o valor por 10.000 para obter o equivalente em hectares.",
@@ -546,6 +694,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       steps: ["Hectares = 45.000 / 10.000 = 4,5 ha"],
       result: "O terreno tem 4,5 hectares.",
     },
+    moreExamples: [
+      {
+        scenario: "Fazenda com 1.250.000 m².",
+        steps: [
+          "Hectares = 1.250.000 / 10.000 = 125 ha",
+        ],
+        result: "A fazenda possui 125 hectares (1,25 km²).",
+      },
+    ],
     tips: [
       "1 hectare equivale a um quadrado de 100 m de lado.",
       "10 hectares formam 1 km².",
@@ -592,6 +749,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Conversor cm para Polegada",
     intro:
       "Converta centímetros (cm) para polegadas (in) em tempo real. Útil para tubulações, monitores, TVs, ferramentas e projetos de marcenaria.",
+    context: [
+      "A polegada é a unidade padrão para telas (TVs, monitores, notebooks), tubulações hidráulicas e ferramentas importadas. Como a maior parte dos catálogos brasileiros mistura os dois sistemas, saber converter cm para polegada evita erros de compra.",
+      "1 polegada equivale a exatamente 2,54 cm por definição internacional. Bitolas hidráulicas comerciais (½\", ¾\", 1\") são valores nominais — o diâmetro externo real pode ser ligeiramente diferente.",
+    ],
+    whenToUse: [
+      "Escolher uma TV ou monitor pela diagonal.",
+      "Comprar tubos, conexões e ferragens hidráulicas.",
+      "Interpretar manuais técnicos em polegadas.",
+    ],
     howItWorks: [
       "Digite o valor em centímetros.",
       "A calculadora divide o valor por 2,54 para obter o equivalente em polegadas.",
@@ -605,6 +771,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       steps: ["Polegadas = 140 / 2,54 = 55,12 in"],
       result: "A TV tem aproximadamente 55 polegadas.",
     },
+    moreExamples: [
+      {
+        scenario: "Chapa de madeira com 244 cm de comprimento.",
+        steps: [
+          "Polegadas = 244 / 2,54 = 96,06 in",
+        ],
+        result: "A chapa tem aproximadamente 96 polegadas (8 pés).",
+      },
+    ],
     tips: [
       "Para tubos hidráulicos, arredonde para a bitola comercial mais próxima (1/2\", 3/4\", 1\").",
       "Uma polegada equivale a 25,4 mm.",
@@ -651,6 +826,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     name: "Conversor Litros para m³",
     intro:
       "Converta litros (L) para metros cúbicos (m³) instantaneamente. Muito usado em consumo de água, dimensionamento de caixas d'água e cálculos hidráulicos.",
+    context: [
+      "Caixas d'água, cisternas e reservatórios costumam ser vendidos em litros, mas cálculos hidráulicos e contas de água operam em metros cúbicos. Confundir as duas unidades pode gerar dimensionamento incorreto — por exemplo, comprar uma caixa 1.000 vezes menor do que o necessário.",
+      "A relação é sempre a mesma: 1 m³ = 1.000 L. Ela vale para água, óleo, combustível ou qualquer outro líquido, já que unidades de volume não dependem da densidade.",
+    ],
+    whenToUse: [
+      "Dimensionar caixas d'água e cisternas.",
+      "Interpretar contas de água (cobradas em m³).",
+      "Converter volumes em projetos hidráulicos.",
+    ],
     howItWorks: [
       "Digite o valor em litros.",
       "A calculadora divide o valor por 1.000 para obter o equivalente em metros cúbicos.",
@@ -664,6 +848,15 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       steps: ["m³ = 5.000 / 1.000 = 5 m³"],
       result: "A caixa d'água tem 5 m³.",
     },
+    moreExamples: [
+      {
+        scenario: "Cisterna residencial de 20.000 litros.",
+        steps: [
+          "m³ = 20.000 / 1.000 = 20 m³",
+        ],
+        result: "A cisterna comporta 20 m³ de água.",
+      },
+    ],
     tips: [
       "1 litro de água pesa aproximadamente 1 kg.",
       "Contas de água costumam ser cobradas em m³ — 1 m³ = 1.000 L.",
