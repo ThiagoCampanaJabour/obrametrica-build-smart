@@ -328,21 +328,22 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     formula: {
       expression: "Sacos = (Área × Consumo por m²) / 20 kg",
       legend: [
-        "AC-I (interno): 4 kg/m²",
-        "AC-II (áreas externas): 5 kg/m²",
-        "AC-III (piscinas / porcelanato): 6 kg/m²",
+        "Interno (AC-I): 5 kg/m²",
+        "Externo (AC-II): 6 kg/m²",
+        "Porcelanato (AC-III): 7 kg/m²",
+        "A calculadora adota valores conservadores para evitar falta de material.",
       ],
     },
     example: {
       scenario: "Cozinha de 15 m² com porcelanato assentado com argamassa AC-III.",
       steps: [
-        "Consumo estimado = 15 × 6 = 90 kg",
-        "Sacos de 20 kg = 90 / 20 = 4,5 → arredondar para 5",
+        "Consumo estimado = 15 × 7 = 105 kg",
+        "Sacos de 20 kg = 105 / 20 = 5,25 → arredondar para 6",
       ],
-      result: "Compre 5 sacos de argamassa AC-III.",
+      result: "Compre 6 sacos de argamassa AC-III.",
     },
     tips: [
-      "Utilize sempre o tipo correto: AC-III é obrigatório para porcelanato e áreas externas.",
+      "Utilize sempre o tipo correto: AC-III é obrigatório para porcelanato e áreas externas molhadas.",
       "Prepare a quantidade que consegue usar em até 2 horas para evitar desperdício.",
       "Umedeça a superfície antes de aplicar, mas nunca deixe empoçado.",
     ],
@@ -352,18 +353,18 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "Ignorar o consumo maior em peças grandes (60×60 cm ou mais).",
     ],
     table: {
-      caption: "Consumo médio de argamassa por tipo",
+      caption: "Consumo médio de argamassa adotado pela calculadora",
       headers: ["Tipo", "Aplicação", "Consumo médio"],
       rows: [
-        ["AC-I", "Áreas internas secas", "4 kg/m²"],
-        ["AC-II", "Áreas externas e molhadas", "5 kg/m²"],
-        ["AC-III", "Porcelanato e piscinas", "6 kg/m²"],
+        ["AC-I", "Áreas internas secas", "5 kg/m²"],
+        ["AC-II", "Áreas externas e molhadas", "6 kg/m²"],
+        ["AC-III", "Porcelanato e piscinas", "7 kg/m²"],
       ],
     },
     faq: [
       {
         q: "Quantos sacos de argamassa por m²?",
-        a: "Depende do tipo: AC-I consome 4 kg/m², AC-II 5 kg/m² e AC-III 6 kg/m². Um saco de 20 kg cobre entre 3,3 e 5 m².",
+        a: "Depende do tipo: AC-I consome cerca de 5 kg/m², AC-II 6 kg/m² e AC-III 7 kg/m². Um saco de 20 kg rende entre 2,8 e 4 m² conforme a aplicação.",
       },
       {
         q: "Qual argamassa usar para porcelanato?",
