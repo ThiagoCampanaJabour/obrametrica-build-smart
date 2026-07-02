@@ -3,6 +3,7 @@ import { ArrowRightLeft } from "lucide-react";
 import { SiteLayout } from "./site-layout";
 import { Breadcrumbs } from "./breadcrumbs";
 import { AdTop, AdMiddle, AdBottom } from "./ads";
+import { CalcExtras, ResultActions } from "./calc-extras";
 import type { Crumb } from "@/lib/seo";
 
 export function UnitConverter({
@@ -15,6 +16,7 @@ export function UnitConverter({
   convert,
   formula,
   breadcrumbs,
+  extrasId,
 }: {
   title: string;
   description: string;
@@ -25,6 +27,8 @@ export function UnitConverter({
   convert: (value: number) => number;
   formula: ReactNode;
   breadcrumbs: Crumb[];
+  /** Path do conversor — carrega conteúdo enriquecido do registro. */
+  extrasId?: string;
 }) {
   const [value, setValue] = useState("");
 
@@ -34,6 +38,8 @@ export function UnitConverter({
 
   const fmt = (n: number) =>
     n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+
+  const shareText = isValid ? `${value} ${fromUnit} = ${fmt(result!)} ${toUnit}` : "";
 
   return (
     <SiteLayout>
@@ -86,11 +92,18 @@ export function UnitConverter({
             <p className="text-sm font-medium text-foreground">Fórmula</p>
             <p className="mt-1 text-sm text-muted-foreground">{formula}</p>
           </div>
+
+          {isValid && <ResultActions text={shareText} />}
         </div>
 
         <AdMiddle />
-        <AdBottom />
       </section>
+
+      {extrasId && <CalcExtras id={extrasId} />}
+
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <AdBottom />
+      </div>
     </SiteLayout>
   );
 }
