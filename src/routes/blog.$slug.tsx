@@ -208,7 +208,7 @@ function BlogPostPage() {
           </dl>
         </section>
 
-        <section className="mt-10">
+        <section id="conclusao" className="mt-10 scroll-mt-24">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">Conclusão</h2>
           <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
             {post.conclusion.map((p, i) => (
@@ -216,6 +216,24 @@ function BlogPostPage() {
             ))}
           </div>
         </section>
+
+        {/* Bloco do autor */}
+        <aside className="mt-10 flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
+          <div
+            aria-hidden
+            className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary/10 text-primary"
+          >
+            <User className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-foreground">Equipe ObraMétrica</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Editorial técnico do ObraMétrica: engenheiros, arquitetos e especialistas em
+              energia solar produzindo conteúdo revisado, com foco em aplicações práticas
+              para obra e projeto.
+            </p>
+          </div>
+        </aside>
 
         <AdBottom />
 
