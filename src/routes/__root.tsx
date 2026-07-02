@@ -275,9 +275,6 @@ function RootComponent() {
   useGoogleAnalytics();
   // Registra page_view no dataLayer em toda navegação SPA (sem duplicação).
   useGtmPageView();
-  // Injeta o script do AdSense apenas após a hidratação para evitar
-  // mismatch (o AdSense insere <ins> no body antes do React montar).
-  useAdSense();
 
   return (
     <QueryClientProvider client={queryClient}>
