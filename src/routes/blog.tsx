@@ -119,7 +119,7 @@ function BlogIndex() {
               const form = e.currentTarget;
               const input = form.elements.namedItem("q") as HTMLInputElement;
               navigate({
-                search: (prev) => ({ ...prev, q: input.value, page: 1 }),
+                search: (prev: BlogSearch) => ({ ...prev, q: input.value, page: 1 }),
               });
             }}
             className="flex items-center gap-2"
@@ -274,7 +274,7 @@ function CategoryChip({
   return (
     <Link
       to="/blog"
-      search={(prev) => ({ ...prev, ...to })}
+      search={(prev: BlogSearch) => ({ ...prev, ...to })}
       className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
         active
           ? "border-primary bg-primary text-primary-foreground"
@@ -307,7 +307,7 @@ function PageLink({
   return (
     <Link
       to="/blog"
-      search={(prev) => ({ ...prev, ...to })}
+      search={(prev: BlogSearch) => ({ ...prev, ...to })}
       className={`rounded-md border px-3 py-1.5 text-sm font-medium transition ${
         active
           ? "border-primary bg-primary text-primary-foreground"
