@@ -196,33 +196,37 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     howItWorks: [
       "Meça o comprimento e a largura do cômodo em metros.",
       "Informe quantos m² cada caixa cobre (consulte a embalagem).",
-      "A calculadora divide a área pela cobertura da caixa e adiciona a perda.",
+      "A calculadora aplica automaticamente 10% de sobra sobre a área e divide pela cobertura da caixa.",
     ],
     formula: {
-      expression: "Caixas = (Comprimento × Largura × (1 + Perda)) / m² por caixa",
-      legend: ["Perda típica: 10% para peças retangulares, 15% para peças grandes ou instaladas em diagonal."],
+      expression: "Caixas = (Comprimento × Largura × 1,10) / m² por caixa",
+      legend: [
+        "10% é a sobra padrão adotada — cobre recortes usuais em ambientes retangulares.",
+        "Para paginação diagonal, espinha de peixe ou peças muito grandes, informe uma área ~5% maior que a real.",
+      ],
     },
     example: {
-      scenario: "Sala de 5 m × 4 m, piso com 2,5 m² por caixa, perda de 10%.",
+      scenario: "Sala de 5 m × 4 m, piso com 2,5 m² por caixa.",
       steps: [
         "Área = 5 × 4 = 20 m²",
-        "Área com perda = 20 × 1,10 = 22 m²",
+        "Área com 10% de sobra = 20 × 1,10 = 22 m²",
         "Caixas = 22 / 2,5 = 8,8 → arredondar para 9",
       ],
       result: "Compre 9 caixas de piso.",
     },
     tips: [
       "Reserve pelo menos uma caixa extra para reposições futuras — lotes diferentes podem variar de tom.",
-      "Para instalação em diagonal ou paginação de espinha de peixe, aumente a perda para 15%.",
+      "Para instalação em diagonal ou espinha de peixe, aumente manualmente a área informada em 5%.",
       "Confira o lote da mercadoria; caixas do mesmo lote garantem uniformidade de cor.",
     ],
     errors: [
-      "Arredondar caixas para baixo — sempre arredonde para cima.",
-      "Ignorar perdas em ambientes irregulares ou com muitos recortes.",
-      "Esquecer de somar áreas de nichos e degraus.",
+      "Arredondar caixas para baixo — a calculadora já arredonda para cima automaticamente.",
+      "Ignorar recortes complexos em ambientes com muitos ângulos.",
+      "Esquecer de somar áreas de nichos e degraus na medição.",
     ],
     table: {
-      caption: "Margem de perda recomendada por tipo de instalação",
+      caption:
+        "Margem de perda de referência por tipo de instalação (a calculadora aplica 10%; use os valores abaixo como guia para ajustar sua área)",
       headers: ["Instalação", "Perda sugerida"],
       rows: [
         ["Paginação reta (peças pequenas)", "10%"],
@@ -234,11 +238,11 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     faq: [
       {
         q: "Quantos m² de piso comprar a mais?",
-        a: "Reserve entre 10% e 15% de perda para recortes. Para paginações diagonais, chegue a 15%–20%.",
+        a: "A calculadora já adiciona 10% de sobra. Para paginação diagonal ou peças grandes, informe uma área 5% maior.",
       },
       {
         q: "Como calcular caixas de porcelanato?",
-        a: "Divida a área total (já com perda) pelo rendimento da caixa em m². Sempre arredonde para cima.",
+        a: "Divida a área total (já com sobra) pelo rendimento da caixa em m². A calculadora faz esse cálculo automaticamente e arredonda para cima.",
       },
       {
         q: "Vale a pena comprar caixas extras?",
@@ -246,7 +250,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
       {
         q: "Piso e porcelanato usam a mesma calculadora?",
-        a: "Sim. O cálculo é o mesmo: área do ambiente × margem de perda ÷ m² por caixa.",
+        a: "Sim. O cálculo é o mesmo: área do ambiente × margem de sobra ÷ m² por caixa.",
       },
     ],
     related: [REL_ARGAMASSA, REL_TINTA, REL_TIJOLOS, REL_M2_HA],
