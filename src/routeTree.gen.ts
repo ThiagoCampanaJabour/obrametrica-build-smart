@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
@@ -45,6 +46,11 @@ const QuantasPlacasSolaresPrecisoRoute =
     path: '/quantas-placas-solares-preciso',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
   id: '/energia-solar',
   path: '/energia-solar',
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
@@ -250,6 +261,7 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
     | '/sitemap.xml'
     | '/sobre'
@@ -272,6 +284,7 @@ export interface RootRouteChildren {
   ConversoresRoute: typeof ConversoresRoute
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRoute
+  PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/quantas-placas-solares-preciso'
       fullPath: '/quantas-placas-solares-preciso'
       preLoaderRoute: typeof QuantasPlacasSolaresPrecisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia-solar': {
@@ -441,6 +461,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConversoresRoute: ConversoresRoute,
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRoute,
+  PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
