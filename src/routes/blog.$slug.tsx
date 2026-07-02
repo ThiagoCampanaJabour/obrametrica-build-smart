@@ -3,8 +3,18 @@ import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead, SITE_URL } from "@/lib/seo";
-import { BLOG_POSTS, getPostBySlug, formatDate, type BlogPost } from "@/data/blog-posts";
-import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
+import { BLOG_POSTS, getPostBySlug, formatDate, categoryToSlug, type BlogPost } from "@/data/blog-posts";
+import { Calendar, Clock, ArrowRight, ArrowLeft, User, List } from "lucide-react";
+
+function slugifyHeading(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -95,16 +105,24 @@ function BlogPostPage() {
         />
 
         <header className="mt-6">
-          <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+          <Link
+            to="/blog/categoria/$categoria"
+            params={{ categoria: categoryToSlug(post.category) }}
+            className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary hover:bg-primary/15"
+          >
             {post.category}
-          </span>
+          </Link>
           <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
             {post.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
+              <User className="h-4 w-4" aria-hidden />
+              Equipe ObraMétrica
+            </span>
+            <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-4 w-4" aria-hidden />
-              {formatDate(post.date)}
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-4 w-4" aria-hidden />
@@ -121,20 +139,62 @@ function BlogPostPage() {
           ))}
         </div>
 
+        {/* Sumário */}
+        {post.sections.length > 1 && (
+          <nav
+            aria-label="Sumário do artigo"
+            className="mt-8 rounded-2xl border border-border bg-muted/40 p-5"
+          >
+            <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground">
+              <List className="h-4 w-4" aria-hidden />
+              Neste artigo
+            </p>
+            <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-foreground/90 marker:text-primary">
+              {post.sections.map((sec) => {
+                const id = slugifyHeading(sec.heading);
+                return (
+                  <li key={id}>
+                    <a href={`#${id}`} className="hover:text-primary">
+                      {sec.heading}
+                    </a>
+                  </li>
+                );
+              })}
+              <li>
+                <a href="#faq" className="hover:text-primary">
+                  Perguntas frequentes
+                </a>
+              </li>
+              <li>
+                <a href="#conclusao" className="hover:text-primary">
+                  Conclusão
+                </a>
+              </li>
+            </ol>
+          </nav>
+        )}
+
         <AdMiddle />
 
-        {post.sections.map((sec, idx) => (
-          <section key={idx} className="mt-10">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">{sec.heading}</h2>
-            <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
-              {sec.paragraphs.map((p, i) => (
-                <p key={`s${idx}-p${i}`}>{p}</p>
-              ))}
-            </div>
-          </section>
-        ))}
+        {post.sections.map((sec, idx) => {
+          const id = slugifyHeading(sec.heading);
+          return (
+            <section key={idx} id={id} className="mt-10 scroll-mt-24">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">
+                <a href={`#${id}`} className="hover:text-primary">
+                  {sec.heading}
+                </a>
+              </h2>
+              <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
+                {sec.paragraphs.map((p, i) => (
+                  <p key={`s${idx}-p${i}`}>{p}</p>
+                ))}
+              </div>
+            </section>
+          );
+        })}
 
-        <section className="mt-12 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
+        <section id="faq" className="mt-12 scroll-mt-24 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
             Perguntas frequentes
           </h2>
@@ -148,7 +208,7 @@ function BlogPostPage() {
           </dl>
         </section>
 
-        <section className="mt-10">
+        <section id="conclusao" className="mt-10 scroll-mt-24">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">Conclusão</h2>
           <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
             {post.conclusion.map((p, i) => (
@@ -156,6 +216,24 @@ function BlogPostPage() {
             ))}
           </div>
         </section>
+
+        {/* Bloco do autor */}
+        <aside className="mt-10 flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
+          <div
+            aria-hidden
+            className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary/10 text-primary"
+          >
+            <User className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-foreground">Equipe ObraMétrica</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Editorial técnico do ObraMétrica: engenheiros, arquitetos e especialistas em
+              energia solar produzindo conteúdo revisado, com foco em aplicações práticas
+              para obra e projeto.
+            </p>
+          </div>
+        </aside>
 
         <AdBottom />
 
