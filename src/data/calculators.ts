@@ -258,26 +258,31 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     intro:
       "Calcule quantos litros de tinta você precisa para pintar paredes, tetos ou fachadas. O resultado considera o número de demãos e o rendimento médio informado pelo fabricante.",
     howItWorks: [
-      "Meça a área a ser pintada (comprimento × altura).",
-      "Informe o rendimento em m²/L da tinta escolhida (verifique na lata).",
+      "Meça a área a ser pintada (comprimento × altura da parede).",
       "Escolha o número de demãos — o padrão é 2.",
-      "A calculadora divide a área total pintada pelo rendimento.",
+      "A calculadora adota rendimento médio de 5 m²/L por demão, valor conservador que cobre a maioria das tintas látex do mercado.",
+      "Sugerimos comprar +10% para retoques e reposição futura.",
     ],
     formula: {
-      expression: "Litros = (Área × Nº de demãos) / Rendimento (m²/L)",
+      expression: "Litros = (Área × Nº de demãos) / 5 m²/L",
+      legend: [
+        "5 m²/L é um valor conservador que considera perdas por absorção e aplicação.",
+        "Tintas premium podem render até 12 m²/L — nesse caso o resultado terá folga extra.",
+      ],
     },
     example: {
-      scenario: "Sala com 40 m² de paredes, tinta com rendimento de 10 m²/L, 2 demãos.",
+      scenario: "Sala com 40 m² de paredes, 2 demãos.",
       steps: [
         "Área pintada = 40 × 2 = 80 m²",
-        "Litros = 80 / 10 = 8 L",
+        "Litros = 80 / 5 = 16 L",
+        "Com folga de 10% ≈ 18 L recomendados",
       ],
-      result: "Compre 8 litros de tinta (uma lata de 3,6 L + uma de 18 L, ou duas galões de 3,6 L).",
+      result: "Compre 18 litros de tinta (por exemplo: 1 lata de 18 L).",
     },
     tips: [
       "Superfícies novas ou muito porosas exigem uma demão de selador antes da tinta.",
       "Cores fortes (vermelho, amarelo, preto) muitas vezes exigem 3 demãos.",
-      "Confira o rendimento na lata — ele varia bastante entre marcas e linhas (econômica, premium).",
+      "Se a tinta da lata anunciar rendimento maior (10–12 m²/L), sobrará material — sem risco de faltar.",
     ],
     errors: [
       "Não descontar portas e janelas superestima o consumo.",
@@ -285,7 +290,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "Diluir excessivamente a tinta reduz cobertura e obriga a comprar mais.",
     ],
     table: {
-      caption: "Rendimento médio por tipo de tinta",
+      caption: "Rendimento típico anunciado por tipo de tinta (referência)",
       headers: ["Tipo de tinta", "Rendimento por demão"],
       rows: [
         ["Látex PVA econômica", "8 a 10 m²/L"],
@@ -296,8 +301,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     faq: [
       {
-        q: "Quantos litros de tinta para 1 cômodo?",
-        a: "Um quarto de 12 m² tem cerca de 32 m² de paredes. Com tinta de rendimento 10 m²/L e 2 demãos, são aproximadamente 6,4 L.",
+        q: "Por que a calculadora usa 5 m²/L?",
+        a: "É um valor conservador que garante margem de segurança. Assim, mesmo tintas mais econômicas ou paredes porosas ficam cobertas sem sobrar viagem à loja.",
       },
       {
         q: "Quantas demãos são necessárias?",
@@ -305,11 +310,11 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
       {
         q: "Preciso descontar portas e janelas?",
-        a: "Sim. Some as áreas de portas e janelas e subtraia da área total das paredes.",
+        a: "Sim. Some as áreas de portas e janelas e subtraia da área total das paredes antes de calcular.",
       },
       {
-        q: "Qual o rendimento médio da tinta látex?",
-        a: "Entre 8 e 12 m² por litro por demão, dependendo da qualidade e da textura da superfície.",
+        q: "Vai sobrar tinta?",
+        a: "Pode sobrar, sim. Isso é intencional: guardar 1–2 litros do mesmo lote garante retoques futuros com a cor exata.",
       },
     ],
     related: [REL_ARGAMASSA, REL_PISO, REL_TIJOLOS, REL_M2_HA],
