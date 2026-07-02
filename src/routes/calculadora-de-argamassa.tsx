@@ -12,6 +12,7 @@ import {
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
 import { faqSchemaFor } from "@/data/calculators";
+import { calcArgamassa, type ArgamassaTipo } from "@/lib/formulas";
 
 
 const PATH = "/calculadora-de-argamassa";
@@ -44,13 +45,9 @@ export const Route = createFileRoute("/calculadora-de-argamassa")({
 });
 
 
-type Tipo = "interno" | "externo" | "porcelanato";
-const CONSUMO_KG_M2: Record<Tipo, number> = { interno: 5, externo: 6, porcelanato: 7 };
-const SACO_KG = 20;
-
 function ArgamassaCalc() {
   const [area, setArea] = useState("");
-  const [tipo, setTipo] = useState<Tipo>("interno");
+  const [tipo, setTipo] = useState<ArgamassaTipo>("interno");
   const [result, setResult] = useState<null | { total: number; sacos: number }>(null);
   const [errors, setErrors] = useState<{ area?: string }>({});
   const { onSubmit } = useCalcForm();
@@ -58,10 +55,8 @@ function ArgamassaCalc() {
   const submit = () => {
     const a = validatePositive(area, "Área");
     setErrors({ area: a.error });
-    if (a.value) {
-      const total = a.value * CONSUMO_KG_M2[tipo];
-      setResult({ total, sacos: Math.ceil(total / SACO_KG) });
-    } else setResult(null);
+    if (a.value) setResult(calcArgamassa(a.value, tipo));
+    else setResult(null);
   };
 
   const reset = () => {
@@ -87,7 +82,7 @@ function ArgamassaCalc() {
           onChange={setArea}
           error={errors.area}
         />
-        <SelectField<Tipo>
+        <SelectField<ArgamassaTipo>
           id="tipo"
           label="Tipo de aplicação"
           value={tipo}
