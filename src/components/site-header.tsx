@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-const LOGO_URL = "/obrametrica-logo.jpg";
+const LOGO_URL = "/obrametrica-logo-sm.webp";
 
 const navItems = [
   { to: "/", label: "Início" },
