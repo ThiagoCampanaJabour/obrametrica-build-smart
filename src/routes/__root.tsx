@@ -153,7 +153,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 
-const FAVICON = "/obrametrica-logo.jpg";
+const FAVICON = "/obrametrica-logo-sm.webp";
+const OG_LOGO = "/obrametrica-logo.jpg";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -168,8 +169,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/jpeg", href: FAVICON },
-      { rel: "apple-touch-icon", href: FAVICON },
+      // Favicon leve em WebP (~3.7KB) em vez do logo JPG (~60KB).
+      { rel: "icon", type: "image/webp", href: FAVICON },
+      { rel: "apple-touch-icon", href: OG_LOGO },
       // Performance: pré-carrega o logo do cabeçalho (acima da dobra em todas as páginas).
       {
         rel: "preload",
@@ -178,13 +180,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "image/webp",
         fetchPriority: "high",
       },
-      // Performance: pré-conecta com Google Tag Manager e Analytics para
-      // reduzir latência de scripts de medição sem impactar LCP.
+      // Performance: pré-conecta com Google Tag Manager, Analytics e AdSense para
+      // reduzir latência sem impactar LCP.
       { rel: "preconnect", href: "https://www.googletagmanager.com", crossOrigin: "" },
       { rel: "preconnect", href: "https://www.google-analytics.com", crossOrigin: "" },
+      { rel: "preconnect", href: "https://pagead2.googlesyndication.com", crossOrigin: "" },
       { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
       { rel: "dns-prefetch", href: "https://www.google-analytics.com" },
+      { rel: "dns-prefetch", href: "https://pagead2.googlesyndication.com" },
     ],
+
 
     scripts: [
       // Google Tag Manager - snippet oficial injetado no <head>.
