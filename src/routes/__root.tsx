@@ -109,6 +109,9 @@ function useAdSense() {
       "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542";
     document.head.appendChild(s);
   }, []);
+}
+
+
 
 function NotFoundComponent() {
   return (
