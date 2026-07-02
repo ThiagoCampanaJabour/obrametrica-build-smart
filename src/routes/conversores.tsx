@@ -78,6 +78,7 @@ function ConversoresPage() {
             </Link>
           ))}
         </div>
+        <CategoryLatestPosts slug="conversores" />
       </section>
     </SiteLayout>
   );
