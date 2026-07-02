@@ -1,54 +1,33 @@
 /**
- * AdSense placeholders.
+ * AdSense — estratégia Auto Ads.
  *
- * Estes componentes reservam o espaço (com altura mínima) para os blocos
- * do Google AdSense, evitando Cumulative Layout Shift (CLS) quando o
- * script for ativado no futuro.
+ * A entrega dos anúncios é feita pelo Google AdSense em modo automático,
+ * carregado através do Google Tag Manager (GTM-W24D3W96). Não precisamos
+ * inserir <ins class="adsbygoogle"> manualmente: o AdSense escolhe as
+ * melhores posições dentro das páginas.
  *
- * Como ativar:
- * 1. Adicione o script do AdSense no <head> (src/routes/__root.tsx).
- * 2. Substitua o bloco "INSERIR CÓDIGO ADSENSE AQUI" pelo <ins class="adsbygoogle" .../>
- *    correspondente ao slot configurado no painel do AdSense.
- * 3. Mantenha as classes do contêiner para preservar o espaço reservado.
+ * Estes componentes existem apenas como pontos-âncora semânticos, caso no
+ * futuro decidamos migrar para slots manuais. Enquanto Auto Ads estiver
+ * ativo, todos renderizam `null` para não ocupar espaço visual nem gerar
+ * Cumulative Layout Shift (CLS).
+ *
+ * Como habilitar slots manuais no futuro:
+ * 1. No painel do AdSense, crie unidades de anúncio (topo, meio, final).
+ * 2. Defina `VITE_ADSENSE_CLIENT` (ca-pub-XXXXXXXXXXXXXXXX) e os slot IDs.
+ * 3. Substitua o `return null` abaixo pelo bloco `<ins class="adsbygoogle" ... />`.
+ * 4. Garanta que o script do AdSense esteja carregado (via GTM ou <head>).
  */
 
-import type { ReactNode } from "react";
-
-function AdSlot({
-  id,
-  label,
-  minHeight,
-  children,
-}: {
-  id: string;
-  label: string;
-  minHeight: number;
-  children?: ReactNode;
-}) {
-  return (
-    <aside aria-label={label} data-ad-slot={id} className="mx-auto my-8 w-full max-w-3xl">
-      <div
-        className="flex items-center justify-center rounded-md border border-dashed border-border bg-muted/30 px-4 text-xs uppercase tracking-wider text-muted-foreground"
-        style={{ minHeight }}
-      >
-        {/* INSERIR CÓDIGO ADSENSE AQUI — slot: {id} */}
-        {children ?? "Espaço reservado para publicidade"}
-      </div>
-    </aside>
-  );
-}
-
+// Auto Ads: os slots ficam a cargo do próprio Google.
+// Mantemos as funções para preservar imports existentes sem gerar layout extra.
 export function AdTop() {
-  // INSERIR CÓDIGO ADSENSE AQUI (posição: TOPO)
-  return <AdSlot id="ad-top" label="Publicidade — topo" minHeight={90} />;
+  return null;
 }
 
 export function AdMiddle() {
-  // INSERIR CÓDIGO ADSENSE AQUI (posição: MEIO)
-  return <AdSlot id="ad-middle" label="Publicidade — meio" minHeight={250} />;
+  return null;
 }
 
 export function AdBottom() {
-  // INSERIR CÓDIGO ADSENSE AQUI (posição: FINAL)
-  return <AdSlot id="ad-bottom" label="Publicidade — final" minHeight={250} />;
+  return null;
 }
