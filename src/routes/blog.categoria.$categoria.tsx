@@ -171,6 +171,46 @@ function CategoryPage() {
           </div>
         )}
 
+        {/* SILO: calculadoras relacionadas da mesma categoria */}
+        {(() => {
+          const silo = getSiloByName(category.name);
+          if (!silo || silo.calculators.length === 0) return null;
+          return (
+            <section className="mt-12 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <Calculator className="h-5 w-5 text-foreground" aria-hidden />
+                <h2 className="text-xl font-bold tracking-tight text-foreground">
+                  Calculadoras de {category.name}
+                </h2>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Aplique o conteúdo dos artigos usando as ferramentas oficiais do ObraMétrica.
+              </p>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                {silo.calculators.map((c) => (
+                  <li key={c.path}>
+                    <a
+                      href={c.path}
+                      className="flex items-center justify-between rounded-lg border border-border bg-background p-3 text-sm font-medium text-foreground transition hover:border-accent hover:bg-accent/10"
+                    >
+                      <span>{c.label}</span>
+                      <span aria-hidden>→</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 text-sm">
+                <a
+                  href={silo.path}
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Ver todas as calculadoras de {category.name} →
+                </a>
+              </div>
+            </section>
+          );
+        })()}
+
         <div className="mt-10">
           <Link
             to="/blog"
