@@ -214,15 +214,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
     scripts: [
       // Google Tag Manager - snippet oficial injetado no <head>.
-      // Carregado uma única vez (id evita duplicação em re-renders/SSR).
       {
         id: "gtm-head",
         children: GTM_HEAD_SNIPPET,
       },
-      // Nota: o script do Google AdSense é injetado no cliente após a
-      // hidratação (ver useAdSense em RootComponent). Injetar via <head>
-      // SSR provoca mismatch de hidratação porque o AdSense insere <ins>
-      // no <body> antes do React montar a árvore.
+      // Google AdSense - script oficial exigido pelo Google para validação
+      // do site. Renderizado no <head> em SSR em toda página (conforme
+      // documentação oficial). O <body> usa suppressHydrationWarning para
+      // tolerar o <ins> que o AdSense insere antes da hidratação.
+      {
+        id: "google-adsense",
+        async: true,
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542",
+        crossOrigin: "anonymous",
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
