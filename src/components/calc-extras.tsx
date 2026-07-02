@@ -23,6 +23,7 @@ import {
   HelpCircle,
   Layers,
   Sigma,
+  BookText,
 } from "lucide-react";
 import {
   Accordion,
@@ -31,6 +32,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getCalculator } from "@/data/calculators";
+import { getSiloForCalc, getLatestPostsByCategoryName } from "@/data/silo";
+import { formatDate } from "@/data/blog-posts";
 
 /**
  * Botões de ação exibidos junto ao resultado da calculadora.
