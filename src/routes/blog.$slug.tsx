@@ -105,16 +105,24 @@ function BlogPostPage() {
         />
 
         <header className="mt-6">
-          <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+          <Link
+            to="/blog/categoria/$categoria"
+            params={{ categoria: categoryToSlug(post.category) }}
+            className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary hover:bg-primary/15"
+          >
             {post.category}
-          </span>
+          </Link>
           <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
             {post.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
+              <User className="h-4 w-4" aria-hidden />
+              Equipe ObraMétrica
+            </span>
+            <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-4 w-4" aria-hidden />
-              {formatDate(post.date)}
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-4 w-4" aria-hidden />
@@ -131,20 +139,62 @@ function BlogPostPage() {
           ))}
         </div>
 
+        {/* Sumário */}
+        {post.sections.length > 1 && (
+          <nav
+            aria-label="Sumário do artigo"
+            className="mt-8 rounded-2xl border border-border bg-muted/40 p-5"
+          >
+            <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground">
+              <List className="h-4 w-4" aria-hidden />
+              Neste artigo
+            </p>
+            <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-foreground/90 marker:text-primary">
+              {post.sections.map((sec) => {
+                const id = slugifyHeading(sec.heading);
+                return (
+                  <li key={id}>
+                    <a href={`#${id}`} className="hover:text-primary">
+                      {sec.heading}
+                    </a>
+                  </li>
+                );
+              })}
+              <li>
+                <a href="#faq" className="hover:text-primary">
+                  Perguntas frequentes
+                </a>
+              </li>
+              <li>
+                <a href="#conclusao" className="hover:text-primary">
+                  Conclusão
+                </a>
+              </li>
+            </ol>
+          </nav>
+        )}
+
         <AdMiddle />
 
-        {post.sections.map((sec, idx) => (
-          <section key={idx} className="mt-10">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">{sec.heading}</h2>
-            <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
-              {sec.paragraphs.map((p, i) => (
-                <p key={`s${idx}-p${i}`}>{p}</p>
-              ))}
-            </div>
-          </section>
-        ))}
+        {post.sections.map((sec, idx) => {
+          const id = slugifyHeading(sec.heading);
+          return (
+            <section key={idx} id={id} className="mt-10 scroll-mt-24">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">
+                <a href={`#${id}`} className="hover:text-primary">
+                  {sec.heading}
+                </a>
+              </h2>
+              <div className="mt-4 space-y-4 text-base leading-relaxed text-foreground/90">
+                {sec.paragraphs.map((p, i) => (
+                  <p key={`s${idx}-p${i}`}>{p}</p>
+                ))}
+              </div>
+            </section>
+          );
+        })}
 
-        <section className="mt-12 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
+        <section id="faq" className="mt-12 scroll-mt-24 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
             Perguntas frequentes
           </h2>
