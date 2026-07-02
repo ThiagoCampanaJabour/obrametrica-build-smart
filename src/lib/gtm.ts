@@ -26,7 +26,7 @@ export const GTM_HEAD_SNIPPET = `
 // Tipagem global do dataLayer para uso em toda a aplicação.
 declare global {
   interface Window {
-    dataLayer: Record<string, unknown>[];
+    dataLayer: unknown[];
   }
 }
 
@@ -34,7 +34,7 @@ declare global {
  * Garante que o array global `dataLayer` esteja pronto para receber pushes.
  * Chamado antes de qualquer evento para evitar erros em ambientes SSR.
  */
-export function ensureDataLayer(): Record<string, unknown>[] | null {
+export function ensureDataLayer(): unknown[] | null {
   if (typeof window === "undefined") return null;
   window.dataLayer = window.dataLayer || [];
   return window.dataLayer;
