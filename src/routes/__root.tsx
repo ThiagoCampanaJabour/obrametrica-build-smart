@@ -198,15 +198,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         id: "gtm-head",
         children: GTM_HEAD_SNIPPET,
       },
-      // Google AdSense - script oficial para verificação do site.
-      // `id` garante instância única mesmo em navegações SPA/re-renders.
-      {
-        id: "google-adsense",
-        async: true,
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6384093786398542",
-        crossOrigin: "anonymous",
-      },
-
+      // Nota: o script do Google AdSense é injetado no cliente após a
+      // hidratação (ver useAdSense em RootComponent). Injetar via <head>
+      // SSR provoca mismatch de hidratação porque o AdSense insere <ins>
+      // no <body> antes do React montar a árvore.
       {
         type: "application/ld+json",
         children: JSON.stringify({
