@@ -37,12 +37,18 @@ export interface CalculatorContent {
   path: string;
   name: string;
   intro: string;
+  /** Parágrafos extras de contexto, exibidos abaixo da introdução. */
+  context?: string[];
+  /** Situações típicas em que a calculadora é útil. */
+  whenToUse?: string[];
   howItWorks: string[];
   formula: {
     expression: string;
     legend?: string[];
   };
   example: CalcExample;
+  /** Cenários adicionais para reforçar o entendimento. */
+  moreExamples?: CalcExample[];
   tips: string[];
   errors: string[];
   table?: CalcTable;
