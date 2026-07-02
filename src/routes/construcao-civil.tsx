@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
+import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
 const PATH = "/construcao-civil";
 const CRUMBS = [
@@ -89,6 +90,7 @@ function ConstrucaoCivilPage() {
             </Link>
           ))}
         </div>
+        <CategoryLatestPosts slug="construcao-civil" />
       </section>
     </SiteLayout>
   );

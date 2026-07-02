@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Sun, TrendingUp, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
+import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
 const PATH = "/energia-solar";
 const CRUMBS = [
@@ -71,6 +72,7 @@ function EnergiaSolarPage() {
             </Link>
           ))}
         </div>
+        <CategoryLatestPosts slug="energia-solar" />
       </section>
     </SiteLayout>
   );
