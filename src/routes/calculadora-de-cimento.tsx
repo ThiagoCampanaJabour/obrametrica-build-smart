@@ -39,8 +39,7 @@ export const Route = createFileRoute("/calculadora-de-cimento")({
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       },
       extraSchemas: allSchemasFor(PATH),
-    })
-  }),
+    }),
   component: CimentoCalc,
 });
 
@@ -100,7 +99,11 @@ function CimentoCalc() {
         <ResultPanel
           items={[
             { label: "Cimento necessário", value: `${fmt(result.cimento)} kg` },
-            { label: "Sacos de 50 kg", value: `${fmt(result.sacos, 0)} sacos`, highlight: true },
+            {
+              label: "Sacos de 50 kg",
+              value: `${fmt(result.sacos, 0)} sacos`,
+              highlight: true,
+            },
           ]}
         />
       )}
