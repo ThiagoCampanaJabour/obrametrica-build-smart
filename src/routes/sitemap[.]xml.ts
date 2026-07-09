@@ -19,6 +19,7 @@ const ENTRIES: Entry[] = [
   { path: "/conversores", changefreq: "weekly", priority: "0.9" },
   { path: "/calculadora-de-tijolos", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-concreto", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-cimento", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-piso", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-tinta", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-argamassa", changefreq: "monthly", priority: "0.8" },
@@ -46,7 +47,6 @@ const ENTRIES: Entry[] = [
   { path: "/termos-de-uso", changefreq: "yearly", priority: "0.3" },
   { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
 ];
-
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {

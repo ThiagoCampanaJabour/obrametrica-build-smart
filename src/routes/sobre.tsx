@@ -44,12 +44,32 @@ export const Route = createFileRoute("/sobre")({
 });
 
 const offerings = [
-  { icon: Hammer, title: "Calculadoras para Construção Civil", desc: "Tijolos, concreto, argamassa, piso e tinta." },
-  { icon: Sun, title: "Calculadoras de Energia Solar", desc: "Dimensionamento de placas e estimativa de economia." },
+  {
+    icon: Hammer,
+    title: "Calculadoras para Construção Civil",
+    desc: "Tijolos, concreto, argamassa, piso e tinta.",
+  },
+  {
+    icon: Sun,
+    title: "Calculadoras de Energia Solar",
+    desc: "Dimensionamento de placas e estimativa de economia.",
+  },
   { icon: Ruler, title: "Conversores de Medidas", desc: "Unidades de comprimento, área e volume." },
-  { icon: Wrench, title: "Ferramentas Técnicas", desc: "Recursos práticos para o dia a dia da obra." },
-  { icon: BookOpen, title: "Conteúdo Educativo", desc: "Artigos e guias para apoiar suas decisões." },
-  { icon: Sparkles, title: "Novas Calculadoras", desc: "Em constante desenvolvimento e atualização." },
+  {
+    icon: Wrench,
+    title: "Ferramentas Técnicas",
+    desc: "Recursos práticos para o dia a dia da obra.",
+  },
+  {
+    icon: BookOpen,
+    title: "Conteúdo Educativo",
+    desc: "Artigos e guias para apoiar suas decisões.",
+  },
+  {
+    icon: Sparkles,
+    title: "Novas Calculadoras",
+    desc: "Em constante desenvolvimento e atualização.",
+  },
 ];
 
 const benefits = [
@@ -138,10 +158,7 @@ function SobrePage() {
             </h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {benefits.map(({ icon: Icon, title, desc }) => (
-                <div
-                  key={title}
-                  className="flex gap-4 rounded-lg border border-border bg-card p-5"
-                >
+                <div key={title} className="flex gap-4 rounded-lg border border-border bg-card p-5">
                   <Icon className="h-6 w-6 shrink-0 text-foreground" aria-hidden />
                   <div>
                     <h3 className="text-base font-semibold text-foreground">{title}</h3>

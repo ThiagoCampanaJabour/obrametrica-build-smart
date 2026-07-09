@@ -12,7 +12,6 @@ import {
 import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 
-
 const PATH = "/economia-energia-solar";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -41,7 +40,6 @@ export const Route = createFileRoute("/economia-energia-solar")({
     }),
   component: EconomiaSolar,
 });
-
 
 const DEFAULT_SAVINGS_RATE = 0.9;
 

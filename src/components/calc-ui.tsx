@@ -39,7 +39,6 @@ export function CalculatorShell({
   );
 }
 
-
 export function NumberField({
   id,
   label,
@@ -156,8 +155,7 @@ export function ResultPanel({
   /** Texto usado pelos botões copiar/compartilhar. Se omitido, deriva dos items. */
   shareText?: string;
 }) {
-  const text =
-    shareText ?? items.map((it) => `${it.label}: ${it.value}`).join(" | ");
+  const text = shareText ?? items.map((it) => `${it.label}: ${it.value}`).join(" | ");
   return (
     <div className="mt-6 rounded-lg border border-accent/40 bg-accent/10 p-5">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">Resultado</h2>
@@ -187,7 +185,6 @@ export function validatePositive(raw: string, label: string): { value?: number; 
   if (n === 0) return { error: `${label} deve ser maior que zero.` };
   return { value: n };
 }
-
 
 export function useCalcForm() {
   const [submitted, setSubmitted] = useState(false);

@@ -12,7 +12,6 @@ import {
 import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 
-
 const PATH = "/quantas-placas-solares-preciso";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -41,7 +40,6 @@ export const Route = createFileRoute("/quantas-placas-solares-preciso")({
     }),
   component: PlacasSolares,
 });
-
 
 const PANEL_MONTHLY_KWH = 65;
 const PANEL_POWER_KW = 0.55;

@@ -14,7 +14,6 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcTijolos, type TijoloTipo } from "@/lib/formulas";
 
-
 const PATH = "/calculadora-de-tijolos";
 const TITLE = "Calculadora de Tijolos — Quantidade por m² | ObraMétrica";
 const DESC =
@@ -44,7 +43,6 @@ export const Route = createFileRoute("/calculadora-de-tijolos")({
     }),
   component: TijolosCalc,
 });
-
 
 function TijolosCalc() {
   const [comprimento, setComprimento] = useState("");

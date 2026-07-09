@@ -69,10 +69,7 @@ export const Route = createFileRoute("/blog/categoria/$categoria")({
             </Link>
           ))}
         </div>
-        <Link
-          to="/blog"
-          className="mt-8 inline-flex items-center gap-2 text-primary font-semibold"
-        >
+        <Link to="/blog" className="mt-8 inline-flex items-center gap-2 text-primary font-semibold">
           <ArrowLeft className="h-4 w-4" /> Voltar ao Blog
         </Link>
       </section>
@@ -85,6 +82,7 @@ export const Route = createFileRoute("/blog/categoria/$categoria")({
         <button
           onClick={() => reset()}
           className="mt-4 rounded-md bg-primary px-4 py-2 text-primary-foreground"
+          type="button"
         >
           Tentar novamente
         </button>
@@ -149,11 +147,11 @@ function CategoryPage() {
                 <p className="mt-3 text-sm text-muted-foreground">{post.description}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
-                    <Calendar className="h-3.5 w-3.5" aria-hidden />
+                    <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
                     {formatDate(post.date)}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" aria-hidden />
+                    <Clock className="h-3.5 w-3.5" aria-hidden="true" />
                     {post.readingTime} min de leitura
                   </span>
                 </div>
@@ -164,7 +162,7 @@ function CategoryPage() {
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all"
                 >
                   Ler artigo
-                  <ArrowRight className="h-4 w-4" aria-hidden />
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </article>
             ))}
@@ -178,7 +176,7 @@ function CategoryPage() {
           return (
             <section className="mt-12 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
               <div className="flex items-center gap-3">
-                <Calculator className="h-5 w-5 text-foreground" aria-hidden />
+                <Calculator className="h-5 w-5 text-foreground" aria-hidden="true" />
                 <h2 className="text-xl font-bold tracking-tight text-foreground">
                   Calculadoras de {category.name}
                 </h2>
@@ -194,16 +192,13 @@ function CategoryPage() {
                       className="flex items-center justify-between rounded-lg border border-border bg-background p-3 text-sm font-medium text-foreground transition hover:border-accent hover:bg-accent/10"
                     >
                       <span>{c.label}</span>
-                      <span aria-hidden>→</span>
+                      <span aria-hidden="true">→</span>
                     </a>
                   </li>
                 ))}
               </ul>
               <div className="mt-4 text-sm">
-                <a
-                  href={silo.path}
-                  className="font-semibold text-primary hover:underline"
-                >
+                <a href={silo.path} className="font-semibold text-primary hover:underline">
                   Ver todas as calculadoras de {category.name} →
                 </a>
               </div>

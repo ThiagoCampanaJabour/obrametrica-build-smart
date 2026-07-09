@@ -124,12 +124,26 @@ function ContatoPage() {
               <form onSubmit={onSubmit} noValidate className="mt-6 grid gap-5">
                 <div className="grid gap-2">
                   <Label htmlFor="name">Nome</Label>
-                  <Input id="name" name="name" type="text" autoComplete="name" required maxLength={100} />
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    maxLength={100}
+                  />
                   {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="email">E-mail</Label>
-                  <Input id="email" name="email" type="email" autoComplete="email" required maxLength={255} />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    maxLength={255}
+                  />
                   {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                 </div>
                 <div className="grid gap-2">
@@ -143,7 +157,9 @@ function ContatoPage() {
                   {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                 </div>
                 <div>
-                  <Button type="submit" size="lg">Enviar Mensagem</Button>
+                  <Button type="submit" size="lg">
+                    Enviar Mensagem
+                  </Button>
                 </div>
               </form>
             </div>
@@ -155,9 +171,7 @@ function ContatoPage() {
                   Sugestões e contribuições
                 </h2>
               </div>
-              <p className="mt-3 text-muted-foreground">
-                Você pode nos enviar:
-              </p>
+              <p className="mt-3 text-muted-foreground">Você pode nos enviar:</p>
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {suggestions.map((s) => (
                   <li key={s} className="flex items-start gap-2 text-sm text-foreground">
@@ -202,9 +216,7 @@ function ContatoPage() {
                   Atendimento
                 </h3>
               </div>
-              <p className="mt-2 text-base font-medium text-foreground">
-                Segunda a Sexta-feira
-              </p>
+              <p className="mt-2 text-base font-medium text-foreground">Segunda a Sexta-feira</p>
               <p className="text-sm text-muted-foreground">09:00 às 18:00</p>
               <p className="text-sm text-muted-foreground">Horário de Brasília</p>
             </div>

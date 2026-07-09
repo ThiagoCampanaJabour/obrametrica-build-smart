@@ -3,12 +3,7 @@ import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead } from "@/lib/seo";
-import {
-  BLOG_POSTS,
-  BLOG_CATEGORIES,
-  categoryToSlug,
-  formatDate,
-} from "@/data/blog-posts";
+import { BLOG_POSTS, BLOG_CATEGORIES, categoryToSlug, formatDate } from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight, Search, X } from "lucide-react";
 import { useMemo } from "react";
 
@@ -60,10 +55,7 @@ function BlogIndex() {
   const { q, cat, page } = Route.useSearch();
   const navigate = Route.useNavigate();
 
-  const allSorted = useMemo(
-    () => [...BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)),
-    [],
-  );
+  const allSorted = useMemo(() => [...BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), []);
 
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -79,10 +71,7 @@ function BlogIndex() {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
-  const paged = filtered.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE,
-  );
+  const paged = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const activeCategory = BLOG_CATEGORIES.find((c) => c.slug === cat);
 
@@ -150,9 +139,7 @@ function BlogIndex() {
             {(q || cat) && (
               <button
                 type="button"
-                onClick={() =>
-                  navigate({ search: () => ({ q: "", cat: "", page: 1 }) })
-                }
+                onClick={() => navigate({ search: () => ({ q: "", cat: "", page: 1 }) })}
                 className="inline-flex items-center gap-1 rounded-md border border-input px-3 py-2 text-sm hover:bg-muted"
               >
                 <X className="h-3.5 w-3.5" aria-hidden /> Limpar
@@ -180,8 +167,7 @@ function BlogIndex() {
               ? "Nenhum artigo encontrado."
               : `${filtered.length} artigo${filtered.length > 1 ? "s" : ""} encontrado${filtered.length > 1 ? "s" : ""}`}
             {activeCategory && ` em ${activeCategory.name}`}
-            {q && ` para "${q}"`}
-            .
+            {q && ` para "${q}"`}.
           </p>
           {totalPages > 1 && (
             <p className="text-xs text-muted-foreground">
@@ -246,10 +232,7 @@ function BlogIndex() {
                 {n}
               </PageLink>
             ))}
-            <PageLink
-              disabled={currentPage >= totalPages}
-              to={{ page: currentPage + 1 }}
-            >
+            <PageLink disabled={currentPage >= totalPages} to={{ page: currentPage + 1 }}>
               Próxima
             </PageLink>
           </nav>

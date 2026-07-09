@@ -91,7 +91,6 @@ export function SiteFooter() {
               </li>
             </ul>
           </div>
-
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-xs text-primary-foreground/70">

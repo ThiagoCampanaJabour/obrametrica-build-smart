@@ -2,7 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead, SITE_URL } from "@/lib/seo";
-import { AlertTriangle, FileText, ShieldAlert, Calculator, Scale, Copyright, Link2, Mail } from "lucide-react";
+import {
+  AlertTriangle,
+  FileText,
+  ShieldAlert,
+  Calculator,
+  Scale,
+  Copyright,
+  Link2,
+  Mail,
+} from "lucide-react";
 
 const PATH = "/aviso-legal";
 const CRUMBS = [

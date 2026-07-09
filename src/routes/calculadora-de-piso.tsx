@@ -13,7 +13,6 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcPiso } from "@/lib/formulas";
 
-
 const PATH = "/calculadora-de-piso";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -42,7 +41,6 @@ export const Route = createFileRoute("/calculadora-de-piso")({
     }),
   component: PisoCalc,
 });
-
 
 function PisoCalc() {
   const [comprimento, setComprimento] = useState("");

@@ -133,10 +133,7 @@ function FaqPage() {
           <h2 className="text-xl font-bold">Não encontrou sua resposta?</h2>
           <p className="mt-2 text-primary-foreground/90">
             Fale com a equipe do Obra Métrica pelo formulário de contato ou pelo e-mail{" "}
-            <a
-              href="mailto:obrametricasite@gmail.com"
-              className="underline hover:text-accent"
-            >
+            <a href="mailto:obrametricasite@gmail.com" className="underline hover:text-accent">
               obrametricasite@gmail.com
             </a>
             .

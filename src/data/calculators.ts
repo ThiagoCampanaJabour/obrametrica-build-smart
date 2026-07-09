@@ -56,16 +56,40 @@ export interface CalculatorContent {
   related: CalcRelated[];
 }
 
-const REL_TIJOLOS: CalcRelated = { path: "/calculadora-de-tijolos", label: "Calculadora de Tijolos" };
-const REL_CONCRETO: CalcRelated = { path: "/calculadora-de-concreto", label: "Calculadora de Concreto" };
+const REL_TIJOLOS: CalcRelated = {
+  path: "/calculadora-de-tijolos",
+  label: "Calculadora de Tijolos",
+};
+const REL_CONCRETO: CalcRelated = {
+  path: "/calculadora-de-concreto",
+  label: "Calculadora de Concreto",
+};
 const REL_PISO: CalcRelated = { path: "/calculadora-de-piso", label: "Calculadora de Piso" };
 const REL_TINTA: CalcRelated = { path: "/calculadora-de-tinta", label: "Calculadora de Tinta" };
-const REL_ARGAMASSA: CalcRelated = { path: "/calculadora-de-argamassa", label: "Calculadora de Argamassa" };
-const REL_PLACAS: CalcRelated = { path: "/quantas-placas-solares-preciso", label: "Quantas placas solares preciso?" };
-const REL_ECONOMIA: CalcRelated = { path: "/economia-energia-solar", label: "Economia com Energia Solar" };
-const REL_M2_HA: CalcRelated = { path: "/conversor-m2-para-hectare", label: "Conversor m² para hectare" };
-const REL_CM_IN: CalcRelated = { path: "/conversor-cm-para-polegada", label: "Conversor cm para polegada" };
-const REL_L_M3: CalcRelated = { path: "/conversor-litros-para-m3", label: "Conversor litros para m³" };
+const REL_ARGAMASSA: CalcRelated = {
+  path: "/calculadora-de-argamassa",
+  label: "Calculadora de Argamassa",
+};
+const REL_PLACAS: CalcRelated = {
+  path: "/quantas-placas-solares-preciso",
+  label: "Quantas placas solares preciso?",
+};
+const REL_ECONOMIA: CalcRelated = {
+  path: "/economia-energia-solar",
+  label: "Economia com Energia Solar",
+};
+const REL_M2_HA: CalcRelated = {
+  path: "/conversor-m2-para-hectare",
+  label: "Conversor m² para hectare",
+};
+const REL_CM_IN: CalcRelated = {
+  path: "/conversor-cm-para-polegada",
+  label: "Conversor cm para polegada",
+};
+const REL_L_M3: CalcRelated = {
+  path: "/conversor-litros-para-m3",
+  label: "Conversor litros para m³",
+};
 
 export const CALCULATORS: Record<string, CalculatorContent> = {
   "/calculadora-de-tijolos": {
@@ -102,7 +126,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     moreExamples: [
       {
-        scenario: "Muro externo de 20 m de comprimento por 2 m de altura com bloco cerâmico 11×14×24 cm.",
+        scenario:
+          "Muro externo de 20 m de comprimento por 2 m de altura com bloco cerâmico 11×14×24 cm.",
         steps: [
           "Área = 20 × 2 = 40 m²",
           "Consumo do bloco ≈ 22 un/m²",
@@ -147,6 +172,102 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       {
         q: "A calculadora serve para blocos de concreto?",
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
+      },
+    ],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_TIJOLOS, REL_PISO],
+  },
+
+  "/calculadora-de-cimento": {
+    path: "/calculadora-de-cimento",
+    name: "Calculadora de Cimento",
+    intro:
+      "Calcule a quantidade de cimento necessária para produzir concreto com a resistência desejada. Esta calculadora usa dosagens técnicas baseadas na NBR 12655 e é essencial para orçamentos e planejamento de obras.",
+    context: [
+      "O cimento é o aglomerante principal do concreto. Sua quantidade define a resistência final da peça — quanto mais cimento, mais resistente o concreto. Errar na dosagem compromete a durabilidade e a segurança estrutural.",
+      "As dosagens seguem normas técnicas rigorosas (NBR 12655). Usar menos cimento para economizar é uma falsa economia que pode resultar em fissuras, infiltrações e até colapso estrutural. A calculadora adota valores conservadores baseados em recomendações de engenheiros e fabricantes.",
+    ],
+    whenToUse: [
+      "Orçar a quantidade de cimento para uma obra.",
+      "Calcular dosagem de concreto usinado ou virado na obra.",
+      "Validar propostas comerciais de fornecedores.",
+    ],
+    howItWorks: [
+      "Informe o volume total de concreto em metros cúbicos (m³).",
+      "Escolha a resistência desejada (fck) — quanto maior, mais cimento é necessário.",
+      "A calculadora multiplica o volume pela dosagem técnica e converte em sacos de 50 kg.",
+    ],
+    formula: {
+      expression: "Cimento (kg) = Volume (m³) × Dosagem por m³ (kg/m³)",
+      legend: [
+        "fck 20 MPa = 340 kg/m³",
+        "fck 25 MPa = 360 kg/m³",
+        "fck 30 MPa = 380 kg/m³",
+        "fck 35 MPa = 400 kg/m³",
+        "Valores baseados em NBR 12655 para concreto com abatimento 100–120 mm.",
+      ],
+    },
+    example: {
+      scenario: "Produzir 5 m³ de concreto com fck 25 MPa.",
+      steps: [
+        "Dosagem para fck 25 = 360 kg/m³",
+        "Cimento total = 5 × 360 = 1.800 kg",
+        "Sacos de 50 kg = 1.800 / 50 = 36 sacos",
+      ],
+      result: "Serão necessários 36 sacos de cimento de 50 kg.",
+    },
+    moreExamples: [
+      {
+        scenario: "Fundação com 10 m³ de concreto fck 30 MPa.",
+        steps: [
+          "Dosagem para fck 30 = 380 kg/m³",
+          "Cimento total = 10 × 380 = 3.800 kg",
+          "Sacos de 50 kg = 3.800 / 50 = 76 sacos",
+        ],
+        result: "Compre 76 sacos de cimento para a fundação.",
+      },
+    ],
+    tips: [
+      "Sempre compre 10% a mais de cimento para compensar perdas e desperdícios.",
+      "Cimento Portland CP II-E é adequado para a maioria das obras residenciais; CP V-ARI é usado para ganho rápido de resistência.",
+      "Armazene cimento em local seco e protegido da umidade; tem validade de 3 meses.",
+      "A resistência final depende também da qualidade da areia, brita e água utilizadas.",
+    ],
+    errors: [
+      "Usar dosagem insuficiente de cimento resulta em concreto fraco e pouco durável.",
+      "Excesso de água reduz a resistência, mesmo com cimento adequado.",
+      "Não considerar o desperdício no cálculo leva a falta de material durante a concretagem.",
+      "Misturar tipos diferentes de cimento na mesma obra pode comprometer a qualidade.",
+    ],
+    table: {
+      caption: "Dosagem de cimento por resistência (NBR 12655)",
+      headers: ["Resistência (fck)", "Cimento por m³", "Para 10 m³"],
+      rows: [
+        ["fck 20 MPa", "340 kg/m³", "3.400 kg (68 sacos)"],
+        ["fck 25 MPa", "360 kg/m³", "3.600 kg (72 sacos)"],
+        ["fck 30 MPa", "380 kg/m³", "3.800 kg (76 sacos)"],
+        ["fck 35 MPa", "400 kg/m³", "4.000 kg (80 sacos)"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual é a diferença entre fck 20 e fck 30?",
+        a: "fck é a resistência à compressão do concreto em MPa. fck 30 é mais resistente que fck 20 e requer mais cimento. Use fck 30 para estruturas críticas, fundações profundas e elementos sob maior carga.",
+      },
+      {
+        q: "Posso usar menos cimento para economizar?",
+        a: "Não. Reduzir cimento compromete a resistência e durabilidade do concreto, podendo causar fissuras e infiltrações. Sempre siga a dosagem técnica.",
+      },
+      {
+        q: "O que fazer com cimento que sobrou?",
+        a: "Cimento não deve ser reutilizado em outra obra. Armazene em local seco ou doe para instituições. Nunca misture cimento antigo com novo.",
+      },
+      {
+        q: "Qual é o melhor tipo de cimento?",
+        a: "CP II-E (cimento Portland composto) é o mais comum e adequado. CP V-ARI é usado quando se precisa de ganho rápido de resistência (pré-moldados). Sempre siga as especificações do projeto.",
+      },
+      {
+        q: "Como armazenar cimento corretamente?",
+        a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
     related: [REL_CONCRETO, REL_ARGAMASSA, REL_TINTA, REL_PISO],
@@ -449,10 +570,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     moreExamples: [
       {
         scenario: "Área externa de 40 m² com cerâmica assentada em AC-II.",
-        steps: [
-          "Consumo estimado = 40 × 6 = 240 kg",
-          "Sacos de 20 kg = 240 / 20 = 12 sacos",
-        ],
+        steps: ["Consumo estimado = 40 × 6 = 240 kg", "Sacos de 20 kg = 240 / 20 = 12 sacos"],
         result: "Compre 12 sacos de argamassa AC-II.",
       },
     ],
@@ -516,7 +634,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "A calculadora estima a potência necessária do sistema e divide pela potência das placas.",
     ],
     formula: {
-      expression: "Nº de placas = (Consumo mensal / (Irradiação × 30 × Eficiência)) / Potência da placa",
+      expression:
+        "Nº de placas = (Consumo mensal / (Irradiação × 30 × Eficiência)) / Potência da placa",
       legend: [
         "Irradiação média Brasil: 4,5 a 6,0 kWh/m²/dia",
         "Eficiência típica do sistema: 75% a 80%",
@@ -524,7 +643,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       ],
     },
     example: {
-      scenario: "Residência com consumo de 400 kWh/mês na região Sudeste (irradiação 5 kWh/m²/dia).",
+      scenario:
+        "Residência com consumo de 400 kWh/mês na região Sudeste (irradiação 5 kWh/m²/dia).",
       steps: [
         "Geração diária necessária = 400 / 30 = 13,3 kWh/dia",
         "Potência do sistema = 13,3 / (5 × 0,80) = 3,3 kWp",
@@ -609,10 +729,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     example: {
       scenario: "Conta de luz de R$ 500/mês, sistema dimensionado para atender 95% do consumo.",
-      steps: [
-        "Economia mensal = 500 × 0,95 = R$ 475",
-        "Economia anual = 475 × 12 = R$ 5.700",
-      ],
+      steps: ["Economia mensal = 500 × 0,95 = R$ 475", "Economia anual = 475 × 12 = R$ 5.700"],
       result: "Economia estimada de R$ 475/mês ou R$ 5.700/ano.",
     },
     moreExamples: [
@@ -697,9 +814,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     moreExamples: [
       {
         scenario: "Fazenda com 1.250.000 m².",
-        steps: [
-          "Hectares = 1.250.000 / 10.000 = 125 ha",
-        ],
+        steps: ["Hectares = 1.250.000 / 10.000 = 125 ha"],
         result: "A fazenda possui 125 hectares (1,25 km²).",
       },
     ],
@@ -751,7 +866,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       "Converta centímetros (cm) para polegadas (in) em tempo real. Útil para tubulações, monitores, TVs, ferramentas e projetos de marcenaria.",
     context: [
       "A polegada é a unidade padrão para telas (TVs, monitores, notebooks), tubulações hidráulicas e ferramentas importadas. Como a maior parte dos catálogos brasileiros mistura os dois sistemas, saber converter cm para polegada evita erros de compra.",
-      "1 polegada equivale a exatamente 2,54 cm por definição internacional. Bitolas hidráulicas comerciais (½\", ¾\", 1\") são valores nominais — o diâmetro externo real pode ser ligeiramente diferente.",
+      '1 polegada equivale a exatamente 2,54 cm por definição internacional. Bitolas hidráulicas comerciais (½", ¾", 1") são valores nominais — o diâmetro externo real pode ser ligeiramente diferente.',
     ],
     whenToUse: [
       "Escolher uma TV ou monitor pela diagonal.",
@@ -774,14 +889,12 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     moreExamples: [
       {
         scenario: "Chapa de madeira com 244 cm de comprimento.",
-        steps: [
-          "Polegadas = 244 / 2,54 = 96,06 in",
-        ],
+        steps: ["Polegadas = 244 / 2,54 = 96,06 in"],
         result: "A chapa tem aproximadamente 96 polegadas (8 pés).",
       },
     ],
     tips: [
-      "Para tubos hidráulicos, arredonde para a bitola comercial mais próxima (1/2\", 3/4\", 1\").",
+      'Para tubos hidráulicos, arredonde para a bitola comercial mais próxima (1/2", 3/4", 1").',
       "Uma polegada equivale a 25,4 mm.",
       "Monitores e TVs são medidos pela diagonal, não pela largura.",
     ],
@@ -811,7 +924,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
       {
         q: "Qual polegada usar em tubulação hidráulica?",
-        a: "As bitolas mais comuns em residências são 1/2\" (12,7 mm), 3/4\" (19 mm) e 1\" (25,4 mm).",
+        a: 'As bitolas mais comuns em residências são 1/2" (12,7 mm), 3/4" (19 mm) e 1" (25,4 mm).',
       },
       {
         q: "Quantas polegadas tem uma TV de 50 cm de largura?",
@@ -851,9 +964,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     moreExamples: [
       {
         scenario: "Cisterna residencial de 20.000 litros.",
-        steps: [
-          "m³ = 20.000 / 1.000 = 20 m³",
-        ],
+        steps: ["m³ = 20.000 / 1.000 = 20 m³"],
         result: "A cisterna comporta 20 m³ de água.",
       },
     ],

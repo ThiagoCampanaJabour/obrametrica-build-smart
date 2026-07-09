@@ -3,7 +3,13 @@ import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AdTop, AdMiddle, AdBottom } from "@/components/ads";
 import { pageHead, SITE_URL } from "@/lib/seo";
-import { BLOG_POSTS, getPostBySlug, formatDate, categoryToSlug, type BlogPost } from "@/data/blog-posts";
+import {
+  BLOG_POSTS,
+  getPostBySlug,
+  formatDate,
+  categoryToSlug,
+  type BlogPost,
+} from "@/data/blog-posts";
 import { Calendar, Clock, ArrowRight, ArrowLeft, User, List } from "lucide-react";
 
 function slugifyHeading(s: string): string {
@@ -194,7 +200,10 @@ function BlogPostPage() {
           );
         })}
 
-        <section id="faq" className="mt-12 scroll-mt-24 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8">
+        <section
+          id="faq"
+          className="mt-12 scroll-mt-24 rounded-2xl border border-border bg-muted/40 p-6 sm:p-8"
+        >
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
             Perguntas frequentes
           </h2>
@@ -228,9 +237,9 @@ function BlogPostPage() {
           <div>
             <p className="text-sm font-semibold text-foreground">Equipe ObraMétrica</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Editorial técnico do ObraMétrica: engenheiros, arquitetos e especialistas em
-              energia solar produzindo conteúdo revisado, com foco em aplicações práticas
-              para obra e projeto.
+              Editorial técnico do ObraMétrica: engenheiros, arquitetos e especialistas em energia
+              solar produzindo conteúdo revisado, com foco em aplicações práticas para obra e
+              projeto.
             </p>
           </div>
         </aside>

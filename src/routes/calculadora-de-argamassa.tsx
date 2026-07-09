@@ -14,7 +14,6 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcArgamassa, type ArgamassaTipo } from "@/lib/formulas";
 
-
 const PATH = "/calculadora-de-argamassa";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -43,7 +42,6 @@ export const Route = createFileRoute("/calculadora-de-argamassa")({
     }),
   component: ArgamassaCalc,
 });
-
 
 function ArgamassaCalc() {
   const [area, setArea] = useState("");

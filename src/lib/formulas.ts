@@ -54,3 +54,35 @@ export function calcTinta(comprimento: number, altura: number, demaos: number) {
 export const cmParaPolegada = (cm: number) => cm / 2.54;
 export const litrosParaM3 = (l: number) => l / 1000;
 export const m2ParaHectare = (m2: number) => m2 / 10000;
+
+export type ResistenciaTipo = "fck20" | "fck25" | "fck30" | "fck35";
+
+interface CimentoDosagem {
+  fck20: number;
+  fck25: number;
+  fck30: number;
+  fck35: number;
+}
+
+// Dosagem de cimento em kg/m³ baseada em NBR 12655
+// Valores técnicos para concreto com abatimento 100-120 mm
+const CIMENTO_POR_M3: CimentoDosagem = {
+  fck20: 340,
+  fck25: 360,
+  fck30: 380,
+  fck35: 400,
+};
+
+export function calcCimento(
+  volumeM3: number,
+  resistencia: ResistenciaTipo,
+): { cimento: number; sacos: number } {
+  const cimentoKgPorM3 = CIMENTO_POR_M3[resistencia];
+  const cimentoTotal = volumeM3 * cimentoKgPorM3;
+  const sacos = Math.ceil(cimentoTotal / 50); // sacos de 50 kg
+
+  return {
+    cimento: cimentoTotal,
+    sacos,
+  };
+}
