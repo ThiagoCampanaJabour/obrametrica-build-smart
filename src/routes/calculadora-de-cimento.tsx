@@ -22,7 +22,7 @@ const CRUMBS = [
 ];
 
 export const Route = createFileRoute("/calculadora-de-cimento")({
-  head: () => (
+  head: () =>
     pageHead({
       title: "Calculadora de Cimento — kg por m³ | ObraMétrica",
       description:
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/calculadora-de-cimento")({
       },
       extraSchemas: allSchemasFor(PATH),
     })
-  ),
+  }),
   component: CimentoCalc,
 });
 
