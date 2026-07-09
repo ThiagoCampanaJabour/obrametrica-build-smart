@@ -149,6 +149,102 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_TIJOLOS, REL_PISO],
+  },
+
+  "/calculadora-de-cimento": {
+    path: "/calculadora-de-cimento",
+    name: "Calculadora de Cimento",
+    intro:
+      "Calcule a quantidade de cimento necessária para produzir concreto com a resistência desejada. Esta calculadora usa dosagens técnicas baseadas na NBR 12655 e é essencial para orçamentos e planejamento de obras.",
+    context: [
+      "O cimento é o aglomerante principal do concreto. Sua quantidade define a resistência final da peça — quanto mais cimento, mais resistente o concreto. Errar na dosagem compromete a durabilidade e a segurança estrutural.",
+      "As dosagens seguem normas técnicas rigorosas (NBR 12655). Usar menos cimento para economizar é uma falsa economia que pode resultar em fissuras, infiltrações e até colapso estrutural. A calculadora adota valores conservadores baseados em recomendações de engenheiros e fabricantes.",
+    ],
+    whenToUse: [
+      "Orçar a quantidade de cimento para uma obra.",
+      "Calcular dosagem de concreto usinado ou virado na obra.",
+      "Validar propostas comerciais de fornecedores.",
+    ],
+    howItWorks: [
+      "Informe o volume total de concreto em metros cúbicos (m³).",
+      "Escolha a resistência desejada (fck) — quanto maior, mais cimento é necessário.",
+      "A calculadora multiplica o volume pela dosagem técnica e converte em sacos de 50 kg.",
+    ],
+    formula: {
+      expression: "Cimento (kg) = Volume (m³) × Dosagem por m³ (kg/m³)",
+      legend: [
+        "fck 20 MPa = 340 kg/m³",
+        "fck 25 MPa = 360 kg/m³",
+        "fck 30 MPa = 380 kg/m³",
+        "fck 35 MPa = 400 kg/m³",
+        "Valores baseados em NBR 12655 para concreto com abatimento 100–120 mm.",
+      ],
+    },
+    example: {
+      scenario: "Produzir 5 m³ de concreto com fck 25 MPa.",
+      steps: [
+        "Dosagem para fck 25 = 360 kg/m³",
+        "Cimento total = 5 × 360 = 1.800 kg",
+        "Sacos de 50 kg = 1.800 / 50 = 36 sacos",
+      ],
+      result: "Serão necessários 36 sacos de cimento de 50 kg.",
+    },
+    moreExamples: [
+      {
+        scenario: "Fundação com 10 m³ de concreto fck 30 MPa.",
+        steps: [
+          "Dosagem para fck 30 = 380 kg/m³",
+          "Cimento total = 10 × 380 = 3.800 kg",
+          "Sacos de 50 kg = 3.800 / 50 = 76 sacos",
+        ],
+        result: "Compre 76 sacos de cimento para a fundação.",
+      },
+    ],
+    tips: [
+      "Sempre compre 10% a mais de cimento para compensar perdas e desperdícios.",
+      "Cimento Portland CP II-E é adequado para a maioria das obras residenciais; CP V-ARI é usado para ganho rápido de resistência.",
+      "Armazene cimento em local seco e protegido da umidade; tem validade de 3 meses.",
+      "A resistência final depende também da qualidade da areia, brita e água utilizadas.",
+    ],
+    errors: [
+      "Usar dosagem insuficiente de cimento resulta em concreto fraco e pouco durável.",
+      "Excesso de água reduz a resistência, mesmo com cimento adequado.",
+      "Não considerar o desperdício no cálculo leva a falta de material durante a concretagem.",
+      "Misturar tipos diferentes de cimento na mesma obra pode comprometer a qualidade.",
+    ],
+    table: {
+      caption: "Dosagem de cimento por resistência (NBR 12655)",
+      headers: ["Resistência (fck)", "Cimento por m³", "Para 10 m³"],
+      rows: [
+        ["fck 20 MPa", "340 kg/m³", "3.400 kg (68 sacos)"],
+        ["fck 25 MPa", "360 kg/m³", "3.600 kg (72 sacos)"],
+        ["fck 30 MPa", "380 kg/m³", "3.800 kg (76 sacos)"],
+        ["fck 35 MPa", "400 kg/m³", "4.000 kg (80 sacos)"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual é a diferença entre fck 20 e fck 30?",
+        a: "fck é a resistência à compressão do concreto em MPa. fck 30 é mais resistente que fck 20 e requer mais cimento. Use fck 30 para estruturas críticas, fundações profundas e elementos sob maior carga.",
+      },
+      {
+        q: "Posso usar menos cimento para economizar?",
+        a: "Não. Reduzir cimento compromete a resistência e durabilidade do concreto, podendo causar fissuras e infiltrações. Sempre siga a dosagem técnica.",
+      },
+      {
+        q: "O que fazer com cimento que sobrou?",
+        a: "Cimento não deve ser reutilizado em outra obra. Armazene em local seco ou doe para instituições. Nunca misture cimento antigo com novo.",
+      },
+      {
+        q: "Qual é o melhor tipo de cimento?",
+        a: "CP II-E (cimento Portland composto) é o mais comum e adequado. CP V-ARI é usado quando se precisa de ganho rápido de resistência (pré-moldados). Sempre siga as especificações do projeto.",
+      },
+      {
+        q: "Como armazenar cimento corretamente?",
+        a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
+      },
+    ],
     related: [REL_CONCRETO, REL_ARGAMASSA, REL_TINTA, REL_PISO],
   },
 
