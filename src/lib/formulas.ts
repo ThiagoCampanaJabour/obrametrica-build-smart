@@ -54,7 +54,6 @@ export function calcTinta(comprimento: number, altura: number, demaos: number) {
 export const cmParaPolegada = (cm: number) => cm / 2.54;
 export const litrosParaM3 = (l: number) => l / 1000;
 export const m2ParaHectare = (m2: number) => m2 / 10000;
-}
 
 export type ResistenciaTipo = "fck20" | "fck25" | "fck30" | "fck35";
 
