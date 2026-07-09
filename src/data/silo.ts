@@ -40,6 +40,7 @@ export const SILO_CATEGORIES: SiloCategory[] = [
       { path: "/calculadora-de-piso", label: "Calculadora de Piso" },
       { path: "/calculadora-de-tinta", label: "Calculadora de Tinta" },
       { path: "/calculadora-de-argamassa", label: "Calculadora de Argamassa" },
+      { path: "Calculadora de Cimento", label: "/calculadora-de-cimento" },
     ],
   },
   {
