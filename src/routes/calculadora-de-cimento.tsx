@@ -99,11 +99,7 @@ function CimentoCalc() {
         <ResultPanel
           items={[
             { label: "Cimento necessário", value: `${fmt(result.cimento)} kg` },
-            {
-              label: "Sacos de 50 kg",
-              value: `${fmt(result.sacos, 0)} sacos`,
-              highlight: true,
-            },
+            { label: "Sacos de 50 kg", value: `${fmt(result.sacos, 0)} sacos`, highlight: true },
           ]}
         />
       )}
