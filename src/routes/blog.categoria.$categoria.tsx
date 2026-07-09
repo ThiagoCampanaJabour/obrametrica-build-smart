@@ -69,12 +69,8 @@ export const Route = createFileRoute("/blog/categoria/$categoria")({
             </Link>
           ))}
         </div>
-        <Link
-          to="/blog"
-          className="mt-8 inline-flex items-center gap-2 text-primary font-semibold"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {" "}Voltar ao Blog
+        <Link to="/blog" className="mt-8 inline-flex items-center gap-2 text-primary font-semibold">
+          <ArrowLeft className="h-4 w-4" /> Voltar ao Blog
         </Link>
       </section>
     </SiteLayout>
@@ -156,8 +152,7 @@ function CategoryPage() {
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                    {post.readingTime}
-                    {" "}min de leitura
+                    {post.readingTime} min de leitura
                   </span>
                 </div>
                 <div className="mt-6 flex-1" />
@@ -183,9 +178,7 @@ function CategoryPage() {
               <div className="flex items-center gap-3">
                 <Calculator className="h-5 w-5 text-foreground" aria-hidden="true" />
                 <h2 className="text-xl font-bold tracking-tight text-foreground">
-                  Calculadoras de
-                  {" "}
-                  {category.name}
+                  Calculadoras de {category.name}
                 </h2>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -205,15 +198,8 @@ function CategoryPage() {
                 ))}
               </ul>
               <div className="mt-4 text-sm">
-                <a
-                  href={silo.path}
-                  className="font-semibold text-primary hover:underline"
-                >
-                  Ver todas as calculadoras de
-                  {" "}
-                  {category.name}
-                  {" "}
-                  →
+                <a href={silo.path} className="font-semibold text-primary hover:underline">
+                  Ver todas as calculadoras de {category.name} →
                 </a>
               </div>
             </section>
@@ -225,8 +211,7 @@ function CategoryPage() {
             to="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary"
           >
-            <ArrowLeft className="h-4 w-4" />
-            {" "}Ver todas as categorias
+            <ArrowLeft className="h-4 w-4" /> Ver todas as categorias
           </Link>
         </div>
 

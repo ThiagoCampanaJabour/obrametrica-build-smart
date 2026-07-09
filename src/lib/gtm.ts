@@ -46,10 +46,7 @@ export function ensureDataLayer(): unknown[] | null {
  * @example
  *   trackEvent("calculadora_tijolos", { area: 32 });
  */
-export function trackEvent(
-  eventName: string,
-  parameters: Record<string, unknown> = {},
-): void {
+export function trackEvent(eventName: string, parameters: Record<string, unknown> = {}): void {
   const dl = ensureDataLayer();
   if (!dl) return;
   dl.push({ event: eventName, ...parameters });

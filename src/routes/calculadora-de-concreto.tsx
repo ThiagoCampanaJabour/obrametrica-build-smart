@@ -13,7 +13,6 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcConcreto } from "@/lib/formulas";
 
-
 const PATH = "/calculadora-de-concreto";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -42,7 +41,6 @@ export const Route = createFileRoute("/calculadora-de-concreto")({
     }),
   component: ConcretoCalc,
 });
-
 
 function ConcretoCalc() {
   const [comprimento, setComprimento] = useState("");

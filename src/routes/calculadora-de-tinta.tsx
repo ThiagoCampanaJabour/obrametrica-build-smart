@@ -13,7 +13,6 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcTinta } from "@/lib/formulas";
 
-
 const PATH = "/calculadora-de-tinta";
 const CRUMBS = [
   { name: "Início", path: "/" },
@@ -42,7 +41,6 @@ export const Route = createFileRoute("/calculadora-de-tinta")({
     }),
   component: TintaCalc,
 });
-
 
 function TintaCalc() {
   const [comprimento, setComprimento] = useState("");

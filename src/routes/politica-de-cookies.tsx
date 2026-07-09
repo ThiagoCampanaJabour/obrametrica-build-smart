@@ -2,7 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead, SITE_URL } from "@/lib/seo";
-import { Cookie, Settings, Shield, BarChart3, Megaphone, Mail, FileText, AlertCircle } from "lucide-react";
+import {
+  Cookie,
+  Settings,
+  Shield,
+  BarChart3,
+  Megaphone,
+  Mail,
+  FileText,
+  AlertCircle,
+} from "lucide-react";
 
 const PATH = "/politica-de-cookies";
 const CRUMBS = [

@@ -75,7 +75,7 @@ const CIMENTO_POR_M3: CimentoDosagem = {
 
 export function calcCimento(
   volumeM3: number,
-  resistencia: ResistenciaTipo
+  resistencia: ResistenciaTipo,
 ): { cimento: number; sacos: number } {
   const cimentoKgPorM3 = CIMENTO_POR_M3[resistencia];
   const cimentoTotal = volumeM3 * cimentoKgPorM3;

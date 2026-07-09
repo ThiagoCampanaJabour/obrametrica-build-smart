@@ -12,13 +12,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import {
-  GTM_EVENTS,
-  GTM_HEAD_SNIPPET,
-  GTM_ID,
-  ensureDataLayer,
-  trackEvent,
-} from "../lib/gtm";
+import { GTM_EVENTS, GTM_HEAD_SNIPPET, GTM_ID, ensureDataLayer, trackEvent } from "../lib/gtm";
 
 const GA_MEASUREMENT_ID = "G-4G3TWXJHBC";
 const GA_ENABLED = import.meta.env.PROD;
@@ -94,9 +88,6 @@ function useGtmPageView() {
 
 // AdSense: script oficial injetado no <head> via SSR (ver `scripts` na Route).
 
-
-
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -157,7 +148,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-
 const FAVICON = "/obrametrica-logo-sm.webp";
 const OG_LOGO = "/obrametrica-logo.jpg";
 
@@ -194,7 +184,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "dns-prefetch", href: "https://www.google-analytics.com" },
       { rel: "dns-prefetch", href: "https://pagead2.googlesyndication.com" },
     ],
-
 
     scripts: [
       // Google Tag Manager - snippet oficial injetado no <head>.
@@ -267,4 +256,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

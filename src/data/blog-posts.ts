@@ -1063,7 +1063,10 @@ export const BLOG_POSTS: BlogPost[] = [
       "Escolher o inversor certo é tão estratégico quanto escolher as placas. Ele impacta diretamente na geração, na segurança e no retorno financeiro do sistema fotovoltaico.",
       "Para descobrir quantas placas o seu consumo exige e obter uma base para dimensionar o inversor, utilize nossa calculadora.",
     ],
-    relatedTool: { label: "Quantas Placas Solares Preciso", path: "/quantas-placas-solares-preciso" },
+    relatedTool: {
+      label: "Quantas Placas Solares Preciso",
+      path: "/quantas-placas-solares-preciso",
+    },
   },
 
   {
@@ -1120,8 +1123,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         question: "Quantos pés tem uma pessoa de 1,70 m?",
-        answer:
-          "1,70 × 3,28084 = 5,577 pés, ou aproximadamente 5 pés e 7 polegadas.",
+        answer: "1,70 × 3,28084 = 5,577 pés, ou aproximadamente 5 pés e 7 polegadas.",
       },
       {
         question: "A conversão vale para pés quadrados também?",

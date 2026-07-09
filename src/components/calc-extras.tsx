@@ -86,7 +86,11 @@ export function ResultActions({ text }: { text: string }) {
   return (
     <div className="mt-4 flex flex-wrap gap-2 print:hidden" aria-label="Ações do resultado">
       <button type="button" onClick={handleCopy} className={btn} aria-label="Copiar resultado">
-        {copied ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
+        {copied ? (
+          <Check className="h-4 w-4" aria-hidden />
+        ) : (
+          <Copy className="h-4 w-4" aria-hidden />
+        )}
         {copied ? "Copiado" : "Copiar resultado"}
       </button>
       <button type="button" onClick={handleShare} className={btn} aria-label="Compartilhar">
@@ -135,7 +139,9 @@ export function CalcExtras({ id }: { id: string }) {
       <Section icon={BookOpen} title="Introdução">
         <p className="leading-relaxed">{c.intro}</p>
         {c.context?.map((p, i) => (
-          <p key={i} className="mt-3 leading-relaxed">{p}</p>
+          <p key={i} className="mt-3 leading-relaxed">
+            {p}
+          </p>
         ))}
       </Section>
 
@@ -194,7 +200,6 @@ export function CalcExtras({ id }: { id: string }) {
           </div>
         ))}
       </Section>
-
 
       <Section icon={Lightbulb} title="Dicas">
         <ul className="list-disc space-y-2 pl-5">
@@ -311,9 +316,7 @@ function SiloArticlesForCalc({ path }: { path: string }) {
               <span className="text-xs font-semibold uppercase tracking-wider text-primary">
                 {post.category}
               </span>
-              <span className="mt-1 font-medium leading-snug text-foreground">
-                {post.title}
-              </span>
+              <span className="mt-1 font-medium leading-snug text-foreground">{post.title}</span>
               <span className="mt-2 text-xs text-muted-foreground">
                 {formatDate(post.date)} · {post.readingTime} min
               </span>

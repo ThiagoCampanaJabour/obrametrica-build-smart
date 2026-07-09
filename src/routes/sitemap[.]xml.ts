@@ -48,7 +48,6 @@ const ENTRIES: Entry[] = [
   { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
 ];
 
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {

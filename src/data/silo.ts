@@ -68,9 +68,7 @@ export const SILO_CATEGORIES: SiloCategory[] = [
 
 /** Retorna a categoria SILO para uma dada calculadora (por path). */
 export function getSiloForCalc(path: string): SiloCategory | undefined {
-  return SILO_CATEGORIES.find((c) =>
-    c.calculators.some((k) => k.path === path),
-  );
+  return SILO_CATEGORIES.find((c) => c.calculators.some((k) => k.path === path));
 }
 
 /** Retorna a categoria SILO pelo nome (compatível com blog-posts.category). */
@@ -84,10 +82,7 @@ export function getSiloBySlug(slug: string): SiloCategory | undefined {
 }
 
 /** Últimos artigos do blog para uma categoria (default: 3). */
-export function getLatestPostsByCategoryName(
-  name: string,
-  limit = 3,
-): BlogPost[] {
+export function getLatestPostsByCategoryName(name: string, limit = 3): BlogPost[] {
   return [...BLOG_POSTS]
     .filter((p) => p.category === name)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
