@@ -32,7 +32,21 @@ export default tseslint.config(
           ],
         },
       ],
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": [
+        "warn",
+        {
+          allowExportNames: [
+            "loader",
+            "action",
+            "meta",
+            "links",
+            "handle",
+            "ErrorBoundary",
+            "clientLoader",
+            "clientAction",
+          ],
+        },
+      ],
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
