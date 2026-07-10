@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -35,6 +35,12 @@ const calcs = [
     icon: Boxes,
     title: "Calculadora de Concreto",
     desc: "Volume de concreto em m³.",
+  },
+  {
+    to: "/calculadora-de-cimento" as const,
+    icon: Droplet,
+    title: "Calculadora de Cimento",
+    desc: "Dosagem de cimento por resistência (fck).",
   },
   {
     to: "/calculadora-de-piso" as const,
