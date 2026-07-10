@@ -174,7 +174,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CIMENTO, REL_ARGAMASSA, REL_TIJOLOS, REL_PISO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_TIJOLOS, REL_PISO],
   },
 
   "/calculadora-de-cimento": {
