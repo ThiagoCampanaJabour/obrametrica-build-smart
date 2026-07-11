@@ -13,13 +13,11 @@ export function CookieBanner() {
   const handleAcceptAll = () => {
     localStorage.setItem("omCookieConsent", "all");
     setShowBanner(false);
-    console.log("Cookies completos aceitos");
   };
 
   const handleNecessaryOnly = () => {
     localStorage.setItem("omCookieConsent", "necessary");
     setShowBanner(false);
-    console.log("Apenas cookies necessários");
   };
 
   if (!showBanner) return null;
@@ -33,8 +31,7 @@ export function CookieBanner() {
               Cookies e Privacidade
             </h2>
             <p className="text-sm text-slate-600 mb-3 leading-relaxed">
-              Usamos cookies para melhorar sua experiência, medir o uso do site e oferecer conteúdos relevantes. 
-              Você pode aceitar apenas os cookies necessários ou todos os cookies.
+              Usamos cookies para melhorar sua experiência, medir o uso do site e oferecer conteúdos relevantes. Você pode aceitar apenas os cookies necessários ou todos os cookies.
             </p>
             <div className="text-xs space-x-4">
               <a 
