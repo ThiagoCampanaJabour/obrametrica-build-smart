@@ -49,6 +49,26 @@ export function calcTinta(comprimento: number, altura: number, demaos: number) {
   return { area, litros, litrosRec: Math.ceil(litros * 1.1) };
 }
 
+/**
+ * Calcula a quantidade de areia necessária para obras
+ * Densidade padrão: 1.600 kg/m³
+ * Saco padrão: 0.02 m³ (20 kg)
+ */
+export function calcAreia(
+  area: number,
+  espessura: number,
+  proporcaoAreia: number,
+  desperdicio: number,
+): { volume: number; massa: number; sacos: number } {
+  const volumeBase = area * (espessura / 1000); // converte mm para m
+  const volumeAreia = volumeBase * proporcaoAreia;
+  const volumeFinal = volumeAreia * (1 + desperdicio / 100);
+  const massa = volumeFinal * 1600; // densidade 1600 kg/m³
+  const sacos = Math.ceil(volumeFinal / 0.02); // 0.02 m³ por saco padrão
+
+  return { volume: volumeFinal, massa, sacos };
+}
+
 // ---------- Conversores ----------
 
 export const cmParaPolegada = (cm: number) => cm / 2.54;

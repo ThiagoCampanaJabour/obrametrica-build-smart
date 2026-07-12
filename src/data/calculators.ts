@@ -64,11 +64,25 @@ const REL_CONCRETO: CalcRelated = {
   path: "/calculadora-de-concreto",
   label: "Calculadora de Concreto",
 };
-const REL_PISO: CalcRelated = { path: "/calculadora-de-piso", label: "Calculadora de Piso" };
-const REL_TINTA: CalcRelated = { path: "/calculadora-de-tinta", label: "Calculadora de Tinta" };
+const REL_PISO: CalcRelated = {
+  path: "/calculadora-de-piso",
+  label: "Calculadora de Piso",
+};
+const REL_TINTA: CalcRelated = {
+  path: "/calculadora-de-tinta",
+  label: "Calculadora de Tinta",
+};
 const REL_ARGAMASSA: CalcRelated = {
   path: "/calculadora-de-argamassa",
   label: "Calculadora de Argamassa",
+};
+const REL_AREIA: CalcRelated = {
+  path: "/calculadora-de-areia",
+  label: "Calculadora de Areia",
+};
+const REL_CIMENTO: CalcRelated = {
+  path: "/calculadora-de-cimento",
+  label: "Calculadora de Cimento",
 };
 const REL_PLACAS: CalcRelated = {
   path: "/quantas-placas-solares-preciso",
@@ -115,7 +129,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       expression: "Quantidade = (Comprimento × Altura) × Consumo por m² × 1,10",
     },
     example: {
-      scenario: "Parede de 5 m de comprimento por 2,8 m de altura, com tijolo 9×19×19 cm.",
+      scenario:
+        "Parede de 5 m de comprimento por 2,8 m de altura, com tijolo 9×19×19 cm.",
       steps: [
         "Área = 5 × 2,8 = 14 m²",
         "Consumo do tijolo 9×19×19 ≈ 25 tijolos/m²",
@@ -174,7 +189,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_TIJOLOS, REL_PISO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_PISO],
   },
 
   "/calculadora-de-cimento": {
@@ -270,7 +285,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_TINTA, REL_PISO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_TINTA],
   },
 
   "/calculadora-de-concreto": {
@@ -353,7 +368,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_TIJOLOS, REL_PISO, REL_L_M3],
+    related: [REL_ARGAMASSA, REL_TIJOLOS, REL_AREIA, REL_L_M3],
   },
 
   "/calculadora-de-piso": {
@@ -393,7 +408,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     moreExamples: [
       {
-        scenario: "Sala e cozinha integradas com 32 m², porcelanato de 2,32 m² por caixa.",
+        scenario:
+          "Sala e cozinha integradas com 32 m², porcelanato de 2,32 m² por caixa.",
         steps: [
           "Área com 10% de sobra = 32 × 1,10 = 35,2 m²",
           "Caixas = 35,2 / 2,32 = 15,17 → 16 caixas",
@@ -611,9 +627,104 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_CONCRETO, REL_TINTA],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_TINTA],
   },
-
+  "/calculadora-de-areia": {
+    path: "/calculadora-de-areia",
+    name: "Calculadora de Areia",
+    intro: "Calcule quantos metros cúbicos e sacos de areia você precisa para assentamento, reboco, concreto e nivelamento.",
+    context: [
+      "A areia é um dos materiais mais importantes na construção civil, sendo utilizada em argamassas, concretos e bases de nivelamento.",
+      "Errar na dosagem de areia resulta em obras com baixa resistência, infiltrações e problemas estruturais.",
+    ],
+    whenToUse: [
+      "Assentamento de tijolos e blocos.",
+      "Preparação de argamassa para reboco.",
+      "Dosagem de concreto.",
+      "Nivelamento de bases e pisos.",
+    ],
+    howItWorks: [
+      "Informe a área em metros quadrados.",
+      "Escolha a espessura em milímetros.",
+      "Selecione o tipo de obra (assentamento, reboco, concreto ou nivelamento).",
+      "A calculadora retorna o volume em m³, massa em kg e quantidade de sacos.",
+    ],
+    formula: {
+      expression: "Volume (m³) = Área (m²) × Espessura (m) × Proporção de areia",
+      legend: [
+        "Densidade média da areia: 1.600 kg/m³",
+        "Saco padrão: 0,02 m³ (20 kg)",
+        "Proporção varia conforme o traço (1:3, 1:4, 1:2:3, etc)",
+      ],
+    },
+    example: {
+      scenario: "Assentamento de tijolos em área de 50 m² com 10 mm de espessura e traço 1:3.",
+      steps: [
+        "Volume base = 50 m² × 0,01 m = 0,5 m³",
+        "Proporção de areia (1:3) = 3/(1+3) = 0,75",
+        "Volume de areia = 0,5 × 0,75 = 0,375 m³",
+        "Com 10% de desperdício = 0,375 × 1,1 = 0,4125 m³",
+        "Massa = 0,4125 × 1.600 = 660 kg",
+        "Sacos = 0,4125 / 0,02 = 21 sacos",
+      ],
+      result: "Serão necessários 0,413 m³, aproximadamente 660 kg ou 21 sacos de areia.",
+    },
+    moreExamples: [
+      {
+        scenario: "Concreto em laje de 100 m² com 20 mm de espessura e traço 1:2:3.",
+        steps: [
+          "Volume base = 100 × 0,02 = 2 m³",
+          "Proporção de areia (1:2:3) = 2/(1+2+3) = 0,333",
+          "Volume de areia = 2 × 0,333 = 0,667 m³",
+          "Com 8% de desperdício = 0,667 × 1,08 = 0,720 m³",
+          "Sacos = 0,720 / 0,02 = 36 sacos",
+        ],
+        result: "Compre 36 sacos de areia para a laje.",
+      },
+    ],
+    tips: [
+      "Sempre compre 10% a mais para perdas e retrabalho.",
+      "Areia fina é melhor para reboco; areia média para assentamento.",
+      "Verifique a granulometria da areia conforme a NBR 7211.",
+      "Areia úmida tem maior volume aparente; considere isso na compra.",
+    ],
+    errors: [
+      "Usar espessura em centímetros em vez de milímetros multiplica o resultado por 10.",
+      "Não considerar o desperdício leva a compras insuficientes.",
+      "Confundir proporção do traço com proporção de areia.",
+      "Não descontar vãos de portas e janelas em revestimentos.",
+    ],
+    table: {
+      caption: "Consumo de areia por m² conforme tipo de obra",
+      headers: ["Tipo de Obra", "Espessura", "Consumo por m²"],
+      rows: [
+        ["Assentamento", "10 mm", "15-20 kg/m²"],
+        ["Reboco (1ª demão)", "5 mm", "8-10 kg/m²"],
+        ["Reboco (2ª demão)", "8 mm", "12-15 kg/m²"],
+        ["Concreto", "100 mm", "160-180 kg/m²"],
+        ["Nivelamento", "50 mm", "80-100 kg/m²"],
+      ],
+    },
+    faq: [
+      {
+        q: "Quantos sacos de areia por m² de assentamento?",
+        a: "Depende da espessura e do traço. Para assentamento com 10 mm e traço 1:3, o consumo é aproximadamente 15-20 kg/m² (1 saco de 20 kg cobre cerca de 1-1,3 m²).",
+      },
+      {
+        q: "Qual é a diferença entre areia fina e areia média?",
+        a: "Areia fina (0,125-0,25 mm) é usada em reboco para melhor acabamento. Areia média (0,25-0,5 mm) é usada em assentamento e concreto para melhor aderência.",
+      },
+      {
+        q: "Posso usar areia de rio em concreto?",
+        a: "Sim, mas deve estar limpa e sem impurezas. A NBR 7211 especifica que a areia deve ter granulometria adequada e estar isenta de matéria orgânica.",
+      },
+      {
+        q: "Como converter m³ para sacos?",
+        a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_TIJOLOS],
+  },
   "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
     name: "Quantas placas solares preciso?",
@@ -654,7 +765,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     },
     moreExamples: [
       {
-        scenario: "Comércio no Nordeste consumindo 1.200 kWh/mês (irradiação 5,8 kWh/m²/dia).",
+        scenario:
+          "Comércio no Nordeste consumindo 1.200 kWh/mês (irradiação 5,8 kWh/m²/dia).",
         steps: [
           "Geração diária = 1.200 / 30 = 40 kWh/dia",
           "Potência do sistema = 40 / (5,8 × 0,80) = 8,6 kWp",
@@ -728,13 +840,18 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       expression: "Economia mensal = Valor da conta × Percentual atendido",
     },
     example: {
-      scenario: "Conta de luz de R$ 500/mês, sistema dimensionado para atender 95% do consumo.",
-      steps: ["Economia mensal = 500 × 0,95 = R$ 475", "Economia anual = 475 × 12 = R$ 5.700"],
+      scenario:
+        "Conta de luz de R$ 500/mês, sistema dimensionado para atender 95% do consumo.",
+      steps: [
+        "Economia mensal = 500 × 0,95 = R$ 475",
+        "Economia anual = 475 × 12 = R$ 5.700",
+      ],
       result: "Economia estimada de R$ 475/mês ou R$ 5.700/ano.",
     },
     moreExamples: [
       {
-        scenario: "Comércio com conta de R$ 1.200/mês e sistema para 90% do consumo.",
+        scenario:
+          "Comércio com conta de R$ 1.200/mês e sistema para 90% do consumo.",
         steps: [
           "Economia mensal = 1.200 × 0,90 = R$ 1.080",
           "Economia anual = 1.080 × 12 = R$ 12.960",

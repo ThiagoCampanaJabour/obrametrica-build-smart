@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -43,6 +43,18 @@ const calcs = [
     desc: "Dosagem de cimento por resistência (fck).",
   },
   {
+    to: "/calculadora-de-argamassa" as const,
+    icon: Layers,
+    title: "Calculadora de Argamassa",
+    desc: "Sacos de argamassa por aplicação.",
+  },
+  {
+    to: "/calculadora-de-areia" as const,
+    icon: Waves,
+    title: "Calculadora de Areia",
+    desc: "Volume e sacos de areia.",
+  },
+  {
     to: "/calculadora-de-piso" as const,
     icon: LayoutGrid,
     title: "Calculadora de Piso",
@@ -53,12 +65,6 @@ const calcs = [
     icon: Paintbrush,
     title: "Calculadora de Tinta",
     desc: "Litros necessários por demão.",
-  },
-  {
-    to: "/calculadora-de-argamassa" as const,
-    icon: Layers,
-    title: "Calculadora de Argamassa",
-    desc: "Sacos de argamassa por aplicação.",
   },
 ];
 
