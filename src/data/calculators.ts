@@ -80,6 +80,10 @@ const REL_AREIA: CalcRelated = {
   path: "/calculadora-de-areia",
   label: "Calculadora de Areia",
 };
+const REL_REJUNTE: CalcRelated = {
+  path: "/calculadora-rejunte",
+  label: "Calculadora de Rejunte",
+};
 const REL_ARCONDICIONADO: CalcRelated = {
   path: "/calculadora-ar-condicionado",
   label: "Calculadora de Ar-Condicionado",
@@ -552,7 +556,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Pode sobrar, sim. Isso é intencional: guardar 1–2 litros do mesmo lote garante retoques futuros com a cor exata.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_PISO, REL_TIJOLOS, REL_M2_HA],
+    related: [REL_ARGAMASSA, REL_REJUNTE, REL_PISO, REL_TIJOLOS, REL_M2_HA],
   },
 
   "/calculadora-de-argamassa": {
@@ -635,7 +639,8 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA],
+    
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -734,6 +739,132 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     
         related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO],
   },
+    "/calculadora-rejunte": {
+    path: "/calculadora-rejunte",
+    name: "Calculadora de Rejunte",
+    intro: "Calcule a quantidade de rejunte necessária para revestimentos cerâmicos e porcelanato com precisão técnica.",
+    context: [
+      "O rejunte é fundamental para a durabilidade e estética do revestimento. Uma quantidade inadequada resulta em infiltrações, mofo e necessidade de refazer o serviço.",
+      "Errar no dimensionamento causa desperdício de material, custos extras e atrasos na obra.",
+    ],
+    whenToUse: [
+      "Revestir pisos com cerâmica ou porcelanato.",
+      "Revestir paredes com azulejos ou pastilhas.",
+      "Calcular rejunte para áreas internas ou externas.",
+      "Estimar quantidade para diferentes tipos de rejunte (cimentício, acrílico, epóxi).",
+    ],
+    howItWorks: [
+      "Informe as dimensões da peça (comprimento × altura em mm).",
+      "Escolha a largura da junta (espaço entre peças) e espessura do rejunte.",
+      "Informe a área total a revestir em m².",
+      "Selecione o tipo de rejunte (cimentício, acrílico ou epóxi).",
+      "A calculadora retorna o volume em litros e massa em kg.",
+    ],
+    formula: {
+      expression: "Volume (m³) = (Perímetro × Largura da junta × Espessura × Número de peças/m²) × Área total",
+      legend: [
+        "Perímetro da peça = 2 × (largura + altura)",
+        "Número de peças por m² = 1.000.000 / (largura × altura em mm²)",
+        "Densidade cimentício: 1.800 kg/m³",
+        "Densidade acrílico: 1.600 kg/m³",
+        "Densidade epóxi: 1.900 kg/m³",
+        "1 m³ = 1.000 litros",
+        "Desperdício padrão: 10% (margem de segurança)",
+      ],
+    },
+    example: {
+      scenario: "Piso de 10 m² com peças 20×20 cm, junta 2 mm, espessura 3 mm, rejunte cimentício.",
+      steps: [
+        "Perímetro da peça = 2 × (200 + 200) = 800 mm",
+        "Número de peças por m² = 1.000.000 / (200 × 200) = 25 peças",
+        "Volume por peça = 800 × 2 × 3 = 4.800 mm³",
+        "Volume total = 4.800 × 25 × 10 = 1.200.000 mm³ = 0,0012 m³",
+        "Volume em litros = 0,0012 × 1.000 = 1,2 litros",
+        "Massa = 0,0012 × 1.800 = 2,16 kg",
+        "Com 10% desperdício = 2,16 × 1,10 = 2,38 kg",
+      ],
+      result: "Serão necessários aproximadamente 2,38 kg de rejunte cimentício.",
+    },
+    moreExamples: [
+      {
+        scenario: "Piso grande de 50 m² com peças 60×60 cm, junta 3 mm, espessura 4 mm, rejunte cimentício.",
+        steps: [
+          "Perímetro = 2 × (600 + 600) = 2.400 mm",
+          "Número de peças = 1.000.000 / 360.000 ≈ 2,78 peças/m²",
+          "Volume por peça = 2.400 × 3 × 4 = 28.800 mm³",
+          "Volume total = 28.800 × 2,78 × 50 = 4.000.000 mm³ ≈ 0,004 m³",
+          "Massa = 0,004 × 1.800 = 7,2 kg",
+          "Com desperdício = 7,2 × 1,10 = 7,92 kg",
+        ],
+        result: "Compre aproximadamente 8 kg de rejunte cimentício.",
+      },
+      {
+        scenario: "Parede com pastilhas 5×5 cm, junta 1 mm, espessura 2 mm, rejunte epóxi, 20 m².",
+        steps: [
+          "Perímetro = 2 × (50 + 50) = 200 mm",
+          "Número de peças = 1.000.000 / 2.500 = 400 peças/m²",
+          "Volume por peça = 200 × 1 × 2 = 400 mm³",
+          "Volume total = 400 × 400 × 20 = 3.200.000 mm³ = 0,0032 m³",
+          "Massa = 0,0032 × 1.900 = 6,08 kg",
+          "Com desperdício = 6,08 × 1,10 = 6,69 kg",
+        ],
+        result: "Compre aproximadamente 7 kg de rejunte epóxi para as pastilhas.",
+      },
+    ],
+    tips: [
+      "Rejunte cimentício: mais econômico, indicado para áreas internas e secas.",
+      "Rejunte acrílico: mais flexível, ideal para áreas com movimento ou variação de temperatura.",
+      "Rejunte epóxi: mais resistente e impermeável, recomendado para cozinhas, banheiros e áreas molhadas.",
+      "Sempre compre 10-15% a mais para perdas, retrabalho e desperdício.",
+      "Limpe o excesso de rejunte enquanto ainda está fresco (antes de secar).",
+      "Deixe secar completamente (24-48h) antes de usar a superfície.",
+      "Use espaçadores entre peças para garantir juntas uniformes.",
+      "Quanto menor a junta, menos rejunte será necessário (economia).",
+    ],
+    errors: [
+      "Usar dimensões em centímetros em vez de milímetros multiplica o resultado por 100.",
+      "Não considerar a largura da junta resulta em subdimensionamento.",
+      "Confundir densidade de diferentes tipos de rejunte (cimentício vs epóxi).",
+      "Não aplicar margem de desperdício resulta em falta de material.",
+      "Calcular apenas para uma parede em vez de toda a área total.",
+      "Ignorar o tipo de rejunte (cada um tem densidade e consumo diferentes).",
+    ],
+    table: {
+      caption: "Consumo de rejunte por m² conforme tamanho da peça e largura da junta",
+      headers: ["Tamanho da Peça", "Junta 2mm", "Junta 3mm", "Junta 5mm"],
+      rows: [
+        ["20×20 cm", "~2,5 kg/m²", "~3,5 kg/m²", "~5,5 kg/m²"],
+        ["30×30 cm", "~1,5 kg/m²", "~2,2 kg/m²", "~3,5 kg/m²"],
+        ["60×60 cm", "~0,8 kg/m²", "~1,2 kg/m²", "~2,0 kg/m²"],
+        ["120×120 cm", "~0,4 kg/m²", "~0,6 kg/m²", "~1,0 kg/m²"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual a diferença entre rejunte cimentício, acrílico e epóxi?",
+        a: "Cimentício é mais econômico e indicado para áreas internas. Acrílico é mais flexível e resiste melhor a variações de temperatura. Epóxi é o mais resistente e impermeável, ideal para áreas molhadas como cozinhas e banheiros.",
+      },
+      {
+        q: "Quanto de rejunte preciso por m²?",
+        a: "Depende do tamanho da peça e da largura da junta. Para peças 20×20 cm com junta 2mm, o consumo é aproximadamente 2,5 kg/m². Para peças maiores (60×60 cm), é cerca de 0,8 kg/m².",
+      },
+      {
+        q: "Posso usar rejunte cimentício em banheiros?",
+        a: "Não é recomendado. Rejunte cimentício é poroso e absorve umidade, causando mofo e infiltrações. Use rejunte acrílico ou epóxi em áreas molhadas.",
+      },
+      {
+        q: "Quanto tempo leva para o rejunte secar?",
+        a: "Rejunte cimentício leva 24-48 horas para secar completamente. Rejunte acrílico e epóxi podem levar até 72 horas. Não use a superfície antes desse período.",
+      },
+      {
+        q: "Como reduzir o desperdício de rejunte?",
+        a: "Use juntas mais estreitas (2mm em vez de 5mm), escolha peças maiores (menos juntas por m²), e limpe o excesso enquanto ainda está fresco. Isso reduz o desperdício em até 30%.",
+      },
+    ],
+
+    related: [REL_PISO, REL_ARGAMASSA, REL_REJUNTE, REL_TINTA, REL_TIJOLOS],  
+    
+    },
     "/climatizacao/ar-condicionado": {
     path: "/climatizacao/ar-condicionado",
     name: "Calculadora de Ar-Condicionado",
