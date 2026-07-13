@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -28,25 +28,25 @@ const calcs = [
     to: "/calculadora-de-tijolos" as const,
     icon: Hammer,
     title: "Calculadora de Tijolos",
-    desc: "Quantidade de tijolos por área e tipo.",
+    desc: "Quantidade de tijolos para alvenaria.",
   },
   {
     to: "/calculadora-de-concreto" as const,
     icon: Boxes,
     title: "Calculadora de Concreto",
-    desc: "Volume de concreto em m³.",
+    desc: "Volume de concreto para estrutura.",
   },
   {
     to: "/calculadora-de-cimento" as const,
     icon: Droplet,
     title: "Calculadora de Cimento",
-    desc: "Dosagem de cimento por resistência (fck).",
+    desc: "Dosagem de cimento por resistência.",
   },
   {
     to: "/calculadora-de-argamassa" as const,
     icon: Layers,
     title: "Calculadora de Argamassa",
-    desc: "Sacos de argamassa por aplicação.",
+    desc: "Quantidade de argamassa para revestimento.",
   },
   {
     to: "/calculadora-de-areia" as const,
@@ -55,16 +55,22 @@ const calcs = [
     desc: "Volume e sacos de areia.",
   },
   {
+    to: "/calculadora-de-brita" as const,
+    icon: Pickaxe,
+    title: "Calculadora de Brita",
+    desc: "Volume e sacos de brita para concreto.",
+  },
+  {
     to: "/calculadora-de-piso" as const,
     icon: LayoutGrid,
     title: "Calculadora de Piso",
-    desc: "Área e quantidade de caixas com sobra.",
+    desc: "Quantidade de peças de piso.",
   },
   {
     to: "/calculadora-de-tinta" as const,
     icon: Paintbrush,
     title: "Calculadora de Tinta",
-    desc: "Litros necessários por demão.",
+    desc: "Litros de tinta necessários.",
   },
 ];
 

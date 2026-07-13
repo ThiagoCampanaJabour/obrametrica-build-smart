@@ -93,6 +93,38 @@ const CIMENTO_POR_M3: CimentoDosagem = {
   fck35: 400,
 };
 
+/**
+ * Calcula a quantidade de brita necessária para concreto ou pavimentação
+ * Densidade padrão: 1.500 kg/m³
+ * Saco padrão: 0,02 m³ (30 kg)
+ *
+ * Baseado em consumo médio de mercado para concreto estrutural
+ */
+export function calcBrita(
+  area: number,
+  espessura: number,
+  proporcaoBrita: number = 0.5, // Proporção de brita no concreto (0-1)
+  desperdicio: number = 10, // Percentual de desperdício (0-50)
+  densidade: number = 1500, // kg/m³
+): { volume: number; volumeFinal: number; sacos: number; massa: number } {
+  // Volume base em m³ (espessura em mm, converter para m)
+  const volumeBase = area * (espessura / 1000);
+
+  // Volume de brita conforme proporção
+  const volumeBrita = volumeBase * proporcaoBrita;
+
+  // Aplicar desperdício
+  const volumeFinal = volumeBrita * (1 + desperdicio / 100);
+
+  // Quantidade de sacos (30 kg cada, 0,02 m³)
+  const sacos = Math.ceil(volumeFinal / 0.02);
+
+  // Massa em kg
+  const massa = volumeFinal * densidade;
+
+  return { volume: volumeFinal, volumeFinal, sacos, massa };
+}
+
 export function calcCimento(
   volumeM3: number,
   resistencia: ResistenciaTipo,
