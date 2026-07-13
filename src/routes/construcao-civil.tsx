@@ -59,7 +59,7 @@ const calcs = [
     icon: Trowel,
     title: "Calculadora de Rejunte",
     desc: "Quantidade de rejunte em kg e litros.",
-},
+  },
   {
     to: "/calculadora-de-brita" as const,
     icon: Pickaxe,
