@@ -80,6 +80,10 @@ const REL_AREIA: CalcRelated = {
   path: "/calculadora-de-areia",
   label: "Calculadora de Areia",
 };
+const REL_BRITA: CalcRelated = {
+  path: "/calculadora-de-brita",
+  label: "Calculadora de Brita",
+};
 const REL_CIMENTO: CalcRelated = {
   path: "/calculadora-de-cimento",
   label: "Calculadora de Cimento",
@@ -189,7 +193,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_PISO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO],
   },
 
   "/calculadora-de-cimento": {
@@ -285,7 +289,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_TINTA],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
   },
 
   "/calculadora-de-concreto": {
@@ -368,7 +372,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_TIJOLOS, REL_AREIA, REL_L_M3],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
   },
 
   "/calculadora-de-piso": {
@@ -627,7 +631,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_TINTA],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_BRITA, REL_TINTA],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -723,7 +727,121 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_TIJOLOS],
+        related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA],
+  },
+    "/calculadora-de-brita": {
+    path: "/calculadora-de-brita",
+    name: "Calculadora de Brita",
+    intro: "Calcule a quantidade de brita necessária para concreto, pavimentação ou nivelamento com precisão técnica.",
+    context: [
+      "A brita é o agregado graúdo essencial para concreto estrutural, argamassa e pavimentação. Sua correta dosagem garante resistência e durabilidade da obra.",
+      "Errar na quantidade de brita resulta em concreto fraco, desperdício de material e custos desnecessários.",
+    ],
+    whenToUse: [
+      "Preparar concreto estrutural para fundações e pilares.",
+      "Fazer concreto magro para regularização de pisos.",
+      "Executar pavimentação com brita e cimento.",
+      "Calcular material para argamassa com agregado graúdo.",
+    ],
+    howItWorks: [
+      "Informe a área em m² e a espessura em mm (ou volume direto em m³).",
+      "Escolha o tipo de obra (concreto estrutural, magro, etc).",
+      "Defina o traço do concreto (ex: 1:2:3 = cimento:areia:brita).",
+      "A calculadora calcula o volume de brita, massa em kg e quantidade de sacos.",
+    ],
+    formula: {
+      expression: "Volume de Brita (m³) = Área (m²) × Espessura (m) × Proporção de Brita",
+      legend: [
+        "Proporção de brita varia conforme o traço: traço 1:2:3 → brita = 3/(1+2+3) = 50%",
+        "Densidade média da brita: 1.500 kg/m³",
+        "Saco padrão: 0,02 m³ (30 kg)",
+        "Desperdício padrão: 10% (variável conforme obra)",
+        "Volume final = Volume teórico × (1 + desperdício/100)",
+      ],
+    },
+    example: {
+      scenario: "Concreto estrutural de 50 m² com 10 cm de espessura, traço 1:2:3, desperdício 10%.",
+      steps: [
+        "Volume base = 50 × 0,1 = 5 m³",
+        "Proporção de brita no traço 1:2:3 = 3/(1+2+3) = 0,5 (50%)",
+        "Volume de brita teórico = 5 × 0,5 = 2,5 m³",
+        "Volume com desperdício = 2,5 × 1,10 = 2,75 m³",
+        "Massa = 2,75 × 1.500 = 4.125 kg = 4,13 toneladas",
+        "Sacos de 30 kg = 2,75 / 0,02 = 138 sacos",
+      ],
+      result: "Serão necessários 2,75 m³ de brita (138 sacos ou 4,13 toneladas).",
+    },
+    moreExamples: [
+      {
+        scenario: "Concreto magro para piso de 100 m² com 5 cm de espessura, traço 1:3:3, desperdício 8%.",
+        steps: [
+          "Volume base = 100 × 0,05 = 5 m³",
+          "Proporção de brita no traço 1:3:3 = 3/(1+3+3) = 0,43 (43%)",
+          "Volume de brita = 5 × 0,43 = 2,15 m³",
+          "Volume com desperdício = 2,15 × 1,08 = 2,32 m³",
+          "Massa = 2,32 × 1.500 = 3.480 kg = 3,48 toneladas",
+        ],
+        result: "Compre 2,32 m³ de brita (116 sacos ou 3,48 toneladas).",
+      },
+      {
+        scenario: "Pavimentação com brita e cimento de 200 m² com 8 cm de espessura, traço 1:4:4, desperdício 12%.",
+        steps: [
+          "Volume base = 200 × 0,08 = 16 m³",
+          "Proporção de brita no traço 1:4:4 = 4/(1+4+4) = 0,44 (44%)",
+          "Volume de brita = 16 × 0,44 = 7,04 m³",
+          "Volume com desperdício = 7,04 × 1,12 = 7,88 m³",
+          "Massa = 7,88 × 1.500 = 11.820 kg = 11,82 toneladas",
+        ],
+        result: "Compre 7,88 m³ de brita (394 sacos ou 11,82 toneladas).",
+      },
+    ],
+    tips: [
+      "Sempre compre 10-15% a mais para perdas, retrabalho e desperdício em obra.",
+      "A densidade da brita varia entre 1.400-1.600 kg/m³ conforme o tipo (basalto, granito, etc).",
+      "Brita molhada pesa mais — se a brita chegar úmida, reduza o volume em 5-10%.",
+      "Traços comuns: concreto estrutural (1:2:3), concreto magro (1:3:3), pavimentação (1:4:4).",
+      "Sempre compacte a brita no caminhão — o volume pode reduzir até 20% após compactação.",
+    ],
+    errors: [
+      "Usar espessura em centímetros em vez de milímetros multiplica o resultado por 10.",
+      "Confundir proporção de brita — traço 1:2:3 significa 3 partes de brita, não 1/3.",
+      "Não considerar desperdício — obra real consome 10-15% a mais que o cálculo teórico.",
+      "Usar densidade incorreta — brita não é concreto (1.500 kg/m³ vs 2.400 kg/m³).",
+      "Não descontar o volume de cimento e areia do volume total — calcule cada material separadamente.",
+    ],
+    table: {
+      caption: "Proporção de brita conforme traço do concreto",
+      headers: ["Traço (C:A:B)", "Tipo de Obra", "% de Brita", "Resistência Típica"],
+      rows: [
+        ["1:2:3", "Concreto estrutural", "50%", "Fck 20-25 MPa"],
+        ["1:3:3", "Concreto magro", "43%", "Fck 15-20 MPa"],
+        ["1:4:4", "Pavimentação", "44%", "Fck 10-15 MPa"],
+        ["1:3:2", "Concreto bombeável", "40%", "Fck 20-30 MPa"],
+      ],
+    },
+    faq: [
+      {
+        q: "Quantos sacos de brita por m³?",
+        a: "Um m³ de brita corresponde a aproximadamente 50 sacos de 30 kg (1.500 kg total). Varia conforme a densidade e umidade da brita.",
+      },
+      {
+        q: "Qual a diferença entre brita 0, 1 e 2?",
+        a: "Brita 0 (pedrisco): 0-4,8 mm; Brita 1: 4,8-12,5 mm; Brita 2: 12,5-25 mm. Use brita 1 ou 2 para concreto estrutural.",
+      },
+      {
+        q: "Posso usar brita molhada no concreto?",
+        a: "Não é recomendado. Brita molhada altera a proporção água/cimento, enfraquecendo o concreto. Deixe secar ou reduza água da mistura.",
+      },
+      {
+        q: "Como calcular brita se só tenho o volume de concreto?",
+        a: "Multiplique o volume de concreto pela proporção de brita do traço. Ex: 10 m³ de concreto com traço 1:2:3 → 10 × 0,5 = 5 m³ de brita.",
+      },
+      {
+        q: "A brita compactada ocupa menos espaço?",
+        a: "Sim, após compactação a brita pode ocupar 15-20% menos volume. Sempre compacte bem no caminhão e na obra.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA],
   },
   "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
