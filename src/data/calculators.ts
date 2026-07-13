@@ -81,7 +81,7 @@ const REL_AREIA: CalcRelated = {
   label: "Calculadora de Areia",
 };
 const REL_ARCONDICIONADO: CalcRelated = {
-  path: "/climatizacao/ar-condicionado",
+  path: "/calculadora-ar-condicionado",
   label: "Calculadora de Ar-Condicionado",
 };
 const REL_BRITA: CalcRelated = {
