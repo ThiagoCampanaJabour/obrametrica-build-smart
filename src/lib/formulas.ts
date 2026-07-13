@@ -378,6 +378,139 @@ export function calcularCargaTermicaAC(params: {
   };
 }
 
+// ========== Rejunte ==========
+
+/**
+ * Calcula a quantidade de rejunte necessária para revestimentos cerâmicos/porcelanato
+ * 
+ * Fórmula:
+ * Volume (m³) = (Perímetro da peça × Largura da junta × Espessura × Número de peças por m²) × Área total
+ * Massa (kg) = Volume × Densidade do rejunte
+ * 
+ * Densidades padrão:
+ * - Cimentício: 1.800 kg/m³
+ * - Acrílico: 1.600 kg/m³
+ * - Epóxi: 1.900 kg/m³
+ */
+
+export function calcularVolumePorPecaRejunte(
+  larguraPeca: number,  // mm
+  alturaPeca: number,   // mm
+  larguraJunta: number, // mm
+  espessuraRejunte: number, // mm
+): number {
+  // Perímetro = 2 × (largura + altura)
+  const perimetro = 2 * (larguraPeca + alturaPeca);
+  // Volume por peça em mm³ = perímetro × largura_junta × espessura
+  return perimetro * larguraJunta * espessuraRejunte;
+}
+
+export function calcularNumeroPecasPorM2Rejunte(
+  larguraPeca: number, // mm
+  alturaPeca: number,  // mm
+): number {
+  // Área da peça em mm²
+  const areaPeca = larguraPeca * alturaPeca;
+  // 1 m² = 1.000.000 mm²
+  return 1000000 / areaPeca;
+}
+
+export function calcularVolumeTotalM3Rejunte(
+  larguraPeca: number,
+  alturaPeca: number,
+  larguraJunta: number,
+  espessuraRejunte: number,
+  areaTotalM2: number,
+): number {
+  const volumePorPeca = calcularVolumePorPecaRejunte(
+    larguraPeca,
+    alturaPeca,
+    larguraJunta,
+    espessuraRejunte,
+  );
+  const numeroPecas = calcularNumeroPecasPorM2Rejunte(larguraPeca, alturaPeca);
+  // Volume total em mm³
+  const volumeTotalMm3 = volumePorPeca * numeroPecas * areaTotalM2;
+  // Converter mm³ para m³ (dividir por 1e9)
+  return volumeTotalMm3 / 1e9;
+}
+
+export function converterM3ParaLitrosRejunte(m3: number): number {
+  return m3 * 1000; // 1 m³ = 1.000 litros
+}
+
+export function calcularMassaPorVolumeRejunte(
+  volumeM3: number,
+  tipoRejunte: "cimenticio" | "acrilico" | "epoxi",
+): number {
+  const densidades: Record<string, number> = {
+    cimenticio: 1800,  // kg/m³
+    acrilico: 1600,    // kg/m³
+    epoxi: 1900,       // kg/m³
+  };
+  return volumeM3 * (densidades[tipoRejunte] || 1800);
+}
+
+export function aplicarDesperdicioRejunte(
+  massa: number,
+  percentualDesperdicio: number,
+): number {
+  return massa * (1 + percentualDesperdicio / 100);
+}
+
+export function calcularRejunte(params: {
+  larguraPeca: number;
+  alturaPeca: number;
+  larguraJunta: number;
+  espessuraRejunte: number;
+  areaTotalM2: number;
+  tipoRejunte: "cimenticio" | "acrilico" | "epoxi";
+  desperdicio: number;
+}): {
+  volumePorM2: number;
+  volumeTotal: number;
+  massaTotalKg: number;
+  desperdicio: number;
+  massaTotalComDesperdicio: number;
+} {
+  // Calcular volume total em m³
+  const volumeM3 = calcularVolumeTotalM3Rejunte(
+    params.larguraPeca,
+    params.alturaPeca,
+    params.larguraJunta,
+    params.espessuraRejunte,
+    params.areaTotalM2,
+  );
+
+  // Converter para litros
+  const volumeLitros = converterM3ParaLitrosRejunte(volumeM3);
+
+  // Calcular volume por m²
+  const volumePorM2 = volumeLitros / params.areaTotalM2;
+
+  // Calcular massa sem desperdício
+  const massaSemDesperdicio = calcularMassaPorVolumeRejunte(
+    volumeM3,
+    params.tipoRejunte,
+  );
+
+  // Aplicar desperdício
+  const massoComDesperdicio = aplicarDesperdicioRejunte(
+    massaSemDesperdicio,
+    params.desperdicio,
+  );
+
+  const massaDesperdicio = massoComDesperdicio - massaSemDesperdicio;
+
+  return {
+    volumePorM2,
+    volumeTotal: volumeLitros,
+    massaTotalKg: massaSemDesperdicio,
+    desperdicio: massaDesperdicio,
+    massaTotalComDesperdicio: massoComDesperdicio,
+  };
+}
+
 export function calcCimento(
   volumeM3: number,
   resistencia: ResistenciaTipo,

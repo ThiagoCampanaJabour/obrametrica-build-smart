@@ -55,6 +55,12 @@ const calcs = [
     desc: "Volume e sacos de areia.",
   },
   {
+    to: "/calculadora-rejunte" as const,
+    icon: Pickaxe,
+    title: "Calculadora de Rejunte",
+    desc: "Quantidade de rejunte em kg e litros.",
+  },
+  {
     to: "/calculadora-de-brita" as const,
     icon: Pickaxe,
     title: "Calculadora de Brita",
