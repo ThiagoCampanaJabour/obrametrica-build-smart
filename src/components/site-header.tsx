@@ -19,16 +19,16 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-24 md:h-28 lg:h-32 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-72 md:h-80 lg:h-96 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2" aria-label="ObraMétrica - Início">
           <img
             src={LOGO_URL}
             alt="ObraMétrica"
-            width="360"
-            height="120"
+            width="1080"
+            height="360"
             fetchPriority="high"
             decoding="async"
-            className="h-20 md:h-24 lg:h-28 w-auto"
+            className="h-60 md:h-72 lg:h-80 w-auto"
           />
         </Link>
 
