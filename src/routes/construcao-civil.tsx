@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Trowel, Wind, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -54,6 +54,12 @@ const calcs = [
     title: "Calculadora de Areia",
     desc: "Volume e sacos de areia.",
   },
+  {
+    to: "/calculadora-rejunte" as const,
+    icon: Trowel,
+    title: "Calculadora de Rejunte",
+    desc: "Quantidade de rejunte em kg e litros.",
+},
   {
     to: "/calculadora-de-brita" as const,
     icon: Pickaxe,
