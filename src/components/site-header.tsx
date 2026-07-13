@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 
-const LOGO_URL = "/obrametrica-logo-sm.webp";
+const LOGO_URL = "/LogoSite.png";
 
 const navItems = [
   { to: "/", label: "Início" },
@@ -24,8 +24,8 @@ export function SiteHeader() {
           <img
             src={LOGO_URL}
             alt="ObraMétrica"
-            width="1080"
-            height="360"
+            width="auto"
+            height="auto"
             fetchPriority="high"
             decoding="async"
             className="h-60 md:h-72 lg:h-80 w-auto"
