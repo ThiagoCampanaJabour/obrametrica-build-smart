@@ -73,11 +73,11 @@ const calcs = [
     desc: "Litros de tinta necessários.",
   },
   {
-    to: "/climatizacao/ar-condicionado" as const,
+    to: "/calculadora-ar-condicionado" as const,
     icon: Wind,
     title: "Calculadora de Ar-Condicionado",
     desc: "Dimensionamento de capacidade em BTU/h e kW.",
-  },
+},
 ];
 
 function ConstrucaoCivilPage() {
