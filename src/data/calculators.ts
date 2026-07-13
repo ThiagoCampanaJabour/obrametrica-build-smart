@@ -80,6 +80,10 @@ const REL_AREIA: CalcRelated = {
   path: "/calculadora-de-areia",
   label: "Calculadora de Areia",
 };
+const REL_ARCONDICIONADO: CalcRelated = {
+  path: "/climatizacao/ar-condicionado",
+  label: "Calculadora de Ar-Condicionado",
+};
 const REL_BRITA: CalcRelated = {
   path: "/calculadora-de-brita",
   label: "Calculadora de Brita",
@@ -289,7 +293,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO],
   },
 
   "/calculadora-de-concreto": {
@@ -372,7 +376,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO],
   },
 
   "/calculadora-de-piso": {
@@ -631,7 +635,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_BRITA, REL_TINTA],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -727,7 +731,157 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-        related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA],
+    
+        related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO],
+  },
+    "/climatizacao/ar-condicionado": {
+    path: "/climatizacao/ar-condicionado",
+    name: "Calculadora de Ar-Condicionado",
+    intro: "Calcule a carga térmica e a capacidade de ar-condicionado necessária para seu ambiente com precisão técnica.",
+    context: [
+      "O dimensionamento correto de ar-condicionado é essencial para conforto, eficiência energética e durabilidade do equipamento. Uma capacidade insuficiente não resfria adequadamente; uma capacidade excessiva consome mais energia.",
+      "Errar no dimensionamento resulta em desconforto, consumo desnecessário de energia, desgaste prematuro do equipamento e custos operacionais elevados.",
+    ],
+    whenToUse: [
+      "Dimensionar ar-condicionado para sala, quarto ou escritório.",
+      "Calcular capacidade para ambientes comerciais (lojas, galpões).",
+      "Estimar número de aparelhos necessários para grandes áreas.",
+      "Avaliar eficiência energética antes de comprar um equipamento.",
+    ],
+    howItWorks: [
+      "Informe a área em m² e o pé-direito (altura) em metros.",
+      "Escolha o tipo de ambiente e as condições de exposição solar e isolamento.",
+      "Indique o número de pessoas, equipamentos eletrônicos e janelas.",
+      "A calculadora calcula a carga térmica em Watts e sugere capacidades comerciais em BTU/h e kW.",
+    ],
+    formula: {
+      expression: "Carga Térmica (W) = (Volume × Coeficiente) + Ganhos Internos × Fatores de Ajuste",
+      legend: [
+        "Método Simplificado: Carga por m² = 600 BTU/h (residencial padrão)",
+        "Método Volumétrico: Carga por m³ = 40 W (padrão brasileiro)",
+        "Ganho por pessoa: 100 W (calor metabólico)",
+        "Ganho por equipamento: 300 W (TV, computador, etc)",
+        "Ganho por janela: 200-600 W/m² conforme exposição solar",
+        "Fator de isolamento: 1.0 (bom) a 1.3 (ruim)",
+        "Fator de exposição: 1.0 (baixa) a 1.2 (alta)",
+        "Conversão: 1 W = 3.41214 BTU/h",
+        "Margem de conforto: 10% (padrão, máximo 30%)",
+      ],
+    },
+    example: {
+      scenario: "Quarto de 12 m² com pé-direito 2,7 m, exposição média, isolamento regular, 1 pessoa, sem equipamentos.",
+      steps: [
+        "Volume = 12 × 2,7 = 32,4 m³",
+        "Carga base = 32,4 × 40 = 1.296 W",
+        "Ganho por pessoa = 1 × 100 = 100 W",
+        "Ganho por janelas = 1 × 1,0 m² × 400 W/m² = 400 W",
+        "Carga subtotal = 1.296 + 100 + 400 = 1.796 W",
+        "Fator isolamento (regular) = 1.15 → 1.796 × 1.15 = 2.065 W",
+        "Fator exposição (média) = 1.1 → 2.065 × 1.1 = 2.272 W",
+        "Margem 10% = 2.272 × 1.10 = 2.499 W",
+        "Conversão para BTU/h = 2.499 × 3.41214 = 8.526 BTU/h",
+        "Capacidade recomendada = 9.000 BTU/h (padrão comercial)",
+      ],
+      result: "Será necessário 1 aparelho de 9.000 BTU/h para o quarto.",
+    },
+    moreExamples: [
+      {
+        scenario: "Sala de 35 m² com pé-direito 2,7 m, exposição alta, isolamento regular, 3 pessoas, 2 equipamentos, 3 janelas medianas.",
+        steps: [
+          "Volume = 35 × 2,7 = 94,5 m³",
+          "Carga base = 94,5 × 40 = 3.780 W",
+          "Ganho por pessoas = 3 × 100 = 300 W",
+          "Ganho por equipamentos = 2 × 300 = 600 W",
+          "Ganho por janelas = 3 × 1,0 m² × 600 W/m² (alta) = 1.800 W",
+          "Carga subtotal = 3.780 + 300 + 600 + 1.800 = 6.480 W",
+          "Fator isolamento (regular) = 1.15 → 6.480 × 1.15 = 7.452 W",
+          "Fator exposição (alta) = 1.2 → 7.452 × 1.2 = 8.942 W",
+          "Margem 10% = 8.942 × 1.10 = 9.837 W",
+          "Conversão para BTU/h = 9.837 × 3.41214 = 33.556 BTU/h",
+          "Capacidade recomendada = 36.000 BTU/h",
+        ],
+        result: "Será necessário 1 aparelho de 36.000 BTU/h ou 2 aparelhos de 18.000 BTU/h para a sala.",
+      },
+      {
+        scenario: "Escritório de 25 m² com pé-direito 2,8 m, exposição média, isolamento bom, 5 pessoas, 4 equipamentos (computadores), 2 janelas pequenas.",
+        steps: [
+          "Volume = 25 × 2,8 = 70 m³",
+          "Carga base = 70 × 40 = 2.800 W",
+          "Ganho por pessoas = 5 × 100 = 500 W",
+          "Ganho por equipamentos = 4 × 300 = 1.200 W",
+          "Ganho por janelas = 2 × 0,5 m² × 400 W/m² (média) = 400 W",
+          "Carga subtotal = 2.800 + 500 + 1.200 + 400 = 4.900 W",
+          "Fator isolamento (bom) = 1.0 → 4.900 × 1.0 = 4.900 W",
+          "Fator exposição (média) = 1.1 → 4.900 × 1.1 = 5.390 W",
+          "Margem 10% = 5.390 × 1.10 = 5.929 W",
+          "Conversão para BTU/h = 5.929 × 3.41214 = 20.228 BTU/h",
+          "Capacidade recomendada = 24.000 BTU/h",
+        ],
+        result: "Será necessário 1 aparelho de 24.000 BTU/h ou 2 aparelhos de 12.000 BTU/h para o escritório.",
+      },
+    ],
+    tips: [
+      "Sempre compre 10-15% a mais para perdas, retrabalho e variações de carga.",
+      "Procure por aparelhos com selo PROCEL/INMETRO para economizar energia (até 40% menos consumo).",
+      "Instale o aparelho na parede oposta às janelas para melhor circulação de ar.",
+      "Limpe os filtros a cada 2 semanas para manter a eficiência em 100%.",
+      "Mantenha a temperatura entre 22-24°C para conforto e economia (cada 1°C economiza ~10% de energia).",
+      "Feche portas e janelas para melhorar a eficiência do aparelho.",
+      "Brita molhada pesa mais — se chegar úmida, reduza o volume em 5-10%.",
+      "Aparelhos inverter (variável) consomem 30-40% menos energia que convencionais.",
+      "Considere a posição do aparelho: evite instalação em local com incidência direta de sol.",
+    ],
+    errors: [
+      "Usar espessura em centímetros em vez de metros multiplica o resultado por 100.",
+      "Não considerar ganhos por pessoas e equipamentos resulta em subdimensionamento.",
+      "Confundir BTU/h com kW — sempre verifique a unidade (1 kW ≈ 3.412 BTU/h).",
+      "Não descontar vãos de portas e janelas gera compra em excesso.",
+      "Aplicar a mesma capacidade para ambientes diferentes (sala vs. cozinha têm cargas diferentes).",
+      "Ignorar a exposição solar — ambientes com sol direto precisam de 20% mais capacidade.",
+      "Não considerar isolamento térmico — paredes ruins aumentam a carga em 30%.",
+      "Usar apenas método simplificado para ambientes complexos — método volumétrico é mais preciso.",
+    ],
+    table: {
+      caption: "Capacidades comerciais padrão e ambientes recomendados",
+      headers: ["Capacidade (BTU/h)", "Capacidade (kW)", "Ambiente Recomendado", "Área Aproximada"],
+      rows: [
+        ["7.000", "2,05", "Quarto pequeno", "10-15 m²"],
+        ["9.000", "2,64", "Quarto/Sala pequena", "15-20 m²"],
+        ["12.000", "3,52", "Sala/Escritório médio", "20-30 m²"],
+        ["18.000", "5,27", "Sala grande/Loja", "30-45 m²"],
+        ["24.000", "7,03", "Sala muito grande/Comércio", "45-60 m²"],
+        ["30.000", "8,79", "Galpão pequeno", "60-80 m²"],
+        ["36.000", "10,55", "Galpão médio", "80-100 m²"],
+        ["42.000", "12,31", "Galpão grande", "100-120 m²"],
+      ],
+    },
+    faq: [
+      {
+        q: "Quantos BTU/h preciso por m²?",
+        a: "Depende do ambiente e das condições. Regra prática: 600-800 BTU/h por m² para residencial padrão. Use a calculadora para precisão — ela considera exposição solar, isolamento, pessoas e equipamentos.",
+      },
+      {
+        q: "Qual a diferença entre BTU/h e kW?",
+        a: "São unidades de potência. 1 kW = 3.412 BTU/h. Aparelhos brasileiros geralmente usam BTU/h; europeus usam kW. A calculadora converte automaticamente.",
+      },
+      {
+        q: "Posso usar um aparelho de menor capacidade?",
+        a: "Não é recomendado. Um aparelho subdimensionado não resfria adequadamente, consome mais energia tentando compensar, e desgasta mais rápido. Sempre escolha a capacidade recomendada ou maior.",
+      },
+      {
+        q: "Qual a diferença entre aparelhos convencionais e inverter?",
+        a: "Aparelhos inverter (variável) ajustam a velocidade do compressor conforme a carga, economizando 30-40% de energia. Convencionais funcionam em velocidade fixa. Inverter é mais caro, mas se paga em economia.",
+      },
+      {
+        q: "Quanto custa instalar ar-condicionado?",
+        a: "Varia muito (R$ 1.500-5.000+), mas não é escopo desta calculadora. Consulte instaladores locais. A calculadora ajuda a definir a capacidade correta para negociar melhor preço.",
+      },
+      {
+        q: "Preciso de profissional HVAC para dimensionar?",
+        a: "Para projetos residenciais simples, esta calculadora é suficiente. Para comerciais complexos, projetos com múltiplas zonas ou climatização central, contrate um profissional HVAC certificado.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_ARCONDICIONADO],
   },
     "/calculadora-de-brita": {
     path: "/calculadora-de-brita",
