@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-const LOGO_URL = "/obrametrica-logo-sm.webp";
+
+const LOGO_URL = "/LogoSite.png";
 
 const navItems = [
   { to: "/", label: "Início" },
@@ -18,16 +19,16 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-32 md:h-40 lg:h-48 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2" aria-label="ObraMétrica - Início">
           <img
             src={LOGO_URL}
             alt="ObraMétrica"
-            width="120"
-            height="40"
+            width="auto"
+            height="auto"
             fetchPriority="high"
             decoding="async"
-            className="h-10 w-auto"
+            className="h-16 md:h-20 lg:h-24 w-auto"
           />
         </Link>
 
