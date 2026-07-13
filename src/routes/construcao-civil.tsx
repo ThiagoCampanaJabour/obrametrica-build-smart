@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -72,6 +72,12 @@ const calcs = [
     title: "Calculadora de Tinta",
     desc: "Litros de tinta necessários.",
   },
+  {
+    to: "/calculadora-ar-condicionado" as const,
+    icon: Wind,
+    title: "Calculadora de Ar-Condicionado",
+    desc: "Dimensionamento de capacidade em BTU/h e kW.",
+},
 ];
 
 function ConstrucaoCivilPage() {
