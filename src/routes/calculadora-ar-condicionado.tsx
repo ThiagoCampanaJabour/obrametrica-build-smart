@@ -14,15 +14,15 @@ import { pageHead } from "@/lib/seo";
 import { allSchemasFor } from "@/data/calculators";
 import { calcularCargaTermicaAC } from "@/lib/formulas";
 
-const PATH = "/climatizacao/ar-condicionado";
+const PATH = "/calculadora-ar-condicionado";
 
 const CRUMBS = [
   { name: "Início", path: "/" },
-  { name: "Climatização", path: "/climatizacao" },
+  { name: "Construção Civil", path: "/construcao-civil" },
   { name: "Calculadora de Ar-Condicionado", path: PATH },
 ];
 
-export const Route = createFileRoute("/climatizacao/ar-condicionado")({
+export const Route = createFileRoute("/calculadora-ar-condicionado")({
   head: () =>
     pageHead({
       title: "Calculadora de Ar-Condicionado — BTU/h e kW | ObraMétrica",
