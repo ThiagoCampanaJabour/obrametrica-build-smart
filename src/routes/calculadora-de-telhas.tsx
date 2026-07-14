@@ -7,7 +7,6 @@ import {
   SubmitRow,
   ResultPanel,
   useCalcForm,
-  validatePositive,
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
@@ -15,12 +14,6 @@ import { allSchemasFor } from "@/data/calculators";
 import { calcTelhas } from "@/lib/formulas";
 
 const PATH = "/calculadora-de-telhas";
-
-const CRUMBS = [
-  { name: "Início", path: "/" },
-  { name: "Construção Civil", path: "/construcao-civil" },
-  { name: "Calculadora de Telhas", path: PATH },
-];
 
 // Presets de tipos de telha com rendimento e quantidade por caixa
 const TIPOS_TELHA: Record<
@@ -66,7 +59,6 @@ export const Route = createFileRoute("/calculadora-de-telhas")({
       description:
         "Calcule a quantidade de telhas necessárias para seu telhado considerando inclinação, beiral e tipo de telha. Dosagens técnicas com precisão.",
       path: PATH,
-      breadcrumbs: CRUMBS,
       schema: {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -202,11 +194,8 @@ function TelhasCalculator() {
   };
 
   return (
-    <CalculatorShell
-      title="Calculadora de Telhas"
-      description="Calcule a quantidade de telhas necessárias para cobrir seu telhado"
-    >
-      <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded">
+    <CalculatorShell title="Calculadora de Telhas" path={PATH}>
+      <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-gray-700">
           <strong>Dica:</strong> Informe as dimensões da projeção do telhado
           (sem inclinação). A calculadora ajusta automaticamente pela inclinação
@@ -297,6 +286,12 @@ function TelhasCalculator() {
 
         <SubmitRow onReset={reset} />
       </form>
+
+      {errors.submit && (
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-700">{errors.submit}</p>
+        </div>
+      )}
 
       {result && (
         <ResultPanel
