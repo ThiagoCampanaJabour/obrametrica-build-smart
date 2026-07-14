@@ -99,87 +99,237 @@ function TelhasCalculator() {
 
   const { onSubmit } = useCalcForm();
 
+  const telhaPreset = TIPOS_TELHA[tipoTelha];
+
   const submit = () => {
-  const newErrors: Record<string, string> = {};
+    const newErrors: Record<string, string> = {};
 
-  // Validações com conversão segura
-  if (!comprimento || !String(comprimento).trim()) {
-    newErrors.comprimento = "Comprimento é obrigatório";
-  }
-  if (!largura || !String(largura).trim()) {
-    newErrors.largura = "Largura é obrigatória";
-  }
-  if (!inclinacao || !String(inclinacao).trim()) {
-    newErrors.inclinacao = "Inclinação é obrigatória";
-  }
-  if (!beiral || !String(beiral).trim()) {
-    newErrors.beiral = "Beiral é obrigatório";
-  }
-  if (!desperdicio || !String(desperdicio).trim()) {
-    newErrors.desperdicio = "Desperdício é obrigatório";
-  }
+    // Validações com conversão segura
+    const compStr = String(comprimento || "").trim();
+    const largStr = String(largura || "").trim();
+    const inclStr = String(inclinacao || "").trim();
+    const berStr = String(beiral || "").trim();
+    const despStr = String(desperdicio || "").trim();
 
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors);
-    return;
-  }
+    if (!compStr) {
+      newErrors.comprimento = "Comprimento é obrigatório";
+    } else {
+      const comp = parseFloat(compStr);
+      if (isNaN(comp) || comp <= 0) {
+        newErrors.comprimento = "Comprimento deve ser maior que 0";
+      }
+    }
 
-  try {
-    // Converter para números
-    const comp = parseFloat(String(comprimento).trim());
-    const larg = parseFloat(String(largura).trim());
-    const incl = parseFloat(String(inclinacao).trim());
-    const ber = parseFloat(String(beiral).trim());
-    const desp = parseFloat(String(desperdicio).trim());
+    if (!largStr) {
+      newErrors.largura = "Largura é obrigatória";
+    } else {
+      const larg = parseFloat(largStr);
+      if (isNaN(larg) || larg <= 0) {
+        newErrors.largura = "Largura deve ser maior que 0";
+      }
+    }
 
-    // Validações de valor
-    if (comp <= 0) newErrors.comprimento = "Deve ser maior que 0";
-    if (larg <= 0) newErrors.largura = "Deve ser maior que 0";
-    if (incl < 0 || incl > 100) newErrors.inclinacao = "Deve estar entre 0% e 100%";
-    if (ber < 0) newErrors.beiral = "Não pode ser negativo";
-    if (desp < 0 || desp > 30) newErrors.desperdicio = "Deve estar entre 0% e 30%";
+    if (!inclStr) {
+      newErrors.inclinacao = "Inclinação é obrigatória";
+    } else {
+      const incl = parseFloat(inclStr);
+      if (isNaN(incl) || incl < 0 || incl > 100) {
+        newErrors.inclinacao = "Inclinação deve estar entre 0% e 100%";
+      }
+    }
+
+    if (!berStr) {
+      newErrors.beiral = "Beiral é obrigatório";
+    } else {
+      const ber = parseFloat(berStr);
+      if (isNaN(ber) || ber < 0 || ber > 2) {
+        newErrors.beiral = "Beiral deve estar entre 0 e 2 metros";
+      }
+    }
+
+    if (!despStr) {
+      newErrors.desperdicio = "Desperdício é obrigatório";
+    } else {
+      const desp = parseFloat(despStr);
+      if (isNaN(desp) || desp < 0 || desp > 30) {
+        newErrors.desperdicio = "Desperdício deve estar entre 0% e 30%";
+      }
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // Obter rendimento e telhas por caixa do preset
-    const telhaPreset = TIPOS_TELHA[tipoTelha];
-    if (!telhaPreset) {
-      newErrors.tipoTelha = "Tipo de telha inválido";
-      setErrors(newErrors);
-      return;
+    try {
+      // Converter para números (já validados acima)
+      const comp = parseFloat(compStr);
+      const larg = parseFloat(largStr);
+      const incl = parseFloat(inclStr);
+      const ber = parseFloat(berStr);
+      const desp = parseFloat(despStr);
+
+      // Calcular
+      const resultado = calcTelhas(
+        comp,
+        larg,
+        incl,
+        ber,
+        telhaPreset.rendimento,
+        telhaPreset.telhasPorCaixa,
+        desp,
+      );
+
+      setResult(resultado);
+      setErrors({});
+      onSubmit();
+    } catch (error) {
+      setErrors({
+        submit: error instanceof Error ? error.message : "Erro ao calcular",
+      });
     }
+  };
 
-    // Calcular
-    const resultado = calcTelhas(
-      comp,
-      larg,
-      incl,
-      ber,
-      telhaPreset.rendimento,
-      telhaPreset.telhasPorCaixa,
-      desp,
-    );
-
-    setResult(resultado);
+  const reset = () => {
+    setComprimento("");
+    setLargura("");
+    setInclinacao("30");
+    setBeiral("0.5");
+    setTipoTelha("ceramica-colonial");
+    setDesperdicio("10");
+    setResult(null);
     setErrors({});
-    onSubmit();
-  } catch (error) {
-    setErrors({
-      submit: error instanceof Error ? error.message : "Erro ao calcular",
-    });
-  }
-};
+  };
 
-const reset = () => {
-  setComprimento("");
-  setLargura("");
-  setInclinacao("30");
-  setBeiral("0.5");
-  setTipoTelha("ceramica-colonial");
-  setDesperdicio("10");
-  setResult(null);
-  setErrors({});
-};
+  return (
+    <CalculatorShell
+      title="Calculadora de Telhas"
+      description="Calcule a quantidade de telhas necessárias para cobrir seu telhado"
+    >
+      <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded">
+        <p className="text-sm text-gray-700">
+          <strong>Dica:</strong> Informe as dimensões da projeção do telhado
+          (sem inclinação). A calculadora ajusta automaticamente pela inclinação
+          e beiral.
+        </p>
+      </div>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
+        }}
+        className="space-y-4"
+      >
+        <NumberField
+          id="comprimento"
+          label="Comprimento da projeção"
+          unit="m"
+          value={comprimento}
+          onChange={setComprimento}
+          error={errors.comprimento}
+          placeholder="8"
+          min="0.1"
+          step="0.1"
+        />
+
+        <NumberField
+          id="largura"
+          label="Largura da projeção"
+          unit="m"
+          value={largura}
+          onChange={setLargura}
+          error={errors.largura}
+          placeholder="6"
+          min="0.1"
+          step="0.1"
+        />
+
+        <SelectField
+          id="tipoTelha"
+          label="Tipo de telha"
+          value={tipoTelha}
+          onChange={setTipoTelha}
+          options={Object.entries(TIPOS_TELHA).map(([key, value]) => ({
+            value: key,
+            label: value.descricao,
+          }))}
+        />
+
+        <NumberField
+          id="inclinacao"
+          label="Inclinação do telhado"
+          unit="%"
+          value={inclinacao}
+          onChange={setInclinacao}
+          error={errors.inclinacao}
+          placeholder="30"
+          min="0"
+          max="100"
+          step="1"
+        />
+
+        <NumberField
+          id="beiral"
+          label="Tamanho do beiral"
+          unit="m"
+          value={beiral}
+          onChange={setBeiral}
+          error={errors.beiral}
+          placeholder="0.5"
+          min="0"
+          max="2"
+          step="0.1"
+        />
+
+        <NumberField
+          id="desperdicio"
+          label="Margem de desperdício"
+          unit="%"
+          value={desperdicio}
+          onChange={setDesperdicio}
+          error={errors.desperdicio}
+          placeholder="10"
+          min="0"
+          max="30"
+          step="1"
+        />
+
+        <SubmitRow onReset={reset} />
+      </form>
+
+      {result && (
+        <ResultPanel
+          items={[
+            {
+              label: "Área de planta",
+              value: `${fmt(result.areaPlanta, 2)} m²`,
+            },
+            {
+              label: "Fator de inclinação",
+              value: `${fmt(result.fatorInclinacao, 3)}`,
+            },
+            {
+              label: "Área inclinada",
+              value: `${fmt(result.areaInclinada, 2)} m²`,
+            },
+            {
+              label: "Quantidade teórica",
+              value: `${fmt(result.numeroTeorico, 0)} telhas`,
+            },
+            {
+              label: "Quantidade com desperdício",
+              value: `${fmt(result.numeroFinal, 0)} telhas`,
+              highlight: true,
+            },
+            {
+              label: "Caixas necessárias",
+              value: `${fmt(result.numeroCaixas, 0)} caixas`,
+              highlight: true,
+            },
+          ]}
+        />
+      )}
+    </CalculatorShell>
+  );
+}
