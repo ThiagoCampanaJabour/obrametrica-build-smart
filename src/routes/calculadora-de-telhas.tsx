@@ -6,7 +6,6 @@ import {
   SelectField,
   SubmitRow,
   ResultPanel,
-  useCalcForm,
   fmt,
 } from "@/components/calc-ui";
 import { pageHead } from "@/lib/seo";
@@ -95,8 +94,6 @@ function TelhasCalculator() {
   const [result, setResult] = useState<any>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { onSubmit } = useCalcForm();
-
   const telhaPreset = TIPOS_TELHA[tipoTelha];
 
   const submit = () => {
@@ -180,7 +177,6 @@ function TelhasCalculator() {
 
       setResult(resultado);
       setErrors({});
-      onSubmit();
     } catch (error) {
       setErrors({
         submit: error instanceof Error ? error.message : "Erro ao calcular",
