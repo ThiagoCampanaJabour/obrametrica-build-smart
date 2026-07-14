@@ -15,6 +15,12 @@ import { calcTelhas } from "@/lib/formulas";
 
 const PATH = "/calculadora-de-telhas";
 
+const BREADCRUMBS = [
+  { label: "Início", href: "/" },
+  { label: "Construção Civil", href: "/construcao-civil" },
+  { label: "Calculadora de Telhas", href: PATH },
+];
+
 // Presets de tipos de telha com rendimento e quantidade por caixa
 const TIPOS_TELHA: Record<
   string,
@@ -194,7 +200,10 @@ function TelhasCalculator() {
   };
 
   return (
-    <CalculatorShell title="Calculadora de Telhas" path={PATH}>
+    <CalculatorShell
+      title="Calculadora de Telhas"
+      breadcrumbs={BREADCRUMBS}
+    >
       <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-gray-700">
           <strong>Dica:</strong> Informe as dimensões da projeção do telhado
