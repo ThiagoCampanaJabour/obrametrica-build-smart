@@ -125,6 +125,79 @@ export function calcBrita(
   return { volume: volumeFinal, volumeFinal, sacos, massa };
 }
 
+/**
+ * Calcula a quantidade de telhas necessárias para cobrir um telhado
+ * Considera inclinação, beiral, tipo de telha e margem de perda
+ *
+ * Fórmula:
+ * 1. Área de planta = (comprimento + 2×beiral) × (largura + 2×beiral)
+ * 2. Fator inclinação = √(1 + (inclinacao% ÷ 100)²)
+ * 3. Área inclinada = Área de planta × Fator inclinação
+ * 4. Quantidade teórica = Área inclinada × Rendimento (telhas/m²)
+ * 5. Quantidade final = Quantidade teórica × (1 + desperdicio/100)
+ * 6. Caixas = Quantidade final ÷ Telhas por caixa
+ *
+ * Baseado em consumo médio de mercado para obras residenciais
+ */
+export function calcTelhas(
+  comprimento: number, // metros
+  largura: number, // metros
+  inclinacao: number = 30, // percentual (%)
+  beiral: number = 0.5, // metros
+  rendimento: number = 15, // telhas/m² (padrão cerâmica)
+  telhasPorCaixa: number = 40, // quantidade por caixa
+  desperdicio: number = 10, // percentual (0-30)
+): {
+  areaPlanta: number;
+  fatorInclinacao: number;
+  areaInclinada: number;
+  numeroTeorico: number;
+  numeroFinal: number;
+  numeroCaixas: number;
+  desperdicio: number;
+} {
+  // Validações
+  if (comprimento <= 0 || largura <= 0) {
+    throw new Error("Comprimento e largura devem ser maiores que zero");
+  }
+  if (inclinacao < 0 || inclinacao > 100) {
+    throw new Error("Inclinação deve estar entre 0% e 100%");
+  }
+  if (beiral < 0) {
+    throw new Error("Beiral não pode ser negativo");
+  }
+  if (desperdicio < 0 || desperdicio > 30) {
+    throw new Error("Desperdício deve estar entre 0% e 30%");
+  }
+
+  // 1. Área de planta (base do telhado)
+  const areaPlanta = (comprimento + 2 * beiral) * (largura + 2 * beiral);
+
+  // 2. Fator de inclinação (Pitágoras: √(1 + (h/b)²))
+  const fatorInclinacao = Math.sqrt(1 + Math.pow(inclinacao / 100, 2));
+
+  // 3. Área inclinada (considerando a inclinação real)
+  const areaInclinada = areaPlanta * fatorInclinacao;
+
+  // 4. Quantidade teórica (sem perdas)
+  const numeroTeorico = areaInclinada * rendimento;
+
+  // 5. Quantidade final (com desperdício)
+  const numeroFinal = Math.ceil(numeroTeorico * (1 + desperdicio / 100));
+
+  // 6. Quantidade de caixas
+  const numeroCaixas = Math.ceil(numeroFinal / telhasPorCaixa);
+
+  return {
+    areaPlanta,
+    fatorInclinacao,
+    areaInclinada,
+    numeroTeorico,
+    numeroFinal,
+    numeroCaixas,
+    desperdicio,
+  };
+}
 // ========== Ar-Condicionado ==========
 
 /**
