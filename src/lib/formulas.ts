@@ -125,6 +125,65 @@ export function calcBrita(
   return { volume: volumeFinal, volumeFinal, sacos, massa };
 }
 
+/**
+ * Calcula a quantidade de telhas necessárias para cobrir um telhado
+ * Considera inclinação, beiral, tipo de telha e margem de perda
+ *
+ * Fórmula:
+ * 1. Área de planta = (comprimento + 2×beiral) × (largura + 2×beiral)
+ * 2. Fator inclinação = √(1 + (inclinacao% ÷ 100)²)
+ * 3. Área inclinada = Área de planta × Fator inclinação
+ * 4. Quantidade teórica = Área inclinada × Rendimento (telhas/m²)
+ * 5. Quantidade final = Quantidade teórica × (1 + desperdicio/100)
+ * 6. Caixas = Quantidade final ÷ Telhas por caixa
+ *
+ * Baseado em consumo médio de mercado para obras residenciais
+ */
+export function calcTelhas(
+  comprimento: number, // metros
+  largura: number, // metros
+  inclinacao: number = 30, // percentual
+  beiral: number = 0.5, // metros
+  rendimento: number = 15, // telhas por m²
+  telhasPorCaixa: number = 40, // quantidade por caixa
+  desperdicio: number = 10, // percentual
+): {
+  areaPlanta: number;
+  fatorInclinacao: number;
+  areaInclinada: number;
+  numeroTeorico: number;
+  numeroFinal: number;
+  numeroCaixas: number;
+} {
+  // 1. Área de planta (adiciona beiral dos dois lados)
+  const areaPlanta = (comprimento + 2 * beiral) * (largura + 2 * beiral);
+
+  // 2. Fator de inclinação (ajusta área plana para área inclinada)
+  const inclinacaoDecimal = inclinacao / 100;
+  const fatorInclinacao = Math.sqrt(1 + inclinacaoDecimal * inclinacaoDecimal);
+
+  // 3. Área inclinada (área real a cobrir)
+  const areaInclinada = areaPlanta * fatorInclinacao;
+
+  // 4. Quantidade teórica (sem desperdício)
+  const numeroTeorico = areaInclinada * rendimento;
+
+  // 5. Quantidade final (com desperdício)
+  const numeroFinal = numeroTeorico * (1 + desperdicio / 100);
+
+  // 6. Quantidade de caixas
+  const numeroCaixas = Math.ceil(numeroFinal / telhasPorCaixa);
+
+  return {
+    areaPlanta,
+    fatorInclinacao,
+    areaInclinada,
+    numeroTeorico,
+    numeroFinal,
+    numeroCaixas,
+  };
+}
+
 // ========== Ar-Condicionado ==========
 
 /**

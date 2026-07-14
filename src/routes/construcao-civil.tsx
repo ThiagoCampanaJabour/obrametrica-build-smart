@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -65,6 +65,12 @@ const calcs = [
     icon: Pickaxe,
     title: "Calculadora de Brita",
     desc: "Volume e sacos de brita para concreto.",
+  },
+  {
+    to: "/calculadora-de-telhas" as const,
+    icon: Home,
+    title: "Calculadora de Telhas",
+    desc: "Quantidade de telhas para cobertura de telhado.",
   },
   {
     to: "/calculadora-de-piso" as const,

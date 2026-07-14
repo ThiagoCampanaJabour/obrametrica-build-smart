@@ -92,6 +92,10 @@ const REL_BRITA: CalcRelated = {
   path: "/calculadora-de-brita",
   label: "Calculadora de Brita",
 };
+const REL_TELHAS: CalcRelated = {
+  path: "/calculadora-de-telhas",
+  label: "Calculadora de Telhas",
+};
 const REL_CIMENTO: CalcRelated = {
   path: "/calculadora-de-cimento",
   label: "Calculadora de Cimento",
@@ -380,7 +384,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS],
   },
 
   "/calculadora-de-piso": {
@@ -639,8 +643,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA],
-    
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -736,8 +739,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    
-        related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS],
   },
     "/calculadora-rejunte": {
     path: "/calculadora-rejunte",
@@ -1126,9 +1128,125 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, após compactação a brita pode ocupar 15-20% menos volume. Sempre compacte bem no caminhão e na obra.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_TELHAS],
   },
-  "/quantas-placas-solares-preciso": {
+   "/calculadora-de-telhas": {
+    path: "/calculadora-de-telhas",
+    name: "Calculadora de Telhas",
+    intro: "Calcule a quantidade de telhas necessárias para cobrir seu telhado com precisão técnica, considerando inclinação, beiral, tipo de telha e margem de perda.",
+    context: [
+      "A telha é o material essencial para proteção da cobertura. Sua correta dosagem garante durabilidade, estanqueidade e segurança estrutural da obra.",
+      "Errar na quantidade de telhas resulta em interrupção de obra, compra de novos lotes (com risco de variação de tom) e custos desnecessários.",
+    ],
+    whenToUse: [
+      "Cobrir telhado novo em obra residencial ou comercial.",
+      "Orçar reforma e substituição de cobertura.",
+      "Comparar custo entre tipos diferentes de telha.",
+      "Calcular material para telhados com múltiplas águas e beirais.",
+    ],
+    howItWorks: [
+      "Informe o comprimento e a largura da projeção do telhado em metros.",
+      "Escolha o tipo de telha (cerâmica, metálica, fibrocimento) — cada tipo tem rendimento diferente.",
+      "Defina a inclinação do telhado em percentual (padrão 30%).",
+      "Informe o tamanho do beiral em metros (padrão 0,5 m).",
+      "A calculadora calcula a área inclinada, quantidade de telhas e caixas necessárias.",
+    ],
+    formula: {
+      expression:
+        "Quantidade = (Comprimento + 2×Beiral) × (Largura + 2×Beiral) × Fator Inclinação × Rendimento × (1 + Desperdício/100)",
+      legend: [
+        "Fator Inclinação = √(1 + (inclinacao% ÷ 100)²) — ajusta a área plana para área inclinada",
+        "Rendimento varia por tipo: Cerâmica Colonial ~15 un/m², Metálica ~2 un/m², Fibrocimento ~2 un/m²",
+        "Beiral padrão: 0,5 m (protege as paredes da chuva e infiltração)",
+        "Desperdício padrão: 10% (cobre recortes, quebras e ajustes em obra)",
+        "Caixas = Quantidade final ÷ Telhas por caixa (varia por tipo)",
+      ],
+    },
+    example: {
+      scenario: "Telhado cerâmica 8 m × 6 m, inclinação 30%, beiral 0,5 m, desperdício 10%.",
+      steps: [
+        "Área de planta = (8 + 2×0,5) × (6 + 2×0,5) = 9 × 7 = 63 m²",
+        "Fator inclinação = √(1 + (0,30)²) = √1,09 = 1,044",
+        "Área inclinada = 63 × 1,044 = 65,77 m²",
+        "Rendimento cerâmica colonial = 15 telhas/m²",
+        "Quantidade teórica = 65,77 × 15 = 986,5 telhas",
+        "Quantidade com desperdício = 986,5 × 1,10 = 1.085 telhas",
+        "Caixas (40 telhas/caixa) = 1.085 ÷ 40 = 27,1 → 28 caixas",
+      ],
+      result: "Serão necessárias 1.085 telhas cerâmicas (28 caixas).",
+    },
+    moreExamples: [
+      {
+        scenario: "Telhado metálico 10 m × 8 m, inclinação 20%, beiral 0,6 m, desperdício 10%.",
+        steps: [
+          "Área de planta = (10 + 2×0,6) × (8 + 2×0,6) = 11,2 × 9,2 = 103 m²",
+          "Fator inclinação = √(1 + (0,20)²) = √1,04 = 1,020",
+          "Área inclinada = 103 × 1,020 = 105,06 m²",
+          "Rendimento metálica = 2 telhas/m²",
+          "Quantidade teórica = 105,06 × 2 = 210,12 telhas",
+          "Quantidade com desperdício = 210,12 × 1,10 = 231 telhas",
+        ],
+        result: "Serão necessárias 231 telhas metálicas.",
+      },
+      {
+        scenario: "Telhado fibrocimento 12 m × 10 m, inclinação 15%, beiral 0,5 m, desperdício 10%.",
+        steps: [
+          "Área de planta = (12 + 2×0,5) × (10 + 2×0,5) = 13 × 11 = 143 m²",
+          "Fator inclinação = √(1 + (0,15)²) = √1,0225 = 1,011",
+          "Área inclinada = 143 × 1,011 = 144,57 m²",
+          "Rendimento fibrocimento = 2 telhas/m²",
+          "Quantidade teórica = 144,57 × 2 = 289,14 telhas",
+          "Quantidade com desperdício = 289,14 × 1,10 = 318 telhas",
+          "Caixas (6 telhas/caixa) = 318 ÷ 6 = 53 caixas",
+        ],
+        result: "Serão necessárias 318 telhas fibrocimento (53 caixas).",
+      },
+    ],
+    tips: [
+      "Sempre desconte áreas de claraboias, sheds ou outras aberturas do total antes de calcular.",
+      "Compre sempre 10-15% a mais para perdas, retrabalho e desperdício em obra.",
+      "Telhas cerâmicas exigem inclinação mínima de 30%; metálicas e fibrocimento podem ser instaladas com 10-15%.",
+      "Quanto maior a inclinação, maior a área efetiva — sempre meça com precisão.",
+      "Beirais maiores aumentam a quantidade de telhas; recomenda-se 0,5 a 1,0 metro.",
+      "Telhados com muitas águas (3 ou 4) geram mais perdas por encontros — acrescente 15% adicional.",
+      "Confirme o rendimento com o fornecedor — pode variar conforme o fabricante.",
+    ],
+    errors: [
+      "Esquecer de somar o beiral às dimensões — gera compra insuficiente.",
+      "Usar inclinação em graus em vez de percentual — multiplica resultado incorretamente.",
+      "Confundir telha cerâmica com bloco estrutural — consumos por m² são muito diferentes.",
+      "Não considerar a inclinação real — usar padrão 30% para todos os casos.",
+      "Calcular apenas a projeção horizontal sem ajustar pela inclinação.",
+    ],
+    table: {
+      caption: "Consumo médio de telhas por m² de cobertura inclinada",
+      headers: ["Tipo de Telha", "Dimensões (cm)", "Consumo por m²", "Telhas por Caixa"],
+      rows: [
+        ["Cerâmica Colonial", "40 × 25", "15 un", "40 un"],
+        ["Cerâmica Tegula", "40 × 25", "15 un", "40 un"],
+        ["Cerâmica Francesa", "41 × 25", "15 un", "40 un"],
+        ["Fibrocimento Ondulado", "110 × 53", "2 un", "6 un"],
+        ["Metálica Galvanizada", "100 × 50", "2,1 un", "5 un"],
+        ["Metálica Telha", "120 × 60", "1,5 un", "4 un"],
+      ],
+    },
+    faq: [
+      {
+        q: "Como calcular a quantidade de telhas por m²?",
+        a: "Multiplique a área inclinada do telhado pelo rendimento médio da telha escolhida e acrescente 10% para perdas. A calculadora faz isso automaticamente.",
+      },
+      {
+        q: "Qual é a inclinação mínima para telhas cerâmicas?",
+        a: "A inclinação mínima recomendada é 30%. Inclinações menores podem permitir infiltração de água. Telhas metálicas e fibrocimento podem ser instaladas com 10-15%.",
+      },
+      {
+        q: "Por que preciso adicionar margem de perda?",
+        a: "A margem de perda (10-15%) compensa quebras durante transporte, armazenamento e instalação, além de recortes necessários para ajustes nas laterais e encontros.",
+      },
+    ],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
+  },
+    "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
     name: "Quantas placas solares preciso?",
     intro:
