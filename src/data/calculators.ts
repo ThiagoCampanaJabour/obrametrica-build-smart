@@ -96,6 +96,10 @@ const REL_BLOCOS: CalcRelated = {
   path: "/calculadora-de-blocos",
   label: "Calculadora de Blocos",
 };
+const REL_ACO: CalcRelated = {
+  path: "/calculadora-de-aco",
+  label: "Calculadora de Aço",
+};
 const REL_TELHAS: CalcRelated = {
   path: "/calculadora-de-telhas",
   label: "Calculadora de Telhas",
@@ -305,7 +309,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO],
   },
 
   "/calculadora-de-concreto": {
@@ -388,7 +392,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_ACO],
   },
 
   "/calculadora-de-piso": {
@@ -647,7 +651,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -1262,6 +1266,129 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
     ],
     related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS]
+  },
+    "/calculadora-de-aco": {
+    path: "/calculadora-de-aco",
+    name: "Calculadora de Aço",
+    intro: "Estime a quantidade de aço (vergalhões, barras) e a massa necessária para suas estruturas de concreto armado, como lajes, vigas e pilares.",
+    context: [
+      "O aço é o esqueleto do concreto armado, conferindo resistência à tração e flexão. Um dimensionamento preciso evita desperdícios e garante a segurança da estrutura.",
+      "Erros no cálculo do aço podem levar a custos elevados, atrasos na obra ou, pior, comprometer a integridade estrutural da edificação.",
+    ],
+    whenToUse: [
+      "Orçar materiais para estruturas de concreto armado (lajes, vigas, pilares).",
+      "Planejar a compra de vergalhões e barras de aço por diâmetro.",
+      "Converter diâmetro de barra para massa por metro ou vice-versa.",
+      "Estimar a quantidade de vergalhões comerciais (ex: 12m) necessários.",
+      "Gerar uma lista de corte simplificada para otimizar o uso do material.",
+    ],
+    howItWorks: [
+      "Escolha o tipo de cálculo: Conversão Rápida (diâmetro para kg/m), Compras por Comprimento (quantidade e comprimento de barras) ou Dimensionamento Simplificado (por área de aço).",
+      "Informe o diâmetro da barra (mm) ou selecione um preset.",
+      "Para compras, insira a quantidade de barras e o comprimento de cada uma.",
+      "Para dimensionamento, informe a área de aço necessária (cm²) ou o percentual sobre a seção.",
+      "Ajuste o percentual de desperdício (padrão 5%).",
+      "A calculadora fornecerá a massa total, comprimento total, número de vergalhões comerciais e uma lista de corte.",
+    ],
+    formula: {
+      expression: `
+        1. Área Transversal da Barra (mm²) = π × (Diâmetro_mm / 2)²
+        2. Massa por Metro (kg/m) = (Área Transversal_mm² / 1.000.000) × Densidade do Aço (7850 kg/m³)
+        3. Massa Total (kg) = Σ (Quantidade_i × Comprimento_i × Massa por Metro_i)
+        4. Massa Final (kg) = Massa Total × (1 + Desperdício / 100)
+        5. Número de Vergalhões Comerciais = ⌈Comprimento Total Necessário / Comprimento Padrão do Vergalhão (ex: 12m)⌉
+        6. Quantidade de Barras por Área de Aço (As) = ⌈(As_cm² × 100) / Área Transversal da Barra_mm²⌉
+      `,
+      legend: [
+        "Diâmetro da barra em milímetros (mm).",
+        "Comprimento da barra em metros (m).",
+        "Área de aço (As) em centímetros quadrados (cm²).",
+        "Densidade do aço: 7850 kg/m³ (valor padrão para aço carbono).",
+        "Desperdício em percentual (%).",
+        "⌈x⌉ representa o arredondamento para cima (ceil).",
+      ],
+    },
+    example: {
+      scenario: "Calcular o aço para 10 barras de 10mm com 6m de comprimento cada, com 5% de desperdício.",
+      steps: [
+        "Massa por metro (10mm) = 0.617 kg/m (calculado pela fórmula)",
+        "Massa total teórica = 10 barras × 6 m/barra × 0.617 kg/m = 37.02 kg",
+        "Massa final com desperdício = 37.02 kg × (1 + 5/100) = 38.87 kg",
+        "Comprimento total = 10 barras × 6 m/barra = 60 m",
+        "Número de vergalhões de 12m = ⌈60 m / 12 m⌉ = 5 vergalhões",
+      ],
+      result: "Serão necessários 38.87 kg de aço (10mm), totalizando 60m de barras, o que equivale a 5 vergalhões comerciais de 12m.",
+    },
+    moreExamples: [
+      {
+        scenario: "Converter diâmetro de 16mm para massa por metro.",
+        steps: [
+          "Área transversal (16mm) = π × (16/2)² = 201.06 mm²",
+          "Massa por metro = (201.06 / 1.000.000) × 7850 = 1.578 kg/m",
+        ],
+        result: "Uma barra de 16mm pesa aproximadamente 1.578 kg por metro linear.",
+      },
+      {
+        scenario: "Dimensionar barras de 12.5mm para uma área de aço (As) de 5 cm².",
+        steps: [
+          "Área de aço necessária = 5 cm² = 500 mm²",
+          "Área transversal (12.5mm) = π × (12.5/2)² = 122.72 mm²",
+          "Quantidade de barras = ⌈500 mm² / 122.72 mm²⌉ = 5 barras",
+        ],
+        result: "Para uma área de aço de 5 cm², são necessárias 5 barras de 12.5mm.",
+      },
+    ],
+    tips: [
+      "Sempre considere um percentual de desperdício (5-15%) para cortes, perdas e emendas.",
+      "A densidade do aço pode variar ligeiramente, mas 7850 kg/m³ é um valor padrão aceitável.",
+      "Vergalhões comerciais geralmente vêm em barras de 12 metros. Planeje seus cortes para otimizar o uso.",
+      "Consulte um engenheiro estrutural para o dimensionamento preciso da armadura em projetos complexos.",
+      "A escolha do tipo de aço (CA-25, CA-50) influencia a resistência, mas não a massa por metro para o mesmo diâmetro.",
+    ],
+    errors: [
+      "Não considerar o desperdício pode levar à falta de material no canteiro de obras.",
+      "Confundir diâmetro nominal com diâmetro real (ex: 1/2 polegada não é exatamente 12.5mm).",
+      "Não agrupar barras por diâmetro e comprimento para otimizar a compra e o corte.",
+      "Usar a calculadora para dimensionamento estrutural sem a supervisão de um profissional.",
+    ],
+    table: {
+      caption: "Massa nominal por metro de barras de aço (ABNT NBR 7480)",
+      headers: ["Diâmetro (mm)", "Área (cm²)", "Massa (kg/m)"],
+      rows: [
+        ["5.0", "0.20", "0.196"],
+        ["6.3", "0.31", "0.307"],
+        ["8.0", "0.50", "0.395"],
+        ["10.0", "0.79", "0.617"],
+        ["12.5", "1.23", "0.963"],
+        ["16.0", "2.01", "1.578"],
+        ["20.0", "3.14", "2.466"],
+        ["25.0", "4.91", "3.853"],
+        ["32.0", "8.04", "6.313"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual a diferença entre aço CA-25 e CA-50?",
+        a: "CA-25 e CA-50 referem-se à resistência característica de escoamento do aço. CA-50 (500 MPa) é mais resistente que CA-25 (250 MPa) e é o mais comum em estruturas de concreto armado no Brasil.",
+      },
+      {
+        q: "Como calcular a quantidade de aço para uma laje?",
+        a: "Para lajes, a estimativa geralmente é feita por m² de área, utilizando malhas prontas ou calculando a armadura principal e secundária. Consulte projetos padrão ou um engenheiro.",
+      },
+      {
+        q: "O que é o desperdício de aço na obra?",
+        a: "O desperdício inclui sobras de corte, barras danificadas, erros de montagem e perdas inevitáveis. Um percentual de 5% a 15% é comum, dependendo da complexidade e organização da obra.",
+      },
+      {
+        q: "Posso usar esta calculadora para dimensionar a armadura da minha casa?",
+        a: "Esta calculadora é uma ferramenta de estimativa de materiais. O dimensionamento estrutural de qualquer edificação deve ser feito por um engenheiro civil qualificado, seguindo as normas técnicas.",
+      },
+      {
+        q: "Como converter polegadas para milímetros em diâmetros de barra?",
+        a: "Para converter polegadas para milímetros, multiplique o valor em polegadas por 25.4. Ex: 1/2 polegada = 0.5 × 25.4 = 12.7 mm (próximo ao 12.5mm nominal).",
+      },
+    ],
+    related: [REL_CONCRETO, REL_CIMENTO, REL_ARGAMASSA], // Adicionado related para a própria calculadora de aço
   },
      "/calculadora-de-telhas": {
     path: "/calculadora-de-telhas",
