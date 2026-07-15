@@ -208,7 +208,7 @@ export function calcTelhas(
  * 5. Número final de blocos (com desperdício):
  *    - Número final = ceil(Número teórico * (1 + desperdício/100))
  * 6. Volume de argamassa:
- *    - Volume por bloco = (comprimento_bloco * altura_bloco * espessura_junta_horizontal) + (comprimento_bloco * largura_bloco * espessura_junta_vertical)
+ *    - Volume por bloco = (comprimento_bloco * largura_bloco * espessura_junta_horizontal) + (comprimento_bloco * largura_bloco * espessura_junta_vertical)
  *    - Volume total de argamassa = (Número teórico * Volume por bloco) / 1_000_000_000 (para m³)
  *    - Ou, se preferir, um fator de consumo por m² de parede.
  *
@@ -400,8 +400,7 @@ export function quantidadeBarrasPorAreaAco(
   const areaAcoNecessaria_mm2 = areaAcoNecessaria_cm2 * 100; // 1 cm² = 100 mm²
   const areaBarra_mm2 = areaTransversalAco(diametro_mm);
   return Math.ceil(areaAcoNecessaria_mm2 / areaBarra_mm2);
- };
-}
+} // <-- CORRIGIDO AQUI: Removido o ';' e a chave '}' extra.
 
 // ========== Ar-Condicionado ==========
 
