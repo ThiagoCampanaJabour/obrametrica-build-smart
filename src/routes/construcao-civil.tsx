@@ -67,6 +67,12 @@ const calcs = [
     desc: "Volume e sacos de brita para concreto.",
   },
   {
+    to: "/calculadora-de-aco" as const,
+    icon: Wind, // Ou outro ícone relevante, como 'Ruler' ou 'Gauge'
+    title: "Calculadora de Aço",
+    desc: "Vergalhões, massa e comprimento para estruturas.",
+  },
+  {
     to: "/calculadora-de-blocos" as const,
     icon: LayoutGrid, // Ícone para blocos, pode ser ajustado
     title: "Calculadora de Blocos",
