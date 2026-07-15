@@ -73,6 +73,12 @@ const calcs = [
     desc: "Vergalhões, massa e comprimento para estruturas.",
   },
   {
+    to: "/calculadora-de-forma" as const,
+    icon: Boxes, // Ou outro ícone relevante, como 'SquareStack' ou 'HardHat'
+    title: "Calculadora de Forma",
+    desc: "Materiais e custo para fôrmas de concreto.",
+  },
+  {
     to: "/calculadora-de-blocos" as const,
     icon: LayoutGrid, // Ícone para blocos, pode ser ajustado
     title: "Calculadora de Blocos",
