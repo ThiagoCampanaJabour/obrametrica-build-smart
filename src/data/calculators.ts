@@ -92,6 +92,10 @@ const REL_BRITA: CalcRelated = {
   path: "/calculadora-de-brita",
   label: "Calculadora de Brita",
 };
+const REL_BLOCOS: CalcRelated = {
+  path: "/calculadora-de-blocos",
+  label: "Calculadora de Blocos",
+};
 const REL_TELHAS: CalcRelated = {
   path: "/calculadora-de-telhas",
   label: "Calculadora de Telhas",
@@ -205,7 +209,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS],
   },
 
   "/calculadora-de-cimento": {
@@ -301,7 +305,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS],
   },
 
   "/calculadora-de-concreto": {
@@ -643,7 +647,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -1128,9 +1132,138 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, após compactação a brita pode ocupar 15-20% menos volume. Sempre compacte bem no caminhão e na obra.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_TELHAS],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_TELHAS, REL_BLOCOS],
   },
-   "/calculadora-de-telhas": {
+    "/calculadora-de-blocos": {
+    path: "/calculadora-de-blocos",
+    name: "Calculadora de Blocos",
+    intro: "Estime a quantidade de blocos e argamassa para sua alvenaria, considerando dimensões da parede, tipo de bloco, juntas e vãos.",
+    context: [
+      "A alvenaria é a base de muitas construções. Calcular corretamente a quantidade de blocos e argamassa evita desperdícios, otimiza o tempo de obra e garante a integridade estrutural.",
+      "Erros de cálculo podem levar a atrasos, custos extras com material e mão de obra, ou falta de material no meio da execução.",
+    ],
+    whenToUse: [
+      "Planejar a construção de paredes e muros.",
+      "Orçar materiais para alvenaria (blocos, cimento, areia).",
+      "Verificar a quantidade de blocos por m² para diferentes tamanhos.",
+      "Estimar o volume de argamassa para assentamento.",
+    ],
+    howItWorks: [
+      "Informe as dimensões da parede (largura e altura) ou a área total.",
+      "Selecione o tipo de bloco ou insira suas dimensões (comprimento, altura, largura).",
+      "Defina a espessura das juntas (horizontal e vertical).",
+      "Informe a área de vãos (portas e janelas) para descontar da área total.",
+      "Ajuste o percentual de desperdício.",
+      "A calculadora fornecerá o número de blocos e o volume de argamassa.",
+    ],
+    formula: {
+      expression: `
+        1. Área Líquida da Parede (m²) = (Largura da Parede × Altura da Parede) - Área dos Vãos
+        2. Altura Útil do Bloco (mm) = Altura do Bloco + Espessura da Junta Vertical
+        3. Comprimento Útil do Bloco (mm) = Comprimento do Bloco + Espessura da Junta Horizontal
+        4. Área Útil por Bloco (m²) = (Altura Útil do Bloco / 1000) × (Comprimento Útil do Bloco / 1000)
+        5. Blocos por m² = 1 / Área Útil por Bloco
+        6. Número Teórico de Blocos = Área Líquida da Parede × Blocos por m²
+        7. Número Final de Blocos = ⌈Número Teórico de Blocos × (1 + Desperdício/100)⌉
+        8. Volume de Argamassa por Bloco (mm³) = (Comprimento do Bloco × Largura do Bloco × Junta Horizontal) + (Altura do Bloco × Largura do Bloco × Junta Vertical)
+        9. Volume Total de Argamassa (m³) = (Número Teórico de Blocos × Volume de Argamassa por Bloco) / 1.000.000.000
+      `,
+      legend: [
+        "Todas as dimensões de bloco e junta são em milímetros (mm).",
+        "Largura e altura da parede em metros (m).",
+        "Área de vãos em metros quadrados (m²).",
+        "Desperdício em percentual (%).",
+        "A argamassa é calculada preenchendo as juntas horizontais e verticais de cada bloco.",
+      ],
+    },
+    example: {
+      scenario: "Parede de 5 m de largura por 3 m de altura, com um bloco de 19x19x39 cm, juntas de 10 mm e um vão de 2 m² (porta). Desperdício de 7%.",
+      steps: [
+        "Área Total da Parede = 5 m × 3 m = 15 m²",
+        "Área Líquida da Parede = 15 m² - 2 m² (vão) = 13 m²",
+        "Dimensões do Bloco: Comprimento=390mm, Altura=190mm, Largura=190mm",
+        "Juntas: Horizontal=10mm, Vertical=10mm",
+        "Altura Útil do Bloco = 190mm + 10mm = 200mm",
+        "Comprimento Útil do Bloco = 390mm + 10mm = 400mm",
+        "Área Útil por Bloco = (200/1000) × (400/1000) = 0.08 m²",
+        "Blocos por m² = 1 / 0.08 = 12.5 blocos/m²",
+        "Número Teórico de Blocos = 13 m² × 12.5 blocos/m² = 162.5 blocos",
+        "Número Final de Blocos (com 7% desperdício) = ⌈162.5 × 1.07⌉ = ⌈173.875⌉ = 174 blocos",
+        "Volume de Argamassa por Bloco (mm³) = (390×190×10) + (190×190×10) = 741000 + 361000 = 1102000 mm³",
+        "Volume Total de Argamassa = (162.5 × 1102000) / 1.000.000.000 = 0.179 m³",
+      ],
+      result: "Serão necessários 174 blocos e 0.179 m³ de argamassa.",
+    },
+    moreExamples: [
+      {
+        scenario: "Muro de 10 m de largura por 2 m de altura, sem vãos, com bloco de 14x19x39 cm, juntas de 10 mm. Desperdício de 5%.",
+        steps: [
+          "Área Total da Parede = 10 m × 2 m = 20 m²",
+          "Área Líquida da Parede = 20 m²",
+          "Dimensões do Bloco: Comprimento=390mm, Altura=190mm, Largura=140mm",
+          "Juntas: Horizontal=10mm, Vertical=10mm",
+          "Altura Útil do Bloco = 190mm + 10mm = 200mm",
+          "Comprimento Útil do Bloco = 390mm + 10mm = 400mm",
+          "Área Útil por Bloco = (200/1000) × (400/1000) = 0.08 m²",
+          "Blocos por m² = 1 / 0.08 = 12.5 blocos/m²",
+          "Número Teórico de Blocos = 20 m² × 12.5 blocos/m² = 250 blocos",
+          "Número Final de Blocos (com 5% desperdício) = ⌈250 × 1.05⌉ = ⌈262.5⌉ = 263 blocos",
+          "Volume de Argamassa por Bloco (mm³) = (390×140×10) + (190×140×10) = 546000 + 266000 = 812000 mm³",
+          "Volume Total de Argamassa = (250 × 812000) / 1.000.000.000 = 0.203 m³",
+        ],
+        result: "Serão necessários 263 blocos e 0.203 m³ de argamassa.",
+      },
+    ],
+    tips: [
+      "Sempre compre 5-10% a mais de blocos para perdas, recortes e quebras.",
+      "A espessura da junta padrão é de 10 mm, mas pode variar. Verifique as recomendações do fabricante do bloco.",
+      "Para blocos cerâmicos, o rendimento por m² pode ser diferente dos blocos de concreto. Ajuste as dimensões do bloco.",
+      "Considere a logística: blocos são pesados e volumosos. Planeje o transporte e armazenamento.",
+      "O traço da argamassa varia conforme a finalidade (assentamento, revestimento). Consulte um profissional.",
+    ],
+    errors: [
+      "Não descontar vãos (portas e janelas) superestima a quantidade de blocos.",
+      "Usar dimensões de bloco em centímetros em vez de milímetros ou metros.",
+      "Não considerar o desperdício, resultando em falta de material na obra.",
+      "Confundir altura do bloco com altura útil (bloco + junta).",
+      "Calcular argamassa apenas pelo volume de cimento/areia sem considerar as juntas.",
+    ],
+    table: {
+      caption: "Consumo médio de blocos por m² de parede (junta 10mm)",
+      headers: ["Tipo de Bloco", "Dimensões (cm)", "Blocos/m² (aprox.)", "Uso Comum"],
+      rows: [
+        ["Bloco de Concreto", "19x19x39", "12.5", "Alvenaria estrutural e vedação"],
+        ["Bloco de Concreto", "14x19x39", "12.5", "Alvenaria de vedação"],
+        ["Bloco de Concreto", "9x19x39", "12.5", "Paredes de menor espessura"],
+        ["Tijolo Cerâmico", "9x19x19", "25", "Alvenaria de vedação"],
+        ["Tijolo Cerâmico", "11.5x14x24", "22", "Alvenaria de vedação"],
+      ],
+    },
+    faq: [
+      {
+        q: "Quantos blocos de 19x19x39 cm por m²?",
+        a: "Considerando juntas de 10 mm, são necessários aproximadamente 12.5 blocos de 19x19x39 cm por metro quadrado de parede.",
+      },
+      {
+        q: "Como calcular a argamassa para assentamento de blocos?",
+        a: "A calculadora estima o volume de argamassa preenchendo as juntas horizontais e verticais dos blocos. O volume total depende do número de blocos e das dimensões das juntas.",
+      },
+      {
+        q: "Devo descontar portas e janelas do cálculo de blocos?",
+        a: "Sim, é fundamental descontar a área de portas e janelas (vãos) da área total da parede para obter uma estimativa precisa da quantidade de blocos.",
+      },
+      {
+        q: "Qual o desperdício ideal para blocos?",
+        a: "Um desperdício entre 5% e 10% é comum para blocos, dependendo da complexidade da obra, da experiência da mão de obra e da qualidade do material.",
+      },
+      {
+        q: "A largura do bloco influencia no cálculo de argamassa?",
+        a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
+      },
+    ],
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS]
+  },
+     "/calculadora-de-telhas": {
     path: "/calculadora-de-telhas",
     name: "Calculadora de Telhas",
     intro: "Calcule a quantidade de telhas necessárias para cobrir seu telhado com precisão técnica, considerando inclinação, beiral, tipo de telha e margem de perda.",

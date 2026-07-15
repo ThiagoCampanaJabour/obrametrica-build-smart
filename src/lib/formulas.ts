@@ -184,6 +184,105 @@ export function calcTelhas(
   };
 }
 
+/**
+ * Calcula a quantidade de blocos e argamassa para alvenaria.
+ *
+ * Considera:
+ * - Dimensões da parede (largura x altura ou área total)
+ * - Dimensões do bloco (comprimento x altura)
+ * - Espessura da junta (horizontal e vertical)
+ * - Área de vãos (portas/janelas) para subtração
+ * - Desperdício
+ *
+ * Fórmulas:
+ * 1. Área útil do bloco com junta:
+ *    - Altura útil = altura_bloco + espessura_junta_vertical
+ *    - Comprimento útil = comprimento_bloco + espessura_junta_horizontal
+ *    - Área útil por bloco = (altura_útil / 1000) * (comprimento_útil / 1000)
+ * 2. Quantidade de blocos por m²:
+ *    - Blocos/m² = 1 / Área útil por bloco
+ * 3. Área líquida da parede:
+ *    - Área líquida = (largura_parede * altura_parede) - área_vãos
+ * 4. Número teórico de blocos:
+ *    - Número teórico = Área líquida * Blocos/m²
+ * 5. Número final de blocos (com desperdício):
+ *    - Número final = ceil(Número teórico * (1 + desperdício/100))
+ * 6. Volume de argamassa:
+ *    - Volume por bloco = (comprimento_bloco * altura_bloco * espessura_junta_horizontal) + (comprimento_bloco * largura_bloco * espessura_junta_vertical)
+ *    - Volume total de argamassa = (Número teórico * Volume por bloco) / 1_000_000_000 (para m³)
+ *    - Ou, se preferir, um fator de consumo por m² de parede.
+ *
+ * Convenções:
+ * - Todas as dimensões de bloco e junta são em milímetros (mm).
+ * - Largura e altura da parede em metros (m).
+ * - Área de vãos em metros quadrados (m²).
+ * - Desperdício em percentual (%).
+ */
+export function calcBlocos(
+  larguraParede: number, // m
+  alturaParede: number, // m
+  comprimentoBloco: number, // mm
+  alturaBloco: number, // mm
+  larguraBloco: number, // mm (necessário para argamassa)
+  espessuraJuntaHorizontal: number, // mm
+  espessuraJuntaVertical: number, // mm
+  areaVao: number = 0, // m²
+  desperdicio: number = 7, // %
+): {
+  areaLiquidaParede: number;
+  areaUtilBlocoM2: number;
+  blocosPorM2: number;
+  numeroTeoricoBlocos: number;
+  numeroFinalBlocos: number;
+  volumeArgamassaM3: number;
+} {
+  // 1. Área líquida da parede (m²)
+  const areaTotalParede = larguraParede * alturaParede;
+  const areaLiquidaParede = Math.max(0, areaTotalParede - areaVao);
+
+  // 2. Dimensões úteis do bloco com junta (mm)
+  const alturaUtilBloco = alturaBloco + espessuraJuntaVertical;
+  const comprimentoUtilBloco = comprimentoBloco + espessuraJuntaHorizontal;
+
+  // 3. Área útil do bloco com junta (m²)
+  const areaUtilBlocoM2 = (alturaUtilBloco / 1000) * (comprimentoUtilBloco / 1000);
+
+  // 4. Quantidade de blocos por m²
+  const blocosPorM2 = areaUtilBlocoM2 > 0 ? 1 / areaUtilBlocoM2 : 0;
+
+  // 5. Número teórico de blocos
+  const numeroTeoricoBlocos = areaLiquidaParede * blocosPorM2;
+
+  // 6. Número final de blocos (com desperdício)
+  const numeroFinalBlocos = Math.ceil(numeroTeoricoBlocos * (1 + desperdicio / 100));
+
+  // 7. Volume de argamassa (simplificado: por m² de parede, ou por volume de junta)
+  // Vamos calcular o volume de argamassa preenchendo as juntas de cada bloco.
+  // Volume de argamassa por bloco:
+  // - Junta horizontal: comprimento_bloco * largura_bloco * espessura_junta_horizontal
+  // - Junta vertical: altura_bloco * largura_bloco * espessura_junta_vertical
+  // Simplificando para o volume das juntas por bloco (considerando que a argamassa preenche a largura do bloco)
+  // Volume de argamassa por bloco em mm³
+  const volumeArgamassaPorBlocoMm3 =
+    (comprimentoBloco * larguraBloco * espessuraJuntaHorizontal) + // argamassa na base do bloco
+    (alturaBloco * larguraBloco * espessuraJuntaVertical); // argamassa na lateral do bloco
+
+  // Volume total de argamassa em mm³
+  const volumeTotalArgamassaMm3 = numeroTeoricoBlocos * volumeArgamassaPorBlocoMm3;
+
+  // Converter para m³
+  const volumeArgamassaM3 = volumeTotalArgamassaMm3 / 1_000_000_000; // 1 m³ = 10^9 mm³
+
+  return {
+    areaLiquidaParede,
+    areaUtilBlocoM2,
+    blocosPorM2,
+    numeroTeoricoBlocos,
+    numeroFinalBlocos,
+    volumeArgamassaM3,
+  };
+}
+
 // ========== Ar-Condicionado ==========
 
 /**
