@@ -283,6 +283,126 @@ export function calcBlocos(
   };
 }
 
+/**
+ * Constante da densidade do aço em kg/m³.
+ * Aproximadamente 7850 kg/m³ ou 7.85 g/cm³.
+ */
+const DENSIDADE_ACO_KG_M3 = 7850;
+
+/**
+ * Calcula a área transversal de uma barra de aço.
+ * @param diametro_mm Diâmetro da barra em milímetros.
+ * @returns Área transversal em mm².
+ */
+export function areaTransversalAco(diametro_mm: number): number {
+  if (diametro_mm <= 0) {
+    throw new Error("O diâmetro da barra deve ser maior que zero.");
+  }
+  const raio_mm = diametro_mm / 2;
+  return Math.PI * raio_mm * raio_mm;
+}
+
+/**
+ * Calcula a massa específica por metro de uma barra de aço.
+ * @param diametro_mm Diâmetro da barra em milímetros.
+ * @returns Massa por metro em kg/m.
+ */
+export function massaPorMetroAco(diametro_mm: number): number {
+  const area_mm2 = areaTransversalAco(diametro_mm);
+  // Converter área de mm² para m² (dividir por 1_000_000)
+  // Multiplicar pela densidade do aço em kg/m³
+  return (area_mm2 / 1_000_000) * DENSIDADE_ACO_KG_M3;
+}
+
+/**
+ * Calcula a massa total de um conjunto de barras de aço.
+ * @param items Array de objetos com diâmetro (mm), quantidade e comprimento (m) de cada barra.
+ * @returns Massa total em kg.
+ */
+export function massaTotalAco(
+  items: { diametro_mm: number; quantidade: number; comprimento_m: number }[]
+): number {
+  let massaTotal = 0;
+  for (const item of items) {
+    if (item.diametro_mm <= 0 || item.quantidade <= 0 || item.comprimento_m <= 0) {
+      throw new Error("Diâmetro, quantidade e comprimento devem ser maiores que zero.");
+    }
+    const massaPorM = massaPorMetroAco(item.diametro_mm);
+    massaTotal += item.quantidade * item.comprimento_m * massaPorM;
+  }
+  return massaTotal;
+}
+
+/**
+ * Aplica um percentual de desperdício à massa total.
+ * @param massa_kg Massa em kg.
+ * @param desperdicio_pct Percentual de desperdício (ex: 5 para 5%).
+ * @returns Massa final com desperdício em kg.
+ */
+export function aplicarDesperdicioAco(massa_kg: number, desperdicio_pct: number): number {
+  if (massa_kg < 0) {
+    throw new Error("A massa não pode ser negativa.");
+  }
+  if (desperdicio_pct < 0 || desperdicio_pct > 100) {
+    throw new Error("O percentual de desperdício deve ser entre 0 e 100.");
+  }
+  return massa_kg * (1 + desperdicio_pct / 100);
+}
+
+/**
+ * Calcula o número de vergalhões comerciais necessários para um comprimento total.
+ * @param comprimentoTotal_m Comprimento total necessário em metros.
+ * @param comprimentoVergalhaoPadrao_m Comprimento de um vergalhão comercial padrão em metros (ex: 12m).
+ * @returns Número de vergalhões (arredondado para cima).
+ */
+export function numeroVergalhoesAco(
+  comprimentoTotal_m: number,
+  comprimentoVergalhaoPadrao_m: number = 12
+): number {
+  if (comprimentoTotal_m < 0 || comprimentoVergalhaoPadrao_m <= 0) {
+    throw new Error("Comprimentos devem ser maiores que zero.");
+  }
+  return Math.ceil(comprimentoTotal_m / comprimentoVergalhaoPadrao_m);
+}
+
+/**
+ * Agrupa e soma os comprimentos totais por diâmetro para uma lista de itens de aço.
+ * @param items Array de objetos com diâmetro (mm), quantidade e comprimento (m) de cada barra.
+ * @returns Objeto onde a chave é o diâmetro (string) e o valor é o comprimento total (m).
+ */
+export function agruparComprimentosAco(
+  items: { diametro_mm: number; quantidade: number; comprimento_m: number }[]
+): Record<string, number> {
+  const agrupado: Record<string, number> = {};
+  for (const item of items) {
+    const diametroStr = String(item.diametro_mm);
+    if (!agrupado[diametroStr]) {
+      agrupado[diametroStr] = 0;
+    }
+    agrupado[diametroStr] += item.quantidade * item.comprimento_m;
+  }
+  return agrupado;
+}
+
+/**
+ * Calcula a quantidade de barras de um determinado diâmetro para atingir uma área de aço (As) necessária.
+ * @param areaAcoNecessaria_cm2 Área de aço necessária em cm².
+ * @param diametro_mm Diâmetro da barra em milímetros.
+ * @returns Número de barras (arredondado para cima).
+ */
+export function quantidadeBarrasPorAreaAco(
+  areaAcoNecessaria_cm2: number,
+  diametro_mm: number
+): number {
+  if (areaAcoNecessaria_cm2 <= 0 || diametro_mm <= 0) {
+    throw new Error("Área de aço e diâmetro devem ser maiores que zero.");
+  }
+  const areaAcoNecessaria_mm2 = areaAcoNecessaria_cm2 * 100; // 1 cm² = 100 mm²
+  const areaBarra_mm2 = areaTransversalAco(diametro_mm);
+  return Math.ceil(areaAcoNecessaria_mm2 / areaBarra_mm2);
+ };
+}
+
 // ========== Ar-Condicionado ==========
 
 /**
