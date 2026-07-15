@@ -100,6 +100,10 @@ const REL_ACO: CalcRelated = {
   path: "/calculadora-de-aco",
   label: "Calculadora de Aço",
 };
+const REL_FORMA: CalcRelated = {
+  path: "/calculadora-de-forma",
+  label: "Calculadora de Forma",
+};
 const REL_TELHAS: CalcRelated = {
   path: "/calculadora-de-telhas",
   label: "Calculadora de Telhas",
@@ -309,7 +313,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA],
   },
 
   "/calculadora-de-concreto": {
@@ -392,7 +396,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Consulte o projeto estrutural. Como referência, obras residenciais utilizam fck 25 MPa em pilares e vigas e fck 20 MPa em contrapisos.",
       },
     ],
-    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_ACO],
+    related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_ACO, REL_FORMA],
   },
 
   "/calculadora-de-piso": {
@@ -1265,7 +1269,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS]
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA]
   },
     "/calculadora-de-aco": {
     path: "/calculadora-de-aco",
@@ -1388,7 +1392,142 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Para converter polegadas para milímetros, multiplique o valor em polegadas por 25.4. Ex: 1/2 polegada = 0.5 × 25.4 = 12.7 mm (próximo ao 12.5mm nominal).",
       },
     ],
-    related: [REL_CONCRETO, REL_CIMENTO, REL_ARGAMASSA], // Adicionado related para a própria calculadora de aço
+    related: [REL_CONCRETO, REL_CIMENTO, REL_ARGAMASSA, REL_FORMA], // Adicionado related para a própria calculadora de aço
+  },
+    "/calculadora-de-forma": {
+    path: "/calculadora-de-forma",
+    name: "Calculadora de Forma",
+    intro: "Estime os materiais e o custo aproximado para a montagem de fôrmas de concreto (madeira, compensado, escoramento, pregos, óleo desmoldante) para vigas, pilares, lajes e paredes.",
+    context: [
+      "A fôrma é um elemento temporário crucial na construção civil, responsável por moldar o concreto fresco até que ele atinja resistência suficiente. Um planejamento eficiente da fôrma minimiza custos e otimiza o tempo de execução da obra.",
+      "O cálculo incorreto dos materiais de fôrma pode gerar desperdício excessivo, atrasos na obra ou, em casos graves, falhas estruturais devido a um escoramento inadequado.",
+    ],
+    whenToUse: [
+      "Orçar materiais para fôrmas de concreto (madeira, compensado, escoras).",
+      "Planejar a compra de tábuas, compensados e escoramentos.",
+      "Estimar o consumo de pregos e óleo desmoldante.",
+      "Comparar custos entre diferentes tipos de fôrma ou reaproveitamento.",
+      "Auxiliar no planejamento de etapas de concretagem de elementos estruturais.",
+    ],
+    howItWorks: [
+      "Selecione o tipo de elemento estrutural (viga, pilar, laje, parede ou personalizada).",
+      "Informe as dimensões do elemento em metros (comprimento, largura, altura, espessura).",
+      "Ajuste as dimensões do compensado e das tábuas, se necessário (presets disponíveis).",
+      "Defina o espaçamento das escoras e o percentual de desperdício.",
+      "Opcionalmente, insira os preços unitários dos materiais para obter uma estimativa de custo.",
+      "A calculadora fornecerá a área de fôrma, quantidade de compensado, tábuas, escoras, pregos e óleo desmoldante.",
+    ],
+    formula: {
+      expression: `
+        1. Área de Fôrma (m²) = Calculada conforme o tipo e dimensões do elemento.
+           - Viga: (2 × Comprimento × Altura) + (Comprimento × Largura)
+           - Pilar: 2 × (Comprimento + Largura) × Altura
+           - Laje de Borda: Comprimento × Espessura
+           - Parede: 2 × Comprimento × Altura
+           - Personalizada: Área Total (m²) informada
+        2. Painéis de Compensado (un) = ⌈Área de Fôrma / Área do Painel Padrão (1.22 × 2.44 m)⌉
+        3. Comprimento de Tábuas (m) = ⌈(Perímetro Útil × Nº de Fiadas) / Comprimento Padrão da Tábua (3m)⌉ × Comprimento Padrão da Tábua
+        4. Número de Escoras (un) = ⌈Comprimento do Elemento / Espaçamento das Escoras⌉ × Nº de Linhas de Escoramento
+        5. Massa de Pregos (kg) = Área de Fôrma × Coeficiente de Pregos (0.2 kg/m²)
+        6. Óleo Desmoldante (L) = Área de Fôrma × Coeficiente de Óleo (0.05 L/m²)
+        7. Custo Total (R$) = Σ (Quantidade de Material × Preço Unitário)
+        8. Aplicação de Desperdício: Material Final = Material Teórico × (1 + Desperdício / 100)
+      `,
+      legend: [
+        "Todas as dimensões em metros (m), exceto espessura do compensado em mm.",
+        "⌈x⌉ representa o arredondamento para cima (ceil).",
+        "Coeficientes de consumo são valores médios e podem variar conforme a prática da obra.",
+        "Para tábuas, o cálculo retorna o comprimento total de tábuas comerciais necessárias.",
+      ],
+    },
+    example: {
+      scenario: "Calcular materiais para uma viga de 5m de comprimento, 0.3m de largura e 0.5m de altura, com 10% de desperdício.",
+      steps: [
+        "Área de fôrma da viga = (2 × 5m × 0.5m) + (5m × 0.3m) = 5m² + 1.5m² = 6.5 m²",
+        "Área com desperdício = 6.5 m² × (1 + 10/100) = 7.15 m²",
+        "Painéis de compensado (1.22x2.44m = 2.9768 m²/painel) = ⌈7.15 / 2.9768⌉ = 3 painéis",
+        "Perímetro útil para tábuas = 2 × (0.3m + 0.5m) = 1.6m. Assumindo 2 fiadas e tábuas de 3m: ⌈(1.6m × 2) / 3m⌉ × 3m = ⌈3.2 / 3⌉ × 3 = 2 × 3 = 6m de tábuas",
+        "Escoras (para viga de 5m, largura 0.3m, espaçamento 1.5m): Linhas = max(2, ceil(0.3/0.5)) = 2. Escoras por linha = ceil(5/1.5) = 4. Total = 4 × 2 = 8 escoras. Com desperdício = ⌈8 × 1.1⌉ = 9 escoras.",
+        "Pregos = 7.15 m² × 0.2 kg/m² = 1.43 kg",
+        "Óleo desmoldante = 7.15 m² × 0.05 L/m² = 0.3575 L",
+      ],
+      result: "Serão necessários: 7.15 m² de fôrma, 3 painéis de compensado, 6m de tábuas, 9 escoras, 1.43 kg de pregos e 0.36 L de óleo desmoldante.",
+    },
+    moreExamples: [
+      {
+        scenario: "Pilar de 3m de altura com seção 0.2m x 0.4m, 5% de desperdício.",
+        steps: [
+          "Área de fôrma do pilar = 2 × (0.2m + 0.4m) × 3m = 3.6 m²",
+          "Área com desperdício = 3.6 m² × (1 + 5/100) = 3.78 m²",
+          "Painéis de compensado = ⌈3.78 / 2.9768⌉ = 2 painéis",
+          "Perímetro útil para tábuas = 2 × (0.2m + 0.4m) = 1.2m. Assumindo 2 fiadas e tábuas de 3m: ⌈(1.2m × 2) / 3m⌉ × 3m = ⌈2.4 / 3⌉ × 3 = 1 × 3 = 3m de tábuas",
+          "Pregos = 3.78 m² × 0.2 kg/m² = 0.756 kg",
+          "Óleo desmoldante = 3.78 m² × 0.05 L/m² = 0.189 L",
+        ],
+        result: "Para o pilar, serão necessários: 3.78 m² de fôrma, 2 painéis de compensado, 3m de tábuas, 0.76 kg de pregos e 0.19 L de óleo desmoldante.",
+      },
+      {
+        scenario: "Laje de borda de 10m de comprimento com 0.15m de espessura, 8% de desperdício.",
+        steps: [
+          "Área de fôrma da borda = 10m × 0.15m = 1.5 m²",
+          "Área com desperdício = 1.5 m² × (1 + 8/100) = 1.62 m²",
+          "Painéis de compensado = ⌈1.62 / 2.9768⌉ = 1 painel",
+          "Perímetro útil para tábuas = 10m. Assumindo 1 fiada e tábuas de 3m: ⌈(10m × 1) / 3m⌉ × 3m = ⌈3.33⌉ × 3 = 4 × 3 = 12m de tábuas",
+          "Escoras (para laje de borda de 10m, espessura 0.15m, espaçamento 1.5m): Linhas = max(2, ceil(0.15/0.5)) = 2. Escoras por linha = ceil(10/1.5) = 7. Total = 7 × 2 = 14 escoras. Com desperdício = ⌈14 × 1.08⌉ = 16 escoras.",
+          "Pregos = 1.62 m² × 0.2 kg/m² = 0.324 kg",
+          "Óleo desmoldante = 1.62 m² × 0.05 L/m² = 0.081 L",
+        ],
+        result: "Para a laje de borda, serão necessários: 1.62 m² de fôrma, 1 painel de compensado, 12m de tábuas, 16 escoras, 0.32 kg de pregos e 0.08 L de óleo desmoldante.",
+      },
+    ],
+    tips: [
+      "Sempre considere um percentual de desperdício (5-15%) para cortes, perdas e emendas.",
+      "O reaproveitamento das fôrmas pode reduzir significativamente os custos, mas exige cuidado na desmontagem e armazenamento.",
+      "Utilize óleo desmoldante para facilitar a retirada da fôrma e aumentar sua vida útil.",
+      "O espaçamento das escoras deve ser dimensionado por um profissional, considerando a carga do concreto e a resistência da madeira.",
+      "Verifique a qualidade da madeira e do compensado para garantir a segurança e a durabilidade da fôrma.",
+    ],
+    errors: [
+      "Não considerar o desperdício pode levar à falta de material e atrasos na obra.",
+      "Utilizar madeira ou compensado de baixa qualidade pode comprometer a segurança da estrutura.",
+      "Espaçamento inadequado das escoras pode causar deformações ou colapso da fôrma.",
+      "Não aplicar óleo desmoldante dificulta a desforma e danifica o material.",
+      "Confundir dimensões em metros com centímetros ou milímetros nos cálculos.",
+    ],
+    table: {
+      caption: "Consumo médio de materiais para fôrmas",
+      headers: ["Material", "Unidade", "Consumo por m² de fôrma"],
+      rows: [
+        ["Compensado", "m²", "1.05 - 1.10 m² (considerando recortes)"],
+        ["Tábuas (caixilho)", "m linear", "5 - 15 m linear (depende da complexidade)"],
+        ["Escoras", "un", "0.5 - 1.5 un (depende do espaçamento e carga)"],
+        ["Pregos", "kg", "0.1 - 0.3 kg"],
+        ["Óleo Desmoldante", "L", "0.03 - 0.07 L"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual a diferença entre fôrma de madeira e fôrma metálica?",
+        a: "Fôrmas de madeira são mais flexíveis e econômicas para pequenas obras, mas têm menor vida útil. Fôrmas metálicas são mais duráveis e ideais para grandes projetos com alto reaproveitamento.",
+      },
+      {
+        q: "Como o reaproveitamento da fôrma afeta o cálculo?",
+        a: "O reaproveitamento reduz a quantidade de material novo a ser comprado, mas pode aumentar a necessidade de mão de obra para limpeza e manutenção. Esta calculadora foca no consumo por ciclo.",
+      },
+      {
+        q: "É possível usar esta calculadora para fôrmas de concreto aparente?",
+        a: "Sim, mas para concreto aparente, a qualidade do compensado e a precisão da montagem da fôrma são ainda mais críticas para garantir um acabamento perfeito, o que pode influenciar o desperdício.",
+      },
+      {
+        q: "Qual a importância do óleo desmoldante?",
+        a: "O óleo desmoldante cria uma barreira entre o concreto e a fôrma, facilitando a desforma, protegendo a madeira/compensado e garantindo um acabamento liso no concreto.",
+      },
+      {
+        q: "Como dimensionar o espaçamento das escoras?",
+        a: "O espaçamento das escoras depende da carga do concreto, da espessura da laje/viga e da resistência da madeira utilizada. Deve ser calculado por um engenheiro para garantir a segurança.",
+      },
+    ],
+    related: [REL_CONCRETO, REL_CIMENTO, REL_ACO, REL_BLOCOS],
   },
      "/calculadora-de-telhas": {
     path: "/calculadora-de-telhas",

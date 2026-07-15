@@ -402,6 +402,297 @@ export function quantidadeBarrasPorAreaAco(
   return Math.ceil(areaAcoNecessaria_mm2 / areaBarra_mm2);
 } // <-- CORRIGIDO AQUI: Removido o ';' e a chave '}' extra.
 
+// ========== Fôrma ==========
+
+// Dimensões padrão de um painel de compensado (m)
+const COMPENSADO_LARGURA_PADRAO_M = 1.22;
+const COMPENSADO_COMPRIMENTO_PADRAO_M = 2.44;
+const COMPENSADO_AREA_PADRAO_M2 = COMPENSADO_LARGURA_PADRAO_M * COMPENSADO_COMPRIMENTO_PADRAO_M;
+
+// Coeficientes de consumo (aproximados)
+const PREGOS_POR_M2_FORMA = 0.2; // kg de pregos por m² de forma
+const OLEO_DESMOLDANTE_POR_M2_FORMA = 0.05; // litros de óleo por m² de forma
+
+/**
+ * Calcula a área de fôrma necessária para diferentes elementos estruturais.
+ * @param tipoElemento Tipo de elemento estrutural ('viga', 'pilar', 'laje-borda', 'parede', 'personalizada').
+ * @param dimensoes Objeto com as dimensões relevantes para o tipo de elemento.
+ * @returns Área total de fôrma em m².
+ */
+export function calcularAreaForma(
+  tipoElemento: 'viga' | 'pilar' | 'laje-borda' | 'parede' | 'personalizada',
+  dimensoes: {
+    comprimento?: number; // m
+    largura?: number; // m (para viga/pilar/parede)
+    altura?: number; // m (para viga/pilar/parede)
+    espessura?: number; // m (para laje/parede)
+    areaTotalM2?: number; // m² (para personalizada)
+  }
+): number {
+  let area = 0;
+
+  switch (tipoElemento) {
+    case 'viga':
+      if (!dimensoes.comprimento || !dimensoes.largura || !dimensoes.altura) {
+        throw new Error("Para viga, informe comprimento, largura e altura.");
+      }
+      // 2 faces laterais + 1 face inferior (base)
+      area = (2 * dimensoes.comprimento * dimensoes.altura) + (dimensoes.comprimento * dimensoes.largura);
+      break;
+    case 'pilar':
+      if (!dimensoes.comprimento || !dimensoes.largura || !dimensoes.altura) {
+        throw new Error("Para pilar, informe comprimento, largura e altura.");
+      }
+      // 4 faces laterais
+      area = 2 * (dimensoes.comprimento + dimensoes.largura) * dimensoes.altura;
+      break;
+    case 'laje-borda':
+      if (!dimensoes.comprimento || !dimensoes.espessura) {
+        throw new Error("Para laje de borda, informe comprimento e espessura.");
+      }
+      // Apenas a face lateral da borda
+      area = dimensoes.comprimento * dimensoes.espessura;
+      break;
+    case 'parede':
+      if (!dimensoes.comprimento || !dimensoes.altura || !dimensoes.espessura) {
+        throw new Error("Para parede, informe comprimento, altura e espessura.");
+      }
+      // 2 faces laterais da parede
+      area = 2 * dimensoes.comprimento * dimensoes.altura;
+      break;
+    case 'personalizada':
+      if (!dimensoes.areaTotalM2) {
+        throw new Error("Para fôrma personalizada, informe a área total em m².");
+      }
+      area = dimensoes.areaTotalM2;
+      break;
+    default:
+      throw new Error("Tipo de elemento estrutural inválido.");
+  }
+
+  if (area <= 0) {
+    throw new Error("A área calculada da fôrma deve ser maior que zero.");
+  }
+  return area;
+}
+
+/**
+ * Calcula o número de painéis de compensado necessários.
+ * @param areaTotalFormaM2 Área total da fôrma em m².
+ * @param areaPainelM2 Área de um painel de compensado em m².
+ * @returns Número de painéis (arredondado para cima).
+ */
+export function calcularPaineisCompensado(
+  areaTotalFormaM2: number,
+  areaPainelM2: number = COMPENSADO_AREA_PADRAO_M2
+): number {
+  if (areaTotalFormaM2 <= 0 || areaPainelM2 <= 0) {
+    throw new Error("Área total da fôrma e área do painel devem ser maiores que zero.");
+  }
+  return Math.ceil(areaTotalFormaM2 / areaPainelM2);
+}
+
+/**
+ * Calcula o comprimento total de tábuas para caixilho/estrutura da fôrma.
+ * @param perimetroUtilM Perímetro útil do elemento a ser formado (m).
+ * @param numeroFiadas Quantidade de fiadas de tábuas (ex: 2 para base e topo).
+ * @param comprimentoTabuaPadraoM Comprimento padrão das tábuas comerciais (m).
+ * @returns Comprimento total de tábuas em metros.
+ */
+export function calcularComprimentoTabuas(
+  perimetroUtilM: number,
+  numeroFiadas: number,
+  comprimentoTabuaPadraoM: number = 3
+): number {
+  if (perimetroUtilM <= 0 || numeroFiadas <= 0 || comprimentoTabuaPadraoM <= 0) {
+    throw new Error("Perímetro, número de fiadas e comprimento da tábua devem ser maiores que zero.");
+  }
+  const comprimentoTotalNecessario = perimetroUtilM * numeroFiadas;
+  // Arredonda para cima para garantir que haja tábuas suficientes, considerando cortes
+  return Math.ceil(comprimentoTotalNecessario / comprimentoTabuaPadraoM) * comprimentoTabuaPadraoM;
+}
+
+/**
+ * Estima o número de escoras necessárias.
+ * @param comprimentoElementoM Comprimento do elemento a ser escorado (m).
+ * @param larguraElementoM Largura do elemento a ser escorado (m).
+ * @param espacamentoEscorasM Espaçamento entre as escoras (m).
+ * @returns Número de escoras (arredondado para cima).
+ */
+export function calcularNumeroEscoras(
+  comprimentoElementoM: number,
+  larguraElementoM: number,
+  espacamentoEscorasM: number
+): number {
+  if (comprimentoElementoM <= 0 || larguraElementoM <= 0 || espacamentoEscorasM <= 0) {
+    throw new Error("Comprimento, largura do elemento e espaçamento das escoras devem ser maiores que zero.");
+  }
+  // Linhas de escoramento: 1 para cada 0.5m de largura, mínimo 2
+  const linhasEscoramento = Math.max(2, Math.ceil(larguraElementoM / 0.5));
+  const escorasPorLinha = Math.ceil(comprimentoElementoM / espacamentoEscorasM);
+  return escorasPorLinha * linhasEscoramento;
+}
+
+/**
+ * Estima o consumo de pregos/parafusos.
+ * @param areaTotalFormaM2 Área total da fôrma em m².
+ * @param coeficientePregosKgM2 Coeficiente de pregos em kg por m² de fôrma.
+ * @returns Massa de pregos em kg.
+ */
+export function estimarConsumoPregos(
+  areaTotalFormaM2: number,
+  coeficientePregosKgM2: number = PREGOS_POR_M2_FORMA
+): number {
+  if (areaTotalFormaM2 < 0 || coeficientePregosKgM2 < 0) {
+    throw new Error("Área da fôrma e coeficiente de pregos não podem ser negativos.");
+  }
+  return areaTotalFormaM2 * coeficientePregosKgM2;
+}
+
+/**
+ * Estima o consumo de óleo desmoldante.
+ * @param areaTotalFormaM2 Área total da fôrma em m².
+ * @param coeficienteOleoLM2 Coeficiente de óleo em litros por m² de fôrma.
+ * @returns Volume de óleo em litros.
+ */
+export function estimarConsumoOleoDesmoldante(
+  areaTotalFormaM2: number,
+  coeficienteOleoLM2: number = OLEO_DESMOLDANTE_POR_M2_FORMA
+): number {
+  if (areaTotalFormaM2 < 0 || coeficienteOleoLM2 < 0) {
+    throw new Error("Área da fôrma e coeficiente de óleo não podem ser negativos.");
+  }
+  return areaTotalFormaM2 * coeficienteOleoLM2;
+}
+
+/**
+ * Aplica um percentual de desperdício a um valor.
+ * @param valor Valor a ser ajustado.
+ * @param desperdicio_pct Percentual de desperdício (ex: 10 para 10%).
+ * @returns Valor ajustado com desperdício.
+ */
+export function aplicarDesperdicioForma(valor: number, desperdicio_pct: number): number {
+  if (valor < 0) {
+    throw new Error("O valor não pode ser negativo.");
+  }
+  if (desperdicio_pct < 0 || desperdicio_pct > 100) {
+    throw new Error("O percentual de desperdício deve ser entre 0 e 100.");
+  }
+  return valor * (1 + desperdicio_pct / 100);
+}
+
+/**
+ * Função principal para calcular materiais de fôrma.
+ */
+export function calcForma(params: {
+  tipoElemento: 'viga' | 'pilar' | 'laje-borda' | 'parede' | 'personalizada';
+  dimensoes: {
+    comprimento?: number; // m
+    largura?: number; // m
+    altura?: number; // m
+    espessura?: number; // m
+    areaTotalM2?: number; // m²
+  };
+  espessuraCompensadoMM: number; // mm
+  larguraTabuaMM: number; // mm
+  espessuraTabuaMM: number; // mm
+  espacamentoEscorasM: number; // m
+  desperdicioPct: number; // %
+  reaproveitavel: boolean; // Se a fôrma será reaproveitada
+}): {
+  areaTotalFormaM2: number;
+  paineisCompensado: number;
+  comprimentoTabuasM: number;
+  numeroEscoras: number;
+  massaPregosKg: number;
+  oleoDesmoldanteL: number;
+} {
+  // 1. Calcular área total da fôrma
+  const areaTotalFormaM2 = aplicarDesperdicioForma(
+    calcularAreaForma(params.tipoElemento, params.dimensoes),
+    params.desperdicioPct
+  );
+
+  // 2. Calcular painéis de compensado
+  // Assumindo painel padrão de 1.22 x 2.44 m
+  const paineisCompensado = calcularPaineisCompensado(areaTotalFormaM2);
+
+  // 3. Calcular comprimento de tábuas
+  let perimetroUtilM = 0;
+  let numeroFiadasTabuas = 0;
+
+  if (params.tipoElemento === 'viga') {
+    perimetroUtilM = 2 * (params.dimensoes.largura! + params.dimensoes.altura!); // Perímetro da seção transversal
+    numeroFiadasTabuas = 2; // Ex: uma fiada em cima e uma embaixo para o caixilho
+  } else if (params.tipoElemento === 'pilar') {
+    perimetroUtilM = 2 * (params.dimensoes.largura! + params.dimensoes.comprimento!); // Perímetro da seção transversal
+    numeroFiadasTabuas = 2;
+  } else if (params.tipoElemento === 'parede') {
+    perimetroUtilM = 2 * (params.dimensoes.comprimento! + params.dimensoes.altura!); // Perímetro da parede
+    numeroFiadasTabuas = 2;
+  } else if (params.tipoElemento === 'laje-borda') {
+    perimetroUtilM = params.dimensoes.comprimento!; // Apenas o comprimento da borda
+    numeroFiadasTabuas = 1; // Apenas uma fiada para a borda
+  } else if (params.tipoElemento === 'personalizada') {
+    // Para personalizada, é difícil estimar tábuas sem mais detalhes.
+    // Vamos usar uma estimativa baseada na área, assumindo um perímetro médio.
+    // Ou, para simplificar, podemos pedir um perímetro ou um fator de tábuas por m² de forma.
+    // Por enquanto, vamos usar um coeficiente simples: 10m de tábua por m² de forma personalizada.
+    perimetroUtilM = areaTotalFormaM2 * 10; // Estimativa
+    numeroFiadasTabuas = 1;
+  }
+
+  const comprimentoTabuasM = aplicarDesperdicioForma(
+    calcularComprimentoTabuas(perimetroUtilM, numeroFiadasTabuas),
+    params.desperdicioPct
+  );
+
+  // 4. Calcular número de escoras
+  let numeroEscoras = 0;
+  if (params.tipoElemento === 'viga' || params.tipoElemento === 'laje-borda') {
+    numeroEscoras = aplicarDesperdicioForma(
+      calcularNumeroEscoras(
+        params.dimensoes.comprimento!,
+        params.dimensoes.largura || params.dimensoes.espessura!, // Para laje-borda, usa espessura como largura
+        params.espacamentoEscorasM
+      ),
+      params.desperdicioPct
+    );
+  } else if (params.tipoElemento === 'pilar' || params.tipoElemento === 'parede') {
+    // Pilares e paredes geralmente não usam escoras no mesmo sentido de vigas/lajes,
+    // mas sim travamentos laterais. Para simplificar, vamos estimar escoras para o topo
+    // ou para travamento a cada X metros de altura/comprimento.
+    // Por enquanto, vamos deixar 0 para pilares/paredes ou usar uma estimativa simplificada.
+    // Para este MVP, vamos considerar escoras apenas para elementos horizontais (viga, laje).
+    numeroEscoras = 0; // Ajustar conforme necessidade de detalhamento
+  } else if (params.tipoElemento === 'personalizada') {
+    // Para personalizada, sem detalhes, não é possível estimar escoras.
+    numeroEscoras = 0;
+  }
+
+
+  // 5. Estimar consumo de pregos
+  const massaPregosKg = aplicarDesperdicioForma(
+    estimarConsumoPregos(areaTotalFormaM2),
+    params.desperdicioPct
+  );
+
+  // 6. Estimar consumo de óleo desmoldante
+  const oleoDesmoldanteL = aplicarDesperdicioForma(
+    estimarConsumoOleoDesmoldante(areaTotalFormaM2),
+    params.desperdicioPct
+  );
+
+  return {
+    areaTotalFormaM2,
+    paineisCompensado: Math.ceil(paineisCompensado), // Sempre painéis inteiros
+    comprimentoTabuasM: comprimentoTabuasM,
+    numeroEscoras: Math.ceil(numeroEscoras), // Sempre escoras inteiras
+    massaPregosKg: massaPregosKg,
+    oleoDesmoldanteL: oleoDesmoldanteL,
+  };
+}
+
 // ========== Ar-Condicionado ==========
 
 /**
