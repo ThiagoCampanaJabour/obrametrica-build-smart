@@ -104,6 +104,10 @@ const REL_FORMA: CalcRelated = {
   path: "/calculadora-de-forma",
   label: "Calculadora de Forma",
 };
+const REL_REBOCO: CalcRelated = {
+  path: "/calculadora-de-reboco",
+  label: "Calculadora de Reboco",
+};
 const REL_TELHAS: CalcRelated = {
   path: "/calculadora-de-telhas",
   label: "Calculadora de Telhas",
@@ -217,7 +221,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO],
   },
 
   "/calculadora-de-cimento": {
@@ -313,7 +317,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO],
   },
 
   "/calculadora-de-concreto": {
@@ -655,7 +659,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -751,7 +755,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO],
   },
     "/calculadora-rejunte": {
     path: "/calculadora-rejunte",
@@ -1269,7 +1273,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA]
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO]
   },
     "/calculadora-de-aco": {
     path: "/calculadora-de-aco",
@@ -1644,6 +1648,142 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
       },
     ],
     related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA],
+  },
+   "/calculadora-de-reboco": {
+    path: "/calculadora-de-reboco",
+    name: "Calculadora de Reboco",
+    intro: "Estime os materiais (cimento, areia, cal, massa pronta) e volumes para reboco de paredes internas/externas e chapisco, considerando espessura, tipo de traço e desperdício.",
+    context: [
+      "O reboco é uma etapa fundamental no acabamento de paredes, protegendo a alvenaria e preparando a superfície para pintura ou revestimento. O cálculo preciso dos materiais evita desperdícios e garante a qualidade da obra.",
+      "Erros na dosagem ou na estimativa de materiais para reboco podem resultar em custos adicionais, atrasos na execução e problemas de aderência ou fissuras na parede.",
+    ],
+    whenToUse: [
+      "Orçar materiais para chapisco, reboco grosso, reboco fino ou reboco total.",
+      "Planejar a compra de cimento, areia, cal ou massa pronta para reboco.",
+      "Estimar o volume de argamassa e a quantidade de sacos de cada material.",
+      "Comparar o custo entre diferentes traços ou tipos de argamassa.",
+      "Auxiliar no planejamento de etapas de acabamento de paredes.",
+    ],
+    howItWorks: [
+      "Selecione o tipo de serviço (chapisco, reboco grosso, reboco fino, reboco total ou massa corrida).",
+      "Informe a área a rebocar em m² e a espessura desejada em mm.",
+      "Escolha um traço padrão ou insira um traço personalizado (cimento:areia:cal).",
+      "Defina o percentual de desperdício.",
+      "Opcionalmente, insira os preços unitários dos materiais para obter uma estimativa de custo.",
+      "A calculadora fornecerá o volume de argamassa, e a quantidade de cimento, areia, cal e/ou massa pronta.",
+    ],
+    formula: {
+      expression: `
+        1. Volume Teórico de Argamassa (m³) = Área (m²) × Espessura (m)
+        2. Volume de Argamassa Ajustado = Volume Teórico × Fator de Empacotamento (1.3) × (1 + Desperdício / 100)
+        3. Materiais por Volume:
+           - Cimento (kg) = Volume Ajustado × (Parte Cimento / Soma Partes Traço) × Densidade Cimento (1440 kg/m³)
+           - Areia (m³) = Volume Ajustado × (Parte Areia / Soma Partes Traço)
+           - Cal (kg) = Volume Ajustado × (Parte Cal / Soma Partes Traço) × Densidade Cal (500 kg/m³)
+        4. Sacos de Cimento = ⌈Cimento (kg) / 50 kg/saco⌉
+        5. Sacos de Cal = ⌈Cal (kg) / 20 kg/saco⌉
+        6. Massa Pronta (kg) = Área (m²) × Espessura (mm) × Coeficiente Massa Pronta (1.5 kg/m²/mm) × (1 + Desperdício / 100)
+        7. Custo Total (R$) = Σ (Quantidade de Material × Preço Unitário)
+      `,
+      legend: [
+        "Todas as dimensões em metros (m), exceto espessura em milímetros (mm).",
+        "⌈x⌉ representa o arredondamento para cima (ceil).",
+        "Fator de Empacotamento: Considera a redução de volume dos materiais secos ao serem misturados com água.",
+        "Densidades e coeficientes são valores médios e podem variar conforme o fabricante e a prática da obra.",
+      ],
+    },
+    example: {
+      scenario: "Calcular materiais para reboco interno de 50 m² com 15 mm de espessura, traço 1:4, 10% de desperdício.",
+      steps: [
+        "Volume Teórico = 50 m² × (15 mm / 1000) = 0.75 m³",
+        "Traço 1:4 (cimento:areia). Soma Partes = 1 + 4 = 5.",
+        "Volume Ajustado = 0.75 m³ × 1.3 (Fator Empacotamento) × (1 + 10/100) = 1.0725 m³",
+        "Cimento (kg) = 1.0725 m³ × (1/5) × 1440 kg/m³ = 308.88 kg",
+        "Sacos de Cimento = ⌈308.88 / 50⌉ = 7 sacos",
+        "Areia (m³) = 1.0725 m³ × (4/5) = 0.858 m³",
+        "Areia (kg) = 0.858 m³ × 1600 kg/m³ = 1372.8 kg",
+        "Cal (kg) = 0 (não há cal no traço)",
+      ],
+      result: "Serão necessários: 0.75 m³ de argamassa, 308.88 kg de cimento (7 sacos), 0.858 m³ de areia (1372.8 kg).",
+    },
+    moreExamples: [
+      {
+        scenario: "Chapisco de 30 m² com 5 mm de espessura, traço 1:2, 15% de desperdício.",
+        steps: [
+          "Volume Teórico = 30 m² × (5 mm / 1000) = 0.15 m³",
+          "Traço 1:2 (cimento:areia). Soma Partes = 1 + 2 = 3.",
+          "Volume Ajustado = 0.15 m³ × 1.3 × (1 + 15/100) = 0.22425 m³",
+          "Cimento (kg) = 0.22425 m³ × (1/3) × 1440 kg/m³ = 107.64 kg",
+          "Sacos de Cimento = ⌈107.64 / 50⌉ = 3 sacos",
+          "Areia (m³) = 0.22425 m³ × (2/3) = 0.1495 m³",
+        ],
+        result: "Para o chapisco, serão necessários: 0.15 m³ de argamassa, 107.64 kg de cimento (3 sacos), 0.15 m³ de areia.",
+      },
+      {
+        scenario: "Reboco Total (chapisco + grosso + fino) para 100 m², 10% de desperdício.",
+        steps: [
+          "Cálculo automático para Chapisco (5mm, 1:2), Reboco Grosso (15mm, 1:4), Reboco Fino (5mm, 1:5:0.5).",
+          "Soma dos materiais de cada etapa com desperdício.",
+          "Exemplo: Cimento Total = Cimento Chapisco + Cimento Grosso + Cimento Fino.",
+        ],
+        result: "A calculadora somará os materiais de cada etapa para o total. Ex: Cimento total ~ 700 kg (14 sacos), Areia total ~ 1.5 m³, Cal total ~ 100 kg (5 sacos).",
+      },
+      {
+        scenario: "Massa corrida para 40 m² com 2 mm de espessura, 5% de desperdício.",
+        steps: [
+          "Massa Pronta (kg) = 40 m² × 2 mm × 1.5 kg/m²/mm × (1 + 5/100) = 126 kg",
+        ],
+        result: "Serão necessários 126 kg de massa pronta.",
+      },
+    ],
+    tips: [
+      "Sempre considere um percentual de desperdício (5-15%) para perdas durante a mistura e aplicação.",
+      "A espessura do reboco deve ser uniforme para garantir um bom acabamento e evitar fissuras.",
+      "Utilize areia média lavada para o reboco, livre de impurezas orgânicas.",
+      "A cal melhora a trabalhabilidade da argamassa e reduz a incidência de fissuras.",
+      "Para reboco externo, utilize traços mais ricos em cimento (ex: 1:3) para maior resistência à umidade.",
+    ],
+    errors: [
+      "Não descontar vãos (portas/janelas) da área total pode superestimar o consumo de material.",
+      "Utilizar espessura em centímetros em vez de milímetros (ou vice-versa) causará erros significativos.",
+      "Traços incorretos podem comprometer a resistência e a durabilidade do reboco.",
+      "Não considerar o fator de empacotamento subestima o volume de materiais secos.",
+      "Ignorar o desperdício pode levar à falta de material e atrasos na obra.",
+    ],
+    table: {
+      caption: "Traços Comuns para Reboco (Cimento:Areia:Cal)",
+      headers: ["Serviço", "Traço Sugerido", "Espessura Média (mm)", "Observações"],
+      rows: [
+        ["Chapisco", "1:2 (cimento:areia)", "3-5", "Aumenta aderência da argamassa"],
+        ["Reboco Grosso (Interno)", "1:4 (cimento:areia)", "15-20", "Camada de regularização"],
+        ["Reboco Fino (Interno)", "1:5:0.5 (cimento:areia:cal)", "5-10", "Acabamento final"],
+        ["Reboco Externo", "1:3 (cimento:areia)", "20-30", "Maior resistência à umidade"],
+        ["Massa Corrida", "Pronta", "1-3", "Acabamento superfino"],
+      ],
+    },
+    faq: [
+      {
+        q: "Qual a diferença entre chapisco, emboço e reboco?",
+        a: "Chapisco é a primeira camada, áspera, para aumentar a aderência. Emboço (ou reboco grosso) é a camada intermediária de regularização. Reboco (ou reboco fino) é a camada final de acabamento.",
+      },
+      {
+        q: "Posso usar apenas cimento e areia no reboco?",
+        a: "Sim, mas a adição de cal melhora a plasticidade da argamassa, facilitando a aplicação e reduzindo a incidência de fissuras, além de aumentar a resistência à água.",
+      },
+      {
+        q: "Como calcular a área de paredes descontando vãos?",
+        a: "Calcule a área total da parede (largura x altura) e subtraia a área de portas e janelas. Para pequenas áreas de vãos (até 2m²), é comum não descontar para compensar perdas.",
+      },
+      {
+        q: "Qual a função do fator de empacotamento?",
+        a: "O fator de empacotamento (ou fator de vazios) considera que a soma dos volumes dos materiais secos (cimento, areia, cal) é maior do que o volume final da argamassa depois de misturada com água e compactada.",
+      },
+      {
+        q: "A umidade da areia afeta o cálculo?",
+        a: "Sim, areia úmida ocupa mais volume e pesa mais. Para cálculos precisos, a areia deve ser considerada seca. Na prática, é comum ajustar a quantidade de água da mistura.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS],
   },
     "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
