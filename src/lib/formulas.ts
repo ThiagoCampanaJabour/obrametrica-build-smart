@@ -632,6 +632,285 @@ export function calcTubos(params: {
   };
 }
 
+// ========== Esquadrias ==========
+
+// Densidades padrão dos materiais (kg/m³)
+const DENSIDADE_ALUMINIO_KG_M3 = 2700;
+const DENSIDADE_PVC_ESQUADRIA_KG_M3 = 1400; // Pode variar
+const DENSIDADE_MADEIRA_KG_M3 = 700; // Varia muito (pinus, eucalipto, etc.)
+const DENSIDADE_FERRO_KG_M3 = 7850; // Aço/Ferro
+const DENSIDADE_VIDRO_KG_M3 = 2500; // Vidro comum
+
+// Coeficientes de peso por metro para perfis típicos (kg/m) - Valores de referência
+const PESO_PERFIL_ALUMINIO_KG_M = 0.8; // Perfil leve a médio
+const PESO_PERFIL_PVC_KG_M = 1.2; // Perfil de PVC para janela
+const PESO_PERFIL_MADEIRA_KG_M = 0.6; // Perfil de madeira
+const PESO_PERFIL_FERRO_KG_M = 2.5; // Perfil de ferro/aço
+
+// Folga padrão para vidro (mm)
+const FOLGA_VIDRO_PADRAO_MM = 6; // 3mm de cada lado
+
+// Presets de ferragens por tipo de esquadria e abertura
+interface FerragensPreset {
+  dobradicas?: number;
+  fechaduras?: number;
+  roldanas?: number;
+  trilhos_m?: number;
+  puxadores?: number;
+}
+
+const FERRAGENS_PRESETS: Record<string, FerragensPreset> = {
+  'Janela_Abrir_1F': { dobradicas: 2, fechaduras: 1, puxadores: 1 },
+  'Janela_Abrir_2F': { dobradicas: 4, fechaduras: 2, puxadores: 2 },
+  'Janela_Correr_2F': { roldanas: 4, trilhos_m: 2, puxadores: 2 }, // Trilho = 2x largura
+  'Porta_Madeira_1F': { dobradicas: 3, fechaduras: 1, puxadores: 1 },
+  'Porta_Correr_1F': { roldanas: 2, trilhos_m: 2, puxadores: 1 }, // Trilho = 2x largura
+  'Porta_Correr_2F': { roldanas: 4, trilhos_m: 2, puxadores: 2 }, // Trilho = 2x largura
+  'Vitrô_Basculante': { dobradicas: 2, puxadores: 1 },
+  'Caixilho_Fixo': {}, // Nenhum
+};
+
+export type TipoEsquadria = 'Janela_Abrir' | 'Janela_Correr' | 'Porta_Madeira' | 'Porta_Correr' | 'Vitrô' | 'Caixilho_Fixo' | 'Personalizada';
+export type TipoAbertura = '1F' | '2F' | 'Correr' | 'Basculante' | 'Fixo'; // F = Folha
+export type MaterialEsquadria = 'Alumínio' | 'PVC' | 'Madeira' | 'Ferro' | 'Aço_Galvanizado';
+
+/**
+ * Calcula a área do vão da esquadria.
+ * @param larguraM Largura em metros.
+ * @param alturaM Altura em metros.
+ * @returns Área em m².
+ */
+export function calcularAreaVao(larguraM: number, alturaM: number): number {
+  if (larguraM <= 0 || alturaM <= 0) {
+    throw new Error("Largura e altura devem ser maiores que zero.");
+  }
+  return larguraM * alturaM;
+}
+
+/**
+ * Calcula o perímetro do vão da esquadria.
+ * @param larguraM Largura em metros.
+ * @param alturaM Altura em metros.
+ * @returns Perímetro em metros.
+ */
+export function calcularPerimetroVao(larguraM: number, alturaM: number): number {
+  if (larguraM <= 0 || alturaM <= 0) {
+    throw new Error("Largura e altura devem ser maiores que zero.");
+  }
+  return 2 * (larguraM + alturaM);
+}
+
+/**
+ * Calcula a área de vidro por peça, considerando folgas.
+ * @param larguraM Largura do vão em metros.
+ * @param alturaM Altura do vão em metros.
+ * @param folgaMM Folga total a ser descontada da largura e altura para o vidro, em mm.
+ * @param numFolhas Número de folhas de vidro (para dividir a área).
+ * @returns Área de vidro por peça em m².
+ */
+export function calcularAreaVidroPorPeca(larguraM: number, alturaM: number, folgaMM: number, numFolhas: number = 1): number {
+  if (larguraM <= 0 || alturaM <= 0 || folgaMM < 0 || numFolhas <= 0) {
+    throw new Error("Largura, altura e número de folhas devem ser maiores que zero. Folga deve ser não negativa.");
+  }
+  const folgaM = folgaMM / 1000;
+  const larguraUtil = larguraM - folgaM;
+  const alturaUtil = alturaM - folgaM;
+
+  if (larguraUtil <= 0 || alturaUtil <= 0) {
+    throw new Error("Folga excessiva: Largura ou altura útil do vidro resultou em valor não positivo.");
+  }
+
+  return (larguraUtil * alturaUtil) / numFolhas;
+}
+
+/**
+ * Calcula o comprimento total de perfis para uma unidade de esquadria.
+ * Esta é uma simplificação e pode ser expandida com mais detalhes de perfis (marco, contramarco, folhas, travessas).
+ * @param larguraM Largura da esquadria em metros.
+ * @param alturaM Altura da esquadria em metros.
+ * @param tipoEsquadria Tipo da esquadria.
+ * @param tipoAbertura Tipo de abertura.
+ * @returns Comprimento total de perfis em metros.
+ */
+export function calcularComprimentoPerfisPorUnidade(larguraM: number, alturaM: number, tipoEsquadria: TipoEsquadria, tipoAbertura: TipoAbertura): number {
+  let comprimento = 0;
+
+  // Marco (geralmente 2 verticais + 2 horizontais)
+  comprimento += 2 * (larguraM + alturaM);
+
+  // Para folhas, adicionar mais perfis
+  if (tipoEsquadria.includes('Janela') || tipoEsquadria.includes('Porta')) {
+    if (tipoAbertura === '1F') {
+      // Uma folha, adiciona o perímetro da folha
+      comprimento += 2 * (larguraM + alturaM);
+    } else if (tipoAbertura === '2F' || tipoAbertura === 'Correr') {
+      // Duas folhas, adiciona o perímetro de duas folhas (simplificado)
+      comprimento += 2 * (larguraM / 2 + alturaM) * 2; // Duas folhas de largura/2
+    }
+    // Vitrô e Caixilho Fixo são mais simples, já cobertos pelo marco
+  }
+
+  // Adicionar uma margem para travessas e montantes internos (simplificação)
+  comprimento *= 1.1; // 10% a mais para elementos internos
+
+  return comprimento;
+}
+
+/**
+ * Calcula a massa de vidro.
+ * @param areaVidroM2 Área total de vidro em m².
+ * @param espessuraMM Espessura do vidro em mm.
+ * @param densidadeVidroKgM3 Densidade do vidro em kg/m³.
+ * @returns Massa de vidro em kg.
+ */
+export function calcularMassaVidro(areaVidroM2: number, espessuraMM: number, densidadeVidroKgM3: number = DENSIDADE_VIDRO_KG_M3): number {
+  if (areaVidroM2 <= 0 || espessuraMM <= 0 || densidadeVidroKgM3 <= 0) {
+    throw new Error("Área de vidro, espessura e densidade devem ser maiores que zero.");
+  }
+  const espessuraM = espessuraMM / 1000;
+  const volumeM3 = areaVidroM2 * espessuraM;
+  return volumeM3 * densidadeVidroKgM3;
+}
+
+/**
+ * Aplica um percentual de perda a um valor.
+ * @param valor Valor a ser ajustado.
+ * @param perdaPct Percentual de perda (0-100).
+ * @returns Valor ajustado com perda.
+ */
+export function aplicarPerda(valor: number, perdaPct: number): number {
+  if (valor < 0 || perdaPct < 0 || perdaPct > 100) {
+    throw new Error("Valor não pode ser negativo. Perda deve ser entre 0 e 100.");
+  }
+  return valor * (1 + perdaPct / 100);
+}
+
+/**
+ * Obtém os presets de ferragens para um tipo de esquadria e abertura.
+ * @param tipoEsquadria Tipo da esquadria.
+ * @param tipoAbertura Tipo de abertura.
+ * @returns Objeto com as quantidades de ferragens.
+ */
+export function obterFerragensPresets(tipoEsquadria: TipoEsquadria, tipoAbertura: TipoAbertura): FerragensPreset {
+  const key = `${tipoEsquadria}_${tipoAbertura}`;
+  return FERRAGENS_PRESETS[key] || {};
+}
+
+/**
+ * Função principal para calcular materiais e custos de esquadrias.
+ */
+export function calcEsquadrias(params: {
+  tipoEsquadria: TipoEsquadria;
+  materialEsquadria: MaterialEsquadria;
+  larguraM: number;
+  alturaM: number;
+  numUnidades: number;
+  tipoAbertura: TipoAbertura;
+  espessuraVidroMM: number;
+  folgaVidroMM: number;
+  perdaPct: number;
+  // Preços unitários (opcionais)
+  precoPorMetroPerfil?: number;
+  precoPorM2Vidro?: number;
+  precoPorUnidadeFerragem?: number;
+  precoPorMetroBorracha?: number;
+}): {
+  areaVaoTotalM2: number;
+  perimetroVaoTotalM: number;
+  areaVidroPorPecaM2: number;
+  areaVidroTotalM2: number;
+  massaVidroTotalKg: number;
+  comprimentoPerfisTotalM: number;
+  massaPerfisTotalKg: number;
+  ferragens: FerragensPreset;
+  comprimentoBorrachaTotalM: number;
+  custoEstimadoTotal: number;
+} {
+  const {
+    tipoEsquadria,
+    materialEsquadria,
+    larguraM,
+    alturaM,
+    numUnidades,
+    tipoAbertura,
+    espessuraVidroMM,
+    folgaVidroMM,
+    perdaPct,
+    precoPorMetroPerfil = 0,
+    precoPorM2Vidro = 0,
+    precoPorUnidadeFerragem = 0,
+    precoPorMetroBorracha = 0,
+  } = params;
+
+  // 1. Cálculos por unidade
+  const areaVaoUnidadeM2 = calcularAreaVao(larguraM, alturaM);
+  const perimetroVaoUnidadeM = calcularPerimetroVao(larguraM, alturaM);
+  const areaVidroPorPecaM2 = calcularAreaVidroPorPeca(larguraM, alturaM, folgaVidroMM, tipoAbertura === '2F' || tipoAbertura === 'Correr' ? 2 : 1);
+  const comprimentoPerfisUnidadeM = calcularComprimentoPerfisPorUnidade(larguraM, alturaM, tipoEsquadria, tipoAbertura);
+  const ferragensUnidade = obterFerragensPresets(tipoEsquadria, tipoAbertura);
+
+  // 2. Cálculos totais (multiplicar por numUnidades e aplicar perda)
+  const areaVaoTotalM2 = areaVaoUnidadeM2 * numUnidades;
+  const perimetroVaoTotalM = aplicarPerda(perimetroVaoUnidadeM * numUnidades, perdaPct);
+  const areaVidroTotalM2 = aplicarPerda(areaVidroPorPecaM2 * numUnidades, perdaPct);
+  const comprimentoPerfisTotalM = aplicarPerda(comprimentoPerfisUnidadeM * numUnidades, perdaPct);
+  const comprimentoBorrachaTotalM = perimetroVaoTotalM; // Borracha segue o perímetro do vão
+
+  // 3. Massa
+  const massaVidroTotalKg = calcularMassaVidro(areaVidroTotalM2, espessuraVidroMM);
+
+  let pesoPorMetroPerfil: number;
+  let densidadeMaterial: number;
+  switch (materialEsquadria) {
+    case 'Alumínio': pesoPorMetroPerfil = PESO_PERFIL_ALUMINIO_KG_M; densidadeMaterial = DENSIDADE_ALUMINIO_KG_M3; break;
+    case 'PVC': pesoPorMetroPerfil = PESO_PERFIL_PVC_KG_M; densidadeMaterial = DENSIDADE_PVC_ESQUADRIA_KG_M3; break;
+    case 'Madeira': pesoPorMetroPerfil = PESO_PERFIL_MADEIRA_KG_M; densidadeMaterial = DENSIDADE_MADEIRA_KG_M3; break;
+    case 'Ferro':
+    case 'Aço_Galvanizado': pesoPorMetroPerfil = PESO_PERFIL_FERRO_KG_M; densidadeMaterial = DENSIDADE_FERRO_KG_M3; break;
+    default: throw new Error("Material de esquadria inválido.");
+  }
+  const massaPerfisTotalKg = comprimentoPerfisTotalM * pesoPorMetroPerfil;
+
+  // 4. Custo Estimado
+  let custoEstimadoTotal = 0;
+  if (precoPorMetroPerfil > 0) {
+    custoEstimadoTotal += comprimentoPerfisTotalM * precoPorMetroPerfil;
+  }
+  if (precoPorM2Vidro > 0) {
+    custoEstimadoTotal += areaVidroTotalM2 * precoPorM2Vidro;
+  }
+  if (precoPorUnidadeFerragem > 0) {
+    custoEstimadoTotal += (ferragensUnidade.dobradicas || 0) * numUnidades * precoPorUnidadeFerragem;
+    custoEstimadoTotal += (ferragensUnidade.fechaduras || 0) * numUnidades * precoPorUnidadeFerragem;
+    custoEstimadoTotal += (ferragensUnidade.roldanas || 0) * numUnidades * precoPorUnidadeFerragem;
+    custoEstimadoTotal += (ferragensUnidade.puxadores || 0) * numUnidades * precoPorUnidadeFerragem;
+    // Trilhos são por metro, não por unidade de ferragem
+  }
+  if (precoPorMetroBorracha > 0) {
+    custoEstimadoTotal += comprimentoBorrachaTotalM * precoPorMetroBorracha;
+  }
+
+
+  return {
+    areaVaoTotalM2: areaVaoTotalM2,
+    perimetroVaoTotalM: perimetroVaoTotalM,
+    areaVidroPorPecaM2: areaVidroPorPecaM2,
+    areaVidroTotalM2: areaVidroTotalM2,
+    massaVidroTotalKg: massaVidroTotalKg,
+    comprimentoPerfisTotalM: comprimentoPerfisTotalM,
+    massaPerfisTotalKg: massaPerfisTotalKg,
+    ferragens: {
+      dobradicas: (ferragensUnidade.dobradicas || 0) * numUnidades,
+      fechaduras: (ferragensUnidade.fechaduras || 0) * numUnidades,
+      roldanas: (ferragensUnidade.roldanas || 0) * numUnidades,
+      trilhos_m: (ferragensUnidade.trilhos_m || 0) * numUnidades * larguraM, // Trilho é por largura da esquadria
+      puxadores: (ferragensUnidade.puxadores || 0) * numUnidades,
+    },
+    comprimentoBorrachaTotalM: comprimentoBorrachaTotalM,
+    custoEstimadoTotal: custoEstimadoTotal,
+  };
+}
+
 /**
  * Calcula a quantidade de blocos e argamassa para alvenaria.
  *

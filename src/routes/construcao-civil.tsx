@@ -55,6 +55,12 @@ const calcs = [
     desc: "Cimento, areia, cal para chapisco e reboco.",
   },
   {
+    to: "/calculadora-de-esquadrias" as const,
+    icon: Home, // Ícone de casa, representando portas/janelas
+    title: "Calculadora de Esquadrias",
+    desc: "Estime portas, janelas, vidros, ferragens e materiais.",
+  },
+  {
     to: "/calculadora-de-areia" as const,
     icon: Waves,
     title: "Calculadora de Areia",

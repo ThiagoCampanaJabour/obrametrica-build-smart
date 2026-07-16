@@ -80,6 +80,10 @@ const REL_TUBOS: CalcRelated = {
   path: "/calculadora-de-tubos",
   label: "Calculadora de Tubos",
 };
+const REL_ESQUADRIAS: CalcRelated = {
+  path: "/calculadora-de-esquadrias",
+  label: "Calculadora de Esquadrias",
+};
 const REL_AREIA: CalcRelated = {
   path: "/calculadora-de-areia",
   label: "Calculadora de Areia",
@@ -225,7 +229,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO, REL_TUBOS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
   },
 
   "/calculadora-de-cimento": {
@@ -321,7 +325,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO, REL_TUBOS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
   },
 
   "/calculadora-de-concreto": {
@@ -663,7 +667,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO, REL_TUBOS],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
   },
     "/calculadora-de-tubos": {
     path: "/calculadora-de-tubos",
@@ -789,7 +793,134 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, você pode usar a opção 'custom' para inserir o diâmetro externo e a espessura da parede de tubos PEX ou PPR. Para materiais específicos, sempre consulte as especificações do fabricante para densidades e propriedades.",
       },
     ],
-    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_ESQUADRIAS],
+  },
+    "/calculadora-de-esquadrias": {
+    path: "/calculadora-de-esquadrias",
+    name: "Calculadora de Esquadrias",
+    intro: "Estime quantidades, áreas, perímetros e custos de esquadrias (portas, janelas, vitrôs), vidros, ferragens e materiais auxiliares.",
+    context: [
+      "Esquadrias são elementos fundamentais na arquitetura, definindo a estética, iluminação, ventilação e segurança de um ambiente. O dimensionamento e a escolha correta dos materiais impactam diretamente o conforto térmico e acústico, além do custo final da obra.",
+      "Calcular esquadrias vai além das dimensões do vão. É preciso considerar o tipo de material (alumínio, PVC, madeira, ferro), o tipo de vidro, as ferragens e as perdas de material, especialmente em projetos com múltiplas unidades.",
+    ],
+    whenToUse: [
+      "Orçar portas, janelas, vitrôs ou caixilhos para um projeto de construção ou reforma.",
+      "Estimar a quantidade de perfis, vidros, ferragens e borrachas de vedação necessárias.",
+      "Comparar custos entre diferentes materiais de esquadria (alumínio, PVC, madeira, ferro).",
+      "Planejar cortes e minimizar perdas de material em grandes volumes de esquadrias.",
+      "Calcular a massa total das esquadrias para logística ou dimensionamento estrutural.",
+    ],
+    howItWorks: [
+      "Selecione o tipo de esquadria (janela, porta, vitrô) e o material (alumínio, PVC, madeira, ferro).",
+      "Informe as dimensões (largura e altura) e o número de unidades.",
+      "Escolha o tipo de abertura (fixo, 1 folha, 2 folhas, correr, basculante) e a espessura do vidro.",
+      "Defina a folga para o vidro e o percentual de perda para cortes.",
+      "Opcionalmente, insira os preços unitários (por metro de perfil, m² de vidro, unidade de ferragem, metro de borracha) para estimar o custo.",
+      "A calculadora fornecerá a área do vão, área total de vidro, comprimento de perfis, massa estimada, ferragens e custo total.",
+    ],
+    formula: {
+      expression: `
+        1. Área do Vão (m²) = Largura (m) × Altura (m)
+        2. Perímetro do Vão (m) = 2 × (Largura (m) + Altura (m))
+        3. Área de Vidro por Peça (m²) = (Largura (m) - Folga (m)) × (Altura (m) - Folga (m)) / Nº de Folhas
+        4. Comprimento de Perfis por Unidade (m) = Perímetro do Vão × Fator de Perfis (aprox. 1.1 para travessas)
+        5. Massa de Vidro (kg) = Área de Vidro Total (m²) × Espessura (m) × Densidade do Vidro (kg/m³)
+        6. Massa de Perfis (kg) = Comprimento de Perfis Total (m) × Peso por Metro do Perfil (kg/m)
+        7. Materiais Totais = Materiais por Unidade × Nº de Unidades × (1 + Perda (%)/100)
+        8. Custo Estimado (R$) = (Comprimento Perfis × Preço/m) + (Área Vidro × Preço/m²) + (Ferragens × Preço/unidade) + (Borracha × Preço/m)
+      `,
+      legend: [
+        "Todas as dimensões em metros (m) para cálculos de área/volume, exceto inputs em milímetros (mm).",
+        "Fator de Perfis é uma simplificação para estimar elementos internos (travessas, montantes).",
+        "Densidades padrão: Alumínio ~2700 kg/m³, PVC ~1400 kg/m³, Madeira ~700 kg/m³, Ferro ~7850 kg/m³, Vidro ~2500 kg/m³.",
+        "Peso por metro de perfil varia conforme o modelo e espessura do perfil.",
+        "Ferragens são estimadas por presets baseados no tipo de esquadria e abertura.",
+      ],
+    },
+    example: {
+      scenario: "Calcular 5 janelas de correr de Alumínio, 1.20m x 1.00m, com vidro de 4mm, 2 folhas, 7% de perda.",
+      steps: [
+        "Tipo: Janela de Correr, Material: Alumínio, Dimensões: 1.20m x 1.00m, 5 unidades.",
+        "Vidro: 4mm, Folga padrão: 6mm, Perda: 7%.",
+        "Área do Vão por unidade = 1.20m × 1.00m = 1.20 m².",
+        "Área de Vidro por peça (2 folhas) = (1.20 - 0.006) × (1.00 - 0.006) / 2 = 0.59 m² (aprox.).",
+        "Área de Vidro Total = 0.59 m² × 5 unidades × (1 + 7/100) = 3.16 m².",
+        "Comprimento de Perfis por unidade = 2 × (1.20 + 1.00) × 1.1 = 4.84 m.",
+        "Comprimento de Perfis Total = 4.84 m × 5 unidades × (1 + 7/100) = 25.93 m.",
+        "Massa de Vidro Total = 3.16 m² × 0.004 m × 2500 kg/m³ = 31.6 kg.",
+        "Massa de Perfis Total (Alumínio) = 25.93 m × 0.8 kg/m = 20.74 kg.",
+        "Ferragens (2 folhas de correr): 4 roldanas, 2 puxadores, 2.4m de trilho (2x largura).",
+      ],
+      result: "Para 5 janelas: 3.16 m² de vidro (aprox. 32 kg), 25.93 m de perfis de alumínio (aprox. 21 kg), 24.08 m de borracha, 20 roldanas, 10 puxadores, 12m de trilho.",
+    },
+    moreExamples: [
+      {
+        scenario: "Calcular 2 Portas de Madeira de Abrir, 0.90m x 2.10m, 1 folha, sem vidro, 5% de perda.",
+        steps: [
+          "Tipo: Porta de Madeira, Material: Madeira, Dimensões: 0.90m x 2.10m, 2 unidades.",
+          "Sem vidro, Perda: 5%.",
+          "Área do Vão por unidade = 0.90m × 2.10m = 1.89 m².",
+          "Comprimento de Perfis por unidade (marco) = 2 × (0.90 + 2.10) × 1.1 = 6.6 m.",
+          "Comprimento de Perfis Total = 6.6 m × 2 unidades × (1 + 5/100) = 13.86 m.",
+          "Massa de Perfis Total (Madeira) = 13.86 m × 0.6 kg/m = 8.32 kg.",
+          "Ferragens (1 folha de abrir): 3 dobradiças, 1 fechadura, 1 puxador.",
+        ],
+        result: "Para 2 portas: 13.86 m de perfis de madeira (aprox. 8.32 kg), 12.6 m de borracha, 6 dobradiças, 2 fechaduras, 2 puxadores.",
+      },
+      {
+        scenario: "Calcular 1 Vitrô Fixo de PVC, 0.60m x 0.60m, vidro de 8mm, 1 folha, 10% de perda.",
+        steps: [
+          "Tipo: Vitrô Fixo, Material: PVC, Dimensões: 0.60m x 0.60m, 1 unidade.",
+          "Vidro: 8mm, Folga padrão: 6mm, Perda: 10%.",
+          "Área do Vão por unidade = 0.60m × 0.60m = 0.36 m².",
+          "Área de Vidro por peça = (0.60 - 0.006) × (0.60 - 0.006) = 0.35 m² (aprox.).",
+          "Área de Vidro Total = 0.35 m² × 1 unidade × (1 + 10/100) = 0.385 m².",
+          "Comprimento de Perfis por unidade = 2 × (0.60 + 0.60) × 1.1 = 2.64 m.",
+          "Comprimento de Perfis Total = 2.64 m × 1 unidade × (1 + 10/100) = 2.904 m.",
+          "Massa de Vidro Total = 0.385 m² × 0.008 m × 2500 kg/m³ = 7.7 kg.",
+          "Massa de Perfis Total (PVC) = 2.904 m × 1.2 kg/m = 3.48 kg.",
+          "Ferragens: Nenhuma (fixo).",
+        ],
+        result: "Para 1 vitrô: 0.385 m² de vidro (aprox. 7.7 kg), 2.904 m de perfis de PVC (aprox. 3.48 kg), 2.64 m de borracha, sem ferragens.",
+      },
+    ],
+    tips: [
+      "Sempre adicione uma margem de segurança (perda) de 5% a 15% para cortes, ajustes e imprevistos na obra.",
+      "Consulte o fabricante da esquadria para obter os pesos exatos por metro dos perfis, pois variam muito.",
+      "Para vidros, a folga de montagem é crucial. Geralmente, 3mm de cada lado (total de 6mm) são descontados do vão para o vidro.",
+      "Em esquadrias de correr, o comprimento do trilho é geralmente o dobro da largura do vão para permitir a abertura total.",
+      "Considere a massa total das esquadrias para o transporte e, em grandes projetos, para o dimensionamento da estrutura de apoio.",
+    ],
+    errors: [
+      "Confundir dimensões do vão com dimensões da folha ou do vidro. Sempre meça o vão livre.",
+      "Não considerar a folga para o vidro, resultando em vidros que não encaixam ou quebram.",
+      "Esquecer de aplicar a margem de perda, levando à falta de material e atrasos.",
+      "Usar pesos por metro de perfil genéricos. Perfis de alumínio, PVC e ferro têm pesos muito diferentes.",
+      "Não contabilizar todas as ferragens (dobradiças, fechaduras, puxadores, roldanas, trilhos) para cada tipo de abertura.",
+    ],
+    faq: [
+      {
+        q: "Como medir corretamente um vão para esquadria?",
+        a: "Meça a largura e a altura do vão em três pontos diferentes (topo, meio, base para largura; esquerda, meio, direita para altura) e use a menor medida para garantir que a esquadria encaixe. Desconte uma pequena folga de instalação (ex: 5-10mm).",
+      },
+      {
+        q: "Qual folga devo deixar para o vidro na esquadria?",
+        a: "A folga padrão para o vidro é geralmente de 3mm de cada lado, totalizando 6mm a menos na largura e na altura do vidro em relação ao vão da folha. Isso permite a dilatação e acomodação do vidro.",
+      },
+      {
+        q: "Como reduzir o desperdício de material em esquadrias?",
+        a: "Planeje os cortes otimizando o uso dos perfis comerciais (geralmente 6 metros). Agrupe esquadrias de dimensões semelhantes. Sempre inclua uma margem de perda no cálculo, mas tente mantê-la entre 5% e 10%.",
+      },
+      {
+        q: "Esta calculadora considera o contramarco?",
+        a: "Esta versão simplificada foca nos materiais da esquadria em si (perfis, vidros, ferragens). O contramarco, sendo um elemento de instalação, pode ser calculado separadamente ou incluído como um custo adicional na estimativa.",
+      },
+      {
+        q: "Posso usar esta calculadora para esquadrias de PVC sob medida?",
+        a: "Sim, você pode inserir as dimensões exatas da sua esquadria de PVC. Os pesos por metro de perfil são valores de referência e podem ser ajustados se você tiver dados mais precisos do fabricante.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_TUBOS],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -885,7 +1016,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO, REL_TUBOS],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
   },
     "/calculadora-rejunte": {
     path: "/calculadora-rejunte",
@@ -1403,7 +1534,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO, REL_TUBOS]
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS]
   },
     "/calculadora-de-aco": {
     path: "/calculadora-de-aco",
@@ -1913,7 +2044,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, areia úmida ocupa mais volume e pesa mais. Para cálculos precisos, a areia deve ser considerada seca. Na prática, é comum ajustar a quantidade de água da mistura.",
       },
     ],
-    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_ESQUADRIAS],
   },
     "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
