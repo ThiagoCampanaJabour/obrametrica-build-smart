@@ -426,7 +426,7 @@ export function calcReboco(params: {
 
 // Densidades padrão dos materiais (kg/m³)
 const DENSIDADE_PVC_KG_M3 = 1400; // PVC rígido
-const DENSIDADE_ACO_KG_M3 = 7850; // Aço carbono
+// const DENSIDADE_ACO_KG_M3 = 7850; // Aço carbono - REMOVIDA, pois já declarada acima
 const DENSIDADE_COBRE_KG_M3 = 8960; // Cobre
 
 // Comprimentos padrão de peças (m)
