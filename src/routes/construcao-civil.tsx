@@ -49,6 +49,12 @@ const calcs = [
     desc: "Quantidade de argamassa para revestimento.",
   },
   {
+    to: "/calculadora-de-tubos" as const,
+    icon: Waves, // Ícone de ondas, simbolizando fluidos em tubos
+    title: "Calculadora de Tubos",
+    desc: "Cimento, areia, cal para chapisco e reboco.",
+  },
+  {
     to: "/calculadora-de-areia" as const,
     icon: Waves,
     title: "Calculadora de Areia",

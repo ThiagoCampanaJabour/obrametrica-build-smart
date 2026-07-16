@@ -76,6 +76,10 @@ const REL_ARGAMASSA: CalcRelated = {
   path: "/calculadora-de-argamassa",
   label: "Calculadora de Argamassa",
 };
+const REL_TUBOS: CalcRelated = {
+  path: "/calculadora-de-tubos",
+  label: "Calculadora de Tubos",
+};
 const REL_AREIA: CalcRelated = {
   path: "/calculadora-de-areia",
   label: "Calculadora de Areia",
@@ -221,7 +225,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO, REL_TUBOS],
   },
 
   "/calculadora-de-cimento": {
@@ -317,7 +321,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO, REL_TUBOS],
   },
 
   "/calculadora-de-concreto": {
@@ -659,7 +663,133 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO, REL_TUBOS],
+  },
+    "/calculadora-de-tubos": {
+    path: "/calculadora-de-tubos",
+    name: "Calculadora de Tubos",
+    intro: "Estime comprimentos, massas e quantidades de tubos (PVC, aço, cobre) para água, esgoto, gás, elétrica ou estrutura, considerando diâmetros, espessuras e perdas.",
+    context: [
+      "A escolha e o dimensionamento correto de tubos são cruciais em qualquer projeto de construção ou instalação. Seja para sistemas hidráulicos, elétricos ou estruturais, a precisão evita desperdícios, garante a funcionalidade e a segurança da obra.",
+      "Erros na estimativa de tubos podem levar a atrasos, custos adicionais com material excedente ou faltante, e problemas de desempenho ou falhas estruturais.",
+    ],
+    whenToUse: [
+      "Orçar materiais para instalações hidráulicas (água fria/quente), esgoto, gás ou elétrica.",
+      "Calcular a massa total de tubos para transporte ou dimensionamento de estruturas.",
+      "Converter diâmetros nominais (polegadas) para diâmetros externos e internos em milímetros.",
+      "Estimar o número de peças de tubos necessárias, considerando perdas por corte.",
+      "Comparar custos entre diferentes materiais ou diâmetros de tubos.",
+    ],
+    howItWorks: [
+      "Selecione o material do tubo (PVC, Aço, Cobre).",
+      "Escolha um diâmetro nominal padrão ou insira um diâmetro externo e espessura personalizados.",
+      "Informe o comprimento por peça dos tubos e o comprimento total desejado ou a quantidade de peças.",
+      "Defina o percentual de perda para cortes.",
+      "Opcionalmente, insira o preço unitário (por metro ou por peça) para obter uma estimativa de custo.",
+      "A calculadora fornecerá os diâmetros interno/externo, área da seção, massa por metro, comprimento total, número de peças e massa total.",
+    ],
+    formula: {
+      expression: `
+        1. Diâmetro Interno (mm) = Diâmetro Externo (mm) - (2 × Espessura da Parede (mm))
+        2. Área da Seção Interna (m²) = π × (Diâmetro Interno (m))² / 4
+        3. Massa por Metro (kg/m) = Área da Seção do Material (m²) × Densidade do Material (kg/m³)
+           - Área da Seção do Material (m²) = π × ((Diâmetro Externo (m)/2)² - (Diâmetro Interno (m)/2)²)
+        4. Comprimento Total Necessário (m) = Quantidade de Peças × Comprimento por Peça (m)
+           OU Comprimento Total Desejado (m)
+        5. Comprimento com Perda (m) = Comprimento Total Necessário (m) × (1 + Perda (%)/100)
+        6. Número de Peças Recomendado = ⌈Comprimento com Perda (m) / Comprimento por Peça (m)⌉
+        7. Massa Total (kg) = Massa por Metro (kg/m) × (Número de Peças Recomendado × Comprimento por Peça (m))
+        8. Custo Estimado (R$) = (Massa Total (kg) × Preço por Kg) OU (Número de Peças Recomendado × Preço por Peça)
+      `,
+      legend: [
+        "Todas as dimensões em metros (m) para cálculos de área/volume, exceto inputs em milímetros (mm).",
+        "⌈x⌉ representa o arredondamento para cima (ceil).",
+        "Densidades padrão: PVC ~1400 kg/m³, Aço ~7850 kg/m³, Cobre ~8960 kg/m³.",
+        "A área da seção do material é a área do anel do tubo, não a área interna.",
+      ],
+    },
+    example: {
+      scenario: "Calcular tubos de PVC para 100 metros de instalação, diâmetro nominal 1\" (DN 32), comprimento por peça de 6m, com 5% de perda.",
+      steps: [
+        "Material: PVC, DN 32 (1\")",
+        "Da tabela: Diâmetro Externo (DE) = 40 mm, Espessura = 3.0 mm",
+        "Diâmetro Interno (DI) = 40 - (2 * 3.0) = 34 mm",
+        "Massa por metro (PVC): ~0.50 kg/m (calculado com densidade 1400 kg/m³)",
+        "Comprimento com perda = 100 m * (1 + 5/100) = 105 m",
+        "Número de peças = ceil(105 m / 6 m/peça) = 18 peças",
+        "Comprimento real comprado = 18 peças * 6 m/peça = 108 m",
+        "Massa total = 0.50 kg/m * 108 m = 54 kg",
+      ],
+      result: "Serão necessárias 18 peças de tubo PVC DN 32 (1\") de 6m, totalizando 108 metros e aproximadamente 54 kg.",
+    },
+    moreExamples: [
+      {
+        scenario: "Calcular tubos de Aço para 50 peças de 12m, diâmetro nominal 2\" (DN 50), com 10% de perda.",
+        steps: [
+          "Material: Aço, DN 50 (2\")",
+          "Da tabela: Diâmetro Externo (DE) = 60.3 mm, Espessura = 3.91 mm",
+          "Diâmetro Interno (DI) = 60.3 - (2 * 3.91) = 52.48 mm",
+          "Massa por metro (Aço): ~5.44 kg/m (calculado com densidade 7850 kg/m³)",
+          "Comprimento total desejado = 50 peças * 12 m/peça = 600 m",
+          "Comprimento com perda = 600 m * (1 + 10/100) = 660 m",
+          "Número de peças = ceil(660 m / 12 m/peça) = 55 peças",
+          "Comprimento real comprado = 55 peças * 12 m/peça = 660 m",
+          "Massa total = 5.44 kg/m * 660 m = 3590.4 kg",
+        ],
+        result: "Serão necessárias 55 peças de tubo de Aço DN 50 (2\") de 12m, totalizando 660 metros e aproximadamente 3590.4 kg.",
+      },
+      {
+        scenario: "Calcular tubos de Cobre para 25 metros de instalação, diâmetro nominal 3/4\" (DN 22), comprimento por peça de 3m, com 7% de perda.",
+        steps: [
+          "Material: Cobre, DN 22 (3/4\")",
+          "Da tabela: Diâmetro Externo (DE) = 22.22 mm, Espessura = 0.9 mm",
+          "Diâmetro Interno (DI) = 22.22 - (2 * 0.9) = 20.42 mm",
+          "Massa por metro (Cobre): ~0.54 kg/m (calculado com densidade 8960 kg/m³)",
+          "Comprimento com perda = 25 m * (1 + 7/100) = 26.75 m",
+          "Número de peças = ceil(26.75 m / 3 m/peça) = 9 peças",
+          "Comprimento real comprado = 9 peças * 3 m/peça = 27 m",
+          "Massa total = 0.54 kg/m * 27 m = 14.58 kg",
+        ],
+        result: "Serão necessárias 9 peças de tubo de Cobre DN 22 (3/4\") de 3m, totalizando 27 metros e aproximadamente 14.58 kg.",
+      },
+    ],
+    tips: [
+      "Sempre considere uma margem de segurança (perda) para cortes e ajustes em obra, geralmente entre 5% e 15%.",
+      "Verifique as normas técnicas locais (ABNT no Brasil) para os diâmetros e espessuras corretos de cada material e aplicação.",
+      "Para tubulações de água e esgoto, o diâmetro nominal (DN) é uma referência, mas o diâmetro externo (DE) e a espessura da parede são cruciais para o cálculo de massa e fluxo.",
+      "Tubos de PVC são leves e fáceis de instalar, ideais para água fria e esgoto. Tubos de cobre são usados para água quente e gás. Tubos de aço são robustos, para estruturas ou condução de fluidos sob alta pressão.",
+      "Ao comprar, arredonde sempre para cima o número de peças para evitar faltas e atrasos na obra.",
+    ],
+    errors: [
+      "Confundir diâmetro nominal (DN) com diâmetro externo (DE) ou interno (DI). O DN é uma referência, enquanto DE e DI são medidas físicas.",
+      "Não considerar a espessura da parede do tubo, o que afeta diretamente o diâmetro interno e a massa por metro.",
+      "Esquecer de aplicar a margem de perda para cortes, resultando em falta de material durante a instalação.",
+      "Usar densidades incorretas para o material do tubo, levando a erros na estimativa de massa total.",
+      "Não verificar o comprimento comercial das peças de tubo disponíveis no mercado, o que pode impactar o número de peças a comprar.",
+    ],
+    faq: [
+      {
+        q: "Como converter diâmetro nominal (polegadas) para milímetros?",
+        a: "O diâmetro nominal em polegadas é uma referência. Para converter para milímetros, use a relação 1 polegada = 25.4 mm. No entanto, para tubos, é mais comum consultar tabelas que relacionam o DN com o diâmetro externo (DE) padronizado.",
+      },
+      {
+        q: "Como calcular a massa por metro de um tubo?",
+        a: "A massa por metro é calculada pela área da seção transversal do material do tubo (área do anel) multiplicada pela densidade do material. A área do anel é π * ((DE/2)² - (DI/2)²), onde DE é o diâmetro externo e DI é o diâmetro interno, ambos em metros.",
+      },
+      {
+        q: "Como considerar as perdas por corte no cálculo de tubos?",
+        a: "As perdas por corte são inevitáveis e devem ser adicionadas ao comprimento total desejado. Geralmente, aplica-se um percentual de 5% a 15% sobre o comprimento total. A calculadora arredonda o número de peças para cima para garantir material suficiente.",
+      },
+      {
+        q: "Qual a diferença entre tubo PVC e tubo de Aço?",
+        a: "Tubos de PVC são leves, resistentes à corrosão e ideais para água fria, esgoto e instalações elétricas. Tubos de Aço são mais robustos, suportam altas pressões e temperaturas, sendo usados em estruturas, condução de vapor, gás e água quente industrial.",
+      },
+      {
+        q: "Posso usar esta calculadora para tubos de PEX ou PPR?",
+        a: "Sim, você pode usar a opção 'custom' para inserir o diâmetro externo e a espessura da parede de tubos PEX ou PPR. Para materiais específicos, sempre consulte as especificações do fabricante para densidades e propriedades.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -755,7 +885,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO, REL_TUBOS],
   },
     "/calculadora-rejunte": {
     path: "/calculadora-rejunte",
@@ -1273,7 +1403,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO]
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO, REL_TUBOS]
   },
     "/calculadora-de-aco": {
     path: "/calculadora-de-aco",
