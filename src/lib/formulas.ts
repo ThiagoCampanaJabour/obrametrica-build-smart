@@ -422,6 +422,216 @@ export function calcReboco(params: {
   };
 }
 
+// ========== Tubos ==========
+
+// Densidades padrão dos materiais (kg/m³)
+const DENSIDADE_PVC_KG_M3 = 1400; // PVC rígido
+const DENSIDADE_ACO_KG_M3 = 7850; // Aço carbono
+const DENSIDADE_COBRE_KG_M3 = 8960; // Cobre
+
+// Comprimentos padrão de peças (m)
+const COMPRIMENTO_PECA_PADRAO_PVC_M = 6;
+const COMPRIMENTO_PECA_PADRAO_ACO_M = 6; // Pode variar para 12m
+const COMPRIMENTO_PECA_PADRAO_COBRE_M = 3; // Rolos ou barras de 3m
+
+// Tabela de diâmetros nominais (DN) para diâmetros externos (DE) e espessuras típicas (mm)
+// Valores aproximados e podem variar por norma e fabricante.
+// Fonte: Tabelas de fabricantes (ex: Amanco, Tigre, NBRs)
+const TABELA_DN_DE_ESPESSURA: Record<string, { de: number; espessura_padrao?: number; material?: string }> = {
+  // PVC Rígido (água fria) - PN 100 (NBR 5648)
+  'DN 20 (1/2") PVC': { de: 25, espessura_padrao: 2.1, material: 'PVC' },
+  'DN 25 (3/4") PVC': { de: 32, espessura_padrao: 2.4, material: 'PVC' },
+  'DN 32 (1") PVC': { de: 40, espessura_padrao: 3.0, material: 'PVC' },
+  'DN 40 (1 1/4") PVC': { de: 50, espessura_padrao: 3.7, material: 'PVC' },
+  'DN 50 (1 1/2") PVC': { de: 60, espessura_padrao: 4.4, material: 'PVC' },
+  'DN 60 (2") PVC': { de: 75, espessura_padrao: 5.5, material: 'PVC' },
+  'DN 75 (2 1/2") PVC': { de: 85, espessura_padrao: 6.2, material: 'PVC' },
+  'DN 85 (3") PVC': { de: 100, espessura_padrao: 7.3, material: 'PVC' },
+  'DN 100 (4") PVC': { de: 110, espessura_padrao: 8.1, material: 'PVC' },
+
+  // Aço Carbono (NBR 5580 / 5590) - SCH 40
+  'DN 15 (1/2") Aço': { de: 21.3, espessura_padrao: 2.77, material: 'Aço' },
+  'DN 20 (3/4") Aço': { de: 26.7, espessura_padrao: 2.87, material: 'Aço' },
+  'DN 25 (1") Aço': { de: 33.4, espessura_padrao: 3.38, material: 'Aço' },
+  'DN 32 (1 1/4") Aço': { de: 42.2, espessura_padrao: 3.56, material: 'Aço' },
+  'DN 40 (1 1/2") Aço': { de: 48.3, espessura_padrao: 3.68, material: 'Aço' },
+  'DN 50 (2") Aço': { de: 60.3, espessura_padrao: 3.91, material: 'Aço' },
+  'DN 65 (2 1/2") Aço': { de: 73.0, espessura_padrao: 5.16, material: 'Aço' },
+  'DN 80 (3") Aço': { de: 88.9, espessura_padrao: 5.49, material: 'Aço' },
+  'DN 100 (4") Aço': { de: 114.3, espessura_padrao: 6.02, material: 'Aço' },
+
+  // Cobre (NBR 13206) - Classe E
+  'DN 15 (1/2") Cobre': { de: 15.87, espessura_padrao: 0.8, material: 'Cobre' },
+  'DN 22 (3/4") Cobre': { de: 22.22, espessura_padrao: 0.9, material: 'Cobre' },
+  'DN 28 (1") Cobre': { de: 28.57, espessura_padrao: 1.0, material: 'Cobre' },
+  'DN 35 (1 1/4") Cobre': { de: 34.92, espessura_padrao: 1.2, material: 'Cobre' },
+  'DN 42 (1 1/2") Cobre': { de: 41.27, espessura_padrao: 1.2, material: 'Cobre' },
+};
+
+export type MaterialTubo = 'PVC' | 'Aço' | 'Cobre';
+
+/**
+ * Converte polegadas para milímetros.
+ * @param polegadas Valor em polegadas.
+ * @returns Valor em milímetros.
+ */
+export function converterPolegadaParaMm(polegadas: number): number {
+  return polegadas * 25.4;
+}
+
+/**
+ * Calcula o diâmetro interno do tubo.
+ * @param deMM Diâmetro externo em mm.
+ * @param espessuraMM Espessura da parede em mm.
+ * @returns Diâmetro interno em mm.
+ */
+export function calcularDiametroInterno(deMM: number, espessuraMM: number): number {
+  if (deMM <= 0 || espessuraMM <= 0 || (deMM - 2 * espessuraMM) <= 0) {
+    throw new Error("Diâmetro externo e espessura devem ser positivos e o diâmetro interno resultante deve ser maior que zero.");
+  }
+  return deMM - (2 * espessuraMM);
+}
+
+/**
+ * Calcula a área da seção transversal interna do tubo.
+ * @param diMM Diâmetro interno em mm.
+ * @returns Área da seção em m².
+ */
+export function calcularAreaSecaoInterna(diMM: number): number {
+  if (diMM <= 0) {
+    throw new Error("Diâmetro interno deve ser maior que zero.");
+  }
+  const diM = diMM / 1000; // Converte para metros
+  return Math.PI * Math.pow(diM / 2, 2);
+}
+
+/**
+ * Calcula a massa por metro linear do tubo.
+ * @param deMM Diâmetro externo em mm.
+ * @param espessuraMM Espessura da parede em mm.
+ * @param densidadeKgM3 Densidade do material em kg/m³.
+ * @returns Massa por metro em kg/m.
+ */
+export function calcularMassaPorMetroTubo(deMM: number, espessuraMM: number, densidadeKgM3: number): number {
+  if (deMM <= 0 || espessuraMM <= 0 || densidadeKgM3 <= 0) {
+    throw new Error("Diâmetro externo, espessura e densidade devem ser maiores que zero.");
+  }
+  const deM = deMM / 1000;
+  const espessuraM = espessuraMM / 1000;
+  // Área da seção do material do tubo (anel)
+  const areaAnelM2 = Math.PI * (Math.pow(deM / 2, 2) - Math.pow((deM / 2) - espessuraM, 2));
+  return areaAnelM2 * densidadeKgM3;
+}
+
+/**
+ * Calcula o número de peças de tubo necessárias, considerando o comprimento total e a perda.
+ * @param comprimentoTotalM Comprimento total necessário em metros.
+ * @param comprimentoPecaM Comprimento de uma peça/barra em metros.
+ * @param perdaPct Percentual de perda (0-100).
+ * @returns Número de peças (arredondado para cima).
+ */
+export function calcularNumeroPecasTubo(comprimentoTotalM: number, comprimentoPecaM: number, perdaPct: number): number {
+  if (comprimentoTotalM <= 0 || comprimentoPecaM <= 0 || perdaPct < 0) {
+    throw new Error("Comprimento total e comprimento da peça devem ser maiores que zero. Perda deve ser não negativa.");
+  }
+  const comprimentoComPerda = comprimentoTotalM * (1 + perdaPct / 100);
+  return Math.ceil(comprimentoComPerda / comprimentoPecaM);
+}
+
+/**
+ * Função principal para calcular propriedades e quantidades de tubos.
+ */
+export function calcTubos(params: {
+  material: MaterialTubo;
+  diametroNominal: string; // Ex: "DN 25 (1") PVC" ou "custom"
+  diametroExternoMM?: number; // Se custom
+  espessuraParedeMM?: number; // Se custom
+  comprimentoPecaM: number;
+  comprimentoTotalDesejadoM?: number; // Ou quantidadePecas
+  quantidadePecasDesejada?: number; // Ou comprimentoTotalDesejado
+  perdaPct: number;
+}): {
+  diametroExternoMM: number;
+  diametroInternoMM: number;
+  areaSecaoInternaM2: number;
+  massaPorMetroKg: number;
+  comprimentoTotalCalculadoM: number;
+  numeroPecasRecomendado: number;
+  massaTotalKg: number;
+} {
+  let deMM: number;
+  let espessuraMM: number;
+  let densidade: number;
+
+  // 1. Determinar DE, Espessura e Densidade
+  if (params.diametroNominal === 'custom') {
+    if (!params.diametroExternoMM || !params.espessuraParedeMM) {
+      throw new Error("Para diâmetro nominal 'custom', diâmetro externo e espessura da parede são obrigatórios.");
+    }
+    deMM = params.diametroExternoMM;
+    espessuraMM = params.espessuraParedeMM;
+  } else {
+    const preset = TABELA_DN_DE_ESPESSURA[params.diametroNominal];
+    if (!preset) {
+      throw new Error("Diâmetro nominal não encontrado na tabela de presets.");
+    }
+    // Prioridade: params.espessuraParedeMM (se fornecido) > preset.espessura_padrao
+    espessuraMM = params.espessuraParedeMM || preset.espessura_padrao || 0;
+
+    if (espessuraMM <= 0) {
+      throw new Error(`Espessura da parede não definida para o diâmetro nominal '${params.diametroNominal}'. Por favor, forneça a espessura da parede.`);
+    }
+    deMM = preset.de; // DE sempre vem do preset se não for custom
+  }
+
+  switch (params.material) {
+    case 'PVC': densidade = DENSIDADE_PVC_KG_M3; break;
+    case 'Aço': densidade = DENSIDADE_ACO_KG_M3; break;
+    case 'Cobre': densidade = DENSIDADE_COBRE_KG_M3; break;
+    default: throw new Error("Material de tubo inválido."); // Não deveria acontecer devido ao tipo MaterialTubo
+  }
+
+  // 2. Calcular Diâmetro Interno
+  const diMM = calcularDiametroInterno(deMM, espessuraMM);
+
+  // 3. Calcular Área da Seção Interna
+  const areaSecaoInternaM2 = calcularAreaSecaoInterna(diMM);
+
+  // 4. Calcular Massa por Metro
+  const massaPorMetroKg = calcularMassaPorMetroTubo(deMM, espessuraMM, densidade);
+
+  // 5. Calcular Comprimento Total e Número de Peças
+  let comprimentoTotalCalculadoM: number;
+  let numeroPecasRecomendado: number;
+
+  if (params.comprimentoTotalDesejadoM !== undefined && params.comprimentoTotalDesejadoM > 0) {
+    comprimentoTotalCalculadoM = params.comprimentoTotalDesejadoM;
+    numeroPecasRecomendado = calcularNumeroPecasTubo(comprimentoTotalCalculadoM, params.comprimentoPecaM, params.perdaPct);
+  } else if (params.quantidadePecasDesejada !== undefined && params.quantidadePecasDesejada > 0) {
+    comprimentoTotalCalculadoM = params.quantidadePecasDesejada * params.comprimentoPecaM;
+    numeroPecasRecomendado = calcularNumeroPecasTubo(comprimentoTotalCalculadoM, params.comprimentoPecaM, params.perdaPct);
+  } else {
+    throw new Error("É necessário informar o comprimento total desejado ou a quantidade de peças desejada.");
+  }
+
+  // 6. Calcular Massa Total (já com perda incluída no número de peças)
+  // A massa total deve ser calculada com base no comprimento total REALMENTE COMPRADO (numeroPecasRecomendado * comprimentoPecaM)
+  // e não apenas no comprimentoTotalDesejadoM, para refletir a perda.
+  const comprimentoRealCompradoM = numeroPecasRecomendado * params.comprimentoPecaM;
+  const massaTotalKg = massaPorMetroKg * comprimentoRealCompradoM;
+
+
+  return {
+    diametroExternoMM: deMM,
+    diametroInternoMM: diMM,
+    areaSecaoInternaM2: areaSecaoInternaM2,
+    massaPorMetroKg: massaPorMetroKg,
+    comprimentoTotalCalculadoM: comprimentoTotalCalculadoM, // Este é o comprimento que o usuário DESEJA
+    numeroPecasRecomendado: numeroPecasRecomendado,
+    massaTotalKg: massaTotalKg,
+  };
+}
+
 /**
  * Calcula a quantidade de blocos e argamassa para alvenaria.
  *
