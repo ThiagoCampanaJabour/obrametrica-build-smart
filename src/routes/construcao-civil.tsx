@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home, ShieldCheck } from "lucide-react"; // ArrowRight importado apenas uma vez
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home } from "lucide-react"; // ArrowRight importado apenas uma vez
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -24,12 +24,6 @@ export const Route = createFileRoute("/construcao-civil")({
 });
 
 const calcs = [
-  {
-    to: "/calculadora-de-ar-condicionado" as const,
-    icon: Wind,
-    title: "Calculadora de Ar-Condicionado",
-    desc: "Dimensionamento de BTUs para ambientes.",
-  },
   {
     to: "/calculadora-de-tijolos" as const,
     icon: Hammer,
@@ -127,11 +121,11 @@ const calcs = [
     desc: "Litros de tinta necessários.",
   },
   {
-    to: "/calculadora-de-impermeabilizacao" as const,
-    icon: ShieldCheck, // Ícone de escudo com check, representando proteção/impermeabilização
-    title: "Calculadora de Impermeabilização",
-    desc: "Estime materiais e custos para impermeabilizar áreas.",
-  },
+    to: "/calculadora-ar-condicionado" as const,
+    icon: Wind,
+    title: "Calculadora de Ar-Condicionado",
+    desc: "Dimensionamento de capacidade em BTU/h e kW.",
+},
 ];
 
 function ConstrucaoCivilPage() {
