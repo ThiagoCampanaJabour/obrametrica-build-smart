@@ -184,6 +184,244 @@ export function calcTelhas(
   };
 }
 
+// ========== Reboco ==========
+
+// Densidades e Consumos Padrão
+const DENSIDADE_CIMENTO_KG_M3 = 1440; // kg/m³ (cimento ensacado)
+const DENSIDADE_AREIA_KG_M3 = 1600; // kg/m³
+const DENSIDADE_CAL_KG_M3 = 500; // kg/m³ (cal hidratada ensacada)
+const SACO_CIMENTO_KG = 50;
+const SACO_CAL_KG = 20; // ou 25 kg, dependendo do fabricante
+
+// Fator de empacotamento/perda para argamassa (considera vazios, perdas, etc.)
+const FATOR_EMPACOTAMENTO_ARGAMASSA = 1.3; // 1.2 a 1.4 é comum
+
+// Consumo de massa pronta por m² por mm de espessura
+const MASSA_PRONTA_KG_M2_MM = 1.5; // kg/m² por mm de espessura
+
+export type TipoServicoReboco = 'chapisco' | 'reboco-grosso' | 'reboco-fino' | 'reboco-total' | 'massa-corrida';
+export type TracoReboco = '1:2' | '1:3' | '1:4' | '1:5' | 'custom';
+
+interface TracoProporcoes {
+  cimento: number; // partes
+  areia: number; // partes
+  cal?: number; // partes (opcional)
+}
+
+const TRACOS_REBOCO: Record<TracoReboco, TracoProporcoes> = {
+  '1:2': { cimento: 1, areia: 2 }, // Chapisco
+  '1:3': { cimento: 1, areia: 3 }, // Reboco externo
+  '1:4': { cimento: 1, areia: 4 }, // Reboco interno
+  '1:5': { cimento: 1, areia: 5, cal: 0.5 }, // Reboco interno com cal
+  'custom': { cimento: 1, areia: 0, cal: 0 }, // Placeholder para custom
+};
+
+/**
+ * Calcula o volume teórico de argamassa necessário.
+ * @param areaM2 Área a rebocar em m².
+ * @param espessuraMM Espessura do reboco em mm.
+ * @returns Volume teórico em m³.
+ */
+export function calcularVolumeArgamassa(areaM2: number, espessuraMM: number): number {
+  if (areaM2 <= 0 || espessuraMM <= 0) {
+    throw new Error("Área e espessura devem ser maiores que zero.");
+  }
+  return areaM2 * (espessuraMM / 1000); // Converte mm para m
+}
+
+/**
+ * Converte um traço string (ex: "1:4:0.5") em proporções numéricas.
+ * @param tracoStr String do traço (ex: "1:4" ou "1:4:0.5").
+ * @returns Objeto com proporções de cimento, areia e cal.
+ */
+export function converterTracoEmProporcoes(tracoStr: string): TracoProporcoes {
+  const partes = tracoStr.split(':').map(Number);
+  if (partes.length < 2 || partes.some(isNaN) || partes[0] <= 0) {
+    throw new Error("Formato de traço inválido. Use 'cimento:areia' ou 'cimento:areia:cal'.");
+  }
+  return {
+    cimento: partes[0],
+    areia: partes[1],
+    cal: partes[2] || 0,
+  };
+}
+
+/**
+ * Calcula os materiais (cimento, areia, cal) para um dado volume de argamassa e traço.
+ * @param volumeArgamassaM3 Volume de argamassa em m³.
+ * @param tracoProporcoes Proporções do traço (cimento:areia:cal).
+ * @param desperdicioPct Percentual de desperdício (0-100).
+ * @returns Objeto com massa de cimento (kg), areia (m³), cal (kg) e sacos.
+ */
+export function calcularMateriaisArgamassa(
+  volumeArgamassaM3: number,
+  tracoProporcoes: TracoProporcoes,
+  desperdicioPct: number,
+  fatorEmpacotamento: number = FATOR_EMPACOTAMENTO_ARGAMASSA
+): {
+  cimentoKg: number;
+  cimentoSacos: number;
+  areiaM3: number;
+  areiaKg: number;
+  calKg: number;
+  calSacos: number;
+} {
+  if (volumeArgamassaM3 <= 0) {
+    throw new Error("Volume de argamassa deve ser maior que zero.");
+  }
+  if (desperdicioPct < 0 || desperdicioPct > 100) {
+    throw new Error("Desperdício deve ser entre 0 e 100.");
+  }
+
+  const { cimento, areia, cal = 0 } = tracoProporcoes;
+  const somaPartes = cimento + areia + cal;
+
+  if (somaPartes <= 0) {
+    throw new Error("A soma das partes do traço deve ser maior que zero.");
+  }
+
+  // Volume de argamassa ajustado pelo fator de empacotamento e desperdício
+  const volumeAjustado = volumeArgamassaM3 * fatorEmpacotamento * (1 + desperdicioPct / 100);
+
+  // Proporções em volume
+  const proporcaoCimentoVol = cimento / somaPartes;
+  const proporcaoAreiaVol = areia / somaPartes;
+  const proporcaoCalVol = cal / somaPartes;
+
+  // Cimento
+  const cimentoKg = volumeAjustado * proporcaoCimentoVol * DENSIDADE_CIMENTO_KG_M3;
+  const cimentoSacos = Math.ceil(cimentoKg / SACO_CIMENTO_KG);
+
+  // Areia
+  const areiaM3 = volumeAjustado * proporcaoAreiaVol;
+  const areiaKg = areiaM3 * DENSIDADE_AREIA_KG_M3;
+
+  // Cal
+  const calKg = volumeAjustado * proporcaoCalVol * DENSIDADE_CAL_KG_M3;
+  const calSacos = Math.ceil(calKg / SACO_CAL_KG);
+
+  return { cimentoKg, cimentoSacos, areiaM3, areiaKg, calKg, calSacos };
+}
+
+/**
+ * Calcula a massa de massa pronta necessária.
+ * @param areaM2 Área a rebocar em m².
+ * @param espessuraMM Espessura em mm.
+ * @param desperdicioPct Percentual de desperdício (0-100).
+ * @returns Massa de massa pronta em kg.
+ */
+export function calcularMassaPronta(areaM2: number, espessuraMM: number, desperdicioPct: number): number {
+  if (areaM2 <= 0 || espessuraMM <= 0) {
+    throw new Error("Área e espessura devem ser maiores que zero.");
+  }
+  if (desperdicioPct < 0 || desperdicioPct > 100) {
+    throw new Error("Desperdício deve ser entre 0 e 100.");
+  }
+  const massaTeorica = areaM2 * espessuraMM * MASSA_PRONTA_KG_M2_MM;
+  return massaTeorica * (1 + desperdicioPct / 100);
+}
+
+/**
+ * Função principal para calcular materiais de reboco.
+ */
+export function calcReboco(params: {
+  tipoServico: TipoServicoReboco;
+  areaM2: number;
+  espessuraMM: number;
+  traco: TracoReboco;
+  tracoCustom?: string; // "1:4:0.5"
+  desperdicioPct: number;
+  fatorEmpacotamento?: number;
+}): {
+  volumeArgamassaM3: number;
+  cimentoKg: number;
+  cimentoSacos: number;
+  areiaM3: number;
+  areiaKg: number;
+  calKg: number;
+  calSacos: number;
+  massaProntaKg: number;
+} {
+  let volumeArgamassaM3 = 0;
+  let cimentoKg = 0;
+  let cimentoSacos = 0;
+  let areiaM3 = 0;
+  let areiaKg = 0;
+  let calKg = 0;
+  let calSacos = 0;
+  let massaProntaKg = 0;
+
+  const { tipoServico, areaM2, espessuraMM, traco, tracoCustom, desperdicioPct, fatorEmpacotamento } = params;
+
+  if (tipoServico === 'massa-corrida') {
+    massaProntaKg = calcularMassaPronta(areaM2, espessuraMM, desperdicioPct);
+  } else if (tipoServico === 'reboco-total') {
+    // Chapisco (ex: 5mm, 1:2)
+    const chapiscoVol = calcularVolumeArgamassa(areaM2, 5);
+    const chapiscoTraco = TRACOS_REBOCO['1:2'];
+    const chapiscoMateriais = calcularMateriaisArgamassa(chapiscoVol, chapiscoTraco, desperdicioPct, fatorEmpacotamento);
+    cimentoKg += chapiscoMateriais.cimentoKg;
+    cimentoSacos += chapiscoMateriais.cimentoSacos;
+    areiaM3 += chapiscoMateriais.areiaM3;
+    areiaKg += chapiscoMateriais.areiaKg;
+    calKg += chapiscoMateriais.calKg;
+    calSacos += chapiscoMateriais.calSacos;
+    volumeArgamassaM3 += chapiscoVol;
+
+    // Reboco Grosso (ex: 15mm, 1:4)
+    const rebocoGrossoVol = calcularVolumeArgamassa(areaM2, 15);
+    const rebocoGrossoTraco = TRACOS_REBOCO['1:4'];
+    const rebocoGrossoMateriais = calcularMateriaisArgamassa(rebocoGrossoVol, rebocoGrossoTraco, desperdicioPct, fatorEmpacotamento);
+    cimentoKg += rebocoGrossoMateriais.cimentoKg;
+    cimentoSacos += rebocoGrossoMateriais.cimentoSacos;
+    areiaM3 += rebocoGrossoMateriais.areiaM3;
+    areiaKg += rebocoGrossoMateriais.areiaKg;
+    calKg += rebocoGrossoMateriais.calKg;
+    calSacos += rebocoGrossoMateriais.calSacos;
+    volumeArgamassaM3 += rebocoGrossoVol;
+
+    // Reboco Fino (ex: 5mm, 1:5:0.5)
+    const rebocoFinoVol = calcularVolumeArgamassa(areaM2, 5);
+    const rebocoFinoTraco = TRACOS_REBOCO['1:5'];
+    const rebocoFinoMateriais = calcularMateriaisArgamassa(rebocoFinoVol, rebocoFinoTraco, desperdicioPct, fatorEmpacotamento);
+    cimentoKg += rebocoFinoMateriais.cimentoKg;
+    cimentoSacos += rebocoFinoMateriais.cimentoSacos;
+    areiaM3 += rebocoFinoMateriais.areiaM3;
+    areiaKg += rebocoFinoMateriais.areiaKg;
+    calKg += rebocoFinoMateriais.calKg;
+    calSacos += rebocoFinoMateriais.calSacos;
+    volumeArgamassaM3 += rebocoFinoVol;
+
+  } else {
+    volumeArgamassaM3 = calcularVolumeArgamassa(areaM2, espessuraMM);
+    let proporcoes: TracoProporcoes;
+    if (traco === 'custom' && tracoCustom) {
+      proporcoes = converterTracoEmProporcoes(tracoCustom);
+    } else {
+      proporcoes = TRACOS_REBOCO[traco];
+    }
+
+    const materiais = calcularMateriaisArgamassa(volumeArgamassaM3, proporcoes, desperdicioPct, fatorEmpacotamento);
+    cimentoKg = materiais.cimentoKg;
+    cimentoSacos = materiais.cimentoSacos;
+    areiaM3 = materiais.areiaM3;
+    areiaKg = materiais.areiaKg;
+    calKg = materiais.calKg;
+    calSacos = materiais.calSacos;
+  }
+
+  return {
+    volumeArgamassaM3,
+    cimentoKg,
+    cimentoSacos,
+    areiaM3,
+    areiaKg,
+    calKg,
+    calSacos,
+    massaProntaKg,
+  };
+}
+
 /**
  * Calcula a quantidade de blocos e argamassa para alvenaria.
  *

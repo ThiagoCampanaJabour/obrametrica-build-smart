@@ -85,6 +85,12 @@ const calcs = [
     desc: "Quantidade de blocos e argamassa para alvenaria.",
   },
   {
+    to: "/calculadora-de-reboco" as const,
+    icon: Paintbrush, // Ou outro ícone relevante, como 'Palette' ou 'Wall'
+    title: "Calculadora de Reboco",
+    desc: "Cimento, areia, cal para chapisco e reboco.",
+  },
+  {
     to: "/calculadora-de-telhas" as const,
     icon: Home,
     title: "Calculadora de Telhas",
