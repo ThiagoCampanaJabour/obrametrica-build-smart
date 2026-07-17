@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home } from "lucide-react"; // ArrowRight importado apenas uma vez
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home, ShieldCheck } from "lucide-react"; // ArrowRight importado apenas uma vez
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -41,6 +41,12 @@ const calcs = [
     icon: Droplet,
     title: "Calculadora de Cimento",
     desc: "Dosagem de cimento por resistência.",
+  },
+  {
+    to: "/calculadora-de-impermeabilizacao" as const,
+    icon: ShieldCheck, // Ícone de escudo com check, representando proteção/impermeabilização
+    title: "Calculadora de Impermeabilização",
+    desc: "Estime materiais e custos para impermeabilizar áreas.",
   },
   {
     to: "/calculadora-de-argamassa" as const,
