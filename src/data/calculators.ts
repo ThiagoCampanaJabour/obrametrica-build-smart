@@ -72,6 +72,10 @@ const REL_TINTA: CalcRelated = {
   path: "/calculadora-de-tinta",
   label: "Calculadora de Tinta",
 };
+const REL_IMPERMEABILIZACAO: CalcRelated = {
+  path: "/calculadora-de-impermeabilizacao",
+  label: "Calculadora de Impermeabilização",
+};
 const REL_ARGAMASSA: CalcRelated = {
   path: "/calculadora-de-argamassa",
   label: "Calculadora de Argamassa",
@@ -229,7 +233,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "A calculadora atual é otimizada para tijolos cerâmicos. Para blocos de concreto, o consumo por m² é diferente (geralmente 12,5 blocos/m² para o modelo 14×19×39).",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_PISO, REL_BLOCOS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
 
   "/calculadora-de-cimento": {
@@ -325,7 +329,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Em local seco, protegido da chuva e umidade, sobre paletes de madeira. Evite contato direto com o chão. Cimento tem validade de 3 meses; use os mais antigos primeiro.",
       },
     ],
-    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
+    related: [REL_CONCRETO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_BLOCOS, REL_ACO, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
 
   "/calculadora-de-concreto": {
@@ -410,6 +414,124 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
     ],
     related: [REL_CIMENTO, REL_ARGAMASSA, REL_AREIA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_ACO, REL_FORMA],
   },
+  "/calculadora-de-impermeabilizacao": {
+    path: "/calculadora-de-impermeabilizacao",
+    name: "Calculadora de Impermeabilização",
+    intro: "Estime a quantidade de produtos e o custo para impermeabilizar lajes, terraços, banheiros, piscinas e fundações com manta líquida, manta asfáltica ou argamassa polimérica.",
+    context: [
+      "A impermeabilização é uma etapa crítica em qualquer construção, protegendo a estrutura contra a ação da água e prevenindo problemas como infiltrações, mofo, e deterioração de materiais. Um cálculo preciso dos materiais evita desperdícios e garante a eficácia do sistema.",
+      "A escolha do sistema de impermeabilização (manta líquida, manta asfáltica, argamassa polimérica) depende do tipo de área, exposição e movimentação da estrutura. Cada sistema possui rendimentos e métodos de aplicação específicos que devem ser considerados no cálculo.",
+    ],
+    whenToUse: [
+      "Orçar materiais para impermeabilização de lajes, terraços, varandas e coberturas.",
+      "Estimar o consumo de manta líquida, argamassa polimérica ou rolos de manta asfáltica.",
+      "Calcular a quantidade de primer, tela de reforço, fitas de canto e acessórios para ralos.",
+      "Comparar custos entre diferentes sistemas de impermeabilização.",
+      "Planejar a compra de materiais para áreas molhadas internas (banheiros, cozinhas, áreas de serviço) e piscinas.",
+    ],
+    howItWorks: [
+      "Informe a área a ser impermeabilizada em m² e, opcionalmente, a área de vãos a subtrair.",
+      "Selecione o tipo de sistema de impermeabilização (Manta Líquida, Manta Asfáltica, Argamassa Polimérica).",
+      "Informe o perímetro de cantos e o número de ralos para calcular acessórios.",
+      "Defina o número de demãos/camadas e o percentual de perda para cortes e emendas.",
+      "Opcionalmente, insira os rendimentos e áreas por rolo personalizados, e os preços unitários dos materiais.",
+      "A calculadora fornecerá o consumo de cada material (kg, L, rolos, metros) e o custo estimado total.",
+    ],
+    formula: {
+      expression: `
+        1. Área Líquida (m²) = Área Total (m²) - Área de Vãos (m²)
+        2. Consumo Material Líquido/Pastoso (kg ou L) = Área Líquida (m²) × Rendimento (kg/m²/demão ou L/m²) × Nº de Demãos × (1 + Perda (%)/100)
+        3. Rolos de Manta Asfáltica = CEIL(Área Líquida (m²) × (1 + Perda (%)/100) / Área por Rolo (m²))
+        4. Comprimento Fita de Canto (m) = (Perímetro de Cantos (m) + Nº de Ralos × 1m) × (1 + Perda (%)/100)
+        5. Custo Estimado (R$) = SOMA(Consumo Material × Preço Unitário)
+      `,
+      legend: [
+        "CEIL() indica arredondamento para o próximo número inteiro superior.",
+        "Rendimentos e áreas por rolo são valores padrão de mercado, mas podem ser personalizados.",
+        "Perda (%): Margem para cortes, sobreposições e desperdício (geralmente 8-12%).",
+        "Para fitas de canto, considera-se 1 metro de fita para detalhamento de cada ralo.",
+        "Sistemas como EPDM e Híbridos são mais complexos e podem exigir cálculos adicionais ou consulta a especialistas.",
+      ],
+    },
+    example: {
+      scenario: "Impermeabilizar uma laje de 50 m² com Manta Líquida, 2 demãos, 10% de perda, com 20m de cantos e 1 ralo.",
+      steps: [
+        "Área Líquida = 50 m².",
+        "Sistema: Manta Líquida, 2 demãos.",
+        "Rendimento Manta Líquida padrão: 1.5 kg/m²/demão.",
+        "Consumo Manta Líquida = 50 m² × 1.5 kg/m²/demão × 2 demãos × (1 + 10/100) = 165 kg.",
+        "Rendimento Primer padrão: 0.1 L/m².",
+        "Consumo Primer = 50 m² × 0.1 L/m² × 1 demão × (1 + 10/100) = 5.5 L.",
+        "Comprimento Fita de Canto = (20m + 1 ralo × 1m) × (1 + 10/100) = 23.1 m.",
+        "Custo estimado: somar custos de manta, primer, fita de canto e ralo (se preços informados).",
+      ],
+      result: "Serão necessários aproximadamente 165 kg de manta líquida, 5.5 L de primer, 23.1 m de fita de canto e 1 ralo.",
+    },
+    moreExamples: [
+      {
+        scenario: "Impermeabilizar um terraço de 100 m² com Manta Asfáltica, rolos de 10 m², 12% de perda, com 2 ralos.",
+        steps: [
+          "Área Líquida = 100 m².",
+          "Sistema: Manta Asfáltica, rolos de 10 m².",
+          "Rolos de Manta Asfáltica = CEIL(100 m² × (1 + 12/100) / 10 m²/rolo) = CEIL(11.2) = 12 rolos.",
+          "Rendimento Primer padrão: 0.1 L/m².",
+          "Consumo Primer = 100 m² × 0.1 L/m² × 1 demão × (1 + 12/100) = 11.2 L.",
+          "Número de Ralos = 2.",
+        ],
+        result: "Serão necessários 12 rolos de manta asfáltica, 11.2 L de primer e 2 ralos.",
+      },
+      {
+        scenario: "Impermeabilizar um banheiro de 15 m² com Argamassa Polimérica, 3 demãos, 8% de perda, com 15m de cantos e 1 ralo.",
+        steps: [
+          "Área Líquida = 15 m².",
+          "Sistema: Argamassa Polimérica, 3 demãos.",
+          "Rendimento Argamassa Polimérica padrão: 2.0 kg/m²/demão.",
+          "Consumo Argamassa Polimérica = 15 m² × 2.0 kg/m²/demão × 3 demãos × (1 + 8/100) = 97.2 kg.",
+          "Comprimento Fita de Canto = (15m + 1 ralo × 1m) × (1 + 8/100) = 17.28 m.",
+          "Número de Ralos = 1.",
+        ],
+        result: "Serão necessários aproximadamente 97.2 kg de argamassa polimérica, 17.28 m de fita de canto e 1 ralo.",
+      },
+    ],
+    tips: [
+      "Sempre prepare a superfície: limpe, nivele e elimine pontas soltas antes de aplicar qualquer sistema.",
+      "Respeite o número de demãos e o intervalo entre elas, conforme a ficha técnica do fabricante.",
+      "Em áreas com tráfego, utilize sistemas de impermeabilização que aceitem proteção mecânica (contrapiso).",
+      "Para mantas asfálticas, a sobreposição mínima entre rolos é de 10 cm nas laterais e 15 cm nas testas.",
+      "Realize o teste de estanqueidade (lâmina d'água) por no mínimo 72 horas antes de aplicar a proteção mecânica.",
+    ],
+    errors: [
+      "Não considerar a perda de material para cortes, recortes e sobreposições, resultando em falta de produto.",
+      "Aplicar menos demãos do que o recomendado, comprometendo a eficácia da impermeabilização.",
+      "Não preparar adequadamente a superfície, o que pode causar descolamento ou falhas no sistema.",
+      "Confundir rendimento por demão com rendimento total do produto.",
+      "Não contabilizar acessórios como primer, fitas de canto e detalhes de ralos, que são essenciais para a estanqueidade.",
+    ],
+    faq: [
+      {
+        q: "Qual sistema de impermeabilização é melhor para lajes expostas?",
+        a: "Para lajes expostas, sistemas flexíveis como manta asfáltica (com proteção mecânica) ou mantas líquidas de alta performance (acrílicas ou poliuretânicas) são geralmente recomendados devido à sua capacidade de acompanhar a movimentação da estrutura.",
+      },
+      {
+        q: "Quantas demãos de manta líquida são necessárias?",
+        a: "Geralmente, são necessárias de 2 a 4 demãos de manta líquida, dependendo do produto, do fabricante e da área a ser impermeabilizada. Consulte sempre a ficha técnica do produto.",
+      },
+      {
+        q: "Como calcular o consumo de manta asfáltica?",
+        a: "O consumo de manta asfáltica é calculado dividindo a área a ser impermeabilizada (com a perda) pela área de um rolo. Lembre-se de considerar as sobreposições como parte da perda.",
+      },
+      {
+        q: "É preciso usar primer antes da impermeabilização?",
+        a: "Sim, o primer é fundamental para garantir a aderência do sistema de impermeabilização à superfície. Ele prepara a base, sela a porosidade e melhora a ancoragem do material impermeabilizante.",
+      },
+      {
+        q: "Quando usar tela de reforço na impermeabilização?",
+        a: "A tela de reforço é utilizada em pontos críticos como ralos, cantos, juntas de dilatação e fissuras, ou em toda a área para sistemas líquidos, para aumentar a resistência à tração e evitar o rompimento do sistema impermeabilizante.",
+      },
+    ],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
+  },
+  
 
   "/calculadora-de-piso": {
     path: "/calculadora-de-piso",
@@ -667,7 +789,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Não. A colante é industrializada, específica para revestimentos. A de assentamento é usada em alvenaria (para colar tijolos).",
       },
     ],
-    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
+    related: [REL_PISO, REL_TIJOLOS, REL_AREIA, REL_REJUNTE, REL_BRITA, REL_ARCONDICIONADO, REL_TINTA, REL_TELHAS, REL_BLOCOS, REL_ACO, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
     "/calculadora-de-tubos": {
     path: "/calculadora-de-tubos",
@@ -793,7 +915,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, você pode usar a opção 'custom' para inserir o diâmetro externo e a espessura da parede de tubos PEX ou PPR. Para materiais específicos, sempre consulte as especificações do fabricante para densidades e propriedades.",
       },
     ],
-    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_ESQUADRIAS],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
     "/calculadora-de-esquadrias": {
     path: "/calculadora-de-esquadrias",
@@ -920,7 +1042,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, você pode inserir as dimensões exatas da sua esquadria de PVC. Os pesos por metro de perfil são valores de referência e podem ser ajustados se você tiver dados mais precisos do fabricante.",
       },
     ],
-    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_TUBOS],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_REBOCO, REL_TUBOS, REL_IMPERMEABILIZACAO],
   },
   "/calculadora-de-areia": {
     path: "/calculadora-de-areia",
@@ -1016,7 +1138,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Divida o volume em m³ por 0,02 (volume de um saco padrão de 20 kg). Arredonde para cima para garantir quantidade suficiente.",
       },
     ],
-    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS],
+    related: [REL_CIMENTO, REL_CONCRETO, REL_ARGAMASSA, REL_BRITA, REL_ARCONDICIONADO, REL_TELHAS, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
     "/calculadora-rejunte": {
     path: "/calculadora-rejunte",
@@ -1534,7 +1656,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, a largura do bloco é crucial para calcular o volume de argamassa, pois a argamassa preenche a largura da junta. Blocos mais largos demandam mais argamassa.",
       },
     ],
-    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS]
+    related: [REL_ARGAMASSA, REL_CIMENTO, REL_TIJOLOS, REL_TELHAS, REL_FORMA, REL_REBOCO, REL_TUBOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO]
   },
     "/calculadora-de-aco": {
     path: "/calculadora-de-aco",
@@ -2044,7 +2166,7 @@ export const CALCULATORS: Record<string, CalculatorContent> = {
         a: "Sim, areia úmida ocupa mais volume e pesa mais. Para cálculos precisos, a areia deve ser considerada seca. Na prática, é comum ajustar a quantidade de água da mistura.",
       },
     ],
-    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_ESQUADRIAS],
+    related: [REL_CIMENTO, REL_AREIA, REL_ARGAMASSA, REL_BLOCOS, REL_TIJOLOS, REL_ESQUADRIAS, REL_IMPERMEABILIZACAO],
   },
     "/quantas-placas-solares-preciso": {
     path: "/quantas-placas-solares-preciso",
