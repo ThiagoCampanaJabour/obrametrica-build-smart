@@ -1,0 +1,26 @@
+{
+  "descricao": "Residência com consumo de 500 kWh/mês, tarifa R$ 0,95/kWh e autonomia de 12h.",
+  "input": {
+    "potenciaKWp": 5,
+    "producaoAnualKWh": 7200,
+    "tarifaKWh": 0.95,
+    "usoLocalPct": 100,
+    "consumoMensalKWh": 500,
+    "custoPorKWp": 5000,
+    "autonomiaHoras": 12,
+    "custoBateriaKWh": 1800,
+    "vidaUtilAnos": 25,
+    "taxaDesconto": 8,
+    "omPct": 1.5,
+    "degradacaoPct": 0.7,
+    "eficienciaInversorPct": 95,
+    "perdasSistemaPct": 10,
+    "dodPct": 80,
+    "vidaBateriaAnos": 10
+  },
+  "esperado_resumo": {
+    "on-grid": { "investimento_inicial": 25000, "banco_baterias_kwh": 0 },
+    "off-grid": { "banco_baterias_kwh_aprox": 12.5, "complexidade": "Alta" },
+    "hibrido": { "banco_baterias_kwh_aprox": 7.5, "complexidade": "Média" }
+  }
+}
