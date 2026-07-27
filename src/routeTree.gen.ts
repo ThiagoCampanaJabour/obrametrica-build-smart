@@ -18,7 +18,6 @@ import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
-import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
 import { Route as ConversorM2ParaHectareRouteImport } from './routes/conversor-m2-para-hectare'
@@ -46,6 +45,7 @@ import { Route as CalculadoraArCondicionadoRouteImport } from './routes/calculad
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
@@ -94,11 +94,6 @@ const MetodologiaRoute = MetodologiaRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
-  id: '/energia-solar',
-  path: '/energia-solar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EconomiaEnergiaSolarRoute = EconomiaEnergiaSolarRouteImport.update({
@@ -237,11 +232,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnergiaSolarIndexRoute = EnergiaSolarIndexRouteImport.update({
+  id: '/energia-solar/',
+  path: '/energia-solar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnergiaSolarCalculadoraPaybackRoute =
   EnergiaSolarCalculadoraPaybackRouteImport.update({
-    id: '/calculadora-payback',
-    path: '/calculadora-payback',
-    getParentRoute: () => EnergiaSolarRoute,
+    id: '/energia-solar/calculadora-payback',
+    path: '/energia-solar/calculadora-payback',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -282,7 +282,6 @@ export interface FileRoutesByFullPath {
   '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
-  '/energia-solar': typeof EnergiaSolarRouteWithChildren
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -294,6 +293,7 @@ export interface FileRoutesByFullPath {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRoutesByTo {
@@ -324,7 +324,6 @@ export interface FileRoutesByTo {
   '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
-  '/energia-solar': typeof EnergiaSolarRouteWithChildren
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -336,6 +335,7 @@ export interface FileRoutesByTo {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRoutesById {
@@ -367,7 +367,6 @@ export interface FileRoutesById {
   '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
-  '/energia-solar': typeof EnergiaSolarRouteWithChildren
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -379,6 +378,7 @@ export interface FileRoutesById {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRouteTypes {
@@ -411,7 +411,6 @@ export interface FileRouteTypes {
     | '/conversor-m2-para-hectare'
     | '/conversores'
     | '/economia-energia-solar'
-    | '/energia-solar'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -423,6 +422,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar/'
     | '/blog/categoria/$categoria'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -453,7 +453,6 @@ export interface FileRouteTypes {
     | '/conversor-m2-para-hectare'
     | '/conversores'
     | '/economia-energia-solar'
-    | '/energia-solar'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -465,6 +464,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar'
     | '/blog/categoria/$categoria'
   id:
     | '__root__'
@@ -495,7 +495,6 @@ export interface FileRouteTypes {
     | '/conversor-m2-para-hectare'
     | '/conversores'
     | '/economia-energia-solar'
-    | '/energia-solar'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -507,6 +506,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar/'
     | '/blog/categoria/$categoria'
   fileRoutesById: FileRoutesById
 }
@@ -538,7 +538,6 @@ export interface RootRouteChildren {
   ConversorM2ParaHectareRoute: typeof ConversorM2ParaHectareRoute
   ConversoresRoute: typeof ConversoresRoute
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
-  EnergiaSolarRoute: typeof EnergiaSolarRouteWithChildren
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
@@ -548,6 +547,8 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
+  EnergiaSolarIndexRoute: typeof EnergiaSolarIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -613,13 +614,6 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/energia-solar': {
-      id: '/energia-solar'
-      path: '/energia-solar'
-      fullPath: '/energia-solar'
-      preLoaderRoute: typeof EnergiaSolarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/economia-energia-solar': {
@@ -811,12 +805,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/energia-solar/': {
+      id: '/energia-solar/'
+      path: '/energia-solar'
+      fullPath: '/energia-solar/'
+      preLoaderRoute: typeof EnergiaSolarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/energia-solar/calculadora-payback': {
       id: '/energia-solar/calculadora-payback'
-      path: '/calculadora-payback'
+      path: '/energia-solar/calculadora-payback'
       fullPath: '/energia-solar/calculadora-payback'
       preLoaderRoute: typeof EnergiaSolarCalculadoraPaybackRouteImport
-      parentRoute: typeof EnergiaSolarRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -847,18 +848,6 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
-interface EnergiaSolarRouteChildren {
-  EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
-}
-
-const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
-  EnergiaSolarCalculadoraPaybackRoute: EnergiaSolarCalculadoraPaybackRoute,
-}
-
-const EnergiaSolarRouteWithChildren = EnergiaSolarRoute._addFileChildren(
-  EnergiaSolarRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
@@ -887,7 +876,6 @@ const rootRouteChildren: RootRouteChildren = {
   ConversorM2ParaHectareRoute: ConversorM2ParaHectareRoute,
   ConversoresRoute: ConversoresRoute,
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
-  EnergiaSolarRoute: EnergiaSolarRouteWithChildren,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
@@ -897,17 +885,9 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  EnergiaSolarCalculadoraPaybackRoute: EnergiaSolarCalculadoraPaybackRoute,
+  EnergiaSolarIndexRoute: EnergiaSolarIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -11,7 +11,7 @@ const CRUMBS = [
   { name: "Energia Solar", path: PATH },
 ];
 
-export const Route = createFileRoute("/energia-solar")({
+export const Route = createFileRoute("/energia-solar/")({
   head: () =>
     pageHead({
       title: "Calculadoras de Energia Solar — Placas e Economia | ObraMétrica",
