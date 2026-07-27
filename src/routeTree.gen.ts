@@ -24,11 +24,23 @@ import { Route as ConversorLitrosParaM3RouteImport } from './routes/conversor-li
 import { Route as ConversorCmParaPolegadaRouteImport } from './routes/conversor-cm-para-polegada'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
+import { Route as CalculadoraRejunteRouteImport } from './routes/calculadora-rejunte'
+import { Route as CalculadoraDeTubosRouteImport } from './routes/calculadora-de-tubos'
 import { Route as CalculadoraDeTintaRouteImport } from './routes/calculadora-de-tinta'
 import { Route as CalculadoraDeTijolosRouteImport } from './routes/calculadora-de-tijolos'
+import { Route as CalculadoraDeTelhasRouteImport } from './routes/calculadora-de-telhas'
+import { Route as CalculadoraDeRebocoRouteImport } from './routes/calculadora-de-reboco'
 import { Route as CalculadoraDePisoRouteImport } from './routes/calculadora-de-piso'
+import { Route as CalculadoraDeFormaRouteImport } from './routes/calculadora-de-forma'
+import { Route as CalculadoraDeEsquadriasRouteImport } from './routes/calculadora-de-esquadrias'
 import { Route as CalculadoraDeConcretoRouteImport } from './routes/calculadora-de-concreto'
+import { Route as CalculadoraDeCimentoRouteImport } from './routes/calculadora-de-cimento'
+import { Route as CalculadoraDeBritaRouteImport } from './routes/calculadora-de-brita'
+import { Route as CalculadoraDeBlocosRouteImport } from './routes/calculadora-de-blocos'
 import { Route as CalculadoraDeArgamassaRouteImport } from './routes/calculadora-de-argamassa'
+import { Route as CalculadoraDeAreiaRouteImport } from './routes/calculadora-de-areia'
+import { Route as CalculadoraDeAcoRouteImport } from './routes/calculadora-de-aco'
+import { Route as CalculadoraArCondicionadoRouteImport } from './routes/calculadora-ar-condicionado'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
@@ -111,6 +123,16 @@ const ConstrucaoCivilRoute = ConstrucaoCivilRouteImport.update({
   path: '/construcao-civil',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculadoraRejunteRoute = CalculadoraRejunteRouteImport.update({
+  id: '/calculadora-rejunte',
+  path: '/calculadora-rejunte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeTubosRoute = CalculadoraDeTubosRouteImport.update({
+  id: '/calculadora-de-tubos',
+  path: '/calculadora-de-tubos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalculadoraDeTintaRoute = CalculadoraDeTintaRouteImport.update({
   id: '/calculadora-de-tinta',
   path: '/calculadora-de-tinta',
@@ -121,9 +143,29 @@ const CalculadoraDeTijolosRoute = CalculadoraDeTijolosRouteImport.update({
   path: '/calculadora-de-tijolos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculadoraDeTelhasRoute = CalculadoraDeTelhasRouteImport.update({
+  id: '/calculadora-de-telhas',
+  path: '/calculadora-de-telhas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeRebocoRoute = CalculadoraDeRebocoRouteImport.update({
+  id: '/calculadora-de-reboco',
+  path: '/calculadora-de-reboco',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalculadoraDePisoRoute = CalculadoraDePisoRouteImport.update({
   id: '/calculadora-de-piso',
   path: '/calculadora-de-piso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeFormaRoute = CalculadoraDeFormaRouteImport.update({
+  id: '/calculadora-de-forma',
+  path: '/calculadora-de-forma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeEsquadriasRoute = CalculadoraDeEsquadriasRouteImport.update({
+  id: '/calculadora-de-esquadrias',
+  path: '/calculadora-de-esquadrias',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalculadoraDeConcretoRoute = CalculadoraDeConcretoRouteImport.update({
@@ -131,11 +173,42 @@ const CalculadoraDeConcretoRoute = CalculadoraDeConcretoRouteImport.update({
   path: '/calculadora-de-concreto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculadoraDeCimentoRoute = CalculadoraDeCimentoRouteImport.update({
+  id: '/calculadora-de-cimento',
+  path: '/calculadora-de-cimento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeBritaRoute = CalculadoraDeBritaRouteImport.update({
+  id: '/calculadora-de-brita',
+  path: '/calculadora-de-brita',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeBlocosRoute = CalculadoraDeBlocosRouteImport.update({
+  id: '/calculadora-de-blocos',
+  path: '/calculadora-de-blocos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalculadoraDeArgamassaRoute = CalculadoraDeArgamassaRouteImport.update({
   id: '/calculadora-de-argamassa',
   path: '/calculadora-de-argamassa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculadoraDeAreiaRoute = CalculadoraDeAreiaRouteImport.update({
+  id: '/calculadora-de-areia',
+  path: '/calculadora-de-areia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraDeAcoRoute = CalculadoraDeAcoRouteImport.update({
+  id: '/calculadora-de-aco',
+  path: '/calculadora-de-aco',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraArCondicionadoRoute =
+  CalculadoraArCondicionadoRouteImport.update({
+    id: '/calculadora-ar-condicionado',
+    path: '/calculadora-ar-condicionado',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -166,11 +239,23 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
+  '/calculadora-ar-condicionado': typeof CalculadoraArCondicionadoRoute
+  '/calculadora-de-aco': typeof CalculadoraDeAcoRoute
+  '/calculadora-de-areia': typeof CalculadoraDeAreiaRoute
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-blocos': typeof CalculadoraDeBlocosRoute
+  '/calculadora-de-brita': typeof CalculadoraDeBritaRoute
+  '/calculadora-de-cimento': typeof CalculadoraDeCimentoRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-esquadrias': typeof CalculadoraDeEsquadriasRoute
+  '/calculadora-de-forma': typeof CalculadoraDeFormaRoute
   '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-reboco': typeof CalculadoraDeRebocoRoute
+  '/calculadora-de-telhas': typeof CalculadoraDeTelhasRoute
   '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
+  '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
+  '/calculadora-rejunte': typeof CalculadoraRejunteRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
@@ -193,11 +278,23 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
+  '/calculadora-ar-condicionado': typeof CalculadoraArCondicionadoRoute
+  '/calculadora-de-aco': typeof CalculadoraDeAcoRoute
+  '/calculadora-de-areia': typeof CalculadoraDeAreiaRoute
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-blocos': typeof CalculadoraDeBlocosRoute
+  '/calculadora-de-brita': typeof CalculadoraDeBritaRoute
+  '/calculadora-de-cimento': typeof CalculadoraDeCimentoRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-esquadrias': typeof CalculadoraDeEsquadriasRoute
+  '/calculadora-de-forma': typeof CalculadoraDeFormaRoute
   '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-reboco': typeof CalculadoraDeRebocoRoute
+  '/calculadora-de-telhas': typeof CalculadoraDeTelhasRoute
   '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
+  '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
+  '/calculadora-rejunte': typeof CalculadoraRejunteRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
@@ -221,11 +318,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRouteWithChildren
+  '/calculadora-ar-condicionado': typeof CalculadoraArCondicionadoRoute
+  '/calculadora-de-aco': typeof CalculadoraDeAcoRoute
+  '/calculadora-de-areia': typeof CalculadoraDeAreiaRoute
   '/calculadora-de-argamassa': typeof CalculadoraDeArgamassaRoute
+  '/calculadora-de-blocos': typeof CalculadoraDeBlocosRoute
+  '/calculadora-de-brita': typeof CalculadoraDeBritaRoute
+  '/calculadora-de-cimento': typeof CalculadoraDeCimentoRoute
   '/calculadora-de-concreto': typeof CalculadoraDeConcretoRoute
+  '/calculadora-de-esquadrias': typeof CalculadoraDeEsquadriasRoute
+  '/calculadora-de-forma': typeof CalculadoraDeFormaRoute
   '/calculadora-de-piso': typeof CalculadoraDePisoRoute
+  '/calculadora-de-reboco': typeof CalculadoraDeRebocoRoute
+  '/calculadora-de-telhas': typeof CalculadoraDeTelhasRoute
   '/calculadora-de-tijolos': typeof CalculadoraDeTijolosRoute
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
+  '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
+  '/calculadora-rejunte': typeof CalculadoraRejunteRoute
   '/construcao-civil': typeof ConstrucaoCivilRoute
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
@@ -250,11 +359,23 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/blog'
+    | '/calculadora-ar-condicionado'
+    | '/calculadora-de-aco'
+    | '/calculadora-de-areia'
     | '/calculadora-de-argamassa'
+    | '/calculadora-de-blocos'
+    | '/calculadora-de-brita'
+    | '/calculadora-de-cimento'
     | '/calculadora-de-concreto'
+    | '/calculadora-de-esquadrias'
+    | '/calculadora-de-forma'
     | '/calculadora-de-piso'
+    | '/calculadora-de-reboco'
+    | '/calculadora-de-telhas'
     | '/calculadora-de-tijolos'
     | '/calculadora-de-tinta'
+    | '/calculadora-de-tubos'
+    | '/calculadora-rejunte'
     | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
@@ -277,11 +398,23 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/blog'
+    | '/calculadora-ar-condicionado'
+    | '/calculadora-de-aco'
+    | '/calculadora-de-areia'
     | '/calculadora-de-argamassa'
+    | '/calculadora-de-blocos'
+    | '/calculadora-de-brita'
+    | '/calculadora-de-cimento'
     | '/calculadora-de-concreto'
+    | '/calculadora-de-esquadrias'
+    | '/calculadora-de-forma'
     | '/calculadora-de-piso'
+    | '/calculadora-de-reboco'
+    | '/calculadora-de-telhas'
     | '/calculadora-de-tijolos'
     | '/calculadora-de-tinta'
+    | '/calculadora-de-tubos'
+    | '/calculadora-rejunte'
     | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
@@ -304,11 +437,23 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/blog'
+    | '/calculadora-ar-condicionado'
+    | '/calculadora-de-aco'
+    | '/calculadora-de-areia'
     | '/calculadora-de-argamassa'
+    | '/calculadora-de-blocos'
+    | '/calculadora-de-brita'
+    | '/calculadora-de-cimento'
     | '/calculadora-de-concreto'
+    | '/calculadora-de-esquadrias'
+    | '/calculadora-de-forma'
     | '/calculadora-de-piso'
+    | '/calculadora-de-reboco'
+    | '/calculadora-de-telhas'
     | '/calculadora-de-tijolos'
     | '/calculadora-de-tinta'
+    | '/calculadora-de-tubos'
+    | '/calculadora-rejunte'
     | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
@@ -332,11 +477,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
   BlogRoute: typeof BlogRouteWithChildren
+  CalculadoraArCondicionadoRoute: typeof CalculadoraArCondicionadoRoute
+  CalculadoraDeAcoRoute: typeof CalculadoraDeAcoRoute
+  CalculadoraDeAreiaRoute: typeof CalculadoraDeAreiaRoute
   CalculadoraDeArgamassaRoute: typeof CalculadoraDeArgamassaRoute
+  CalculadoraDeBlocosRoute: typeof CalculadoraDeBlocosRoute
+  CalculadoraDeBritaRoute: typeof CalculadoraDeBritaRoute
+  CalculadoraDeCimentoRoute: typeof CalculadoraDeCimentoRoute
   CalculadoraDeConcretoRoute: typeof CalculadoraDeConcretoRoute
+  CalculadoraDeEsquadriasRoute: typeof CalculadoraDeEsquadriasRoute
+  CalculadoraDeFormaRoute: typeof CalculadoraDeFormaRoute
   CalculadoraDePisoRoute: typeof CalculadoraDePisoRoute
+  CalculadoraDeRebocoRoute: typeof CalculadoraDeRebocoRoute
+  CalculadoraDeTelhasRoute: typeof CalculadoraDeTelhasRoute
   CalculadoraDeTijolosRoute: typeof CalculadoraDeTijolosRoute
   CalculadoraDeTintaRoute: typeof CalculadoraDeTintaRoute
+  CalculadoraDeTubosRoute: typeof CalculadoraDeTubosRoute
+  CalculadoraRejunteRoute: typeof CalculadoraRejunteRoute
   ConstrucaoCivilRoute: typeof ConstrucaoCivilRoute
   ContatoRoute: typeof ContatoRoute
   ConversorCmParaPolegadaRoute: typeof ConversorCmParaPolegadaRoute
@@ -461,6 +618,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculadora-rejunte': {
+      id: '/calculadora-rejunte'
+      path: '/calculadora-rejunte'
+      fullPath: '/calculadora-rejunte'
+      preLoaderRoute: typeof CalculadoraRejunteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-tubos': {
+      id: '/calculadora-de-tubos'
+      path: '/calculadora-de-tubos'
+      fullPath: '/calculadora-de-tubos'
+      preLoaderRoute: typeof CalculadoraDeTubosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calculadora-de-tinta': {
       id: '/calculadora-de-tinta'
       path: '/calculadora-de-tinta'
@@ -475,11 +646,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculadoraDeTijolosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculadora-de-telhas': {
+      id: '/calculadora-de-telhas'
+      path: '/calculadora-de-telhas'
+      fullPath: '/calculadora-de-telhas'
+      preLoaderRoute: typeof CalculadoraDeTelhasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-reboco': {
+      id: '/calculadora-de-reboco'
+      path: '/calculadora-de-reboco'
+      fullPath: '/calculadora-de-reboco'
+      preLoaderRoute: typeof CalculadoraDeRebocoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calculadora-de-piso': {
       id: '/calculadora-de-piso'
       path: '/calculadora-de-piso'
       fullPath: '/calculadora-de-piso'
       preLoaderRoute: typeof CalculadoraDePisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-forma': {
+      id: '/calculadora-de-forma'
+      path: '/calculadora-de-forma'
+      fullPath: '/calculadora-de-forma'
+      preLoaderRoute: typeof CalculadoraDeFormaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-esquadrias': {
+      id: '/calculadora-de-esquadrias'
+      path: '/calculadora-de-esquadrias'
+      fullPath: '/calculadora-de-esquadrias'
+      preLoaderRoute: typeof CalculadoraDeEsquadriasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calculadora-de-concreto': {
@@ -489,11 +688,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculadoraDeConcretoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculadora-de-cimento': {
+      id: '/calculadora-de-cimento'
+      path: '/calculadora-de-cimento'
+      fullPath: '/calculadora-de-cimento'
+      preLoaderRoute: typeof CalculadoraDeCimentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-brita': {
+      id: '/calculadora-de-brita'
+      path: '/calculadora-de-brita'
+      fullPath: '/calculadora-de-brita'
+      preLoaderRoute: typeof CalculadoraDeBritaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-blocos': {
+      id: '/calculadora-de-blocos'
+      path: '/calculadora-de-blocos'
+      fullPath: '/calculadora-de-blocos'
+      preLoaderRoute: typeof CalculadoraDeBlocosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calculadora-de-argamassa': {
       id: '/calculadora-de-argamassa'
       path: '/calculadora-de-argamassa'
       fullPath: '/calculadora-de-argamassa'
       preLoaderRoute: typeof CalculadoraDeArgamassaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-areia': {
+      id: '/calculadora-de-areia'
+      path: '/calculadora-de-areia'
+      fullPath: '/calculadora-de-areia'
+      preLoaderRoute: typeof CalculadoraDeAreiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-de-aco': {
+      id: '/calculadora-de-aco'
+      path: '/calculadora-de-aco'
+      fullPath: '/calculadora-de-aco'
+      preLoaderRoute: typeof CalculadoraDeAcoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora-ar-condicionado': {
+      id: '/calculadora-ar-condicionado'
+      path: '/calculadora-ar-condicionado'
+      fullPath: '/calculadora-ar-condicionado'
+      preLoaderRoute: typeof CalculadoraArCondicionadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -550,11 +791,23 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
   BlogRoute: BlogRouteWithChildren,
+  CalculadoraArCondicionadoRoute: CalculadoraArCondicionadoRoute,
+  CalculadoraDeAcoRoute: CalculadoraDeAcoRoute,
+  CalculadoraDeAreiaRoute: CalculadoraDeAreiaRoute,
   CalculadoraDeArgamassaRoute: CalculadoraDeArgamassaRoute,
+  CalculadoraDeBlocosRoute: CalculadoraDeBlocosRoute,
+  CalculadoraDeBritaRoute: CalculadoraDeBritaRoute,
+  CalculadoraDeCimentoRoute: CalculadoraDeCimentoRoute,
   CalculadoraDeConcretoRoute: CalculadoraDeConcretoRoute,
+  CalculadoraDeEsquadriasRoute: CalculadoraDeEsquadriasRoute,
+  CalculadoraDeFormaRoute: CalculadoraDeFormaRoute,
   CalculadoraDePisoRoute: CalculadoraDePisoRoute,
+  CalculadoraDeRebocoRoute: CalculadoraDeRebocoRoute,
+  CalculadoraDeTelhasRoute: CalculadoraDeTelhasRoute,
   CalculadoraDeTijolosRoute: CalculadoraDeTijolosRoute,
   CalculadoraDeTintaRoute: CalculadoraDeTintaRoute,
+  CalculadoraDeTubosRoute: CalculadoraDeTubosRoute,
+  CalculadoraRejunteRoute: CalculadoraRejunteRoute,
   ConstrucaoCivilRoute: ConstrucaoCivilRoute,
   ContatoRoute: ContatoRoute,
   ConversorCmParaPolegadaRoute: ConversorCmParaPolegadaRoute,
@@ -574,3 +827,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
