@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-07-27",
+  "mapping": {
+    "telhas": "tabelas/consumos-telhas.md",
+    "blocos": "tabelas/consumos-blocos.md",
+    "tijolos": "tabelas/consumos-blocos.md",
+    "reboco": "tabelas/rendimentos-argamassa.md",
+    "argamassa": "tabelas/rendimentos-argamassa.md",
+    "cimento": "tabelas/rendimentos-concreto.md",
+    "concreto": "tabelas/rendimentos-concreto.md",
+    "areia": "tabelas/densidades.md",
+    "brita": "tabelas/densidades.md",
+    "aco": "tabelas/densidades.md",
+    "formas": "tabelas/coeficientes-perda.md",
+    "tinta": "tabelas/coeficientes-perda.md",
+    "piso": "tabelas/coeficientes-perda.md",
+    "rejunte": "tabelas/coeficientes-perda.md",
+    "esquadrias": "tabelas/coeficientes-perda.md",
+    "tubos": "tabelas/coeficientes-perda.md",
+    "ar-condicionado": "tabelas/coeficientes-perda.md",
+    "energia-solar": "tabelas/presets-modulos-e-inversores.md",
+    "placas-solares": "tabelas/presets-modulos-e-inversores.md"
+  }
+}
