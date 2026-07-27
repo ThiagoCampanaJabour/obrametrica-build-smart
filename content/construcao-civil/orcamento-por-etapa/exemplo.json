@@ -1,0 +1,21 @@
+{
+  "input": {
+    "tijolos": { "quantidade": 1200, "tipo": "9x19x19" },
+    "concreto": { "volume": 3.5 },
+    "cimento": { "sacos": 40 },
+    "areia": { "m3": 2 },
+    "brita": { "m3": 1.5 },
+    "aco": { "kg": 180 },
+    "forma": { "m2": 25 },
+    "telhas": { "quantidade": 350 },
+    "piso": { "caixas": 8 },
+    "tinta": { "litros": 18 },
+    "argamassa": { "sacos": 12 },
+    "reboco": { "cimentoSacos": 6, "areiaM3": 1.2 },
+    "rejunte": { "kg": 4 }
+  },
+  "outputEsperado": {
+    "etapas": ["Alvenaria", "Estrutura", "Cobertura", "Piso", "Acabamento", "Revestimento", "Reboco"],
+    "totalAproximado_BRL": 12000
+  }
+}
