@@ -4,6 +4,7 @@ import {
   DEFAULT_INPUT,
   type BateriaInput,
 } from "@/lib/bateria/calc";
+import { CAPITAIS_BR_SORTED, type CapitalPreset } from "@/lib/bateria/capitais";
 
 interface Props {
   onCalc: (input: BateriaInput) => void;
@@ -11,12 +12,24 @@ interface Props {
 
 export function BateriaForm({ onCalc }: Props) {
   const [state, setState] = useState<BateriaInput>(DEFAULT_INPUT);
+  const [capitalIdx, setCapitalIdx] = useState<string>("");
 
   const setNum = <K extends keyof BateriaInput>(k: K, v: string) =>
     setState((s) => ({ ...s, [k]: Number(v) } as BateriaInput));
 
   const setBateria = (idx: string) =>
     setState((s) => ({ ...s, bateria: BATERIAS_PRESET[Number(idx)] }));
+
+  const applyCapital = (idx: string) => {
+    setCapitalIdx(idx);
+    if (idx === "") return;
+    const c = CAPITAIS_BR_SORTED[Number(idx)];
+    if (!c) return;
+    setState((s) => ({ ...s, consumoDiarioKWh: c.consumoMedioKWhDia }));
+  };
+
+  const capitalSelected: CapitalPreset | undefined =
+    capitalIdx === "" ? undefined : CAPITAIS_BR_SORTED[Number(capitalIdx)];
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,24 +42,50 @@ export function BateriaForm({ onCalc }: Props) {
 
   return (
     <form onSubmit={submit} aria-label="Formulário do dimensionamento de bateria" className="space-y-5">
-      <div>
-        <label htmlFor="bateria" className={label}>Bateria (preset)</label>
-        <select
-          id="bateria"
-          className={field}
-          onChange={(e) => setBateria(e.target.value)}
-          defaultValue={String(BATERIAS_PRESET.indexOf(DEFAULT_INPUT.bateria))}
-        >
-          {BATERIAS_PRESET.map((b, i) => (
-            <option key={b.nome} value={i}>{b.nome}</option>
-          ))}
-        </select>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {state.bateria.capacidadeUnitariaKWh} kWh · DoD {state.bateria.dodPct}% · efic.{" "}
-          {state.bateria.eficienciaPct}% · {state.bateria.vidaCiclos} ciclos · R$
-          {state.bateria.custoUnitarioBRL.toLocaleString("pt-BR")}
-        </p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="capital" className={label}>Cidade / Capital (preset)</label>
+          <select
+            id="capital"
+            className={field}
+            value={capitalIdx}
+            onChange={(e) => applyCapital(e.target.value)}
+          >
+            <option value="">— Selecionar capital (opcional) —</option>
+            {CAPITAIS_BR_SORTED.map((c, i) => (
+              <option key={`${c.uf}-${c.cidade}`} value={i}>
+                {c.cidade} — {c.uf}
+              </option>
+            ))}
+          </select>
+          {capitalSelected && (
+            <p className="mt-1 text-xs text-muted-foreground">
+              {capitalSelected.cidade}/{capitalSelected.uf} · lat {capitalSelected.lat.toFixed(2)},
+              lng {capitalSelected.lng.toFixed(2)} · irradiância {capitalSelected.irradianciaKWhM2Dia} kWh/m²·dia
+              · consumo médio {capitalSelected.consumoMedioKWhDia} kWh/dia
+            </p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="bateria" className={label}>Bateria (preset)</label>
+          <select
+            id="bateria"
+            className={field}
+            onChange={(e) => setBateria(e.target.value)}
+            defaultValue={String(BATERIAS_PRESET.indexOf(DEFAULT_INPUT.bateria))}
+          >
+            {BATERIAS_PRESET.map((b, i) => (
+              <option key={b.nome} value={i}>{b.nome}</option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {state.bateria.capacidadeUnitariaKWh} kWh · DoD {state.bateria.dodPct}% · efic.{" "}
+            {state.bateria.eficienciaPct}% · {state.bateria.vidaCiclos} ciclos · R$
+            {state.bateria.custoUnitarioBRL.toLocaleString("pt-BR")}
+          </p>
+        </div>
       </div>
+
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div>
