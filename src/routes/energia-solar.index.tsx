@@ -54,6 +54,12 @@ const tools = [
     title: "Comparador On/Off/Híbrido",
     desc: "Compare sistemas on-grid, off-grid e híbrido com custo, payback e autonomia.",
   },
+  {
+    to: "/energia-solar/calculadora-inversor" as const,
+    icon: Sun,
+    title: "Calculadora de Inversor",
+    desc: "String sizing com Voc corrigido pela temperatura, faixa MPPT e DC/AC ratio.",
+  },
 ];
 
 function EnergiaSolarPage() {
