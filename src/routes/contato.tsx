@@ -60,13 +60,27 @@ const suggestions = [
   "Propostas comerciais",
 ];
 
+const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID ?? "SEU_ID_AQUI";
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+type SendStatus = "idle" | "sending" | "success" | "error";
+
 function ContatoPage() {
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<SendStatus>("idle");
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
+
+    // Honeypot: bots preenchem campos ocultos; aceita silenciosamente
+    const honeypot = (form.elements.namedItem("website") as HTMLInputElement | null)?.value?.trim();
+    if (honeypot) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
@@ -84,12 +98,34 @@ function ContatoPage() {
       return;
     }
     setErrors({});
-    const body = `Nome: ${parsed.data.name}\nE-mail: ${parsed.data.email}\n\n${parsed.data.message}`;
-    const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(parsed.data.subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    setSent(true);
-    form.reset();
+    setStatus("sending");
+
+    try {
+      const payload = new FormData();
+      payload.append("name", parsed.data.name);
+      payload.append("email", parsed.data.email);
+      payload.append("_replyto", parsed.data.email);
+      payload.append("_subject", `[Obra Métrica] ${parsed.data.subject}`);
+      payload.append("subject", parsed.data.subject);
+      payload.append("message", parsed.data.message);
+
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: payload,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
+
 
   return (
     <SiteLayout>
