@@ -60,13 +60,27 @@ const suggestions = [
   "Propostas comerciais",
 ];
 
+const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID ?? "SEU_ID_AQUI";
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+type SendStatus = "idle" | "sending" | "success" | "error";
+
 function ContatoPage() {
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<SendStatus>("idle");
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
+
+    // Honeypot: bots preenchem campos ocultos; aceita silenciosamente
+    const honeypot = (form.elements.namedItem("website") as HTMLInputElement | null)?.value?.trim();
+    if (honeypot) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
@@ -84,12 +98,34 @@ function ContatoPage() {
       return;
     }
     setErrors({});
-    const body = `Nome: ${parsed.data.name}\nE-mail: ${parsed.data.email}\n\n${parsed.data.message}`;
-    const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(parsed.data.subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    setSent(true);
-    form.reset();
+    setStatus("sending");
+
+    try {
+      const payload = new FormData();
+      payload.append("name", parsed.data.name);
+      payload.append("email", parsed.data.email);
+      payload.append("_replyto", parsed.data.email);
+      payload.append("_subject", `[Obra Métrica] ${parsed.data.subject}`);
+      payload.append("subject", parsed.data.subject);
+      payload.append("message", parsed.data.message);
+
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: payload,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
+
 
   return (
     <SiteLayout>
@@ -112,13 +148,30 @@ function ContatoPage() {
               <h2 className="text-2xl font-bold tracking-tight text-foreground">
                 Envie sua mensagem
               </h2>
-              {sent && (
+              {status === "success" && (
                 <div
                   role="status"
+                  aria-live="polite"
                   className="mt-4 flex items-start gap-3 rounded-lg border border-accent/40 bg-accent/10 p-4 text-sm text-foreground"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" aria-hidden />
-                  <p>Sua mensagem foi enviada com sucesso. Em breve entraremos em contato.</p>
+                  <p>✅ Sua mensagem foi enviada com sucesso! Em breve entraremos em contato.</p>
+                </div>
+              )}
+              {status === "error" && (
+                <div
+                  role="alert"
+                  aria-live="polite"
+                  className="mt-4 flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground"
+                >
+                  <p>
+                    ⚠️ Ocorreu um problema ao enviar sua mensagem, tente novamente. Se persistir,
+                    escreva para{" "}
+                    <a href={`mailto:${EMAIL}`} className="underline">
+                      {EMAIL}
+                    </a>
+                    .
+                  </p>
                 </div>
               )}
               <form onSubmit={onSubmit} noValidate className="mt-6 grid gap-5">
@@ -156,12 +209,18 @@ function ContatoPage() {
                   <Textarea id="message" name="message" rows={6} required maxLength={2000} />
                   {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                 </div>
+                {/* Honeypot anti-spam: campo oculto para bots */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", height: 0, width: 0, overflow: "hidden" }}>
+                  <label htmlFor="website">Não preencha este campo</label>
+                  <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
                 <div>
-                  <Button type="submit" size="lg">
-                    Enviar Mensagem
+                  <Button type="submit" size="lg" disabled={status === "sending"}>
+                    {status === "sending" ? "Enviando..." : "Enviar Mensagem"}
                   </Button>
                 </div>
               </form>
+
             </div>
 
             <div className="mt-8 rounded-xl border border-border bg-card p-6 sm:p-8">
