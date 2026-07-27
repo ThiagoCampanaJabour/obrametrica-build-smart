@@ -54,6 +54,8 @@ export function NumberField({
   disabled,
   hidden,
   error,
+  type,
+  description,
 }: {
   id: string;
   label: string;
@@ -69,6 +71,8 @@ export function NumberField({
   disabled?: boolean;
   hidden?: boolean;
   error?: string;
+  type?: string;
+  description?: string;
 }) {
   if (hidden) return null;
   return (
@@ -80,7 +84,7 @@ export function NumberField({
         <input
           id={id}
           name={id}
-          type="number"
+          type={type ?? "number"}
           inputMode={inputMode}
           step={step}
           min={min}
@@ -92,7 +96,7 @@ export function NumberField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={Boolean(error)}
-          aria-describedby={error ? `${id}-error` : undefined}
+          aria-describedby={error ? `${id}-error` : description ? `${id}-desc` : undefined}
           className="w-full bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         {unit && (
@@ -101,6 +105,11 @@ export function NumberField({
           </span>
         )}
       </div>
+      {description && (
+        <p id={`${id}-desc`} className="mt-1 text-xs text-muted-foreground">
+          {description}
+        </p>
+      )}
       {error && (
         <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
           {error}
