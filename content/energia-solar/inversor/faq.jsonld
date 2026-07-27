@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Por que corrigir Voc pela temperatura mínima?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A tensão em circuito aberto (Voc) aumenta quando o módulo esfria. Se Voc_corr ultrapassar o Voc máximo do inversor, há risco de dano ao equipamento. Por isso, dimensionamos considerando o pior cenário térmico do local."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual safety factor usar sobre o Voc máximo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Um fator de 0,95 é conservador e recomendado como padrão. Alguns fabricantes especificam margens próprias — consulte a datasheet do inversor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual a relação DC/AC ideal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Valores entre 1,15 e 1,30 são comuns para maximizar a produção sem clipping excessivo. Acima de 1,40 o inversor limita a potência com frequência."
+      }
+    }
+  ]
+}

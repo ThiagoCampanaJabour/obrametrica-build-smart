@@ -1,0 +1,35 @@
+{
+  "input": {
+    "modulo": {
+      "nome": "Módulo 550 Wp",
+      "potenciaW": 550,
+      "vmp": 41.8,
+      "voc": 49.9,
+      "imp": 13.2,
+      "isc": 14.0,
+      "coefVocPctPerC": -0.26
+    },
+    "inversor": {
+      "nome": "Inversor 5 kW (2 MPPT, 1000 V)",
+      "potenciaAcW": 5000,
+      "vocMax": 1000,
+      "mpptMin": 150,
+      "mpptMax": 850,
+      "numMPPT": 2,
+      "correnteMaxMPPT": 12.5
+    },
+    "numModulos": 12,
+    "tempMinC": 5,
+    "safetyFactor": 0.95,
+    "minModulosString": 3,
+    "maxModulosString": 20
+  },
+  "expected": {
+    "melhorModulosPorString": 6,
+    "melhorNumStrings": 2,
+    "vocCorrEstimadoV": 320,
+    "potenciaDcW": 6600,
+    "dcAcRatio": 1.32,
+    "status": "OK"
+  }
+}

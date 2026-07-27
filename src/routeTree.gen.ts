@@ -49,6 +49,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/energia-solar.comparador-sistemas'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
+import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
@@ -256,6 +257,12 @@ const EnergiaSolarCalculadoraPaybackRoute =
     path: '/calculadora-payback',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const EnergiaSolarCalculadoraInversorRoute =
+  EnergiaSolarCalculadoraInversorRouteImport.update({
+    id: '/calculadora-inversor',
+    path: '/calculadora-inversor',
+    getParentRoute: () => EnergiaSolarRoute,
+  } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -306,6 +313,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
@@ -349,6 +357,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
@@ -394,6 +403,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
@@ -440,6 +450,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/'
@@ -483,6 +494,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar'
@@ -527,6 +539,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/'
@@ -855,6 +868,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarCalculadoraPaybackRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/energia-solar/calculadora-inversor': {
+      id: '/energia-solar/calculadora-inversor'
+      path: '/calculadora-inversor'
+      fullPath: '/energia-solar/calculadora-inversor'
+      preLoaderRoute: typeof EnergiaSolarCalculadoraInversorRouteImport
+      parentRoute: typeof EnergiaSolarRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -885,12 +905,14 @@ const BlogRouteChildren: BlogRouteChildren = {
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface EnergiaSolarRouteChildren {
+  EnergiaSolarCalculadoraInversorRoute: typeof EnergiaSolarCalculadoraInversorRoute
   EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
   EnergiaSolarComparadorSistemasRoute: typeof EnergiaSolarComparadorSistemasRoute
   EnergiaSolarIndexRoute: typeof EnergiaSolarIndexRoute
 }
 
 const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
+  EnergiaSolarCalculadoraInversorRoute: EnergiaSolarCalculadoraInversorRoute,
   EnergiaSolarCalculadoraPaybackRoute: EnergiaSolarCalculadoraPaybackRoute,
   EnergiaSolarComparadorSistemasRoute: EnergiaSolarComparadorSistemasRoute,
   EnergiaSolarIndexRoute: EnergiaSolarIndexRoute,
