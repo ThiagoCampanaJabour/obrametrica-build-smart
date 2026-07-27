@@ -57,8 +57,8 @@ export function pageHead(opts: {
         itemListElement: opts.breadcrumbs.map((b, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          name: b.name,
-          item: `${SITE_URL}${b.path}`,
+          name: "name" in b ? b.name : b.label,
+          item: `${SITE_URL}${"path" in b ? b.path : b.href}`,
         })),
       }),
     });
