@@ -13,7 +13,7 @@ export function CalculatorShell({
   extrasId,
 }: {
   title: string;
-  description: string;
+  description?: string;
   children: ReactNode;
   breadcrumbs: Crumb[];
   /** Path da calculadora — carrega conteúdo enriquecido do registro. */
