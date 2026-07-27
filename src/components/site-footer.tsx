@@ -49,6 +49,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/energia-solar/comparador-sistemas" className="hover:text-accent">
+                  Comparador On/Off/Híbrido
+                </Link>
+              </li>
+              <li>
                 <Link to="/conversores" className="hover:text-accent">
                   Conversores
                 </Link>

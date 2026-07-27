@@ -48,6 +48,12 @@ const tools = [
     title: "Calculadora de Payback",
     desc: "Payback simples e descontado, VPL, TIR e fluxo de caixa por cenário.",
   },
+  {
+    to: "/energia-solar/comparador-sistemas" as const,
+    icon: Sun,
+    title: "Comparador On/Off/Híbrido",
+    desc: "Compare sistemas on-grid, off-grid e híbrido com custo, payback e autonomia.",
+  },
 ];
 
 function EnergiaSolarPage() {
