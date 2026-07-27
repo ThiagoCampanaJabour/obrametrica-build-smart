@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O resultado substitui o projeto estrutural?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. A calculadora é uma ferramenta de orçamento e verificação de quantitativo. O dimensionamento e o detalhamento das armaduras devem ser feitos por engenheiro estrutural, seguindo a NBR 6118 e o projeto executivo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual perda de corte devo adotar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use 10% como padrão para vigas e pilares. Para lajes com cortes planejados e sobras aproveitáveis, 5–8% é suficiente. Obras pequenas, com muitas sobras curtas, podem chegar a 12%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como somar bitolas diferentes no mesmo pedido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calcule cada bitola separadamente (comprimento total × peso linear) e some ao final para obter a massa total da obra. No pedido ao fornecedor, informe barras por bitola — o preço por kg varia conforme a bitola e o pedido mínimo."
+      }
+    }
+  ]
+}

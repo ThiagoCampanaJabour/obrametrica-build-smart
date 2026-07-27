@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O rendimento informado no saco é confiável?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O rendimento do fabricante é medido em condições ideais de laboratório. Na obra, a rugosidade da parede, o prumo e a mão de obra podem reduzir o rendimento em 10 a 20%. Aplique o percentual de perda para compensar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como calcular reboco em duas camadas (chapisco + reboco)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calcule o volume de cada camada separadamente: chapisco com espessura de 3–5 mm e reboco com 15–20 mm. Some os sacos, considerando que o chapisco usa traço diferente (mais fluido, com mais cimento)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso descontar portas e janelas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, quando os vãos somarem mais de 2 m² por parede. Vãos pequenos não são descontados porque as sobras compensam os cortes e recortes nas quinas."
+      }
+    }
+  ]
+}
