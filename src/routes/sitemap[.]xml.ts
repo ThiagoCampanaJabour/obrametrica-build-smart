@@ -10,19 +10,29 @@ interface Entry {
   priority?: string;
 }
 
-const LASTMOD = new Date().toISOString().slice(0, 10);
-
 const ENTRIES: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/construcao-civil", changefreq: "weekly", priority: "0.9" },
   { path: "/energia-solar", changefreq: "weekly", priority: "0.9" },
   { path: "/conversores", changefreq: "weekly", priority: "0.9" },
+  { path: "/metodologia", changefreq: "monthly", priority: "0.7" },
+  { path: "/calculadora-de-telhas", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-blocos", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-tijolos", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-reboco", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-aco", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-forma", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-concreto", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-cimento", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-areia", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-brita", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-piso", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-tinta", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-argamassa", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-tubos", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-de-esquadrias", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-rejunte", changefreq: "monthly", priority: "0.8" },
+  { path: "/calculadora-ar-condicionado", changefreq: "monthly", priority: "0.8" },
   { path: "/quantas-placas-solares-preciso", changefreq: "monthly", priority: "0.8" },
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },
@@ -48,6 +58,7 @@ const ENTRIES: Entry[] = [
   { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
 ];
 
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -62,7 +73,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           [
             `  <url>`,
             `    <loc>${esc(SITE_URL)}${esc(e.path)}</loc>`,
-            `    <lastmod>${e.lastmod ?? LASTMOD}</lastmod>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
