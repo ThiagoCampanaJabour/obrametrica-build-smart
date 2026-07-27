@@ -125,7 +125,13 @@ const calcs = [
     icon: Wind,
     title: "Calculadora de Ar-Condicionado",
     desc: "Dimensionamento de capacidade em BTU/h e kW.",
-},
+  },
+  {
+    to: "/construcao-civil/orcamento-por-etapa" as const,
+    icon: Boxes,
+    title: "Orçamento por Etapa",
+    desc: "Consolide quantitativos das calculadoras em um orçamento.",
+  },
 ];
 
 function ConstrucaoCivilPage() {
