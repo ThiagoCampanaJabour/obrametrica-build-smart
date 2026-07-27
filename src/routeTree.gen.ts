@@ -25,7 +25,6 @@ import { Route as ConversorM2ParaHectareRouteImport } from './routes/conversor-m
 import { Route as ConversorLitrosParaM3RouteImport } from './routes/conversor-litros-para-m3'
 import { Route as ConversorCmParaPolegadaRouteImport } from './routes/conversor-cm-para-polegada'
 import { Route as ContatoRouteImport } from './routes/contato'
-import { Route as ConstrucaoCivilRouteImport } from './routes/construcao-civil'
 import { Route as CalculadoraRejunteRouteImport } from './routes/calculadora-rejunte'
 import { Route as CalculadoraDeTubosRouteImport } from './routes/calculadora-de-tubos'
 import { Route as CalculadoraDeTintaRouteImport } from './routes/calculadora-de-tinta'
@@ -47,6 +46,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
+import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/energia-solar.comparador-sistemas'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
@@ -135,11 +135,6 @@ const ConversorCmParaPolegadaRoute = ConversorCmParaPolegadaRouteImport.update({
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConstrucaoCivilRoute = ConstrucaoCivilRouteImport.update({
-  id: '/construcao-civil',
-  path: '/construcao-civil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalculadoraRejunteRoute = CalculadoraRejunteRouteImport.update({
@@ -248,6 +243,11 @@ const EnergiaSolarIndexRoute = EnergiaSolarIndexRouteImport.update({
   path: '/',
   getParentRoute: () => EnergiaSolarRoute,
 } as any)
+const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
+  id: '/construcao-civil/',
+  path: '/construcao-civil/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnergiaSolarSimulacaoRadiacaoRoute =
   EnergiaSolarSimulacaoRadiacaoRouteImport.update({
     id: '/simulacao-radiacao',
@@ -280,9 +280,9 @@ const EnergiaSolarCalculadoraBateriaRoute =
   } as any)
 const ConstrucaoCivilOrcamentoPorEtapaRoute =
   ConstrucaoCivilOrcamentoPorEtapaRouteImport.update({
-    id: '/orcamento-por-etapa',
-    path: '/orcamento-por-etapa',
-    getParentRoute: () => ConstrucaoCivilRoute,
+    id: '/construcao-civil/orcamento-por-etapa',
+    path: '/construcao-civil/orcamento-por-etapa',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -316,7 +316,6 @@ export interface FileRoutesByFullPath {
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
   '/calculadora-rejunte': typeof CalculadoraRejunteRoute
-  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
   '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
@@ -340,6 +339,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
@@ -364,7 +364,6 @@ export interface FileRoutesByTo {
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
   '/calculadora-rejunte': typeof CalculadoraRejunteRoute
-  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
   '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
@@ -387,6 +386,7 @@ export interface FileRoutesByTo {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
@@ -412,7 +412,6 @@ export interface FileRoutesById {
   '/calculadora-de-tinta': typeof CalculadoraDeTintaRoute
   '/calculadora-de-tubos': typeof CalculadoraDeTubosRoute
   '/calculadora-rejunte': typeof CalculadoraRejunteRoute
-  '/construcao-civil': typeof ConstrucaoCivilRouteWithChildren
   '/contato': typeof ContatoRoute
   '/conversor-cm-para-polegada': typeof ConversorCmParaPolegadaRoute
   '/conversor-litros-para-m3': typeof ConversorLitrosParaM3Route
@@ -436,6 +435,7 @@ export interface FileRoutesById {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
@@ -462,7 +462,6 @@ export interface FileRouteTypes {
     | '/calculadora-de-tinta'
     | '/calculadora-de-tubos'
     | '/calculadora-rejunte'
-    | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
     | '/conversor-litros-para-m3'
@@ -486,6 +485,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
+    | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
   fileRoutesByTo: FileRoutesByTo
@@ -510,7 +510,6 @@ export interface FileRouteTypes {
     | '/calculadora-de-tinta'
     | '/calculadora-de-tubos'
     | '/calculadora-rejunte'
-    | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
     | '/conversor-litros-para-m3'
@@ -533,6 +532,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
+    | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
   id:
@@ -557,7 +557,6 @@ export interface FileRouteTypes {
     | '/calculadora-de-tinta'
     | '/calculadora-de-tubos'
     | '/calculadora-rejunte'
-    | '/construcao-civil'
     | '/contato'
     | '/conversor-cm-para-polegada'
     | '/conversor-litros-para-m3'
@@ -581,6 +580,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
+    | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
   fileRoutesById: FileRoutesById
@@ -606,7 +606,6 @@ export interface RootRouteChildren {
   CalculadoraDeTintaRoute: typeof CalculadoraDeTintaRoute
   CalculadoraDeTubosRoute: typeof CalculadoraDeTubosRoute
   CalculadoraRejunteRoute: typeof CalculadoraRejunteRoute
-  ConstrucaoCivilRoute: typeof ConstrucaoCivilRouteWithChildren
   ContatoRoute: typeof ContatoRoute
   ConversorCmParaPolegadaRoute: typeof ConversorCmParaPolegadaRoute
   ConversorLitrosParaM3Route: typeof ConversorLitrosParaM3Route
@@ -623,6 +622,8 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -737,13 +738,6 @@ declare module '@tanstack/react-router' {
       path: '/contato'
       fullPath: '/contato'
       preLoaderRoute: typeof ContatoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/construcao-civil': {
-      id: '/construcao-civil'
-      path: '/construcao-civil'
-      fullPath: '/construcao-civil'
-      preLoaderRoute: typeof ConstrucaoCivilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calculadora-rejunte': {
@@ -893,6 +887,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarIndexRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/construcao-civil/': {
+      id: '/construcao-civil/'
+      path: '/construcao-civil'
+      fullPath: '/construcao-civil/'
+      preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/energia-solar/simulacao-radiacao': {
       id: '/energia-solar/simulacao-radiacao'
       path: '/simulacao-radiacao'
@@ -930,10 +931,10 @@ declare module '@tanstack/react-router' {
     }
     '/construcao-civil/orcamento-por-etapa': {
       id: '/construcao-civil/orcamento-por-etapa'
-      path: '/orcamento-por-etapa'
+      path: '/construcao-civil/orcamento-por-etapa'
       fullPath: '/construcao-civil/orcamento-por-etapa'
       preLoaderRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRouteImport
-      parentRoute: typeof ConstrucaoCivilRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -963,18 +964,6 @@ const BlogRouteChildren: BlogRouteChildren = {
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
-interface ConstrucaoCivilRouteChildren {
-  ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
-}
-
-const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
-  ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
-}
-
-const ConstrucaoCivilRouteWithChildren = ConstrucaoCivilRoute._addFileChildren(
-  ConstrucaoCivilRouteChildren,
-)
 
 interface EnergiaSolarRouteChildren {
   EnergiaSolarCalculadoraBateriaRoute: typeof EnergiaSolarCalculadoraBateriaRoute
@@ -1019,7 +1008,6 @@ const rootRouteChildren: RootRouteChildren = {
   CalculadoraDeTintaRoute: CalculadoraDeTintaRoute,
   CalculadoraDeTubosRoute: CalculadoraDeTubosRoute,
   CalculadoraRejunteRoute: CalculadoraRejunteRoute,
-  ConstrucaoCivilRoute: ConstrucaoCivilRouteWithChildren,
   ContatoRoute: ContatoRoute,
   ConversorCmParaPolegadaRoute: ConversorCmParaPolegadaRoute,
   ConversorLitrosParaM3Route: ConversorLitrosParaM3Route,
@@ -1036,6 +1024,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
+  ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

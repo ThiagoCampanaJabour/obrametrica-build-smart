@@ -11,7 +11,7 @@ const CRUMBS = [
   { name: "Construção Civil", path: PATH },
 ];
 
-export const Route = createFileRoute("/construcao-civil")({
+export const Route = createFileRoute("/construcao-civil/")({
   head: () =>
     pageHead({
       title: "Calculadoras de Construção Civil — Tijolos, Concreto, Piso, Tinta | ObraMétrica",
