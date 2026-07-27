@@ -182,20 +182,23 @@ export function SubmitRow({ onReset }: { onReset: () => void }) {
   );
 }
 
+type ResultItem = { label: string; value: string; highlight?: boolean };
+
 export function ResultPanel({
   items,
   shareText,
 }: {
-  items: ReadonlyArray<{ label: string; value: string; highlight?: boolean }>;
+  items: ReadonlyArray<ResultItem | null | undefined | false>;
   /** Texto usado pelos botões copiar/compartilhar. Se omitido, deriva dos items. */
   shareText?: string;
 }) {
-  const text = shareText ?? items.map((it) => `${it.label}: ${it.value}`).join(" | ");
+  const visible = items.filter((it): it is ResultItem => Boolean(it));
+  const text = shareText ?? visible.map((it) => `${it.label}: ${it.value}`).join(" | ");
   return (
     <div className="mt-6 rounded-lg border border-accent/40 bg-accent/10 p-5">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">Resultado</h2>
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-        {items.map((it) => (
+        {visible.map((it) => (
           <div
             key={it.label}
             className={`rounded-md bg-background p-3 ${
