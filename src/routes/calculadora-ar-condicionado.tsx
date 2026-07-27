@@ -67,7 +67,7 @@ function ArCondicionadoCalc() {
   const [result, setResult] = useState<ReturnType<typeof calcularCargaTermicaAC> | null>(null);
 
   // Erros
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
   const { onSubmit } = useCalcForm();
 

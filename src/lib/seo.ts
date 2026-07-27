@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION =
   "Cálculos inteligentes para construir melhor. Calculadoras para construção civil, energia solar e conversores técnicos.";
 export const SITE_LOGO = "/obrametrica-logo.jpg";
 
-export type Crumb = { name: string; path: string };
+export type Crumb = { name: string; path: string } | { label: string; href: string };
 
 type HeadScript = { type: string; children: string };
 type HeadMeta = Record<string, string>;
@@ -57,8 +57,8 @@ export function pageHead(opts: {
         itemListElement: opts.breadcrumbs.map((b, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          name: b.name,
-          item: `${SITE_URL}${b.path}`,
+          name: "name" in b ? b.name : b.label,
+          item: `${SITE_URL}${"path" in b ? b.path : b.href}`,
         })),
       }),
     });

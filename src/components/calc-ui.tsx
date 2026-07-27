@@ -13,7 +13,7 @@ export function CalculatorShell({
   extrasId,
 }: {
   title: string;
-  description: string;
+  description?: string;
   children: ReactNode;
   breadcrumbs: Crumb[];
   /** Path da calculadora — carrega conteúdo enriquecido do registro. */
@@ -47,7 +47,15 @@ export function NumberField({
   unit,
   step = "0.01",
   min = "0",
+  max,
+  placeholder,
+  list,
+  inputMode = "decimal",
+  disabled,
+  hidden,
   error,
+  type,
+  description,
 }: {
   id: string;
   label: string;
@@ -56,8 +64,17 @@ export function NumberField({
   unit?: string;
   step?: string;
   min?: string;
+  max?: string;
+  placeholder?: string;
+  list?: string;
+  inputMode?: "decimal" | "numeric" | "tel";
+  disabled?: boolean;
+  hidden?: boolean;
   error?: string;
+  type?: string;
+  description?: string;
 }) {
+  if (hidden) return null;
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
@@ -67,16 +84,20 @@ export function NumberField({
         <input
           id={id}
           name={id}
-          type="number"
-          inputMode="decimal"
+          type={type ?? "number"}
+          inputMode={inputMode}
           step={step}
           min={min}
+          max={max}
+          placeholder={placeholder}
+          list={list}
+          disabled={disabled}
           required
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={Boolean(error)}
-          aria-describedby={error ? `${id}-error` : undefined}
-          className="w-full bg-transparent px-3 py-2 text-sm outline-none"
+          aria-describedby={error ? `${id}-error` : description ? `${id}-desc` : undefined}
+          className="w-full bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         {unit && (
           <span className="flex items-center border-l border-input px-3 text-sm text-muted-foreground">
@@ -84,6 +105,11 @@ export function NumberField({
           </span>
         )}
       </div>
+      {description && (
+        <p id={`${id}-desc`} className="mt-1 text-xs text-muted-foreground">
+          {description}
+        </p>
+      )}
       {error && (
         <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
           {error}
@@ -99,12 +125,14 @@ export function SelectField<T extends string>({
   value,
   onChange,
   options,
+  error,
 }: {
   id: string;
   label: string;
   value: T;
   onChange: (v: T) => void;
   options: ReadonlyArray<{ value: T; label: string }>;
+  error?: string;
 }) {
   return (
     <div>
@@ -115,7 +143,9 @@ export function SelectField<T extends string>({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring aria-invalid:border-destructive"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -123,6 +153,11 @@ export function SelectField<T extends string>({
           </option>
         ))}
       </select>
+      {error && (
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
