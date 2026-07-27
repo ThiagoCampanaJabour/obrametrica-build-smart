@@ -8,21 +8,23 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
       <ol className="flex flex-wrap items-center gap-1.5">
         {items.map((it, i) => {
           const last = i === items.length - 1;
+          const label = "name" in it ? it.name : it.label;
+          const path = "path" in it ? it.path : it.href;
           return (
-            <li key={it.path} className="flex items-center gap-1.5">
+            <li key={path} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight className="h-3.5 w-3.5" aria-hidden />}
               {last ? (
                 <span aria-current="page" className="font-medium text-foreground">
-                  {it.name}
+                  {label}
                 </span>
               ) : (
                 <Link
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  to={it.path as any}
+                  to={path as any}
                   className="inline-flex items-center gap-1 hover:text-foreground"
                 >
                   {i === 0 && <Home className="h-3.5 w-3.5" aria-hidden />}
-                  {it.name}
+                  {label}
                 </Link>
               )}
             </li>
