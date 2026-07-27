@@ -247,7 +247,7 @@ function TubosCalculator() {
           id="material"
           label="Material do Tubo"
           value={material}
-          onChange={(e) => setMaterial(e.target.value as MaterialTubo)}
+          onChange={(v) => setMaterial(v as MaterialTubo)}
           options={[
             { value: "PVC", label: "PVC" },
             { value: "Aço", label: "Aço" },
@@ -259,7 +259,7 @@ function TubosCalculator() {
           id="diametroNominal"
           label="Diâmetro Nominal / Tipo"
           value={diametroNominal}
-          onChange={(e) => setDiametroNominal(e.target.value)}
+          onChange={setDiametroNominal}
           options={DIAMETROS_NOMINAIS_PRESETS.filter(option =>
             option.value === 'custom' || option.value.includes(material)
           )}

@@ -115,7 +115,7 @@ function AcoCalculator() {
 
   const submit = () => {
     const newErrors: typeof errors = {};
-    let currentResult = null;
+    let currentResult: Record<string, any> = {};
 
     try {
       const desp = parseFloat(desperdicio);

@@ -264,7 +264,7 @@ function EsquadriasCalculator() {
           id="tipoEsquadria"
           label="Tipo de Esquadria"
           value={tipoEsquadria}
-          onChange={(e) => setTipoEsquadria(e.target.value as TipoEsquadria)}
+          onChange={(v) => setTipoEsquadria(v as TipoEsquadria)}
           options={TIPOS_ESQUADRIA_OPTIONS}
         />
 
@@ -272,7 +272,7 @@ function EsquadriasCalculator() {
           id="materialEsquadria"
           label="Material da Esquadria"
           value={materialEsquadria}
-          onChange={(e) => setMaterialEsquadria(e.target.value as MaterialEsquadria)}
+          onChange={(v) => setMaterialEsquadria(v as MaterialEsquadria)}
           options={MATERIAL_ESQUADRIA_OPTIONS}
         />
 
@@ -316,7 +316,7 @@ function EsquadriasCalculator() {
           id="tipoAbertura"
           label="Tipo de Abertura"
           value={tipoAbertura}
-          onChange={(e) => setTipoAbertura(e.target.value as TipoAbertura)}
+          onChange={(v) => setTipoAbertura(v as TipoAbertura)}
           options={TIPO_ABERTURA_OPTIONS}
         />
 
@@ -324,7 +324,7 @@ function EsquadriasCalculator() {
           id="espessuraVidroMM"
           label="Espessura do Vidro"
           value={espessuraVidroMM}
-          onChange={(e) => setEspessuraVidroMM(e.target.value)}
+          onChange={setEspessuraVidroMM}
           options={ESPESSURA_VIDRO_OPTIONS}
           error={errors.espessuraVidroMM}
         />

@@ -64,7 +64,7 @@ function RejunteCalc() {
   const [desperdicio, setDesperdicio] = useState("10");
 
   const [result, setResult] = useState<ReturnType<typeof calcularRejunte> | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
   const { onSubmit } = useCalcForm();
 

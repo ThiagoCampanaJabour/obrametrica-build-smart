@@ -117,7 +117,7 @@ function AreiaCalc() {
           id="traco"
           label="Traço / Proporção"
           value={traco}
-          onChange={(e) => setTraco(e.target.value)}
+          onChange={setTraco}
           options={[
             { value: "1:3", label: "Argamassa 1:3 (simples)" },
             { value: "1:4", label: "Argamassa 1:4 (fraca)" },
