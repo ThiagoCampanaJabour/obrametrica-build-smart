@@ -1,0 +1,42 @@
+{
+  "casos": [
+    {
+      "nome": "Residencial pequeno — LFP 5 kWh",
+      "input": {
+        "consumoDiarioKWh": 10,
+        "autonomiaDias": 1,
+        "fatorSeguranca": 1.2,
+        "ciclosPorAno": 300,
+        "horizonteAnos": 10,
+        "taxaDescontoPctAno": 8,
+        "bateria": "LFP 5 kWh (Li-ion LFP)"
+      },
+      "expected": {
+        "energiaUtilKWh": 12,
+        "capacidadeNominalKWh_aprox": 16.3,
+        "numUnidades": 4,
+        "capacidadeInstaladaKWh": 20,
+        "custoInicialBRL": 48000
+      }
+    },
+    {
+      "nome": "Comércio 30 kWh/dia — LFP 10 kWh, 2 dias autonomia",
+      "input": {
+        "consumoDiarioKWh": 30,
+        "autonomiaDias": 2,
+        "fatorSeguranca": 1.2,
+        "ciclosPorAno": 300,
+        "horizonteAnos": 15,
+        "taxaDescontoPctAno": 10,
+        "bateria": "LFP 10 kWh (Li-ion LFP)"
+      },
+      "expected": {
+        "energiaUtilKWh": 72,
+        "capacidadeNominalKWh_aprox": 97.8,
+        "numUnidades": 10,
+        "capacidadeInstaladaKWh": 100,
+        "custoInicialBRL": 220000
+      }
+    }
+  ]
+}

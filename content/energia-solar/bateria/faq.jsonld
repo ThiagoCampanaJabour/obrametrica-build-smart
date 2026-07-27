@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual a vida útil típica de uma bateria LFP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Baterias LFP costumam ter 4.000–6.000 ciclos completos, o que equivale a 10–15 anos para uso residencial com 1 ciclo por dia. Degradação típica: 0,5–1% ao ano."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quando devo substituir o banco de baterias?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Substitua quando a capacidade útil cair abaixo de 70–80% da nominal, quando os ciclos nominais forem atingidos ou quando houver falhas frequentes de tensão sob carga."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Baterias solares são seguras dentro de casa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, desde que instaladas por profissional habilitado, respeitando ventilação, temperatura e distância mínima. LFP tem maior estabilidade térmica que NMC ou chumbo-ácido."
+      }
+    }
+  ]
+}
