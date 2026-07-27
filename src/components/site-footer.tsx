@@ -39,6 +39,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/simulador-solar-avancado" className="hover:text-accent">
+                  Simulador Solar Avançado
+                </Link>
+              </li>
+              <li>
                 <Link to="/conversores" className="hover:text-accent">
                   Conversores
                 </Link>

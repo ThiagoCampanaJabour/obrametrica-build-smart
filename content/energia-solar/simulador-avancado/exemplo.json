@@ -1,0 +1,20 @@
+{
+  "input": {
+    "length": 10,
+    "width": 6,
+    "tiltDeg": 20,
+    "azimuthDeg": 0,
+    "modulo": { "largura": 1.13, "altura": 2.28, "potenciaW": 550 },
+    "sombreamentoMaxPct": 10
+  },
+  "expectedOutput": {
+    "areaUsavel": 60,
+    "numModulos": 23,
+    "potenciaTotalKWp": 12.65,
+    "perdaSombreamentoPct": 1.5,
+    "producEstimadaKWh": 17738,
+    "stringsSuggested": [
+      { "string_id": 1, "modulos": 8, "potencia_total_W": 8800, "perda_pct": 1.5, "producao_anual_kWh": 12339 }
+    ]
+  }
+}
