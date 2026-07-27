@@ -1,0 +1,23 @@
+{
+  "input": {
+    "lat": -23.55,
+    "lng": -46.63,
+    "cidade": "São Paulo, SP",
+    "kWp": 5.5,
+    "tiltDeg": 23,
+    "azimuteDeg": 0,
+    "prPct": 80,
+    "perdasPct": 10,
+    "horizonteAnos": 1,
+    "degradacaoPctAno": 0.5
+  },
+  "expectedOutput": {
+    "cidadePresetUsada": "São Paulo, SP",
+    "irradianciaAnualKWhM2": 1650,
+    "irradianciaTiltKWhM2": 1732,
+    "producaoAnualKWh": 6857,
+    "fatorEspecificoKWhKWp": 1247,
+    "incertezaPct": 10,
+    "producaoMensalKWh": [644, 582, 603, 540, 478, 436, 478, 540, 540, 623, 664, 727]
+  }
+}
