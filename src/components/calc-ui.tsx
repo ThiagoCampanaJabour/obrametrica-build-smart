@@ -47,6 +47,10 @@ export function NumberField({
   unit,
   step = "0.01",
   min = "0",
+  max,
+  placeholder,
+  list,
+  inputMode = "decimal",
   error,
 }: {
   id: string;
@@ -56,6 +60,10 @@ export function NumberField({
   unit?: string;
   step?: string;
   min?: string;
+  max?: string;
+  placeholder?: string;
+  list?: string;
+  inputMode?: "decimal" | "numeric" | "tel";
   error?: string;
 }) {
   return (
@@ -68,9 +76,12 @@ export function NumberField({
           id={id}
           name={id}
           type="number"
-          inputMode="decimal"
+          inputMode={inputMode}
           step={step}
           min={min}
+          max={max}
+          placeholder={placeholder}
+          list={list}
           required
           value={value}
           onChange={(e) => onChange(e.target.value)}
