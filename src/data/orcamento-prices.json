@@ -1,0 +1,28 @@
+{
+  "moeda": "BRL",
+  "atualizado_em": "2026-07-27",
+  "fonte": "Médias de mercado nacionais (referência, sujeitas a variação regional)",
+  "items": [
+    { "sku": "tijolo-9x19x19", "name": "Tijolo 9x19x19", "unidade": "un", "preco_medio_R": 1.2, "categoria_etapa": "Alvenaria" },
+    { "sku": "tijolo-11x14x24", "name": "Tijolo 11x14x24", "unidade": "un", "preco_medio_R": 1.4, "categoria_etapa": "Alvenaria" },
+    { "sku": "tijolo-14x19x29", "name": "Tijolo 14x19x29", "unidade": "un", "preco_medio_R": 2.1, "categoria_etapa": "Alvenaria" },
+    { "sku": "bloco", "name": "Bloco de concreto/cerâmico", "unidade": "un", "preco_medio_R": 3.5, "categoria_etapa": "Alvenaria" },
+    { "sku": "concreto", "name": "Concreto usinado FCK 25", "unidade": "m³", "preco_medio_R": 480.0, "categoria_etapa": "Estrutura" },
+    { "sku": "cimento-saco-50kg", "name": "Cimento CP-II (saco 50 kg)", "unidade": "saco", "preco_medio_R": 42.0, "categoria_etapa": "Estrutura" },
+    { "sku": "cimento-reboco", "name": "Cimento p/ reboco", "unidade": "saco", "preco_medio_R": 42.0, "categoria_etapa": "Reboco" },
+    { "sku": "areia-media", "name": "Areia média lavada", "unidade": "m³", "preco_medio_R": 130.0, "categoria_etapa": "Estrutura" },
+    { "sku": "areia-reboco", "name": "Areia p/ reboco", "unidade": "m³", "preco_medio_R": 130.0, "categoria_etapa": "Reboco" },
+    { "sku": "brita-1", "name": "Brita nº 1", "unidade": "m³", "preco_medio_R": 145.0, "categoria_etapa": "Estrutura" },
+    { "sku": "aco-ca50", "name": "Vergalhão CA-50", "unidade": "kg", "preco_medio_R": 8.5, "categoria_etapa": "Estrutura" },
+    { "sku": "forma-madeira", "name": "Fôrma de madeira", "unidade": "m²", "preco_medio_R": 90.0, "categoria_etapa": "Estrutura" },
+    { "sku": "telha-ceramica", "name": "Telha cerâmica", "unidade": "un", "preco_medio_R": 1.8, "categoria_etapa": "Cobertura" },
+    { "sku": "piso-m2", "name": "Piso cerâmico", "unidade": "m²", "preco_medio_R": 45.0, "categoria_etapa": "Piso" },
+    { "sku": "piso-caixa", "name": "Piso cerâmico (caixa)", "unidade": "cx", "preco_medio_R": 95.0, "categoria_etapa": "Piso" },
+    { "sku": "tinta-latex", "name": "Tinta látex PVA (litro)", "unidade": "L", "preco_medio_R": 22.0, "categoria_etapa": "Acabamento" },
+    { "sku": "argamassa-ac", "name": "Argamassa colante AC-II (20 kg)", "unidade": "saco", "preco_medio_R": 28.0, "categoria_etapa": "Revestimento" },
+    { "sku": "reboco-m2", "name": "Reboco pronto (área)", "unidade": "m²", "preco_medio_R": 35.0, "categoria_etapa": "Reboco" },
+    { "sku": "rejunte", "name": "Rejunte (kg)", "unidade": "kg", "preco_medio_R": 12.0, "categoria_etapa": "Revestimento" },
+    { "sku": "tubo-pvc", "name": "Tubo PVC 25mm", "unidade": "m", "preco_medio_R": 9.5, "categoria_etapa": "Instalações" },
+    { "sku": "esquadria", "name": "Esquadria (porta/janela)", "unidade": "un", "preco_medio_R": 650.0, "categoria_etapa": "Acabamento" }
+  ]
+}

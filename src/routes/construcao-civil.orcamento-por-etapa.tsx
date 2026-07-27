@@ -11,7 +11,7 @@ import {
 import { computeOrcamento, fmtBRL, toCSV } from "@/lib/orcamento-etapas/calc";
 import { OrcamentoForm } from "@/components/OrcamentoEtapas/OrcamentoForm";
 import { PreviewTable } from "@/components/OrcamentoEtapas/PreviewTable";
-import pricesJson from "../../content/construcao-civil/orcamento-por-etapa/prices-default.json";
+import pricesJson from "@/data/orcamento-prices.json";
 
 const PATH = "/construcao-civil/orcamento-por-etapa";
 const CRUMBS = [
