@@ -116,12 +116,14 @@ export function SelectField<T extends string>({
   value,
   onChange,
   options,
+  error,
 }: {
   id: string;
   label: string;
   value: T;
   onChange: (v: T) => void;
   options: ReadonlyArray<{ value: T; label: string }>;
+  error?: string;
 }) {
   return (
     <div>
@@ -132,7 +134,9 @@ export function SelectField<T extends string>({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring aria-invalid:border-destructive"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -140,6 +144,11 @@ export function SelectField<T extends string>({
           </option>
         ))}
       </select>
+      {error && (
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
