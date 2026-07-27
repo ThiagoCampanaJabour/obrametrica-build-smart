@@ -36,6 +36,12 @@ const tools = [
     title: "Economia com Energia Solar",
     desc: "Estime a economia no mês, no ano e em 10 anos.",
   },
+  {
+    to: "/simulador-solar-avancado" as const,
+    icon: Sun,
+    title: "Simulador Avançado",
+    desc: "Dimensionamento, sombreamento e otimização de strings. Simule seu sistema.",
+  },
 ];
 
 function EnergiaSolarPage() {

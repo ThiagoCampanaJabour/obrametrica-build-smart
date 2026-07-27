@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SimuladorSolarAvancadoRouteImport } from './routes/simulador-solar-avancado'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
@@ -61,6 +62,11 @@ const SobreRoute = SobreRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimuladorSolarAvancadoRoute = SimuladorSolarAvancadoRouteImport.update({
+  id: '/simulador-solar-avancado',
+  path: '/simulador-solar-avancado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuantasPlacasSolaresPrecisoRoute =
@@ -275,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
+  '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -315,6 +322,7 @@ export interface FileRoutesByTo {
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
+  '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
+  '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
@@ -398,6 +407,7 @@ export interface FileRouteTypes {
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
+    | '/simulador-solar-avancado'
     | '/sitemap.xml'
     | '/sobre'
     | '/termos-de-uso'
@@ -438,6 +448,7 @@ export interface FileRouteTypes {
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
+    | '/simulador-solar-avancado'
     | '/sitemap.xml'
     | '/sobre'
     | '/termos-de-uso'
@@ -478,6 +489,7 @@ export interface FileRouteTypes {
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
+    | '/simulador-solar-avancado'
     | '/sitemap.xml'
     | '/sobre'
     | '/termos-de-uso'
@@ -519,6 +531,7 @@ export interface RootRouteChildren {
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
+  SimuladorSolarAvancadoRoute: typeof SimuladorSolarAvancadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
@@ -545,6 +558,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulador-solar-avancado': {
+      id: '/simulador-solar-avancado'
+      path: '/simulador-solar-avancado'
+      fullPath: '/simulador-solar-avancado'
+      preLoaderRoute: typeof SimuladorSolarAvancadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quantas-placas-solares-preciso': {
@@ -841,6 +861,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
+  SimuladorSolarAvancadoRoute: SimuladorSolarAvancadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
