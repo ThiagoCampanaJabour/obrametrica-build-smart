@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual a diferença entre on-grid e off-grid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On-grid é conectado à rede da concessionária e não usa baterias; off-grid é autônomo, requer banco de baterias e dimensionamento para autonomia total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quando escolher um sistema híbrido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sistemas híbridos combinam economia do on-grid com backup por baterias e são indicados para locais com quedas frequentes de energia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como estimo o banco de baterias necessário?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A calculadora usa consumo médio horário × horas de autonomia × fator de segurança (1,2) ÷ profundidade útil de descarga (DoD) para estimar o banco em kWh."
+      }
+    }
+  ]
+}
