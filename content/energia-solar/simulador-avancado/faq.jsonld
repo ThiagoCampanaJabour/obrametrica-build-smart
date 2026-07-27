@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual a precisão do Simulador Avançado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "É uma estimativa técnica com irradiância média (5 kWh/m²/dia) e heurísticas de sombreamento. Para projetos executivos, recomenda-se validação em campo com irradiância local (PVGIS) e análise de sombra horária."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O simulador substitui uma ferramenta como PVsyst?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. É indicado para pré-dimensionamento e comparação rápida de cenários. Contratos de performance e projetos executivos exigem ferramentas dedicadas com dados horários e modelagem 3D de sombreamento."
+      }
+    }
+  ]
+}
