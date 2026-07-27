@@ -51,6 +51,8 @@ export function NumberField({
   placeholder,
   list,
   inputMode = "decimal",
+  disabled,
+  hidden,
   error,
 }: {
   id: string;
@@ -64,8 +66,11 @@ export function NumberField({
   placeholder?: string;
   list?: string;
   inputMode?: "decimal" | "numeric" | "tel";
+  disabled?: boolean;
+  hidden?: boolean;
   error?: string;
 }) {
+  if (hidden) return null;
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
@@ -82,12 +87,13 @@ export function NumberField({
           max={max}
           placeholder={placeholder}
           list={list}
+          disabled={disabled}
           required
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
-          className="w-full bg-transparent px-3 py-2 text-sm outline-none"
+          className="w-full bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         {unit && (
           <span className="flex items-center border-l border-input px-3 text-sm text-muted-foreground">
