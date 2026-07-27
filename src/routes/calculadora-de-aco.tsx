@@ -206,7 +206,7 @@ function AcoCalculator() {
     }
 
     setErrors(newErrors);
-    setResult(currentResult);
+    setResult(Object.keys(currentResult).length > 0 ? (currentResult as any) : null);
   };
 
   const reset = () => {
