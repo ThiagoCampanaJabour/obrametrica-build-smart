@@ -42,6 +42,12 @@ const tools = [
     title: "Simulador Avançado",
     desc: "Dimensionamento, sombreamento e otimização de strings. Simule seu sistema.",
   },
+  {
+    to: "/energia-solar/calculadora-payback" as const,
+    icon: TrendingUp,
+    title: "Calculadora de Payback",
+    desc: "Payback simples e descontado, VPL, TIR e fluxo de caixa por cenário.",
+  },
 ];
 
 function EnergiaSolarPage() {

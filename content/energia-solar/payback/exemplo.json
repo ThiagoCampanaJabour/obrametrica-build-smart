@@ -1,0 +1,46 @@
+{
+  "exemplos": [
+    {
+      "descricao": "Residencial 5 kWp — cenário padrão",
+      "input": {
+        "custoSistema": 18000,
+        "producaoAnualKWh": 7200,
+        "tarifaKWh": 0.95,
+        "usoLocalPct": 100,
+        "omAnual": 250,
+        "taxaDesconto": 8,
+        "vidaUtilAnos": 25,
+        "incentivoInicial": 0,
+        "incentivoAnual": 0,
+        "cenarioId": "padrao"
+      },
+      "expected": {
+        "paybackSimplesAprox": 3.1,
+        "paybackDescontadoAprox": 3.7,
+        "vplPositivo": true,
+        "tirMaiorQue": 20
+      }
+    },
+    {
+      "descricao": "Comercial 20 kWp — cenário conservador",
+      "input": {
+        "custoSistema": 65000,
+        "producaoAnualKWh": 28000,
+        "tarifaKWh": 0.85,
+        "usoLocalPct": 100,
+        "omAnual": 900,
+        "taxaDesconto": 10,
+        "vidaUtilAnos": 25,
+        "incentivoInicial": 0,
+        "incentivoAnual": 0,
+        "cenarioId": "conservador"
+      },
+      "expected": {
+        "paybackSimplesAprox": 3.5,
+        "paybackDescontadoAprox": 4.2,
+        "vplPositivo": true,
+        "tirMaiorQue": 18
+      }
+    }
+  ]
+}
