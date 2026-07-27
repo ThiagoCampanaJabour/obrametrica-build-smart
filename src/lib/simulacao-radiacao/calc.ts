@@ -42,7 +42,19 @@ export interface RadiacaoResult {
   projecaoAnos?: { ano: number; producaoKWh: number }[];
 }
 
-const CIDADES: CidadePreset[] = [
+// Perfil sazonal genérico (fração do total anual por mês) para hemisfério sul.
+// Verão (dez–fev) mais alto; inverno (jun–jul) mais baixo. Soma = 1.
+const PERFIL_SUL = [0.098, 0.089, 0.088, 0.079, 0.072, 0.067, 0.072, 0.082, 0.086, 0.091, 0.088, 0.088];
+// Perfil próximo ao equador / hemisfério norte (Boa Vista, Macapá): variação menor.
+const PERFIL_EQUATORIAL = [0.083, 0.079, 0.084, 0.083, 0.084, 0.083, 0.085, 0.087, 0.086, 0.085, 0.082, 0.079];
+
+function mensalFromAnual(anual: number, lat: number): number[] {
+  const perfil = lat > -5 ? PERFIL_EQUATORIAL : PERFIL_SUL;
+  return perfil.map((f) => +(anual * f).toFixed(0));
+}
+
+// Presets detalhados (mensal medido) — mantidos para as cidades originais.
+const CIDADES_DETALHADAS: CidadePreset[] = [
   { nome: "São Paulo, SP", uf: "SP", lat: -23.55, lng: -46.63, anual: 1650, mensal: [155,140,145,130,115,105,115,130,130,150,160,175] },
   { nome: "Rio de Janeiro, RJ", uf: "RJ", lat: -22.91, lng: -43.17, anual: 1780, mensal: [170,155,160,140,125,115,120,135,140,160,170,190] },
   { nome: "Belo Horizonte, MG", uf: "MG", lat: -19.92, lng: -43.94, anual: 1900, mensal: [180,165,170,155,140,130,140,155,165,175,165,160] },
@@ -55,6 +67,37 @@ const CIDADES: CidadePreset[] = [
   { nome: "Porto Alegre, RS", uf: "RS", lat: -30.03, lng: -51.23, anual: 1600, mensal: [175,155,145,115,90,75,85,105,120,150,175,185] },
   { nome: "Petrolina (Semiárido), PE", uf: "PE", lat: -9.39, lng: -40.50, anual: 2250, mensal: [205,190,195,180,170,160,170,190,205,215,220,220] },
 ];
+
+// Capitais adicionais das 26 UFs + DF (irradiância diária média × 365).
+// Perfil mensal sintético a partir da latitude. Substituir por PVGIS/NSRDB em produção.
+const CAPITAIS_EXTRAS_RAW: Array<{ nome: string; uf: string; lat: number; lng: number; ghiDia: number }> = [
+  { nome: "Rio Branco, AC",   uf: "AC", lat: -9.97,  lng: -67.81, ghiDia: 4.6 },
+  { nome: "Maceió, AL",       uf: "AL", lat: -9.65,  lng: -35.73, ghiDia: 5.6 },
+  { nome: "Macapá, AP",       uf: "AP", lat:  0.03,  lng: -51.07, ghiDia: 5.0 },
+  { nome: "Vitória, ES",      uf: "ES", lat: -20.32, lng: -40.34, ghiDia: 5.1 },
+  { nome: "Goiânia, GO",      uf: "GO", lat: -16.69, lng: -49.26, ghiDia: 5.5 },
+  { nome: "São Luís, MA",     uf: "MA", lat: -2.53,  lng: -44.30, ghiDia: 5.3 },
+  { nome: "Cuiabá, MT",       uf: "MT", lat: -15.60, lng: -56.10, ghiDia: 5.4 },
+  { nome: "Campo Grande, MS", uf: "MS", lat: -20.45, lng: -54.62, ghiDia: 5.3 },
+  { nome: "Belém, PA",        uf: "PA", lat: -1.46,  lng: -48.50, ghiDia: 4.9 },
+  { nome: "João Pessoa, PB",  uf: "PB", lat: -7.12,  lng: -34.86, ghiDia: 5.7 },
+  { nome: "Teresina, PI",     uf: "PI", lat: -5.09,  lng: -42.80, ghiDia: 5.8 },
+  { nome: "Natal, RN",        uf: "RN", lat: -5.79,  lng: -35.21, ghiDia: 5.8 },
+  { nome: "Porto Velho, RO",  uf: "RO", lat: -8.76,  lng: -63.90, ghiDia: 4.8 },
+  { nome: "Boa Vista, RR",    uf: "RR", lat:  2.82,  lng: -60.67, ghiDia: 5.2 },
+  { nome: "Florianópolis, SC",uf: "SC", lat: -27.60, lng: -48.55, ghiDia: 4.5 },
+  { nome: "Aracaju, SE",      uf: "SE", lat: -10.91, lng: -37.07, ghiDia: 5.5 },
+  { nome: "Palmas, TO",       uf: "TO", lat: -10.25, lng: -48.32, ghiDia: 5.5 },
+];
+
+const CAPITAIS_EXTRAS: CidadePreset[] = CAPITAIS_EXTRAS_RAW.map((c) => {
+  const anual = Math.round(c.ghiDia * 365);
+  return { nome: c.nome, uf: c.uf, lat: c.lat, lng: c.lng, anual, mensal: mensalFromAnual(anual, c.lat) };
+});
+
+const CIDADES: CidadePreset[] = [...CIDADES_DETALHADAS, ...CAPITAIS_EXTRAS].sort((a, b) =>
+  a.nome.localeCompare(b.nome, "pt-BR"),
+);
 
 const CLIMAS: Record<ClimaPreset, { anual: number; mensal: number[] }> = {
   tropical: { anual: 1900, mensal: [180, 165, 170, 155, 145, 135, 145, 160, 170, 180, 180, 185] },
