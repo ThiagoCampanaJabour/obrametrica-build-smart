@@ -8,7 +8,7 @@ import { ResultsTable } from "@/components/PaybackCalculator/ResultsTable";
 import { Chart } from "@/components/PaybackCalculator/Chart";
 import { ExportButtons } from "@/components/PaybackCalculator/ExportButtons";
 import { ScenarioCompare } from "@/components/PaybackCalculator/ScenarioCompare";
-import { simulatePayback, type PaybackInput, type PaybackResult } from "@/lib/payback/calc";
+import { CENARIOS, simulatePayback, type PaybackInput, type PaybackResult } from "@/lib/payback/calc";
 
 const PATH = "/energia-solar/calculadora-payback";
 const CRUMBS = [
@@ -87,7 +87,7 @@ function PaybackPage() {
               setCompareBase(null);
             }}
             onCompare={(base) => {
-              setResult(simulatePayback({ ...base, cenario: (await import("@/lib/payback/calc")).CENARIOS.padrao } as PaybackInput));
+              setResult(simulatePayback({ ...base, cenario: CENARIOS.padrao }));
               setCompareBase(base);
             }}
           />
