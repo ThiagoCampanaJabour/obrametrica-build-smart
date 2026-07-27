@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
+import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
@@ -76,6 +77,11 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
 const PoliticaDeCookiesRoute = PoliticaDeCookiesRouteImport.update({
   id: '/politica-de-cookies',
   path: '/politica-de-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetodologiaRoute = MetodologiaRouteImport.update({
+  id: '/metodologia',
+  path: '/metodologia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -265,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/faq': typeof FaqRoute
+  '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/faq': typeof FaqRoute
+  '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
@@ -344,6 +352,7 @@ export interface FileRoutesById {
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRoute
   '/faq': typeof FaqRoute
+  '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
@@ -385,6 +394,7 @@ export interface FileRouteTypes {
     | '/economia-energia-solar'
     | '/energia-solar'
     | '/faq'
+    | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
     | '/economia-energia-solar'
     | '/energia-solar'
     | '/faq'
+    | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
@@ -463,6 +474,7 @@ export interface FileRouteTypes {
     | '/economia-energia-solar'
     | '/energia-solar'
     | '/faq'
+    | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/quantas-placas-solares-preciso'
@@ -503,6 +515,7 @@ export interface RootRouteChildren {
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRoute
   FaqRoute: typeof FaqRoute
+  MetodologiaRoute: typeof MetodologiaRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
@@ -553,6 +566,13 @@ declare module '@tanstack/react-router' {
       path: '/politica-de-cookies'
       fullPath: '/politica-de-cookies'
       preLoaderRoute: typeof PoliticaDeCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metodologia': {
+      id: '/metodologia'
+      path: '/metodologia'
+      fullPath: '/metodologia'
+      preLoaderRoute: typeof MetodologiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -817,6 +837,7 @@ const rootRouteChildren: RootRouteChildren = {
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRoute,
   FaqRoute: FaqRoute,
+  MetodologiaRoute: MetodologiaRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
@@ -827,3 +848,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
