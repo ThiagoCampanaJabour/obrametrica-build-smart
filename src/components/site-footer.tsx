@@ -64,6 +64,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/energia-solar/simulacao-radiacao" className="hover:text-accent">
+                  Simulação por Localização
+                </Link>
+              </li>
+              <li>
                 <Link to="/conversores" className="hover:text-accent">
                   Conversores
                 </Link>

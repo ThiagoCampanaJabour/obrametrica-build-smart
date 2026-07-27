@@ -39,6 +39,7 @@ const ENTRIES: Entry[] = [
   { path: "/energia-solar/comparador-sistemas", changefreq: "monthly", priority: "0.8" },
   { path: "/energia-solar/calculadora-inversor", changefreq: "monthly", priority: "0.8" },
   { path: "/energia-solar/calculadora-bateria", changefreq: "monthly", priority: "0.8" },
+  { path: "/energia-solar/simulacao-radiacao", changefreq: "monthly", priority: "0.8" },
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },
   { path: "/conversor-cm-para-polegada", changefreq: "monthly", priority: "0.7" },
