@@ -59,6 +59,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/energia-solar/calculadora-bateria" className="hover:text-accent">
+                  Calculadora de Bateria
+                </Link>
+              </li>
+              <li>
                 <Link to="/conversores" className="hover:text-accent">
                   Conversores
                 </Link>

@@ -60,6 +60,12 @@ const tools = [
     title: "Calculadora de Inversor",
     desc: "String sizing com Voc corrigido pela temperatura, faixa MPPT e DC/AC ratio.",
   },
+  {
+    to: "/energia-solar/calculadora-bateria" as const,
+    icon: Sun,
+    title: "Calculadora de Bateria",
+    desc: "Dimensione o banco de baterias com DoD, degradação, substituições e VPL.",
+  },
 ];
 
 function EnergiaSolarPage() {
