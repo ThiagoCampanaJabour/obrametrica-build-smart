@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "A Simulação por Localização substitui dados de medição local?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. O MVP usa presets internos com incerteza de ±10 a ±25%. Para projetos executivos, use PVGIS, NSRDB ou medições em campo (piranômetro / dataloggers)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como interpretar kWh/kWp·ano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "É a produção específica: quantos kWh cada kWp instalado gera em um ano. No Brasil, faixas típicas: Sul 1.200–1.350; Sudeste/Centro-Oeste 1.400–1.550; Nordeste 1.500–1.700."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso confiar no resultado para dimensionar meu sistema off-grid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Como estimativa inicial, sim — use a produção mensal para identificar meses críticos. Para dimensionar bateria com segurança, aplique margem de 20–30% e combine com a Calculadora de Bateria."
+      }
+    }
+  ]
+}

@@ -66,6 +66,12 @@ const tools = [
     title: "Calculadora de Bateria",
     desc: "Dimensione o banco de baterias com DoD, degradação, substituições e VPL.",
   },
+  {
+    to: "/energia-solar/simulacao-radiacao" as const,
+    icon: Sun,
+    title: "Simulação por Localização",
+    desc: "Estime irradiância e produção anual/mensal por cidade, CEP ou coordenadas.",
+  },
 ];
 
 function EnergiaSolarPage() {
