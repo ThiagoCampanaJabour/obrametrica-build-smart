@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home } from "lucide-react"; // ArrowRight importado apenas uma vez
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home, Zap } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -149,6 +149,12 @@ const calcs = [
     icon: LayoutGrid,
     title: "Calculadora de Lajes",
     desc: "Concreto, aço, vergalhões e formas para lajes maciças e nervuradas.",
+  },
+  {
+    to: "/construcao-civil/dimensionamento-eletrico" as const,
+    icon: Zap,
+    title: "Dimensionamento Elétrico",
+    desc: "Cargas, disjuntores, bitolas e queda de tensão por circuito.",
   },
 ];
 
