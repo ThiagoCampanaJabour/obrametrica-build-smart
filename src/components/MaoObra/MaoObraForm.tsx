@@ -182,8 +182,8 @@ export function MaoObraForm({
               ))}
             </select>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            <div>
+          <div className="flex flex-wrap gap-3">
+            <div className="flex-1 min-w-[160px]">
               <label htmlFor="qty" className="block text-xs font-medium text-foreground">
                 Quantidade ({preset.unidade})
               </label>
@@ -197,7 +197,7 @@ export function MaoObraForm({
                 className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
               />
             </div>
-            <div>
+            <div className="flex-1 min-w-[140px]">
               <label htmlFor="workers" className="block text-xs font-medium text-foreground">
                 Trabalhadores
               </label>
@@ -211,7 +211,7 @@ export function MaoObraForm({
                 className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
               />
             </div>
-            <div>
+            <div className="flex-1 min-w-[180px]">
               <label htmlFor="diff" className="block text-xs font-medium text-foreground">
                 Dificuldade
               </label>
@@ -227,6 +227,7 @@ export function MaoObraForm({
               </select>
             </div>
           </div>
+
           <button
             type="button"
             onClick={handleAdd}
