@@ -1,0 +1,31 @@
+{
+  "materiais": {
+    "kg_aco_por_m3_macica_default": 100,
+    "kg_aco_por_m3_nervurada_default": 70,
+    "m_vergalhao_por_m2_default": 10,
+    "fck_MPa": [20, 25, 30],
+    "fy_MPa": 500,
+    "cobertura_mm": 25
+  },
+  "espessuras_padrao_m": {
+    "residencial": 0.12,
+    "comercial": 0.15,
+    "industrial": 0.18
+  },
+  "cargas_padrao_kN_m2": {
+    "gk_residencial": 1.5,
+    "gk_comercial": 2.0,
+    "qk_residencial": 2.0,
+    "qk_escritorio": 2.5,
+    "qk_comercial": 3.0
+  },
+  "coeficientes_momento": {
+    "simples": 0.125,
+    "continua": 0.10
+  },
+  "custos_default_BRL": {
+    "concreto_m3": 450,
+    "aco_kg": 12,
+    "forma_m2": 55
+  }
+}
