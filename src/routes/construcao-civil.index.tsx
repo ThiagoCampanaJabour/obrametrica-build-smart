@@ -144,6 +144,12 @@ const calcs = [
     title: "Fundação e Sapatas",
     desc: "Volume de concreto, aço e formas para sapatas isoladas e corridas.",
   },
+  {
+    to: "/construcao-civil/calculadora-lajes" as const,
+    icon: LayoutGrid,
+    title: "Calculadora de Lajes",
+    desc: "Concreto, aço, vergalhões e formas para lajes maciças e nervuradas.",
+  },
 ];
 
 function ConstrucaoCivilPage() {
