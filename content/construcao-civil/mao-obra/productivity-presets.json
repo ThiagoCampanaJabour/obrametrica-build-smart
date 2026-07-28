@@ -1,0 +1,16 @@
+{
+  "cost_per_hour_default_BRL": 25,
+  "shift_hours_default": 8,
+  "presets": [
+    { "id": "reboco-interno", "service": "Reboco interno", "etapa": "Revestimento", "unidade": "m2", "productivity_h_per_unit": 0.17 },
+    { "id": "reboco-externo", "service": "Reboco externo", "etapa": "Revestimento", "unidade": "m2", "productivity_h_per_unit": 0.20 },
+    { "id": "alvenaria-blocos", "service": "Alvenaria de blocos", "etapa": "Alvenaria", "unidade": "m2", "productivity_h_per_unit": 0.67 },
+    { "id": "assentamento-piso", "service": "Assentamento de piso", "etapa": "Acabamento", "unidade": "m2", "productivity_h_per_unit": 0.125 },
+    { "id": "pintura", "service": "Pintura (2 demãos)", "etapa": "Acabamento", "unidade": "m2", "productivity_h_per_unit": 0.05 },
+    { "id": "concretagem", "service": "Concretagem", "etapa": "Estrutura", "unidade": "m3", "productivity_h_per_unit": 5 },
+    { "id": "armadura", "service": "Montagem de armaduras", "etapa": "Estrutura", "unidade": "kg", "productivity_h_per_unit": 0.05 },
+    { "id": "cobertura", "service": "Instalação de telhas", "etapa": "Cobertura", "unidade": "m2", "productivity_h_per_unit": 0.3 },
+    { "id": "eletrica", "service": "Instalação elétrica (ponto)", "etapa": "Instalações", "unidade": "un", "productivity_h_per_unit": 0.75 },
+    { "id": "hidraulica", "service": "Instalação hidráulica (ponto)", "etapa": "Instalações", "unidade": "un", "productivity_h_per_unit": 1 }
+  ]
+}

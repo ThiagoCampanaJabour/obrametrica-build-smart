@@ -34,6 +34,7 @@ const ENTRIES: Entry[] = [
   { path: "/calculadora-rejunte", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-ar-condicionado", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/orcamento-por-etapa", changefreq: "monthly", priority: "0.8" },
+  { path: "/construcao-civil/calculadora-mao-obra", changefreq: "monthly", priority: "0.8" },
   { path: "/quantas-placas-solares-preciso", changefreq: "monthly", priority: "0.8" },
   { path: "/simulador-solar-avancado", changefreq: "monthly", priority: "0.8" },
   { path: "/energia-solar/calculadora-payback", changefreq: "monthly", priority: "0.8" },

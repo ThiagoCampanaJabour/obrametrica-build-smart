@@ -1,0 +1,44 @@
+{
+  "input": [
+    {
+      "service": "Reboco interno",
+      "etapa": "Revestimento",
+      "quantity": 120,
+      "unidade": "m2",
+      "productivity_h_per_unit": 0.17,
+      "num_workers": 2,
+      "cost_per_hour": 25,
+      "difficulty": "normal",
+      "shift_hours": 8
+    },
+    {
+      "service": "Alvenaria de blocos",
+      "etapa": "Alvenaria",
+      "quantity": 40,
+      "unidade": "m2",
+      "productivity_h_per_unit": 0.67,
+      "num_workers": 2,
+      "cost_per_hour": 25,
+      "difficulty": "normal",
+      "shift_hours": 8
+    },
+    {
+      "service": "Pintura (2 demãos)",
+      "etapa": "Acabamento",
+      "quantity": 200,
+      "unidade": "m2",
+      "productivity_h_per_unit": 0.05,
+      "num_workers": 1,
+      "cost_per_hour": 25,
+      "difficulty": "normal",
+      "shift_hours": 8
+    }
+  ],
+  "outputEsperado": {
+    "reboco":    { "hours_total": 20.4, "cost_total": 510.0 },
+    "alvenaria": { "hours_total": 26.8, "cost_total": 670.0 },
+    "pintura":   { "hours_total": 10.0, "cost_total": 250.0 },
+    "hours_total": 57.2,
+    "cost_total": 1430.0
+  }
+}
