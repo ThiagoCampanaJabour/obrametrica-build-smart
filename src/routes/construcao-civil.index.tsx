@@ -132,6 +132,12 @@ const calcs = [
     title: "Orçamento por Etapa",
     desc: "Consolide quantitativos das calculadoras em um orçamento.",
   },
+  {
+    to: "/construcao-civil/calculadora-mao-obra" as const,
+    icon: Hammer,
+    title: "Calculadora de Mão de Obra",
+    desc: "Horas-homem, dias e custo de mão de obra por serviço.",
+  },
 ];
 
 function ConstrucaoCivilPage() {
