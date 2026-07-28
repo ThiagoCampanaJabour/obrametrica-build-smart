@@ -1,0 +1,47 @@
+{
+  "examples": [
+    {
+      "name": "Sapata isolada — residencial",
+      "input": {
+        "tipo": "isolada",
+        "cargaPorPilarKN": 300,
+        "numPilares": 8,
+        "capacidadeSoloKNm2": 150,
+        "safetyFactor": 2.0,
+        "kgAcoPorM3": 100
+      },
+      "expected": {
+        "areaBaseM2": 4.0,
+        "ladoM": 2.0,
+        "alturaM": 0.5,
+        "volumeUnitM3": 2.0,
+        "volumeTotalM3": 16.0,
+        "acoUnitKg": 200.0,
+        "acoTotalKg": 1600.0,
+        "formaUnitM2": 4.0,
+        "formaTotalM2": 32.0
+      }
+    },
+    {
+      "name": "Sapata corrida — parede baldrame",
+      "input": {
+        "tipo": "corrida",
+        "cargaLinearKNm": 40,
+        "comprimentoTotalM": 30,
+        "capacidadeSoloKNm2": 200,
+        "safetyFactor": 2.0,
+        "kgAcoPorM3": 100
+      },
+      "expected": {
+        "larguraM": 0.4,
+        "alturaM": 0.3,
+        "volumePorMetroM3": 0.12,
+        "volumeTotalM3": 3.6,
+        "acoPorMetroKg": 12.0,
+        "acoTotalKg": 360.0,
+        "formaPorMetroM2": 0.6,
+        "formaTotalM2": 18.0
+      }
+    }
+  ]
+}
