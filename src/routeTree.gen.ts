@@ -54,6 +54,7 @@ import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/ene
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
+import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
@@ -291,6 +292,12 @@ const ConstrucaoCivilOrcamentoPorEtapaRoute =
     path: '/orcamento-por-etapa',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilFundacaoSapataRoute =
+  ConstrucaoCivilFundacaoSapataRouteImport.update({
+    id: '/fundacao-sapata',
+    path: '/fundacao-sapata',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilCalculadoraMaoObraRoute =
   ConstrucaoCivilCalculadoraMaoObraRouteImport.update({
     id: '/calculadora-mao-obra',
@@ -348,6 +355,7 @@ export interface FileRoutesByFullPath {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -396,6 +404,7 @@ export interface FileRoutesByTo {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -447,6 +456,7 @@ export interface FileRoutesById {
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -499,6 +509,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -547,6 +558,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -597,6 +609,7 @@ export interface FileRouteTypes {
     | '/termos-de-uso'
     | '/blog/$slug'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -965,6 +978,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/fundacao-sapata': {
+      id: '/construcao-civil/fundacao-sapata'
+      path: '/fundacao-sapata'
+      fullPath: '/construcao-civil/fundacao-sapata'
+      preLoaderRoute: typeof ConstrucaoCivilFundacaoSapataRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/calculadora-mao-obra': {
       id: '/construcao-civil/calculadora-mao-obra'
       path: '/calculadora-mao-obra'
@@ -1003,6 +1023,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
 }
@@ -1010,6 +1031,7 @@ interface ConstrucaoCivilRouteChildren {
 const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilCalculadoraMaoObraRoute:
     ConstrucaoCivilCalculadoraMaoObraRoute,
+  ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
 }

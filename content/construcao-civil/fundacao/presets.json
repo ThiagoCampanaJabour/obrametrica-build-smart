@@ -1,0 +1,22 @@
+{
+  "soil": {
+    "macio": { "capacidade_kN_m2": 100, "descricao": "Argilas moles, aterros pouco compactados" },
+    "medio": { "capacidade_kN_m2": 200, "descricao": "Solos residuais compactos" },
+    "firme": { "capacidade_kN_m2": 300, "descricao": "Solo saprolítico duro, rocha alterada" }
+  },
+  "materiais": {
+    "kg_aco_por_m3": 100,
+    "fck_MPa": [20, 25],
+    "cobertura_mm": 30
+  },
+  "custos_default_BRL": {
+    "concreto_m3": 450,
+    "aco_kg": 12,
+    "forma_m2": 55
+  },
+  "coeficientes": {
+    "safety_factor": 2.0,
+    "h_ratio": 0.25,
+    "h_min_m": 0.3
+  }
+}

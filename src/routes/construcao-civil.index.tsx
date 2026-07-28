@@ -138,6 +138,12 @@ const calcs = [
     title: "Calculadora de Mão de Obra",
     desc: "Horas-homem, dias e custo de mão de obra por serviço.",
   },
+  {
+    to: "/construcao-civil/fundacao-sapata" as const,
+    icon: Layers,
+    title: "Fundação e Sapatas",
+    desc: "Volume de concreto, aço e formas para sapatas isoladas e corridas.",
+  },
 ];
 
 function ConstrucaoCivilPage() {
