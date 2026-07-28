@@ -1,0 +1,27 @@
+{
+  "residencial_simples": {
+    "inputs": [
+      { "id": "C1", "nome": "Iluminação", "tipo": "iluminacao", "potenciaW": 600, "tensaoV": 127, "phases": 1, "comprimentoM": 15 },
+      { "id": "C2", "nome": "Tomadas gerais", "tipo": "tomadas_gerais", "potenciaW": 2000, "tensaoV": 127, "phases": 1, "comprimentoM": 15 },
+      { "id": "C3", "nome": "Chuveiro", "tipo": "chuveiro", "potenciaW": 4500, "tensaoV": 220, "phases": 1, "comprimentoM": 15 },
+      { "id": "C4", "nome": "AC quarto", "tipo": "ar_condicionado", "potenciaW": 1000, "tensaoV": 220, "phases": 1, "comprimentoM": 12 }
+    ],
+    "expected": {
+      "potenciaInstaladaKW": 8.1,
+      "demandaEstimadaKW": 6.6
+    }
+  },
+  "cozinha_comercial": {
+    "inputs": [
+      { "id": "C1", "nome": "Forno", "tipo": "forno", "potenciaW": 3500, "tensaoV": 220, "phases": 1, "comprimentoM": 10 },
+      { "id": "C2", "nome": "Microondas", "tipo": "microondas", "potenciaW": 1500, "tensaoV": 127, "phases": 1, "comprimentoM": 10 },
+      { "id": "C3", "nome": "Tomadas cozinha", "tipo": "tomadas_gerais", "potenciaW": 3600, "tensaoV": 127, "phases": 1, "comprimentoM": 12 }
+    ]
+  },
+  "trifasico_pequeno": {
+    "inputs": [
+      { "id": "C1", "nome": "Motor 3 CV", "tipo": "bomba", "potenciaW": 2200, "tensaoV": 380, "phases": 3, "comprimentoM": 25, "fatorPotencia": 0.85 },
+      { "id": "C2", "nome": "Iluminação galpão", "tipo": "iluminacao", "potenciaW": 1200, "tensaoV": 220, "phases": 1, "comprimentoM": 30 }
+    ]
+  }
+}

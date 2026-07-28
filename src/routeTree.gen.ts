@@ -55,6 +55,7 @@ import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/en
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
+import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -299,6 +300,12 @@ const ConstrucaoCivilFundacaoSapataRoute =
     path: '/fundacao-sapata',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilDimensionamentoEletricoRoute =
+  ConstrucaoCivilDimensionamentoEletricoRouteImport.update({
+    id: '/dimensionamento-eletrico',
+    path: '/dimensionamento-eletrico',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilCalculadoraMaoObraRoute =
   ConstrucaoCivilCalculadoraMaoObraRouteImport.update({
     id: '/calculadora-mao-obra',
@@ -363,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -413,6 +421,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -466,6 +475,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -520,6 +530,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -570,6 +581,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -622,6 +634,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -998,6 +1011,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilFundacaoSapataRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/dimensionamento-eletrico': {
+      id: '/construcao-civil/dimensionamento-eletrico'
+      path: '/dimensionamento-eletrico'
+      fullPath: '/construcao-civil/dimensionamento-eletrico'
+      preLoaderRoute: typeof ConstrucaoCivilDimensionamentoEletricoRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/calculadora-mao-obra': {
       id: '/construcao-civil/calculadora-mao-obra'
       path: '/calculadora-mao-obra'
@@ -1044,6 +1064,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilCalculadoraLajesRoute: typeof ConstrucaoCivilCalculadoraLajesRoute
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
@@ -1053,6 +1074,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilCalculadoraLajesRoute: ConstrucaoCivilCalculadoraLajesRoute,
   ConstrucaoCivilCalculadoraMaoObraRoute:
     ConstrucaoCivilCalculadoraMaoObraRoute,
+  ConstrucaoCivilDimensionamentoEletricoRoute:
+    ConstrucaoCivilDimensionamentoEletricoRoute,
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,

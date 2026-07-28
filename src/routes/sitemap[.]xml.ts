@@ -37,6 +37,7 @@ const ENTRIES: Entry[] = [
   { path: "/construcao-civil/calculadora-mao-obra", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/fundacao-sapata", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/calculadora-lajes", changefreq: "monthly", priority: "0.8" },
+  { path: "/construcao-civil/dimensionamento-eletrico", changefreq: "monthly", priority: "0.8" },
   { path: "/quantas-placas-solares-preciso", changefreq: "monthly", priority: "0.8" },
   { path: "/simulador-solar-avancado", changefreq: "monthly", priority: "0.8" },
   { path: "/energia-solar/calculadora-payback", changefreq: "monthly", priority: "0.8" },
