@@ -156,6 +156,12 @@ const calcs = [
     title: "Dimensionamento Elétrico",
     desc: "Cargas, disjuntores, bitolas e queda de tensão por circuito.",
   },
+  {
+    to: "/construcao-civil/drenagem-calhas" as const,
+    icon: Droplet,
+    title: "Drenagem e Calhas",
+    desc: "Vazão pluvial, seção de calhas, ralos e diâmetro de tubos.",
+  },
 ];
 
 function ConstrucaoCivilPage() {
