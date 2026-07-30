@@ -1,0 +1,77 @@
+{
+  "_nota": "Casos de referência para QA da calculadora de drenagem. Saídas arredondadas.",
+  "casos": [
+    {
+      "id": "caso-1-telhado-residencial",
+      "descricao": "Telhado residencial 100 m², C=0,95, São Paulo, duração 15 min (i=130 mm/h), PVC, S=1%",
+      "input": {
+        "bacias": [
+          { "nome": "Telhado", "areaM2": 100, "superficie": "telha", "C": 0.95, "destino": "Condutor 1" }
+        ],
+        "intensidadeMmH": 130,
+        "fatorSeguranca": 1,
+        "material": "pvc",
+        "declividadePct": 1,
+        "diametroMinimoMm": 100,
+        "formaCalha": "retangular",
+        "velocidadeProjetoMs": 1,
+        "capacidadeRaloLs": 1.5
+      },
+      "output_esperado": {
+        "vazaoTotalLs": 3.43,
+        "diametroSugeridoMm": 100,
+        "calhaMm": "100 x 50",
+        "ralos": 3,
+        "observacao": "Velocidade no conduto abaixo de 0,6 m/s — alerta de sedimentação esperado."
+      }
+    },
+    {
+      "id": "caso-2-estacionamento-asfalto",
+      "descricao": "Estacionamento 500 m² asfalto, C=0,85, i=150 mm/h (duração 10 min), concreto, S=0,5%",
+      "input": {
+        "bacias": [
+          { "nome": "Estacionamento", "areaM2": 500, "superficie": "asfalto", "C": 0.85, "destino": "Boca de lobo 1" }
+        ],
+        "intensidadeMmH": 150,
+        "fatorSeguranca": 1,
+        "material": "concreto",
+        "declividadePct": 0.5,
+        "diametroMinimoMm": 100,
+        "formaCalha": "retangular",
+        "velocidadeProjetoMs": 1,
+        "capacidadeRaloLs": 1.5
+      },
+      "output_esperado": {
+        "vazaoTotalLs": 17.71,
+        "diametroSugeridoMm": 200,
+        "ralos": 12,
+        "observacao": "Declividade de 0,5% no limite — verificar velocidade mínima."
+      }
+    },
+    {
+      "id": "caso-3-bacia-mista",
+      "descricao": "Laje 150 m² (C=0,95) + gramado 250 m² (C=0,20), mesmo ponto de despejo, i=130 mm/h, PVC, S=1%",
+      "input": {
+        "bacias": [
+          { "nome": "Laje técnica", "areaM2": 150, "superficie": "laje", "C": 0.95, "destino": "Caixa 1" },
+          { "nome": "Jardim", "areaM2": 250, "superficie": "gramado", "C": 0.2, "destino": "Caixa 1" }
+        ],
+        "intensidadeMmH": 130,
+        "fatorSeguranca": 1.1,
+        "material": "pvc",
+        "declividadePct": 1,
+        "diametroMinimoMm": 100,
+        "formaCalha": "semicircular",
+        "velocidadeProjetoMs": 1,
+        "capacidadeRaloLs": 1.5
+      },
+      "output_esperado": {
+        "vazaoLajeLs": 5.66,
+        "vazaoJardimLs": 1.99,
+        "vazaoTotalLs": 7.65,
+        "trechos": 1,
+        "diametroSugeridoMm": 100
+      }
+    }
+  ]
+}
