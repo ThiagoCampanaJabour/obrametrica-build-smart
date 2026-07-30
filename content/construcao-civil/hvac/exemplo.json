@@ -1,0 +1,143 @@
+{
+  "_aviso": "Casos de referência para QA. Estimativa preliminar.",
+  "casos": [
+    {
+      "caso": "Quarto residencial 3×3",
+      "inputs": {
+        "cidade": "São Paulo",
+        "modo": "rapido",
+        "t_int_c": 24,
+        "t_ext_c": 32,
+        "margem_pct": 15,
+        "cop": 3.2,
+        "horas_dia": 8,
+        "dias_mes": 30,
+        "ambiente": {
+          "peDireitoM": 2.7,
+          "fachadasExternas": 1,
+          "coberturaExposta": true,
+          "sombreamentoPct": 0,
+          "equipamentosW": 0,
+          "nome": "Quarto 1",
+          "areaM2": 9,
+          "orientacao": "S",
+          "areaVidroM2": 1.5,
+          "isolamento": "media",
+          "ocupantes": 1,
+          "uso": "residencial"
+        }
+      },
+      "outputs": {
+        "room": "Quarto 1",
+        "area_m2": 9,
+        "t_m": 2.7,
+        "delta_t_c": 8,
+        "Q_trans_kW": 0.324,
+        "Q_solar_kW": 0.241,
+        "Q_people_kW": 0.1,
+        "Q_equip_kW": 0.09,
+        "Q_vent_kW": 0.027,
+        "Q_total_kW": 0.781,
+        "Q_latente_kW": 0.074,
+        "Q_with_margin_kW": 0.898,
+        "suggested_ac_kW": 2.051,
+        "suggested_btu": 7000,
+        "ventilacao_Ls": 10.1,
+        "ach": 1.5,
+        "consumo_kWh_mes": 67.4
+      }
+    },
+    {
+      "caso": "Sala 4×5 envidraçada oeste",
+      "inputs": {
+        "cidade": "Rio de Janeiro",
+        "modo": "rapido",
+        "t_int_c": 24,
+        "t_ext_c": 36,
+        "margem_pct": 15,
+        "cop": 3.2,
+        "horas_dia": 8,
+        "dias_mes": 30,
+        "ambiente": {
+          "peDireitoM": 2.7,
+          "fachadasExternas": 1,
+          "coberturaExposta": true,
+          "sombreamentoPct": 0,
+          "equipamentosW": 0,
+          "nome": "Sala",
+          "areaM2": 20,
+          "orientacao": "O",
+          "areaVidroM2": 4,
+          "isolamento": "media",
+          "ocupantes": 4,
+          "uso": "residencial"
+        }
+      },
+      "outputs": {
+        "room": "Sala",
+        "area_m2": 20,
+        "t_m": 2.7,
+        "delta_t_c": 12,
+        "Q_trans_kW": 0.929,
+        "Q_solar_kW": 2.142,
+        "Q_people_kW": 0.4,
+        "Q_equip_kW": 0.2,
+        "Q_vent_kW": 0.127,
+        "Q_total_kW": 3.797,
+        "Q_latente_kW": 0.277,
+        "Q_with_margin_kW": 4.367,
+        "suggested_ac_kW": 5.275,
+        "suggested_btu": 18000,
+        "ventilacao_Ls": 32,
+        "ach": 1.5,
+        "consumo_kWh_mes": 327.5
+      }
+    },
+    {
+      "caso": "Escritório 6×4 com 4 ocupantes",
+      "inputs": {
+        "cidade": "Brasília",
+        "modo": "rapido",
+        "t_int_c": 23,
+        "t_ext_c": 32,
+        "margem_pct": 15,
+        "cop": 3.2,
+        "horas_dia": 8,
+        "dias_mes": 30,
+        "ambiente": {
+          "peDireitoM": 2.7,
+          "fachadasExternas": 1,
+          "coberturaExposta": true,
+          "sombreamentoPct": 0,
+          "equipamentosW": 800,
+          "nome": "Escritório",
+          "areaM2": 24,
+          "orientacao": "L",
+          "areaVidroM2": 5,
+          "isolamento": "boa",
+          "ocupantes": 4,
+          "uso": "comercial"
+        }
+      },
+      "outputs": {
+        "room": "Escritório",
+        "area_m2": 24,
+        "t_m": 2.7,
+        "delta_t_c": 9,
+        "Q_trans_kW": 0.455,
+        "Q_solar_kW": 2.008,
+        "Q_people_kW": 0.44,
+        "Q_equip_kW": 0.8,
+        "Q_vent_kW": 0.267,
+        "Q_total_kW": 3.97,
+        "Q_latente_kW": 0.416,
+        "Q_with_margin_kW": 4.566,
+        "suggested_ac_kW": 5.275,
+        "suggested_btu": 18000,
+        "ventilacao_Ls": 90,
+        "ach": 5,
+        "consumo_kWh_mes": 342.4
+      }
+    }
+  ]
+}

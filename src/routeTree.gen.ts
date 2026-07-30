@@ -54,6 +54,7 @@ import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/ene
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
+import { Route as ConstrucaoCivilHvacPerdasRouteImport } from './routes/construcao-civil.hvac-perdas'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
 import { Route as ConstrucaoCivilDrenagemCalhasRouteImport } from './routes/construcao-civil.drenagem-calhas'
 import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
@@ -295,6 +296,12 @@ const ConstrucaoCivilOrcamentoPorEtapaRoute =
     path: '/orcamento-por-etapa',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilHvacPerdasRoute =
+  ConstrucaoCivilHvacPerdasRouteImport.update({
+    id: '/hvac-perdas',
+    path: '/hvac-perdas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilFundacaoSapataRoute =
   ConstrucaoCivilFundacaoSapataRouteImport.update({
     id: '/fundacao-sapata',
@@ -380,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
+  '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -432,6 +440,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
+  '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -487,6 +496,7 @@ export interface FileRoutesById {
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
+  '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -543,6 +553,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
+    | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -595,6 +606,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
+    | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -649,6 +661,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
+    | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -1017,6 +1030,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/hvac-perdas': {
+      id: '/construcao-civil/hvac-perdas'
+      path: '/hvac-perdas'
+      fullPath: '/construcao-civil/hvac-perdas'
+      preLoaderRoute: typeof ConstrucaoCivilHvacPerdasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/fundacao-sapata': {
       id: '/construcao-civil/fundacao-sapata'
       path: '/fundacao-sapata'
@@ -1087,6 +1107,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
   ConstrucaoCivilDrenagemCalhasRoute: typeof ConstrucaoCivilDrenagemCalhasRoute
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
+  ConstrucaoCivilHvacPerdasRoute: typeof ConstrucaoCivilHvacPerdasRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
 }
@@ -1099,6 +1120,7 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
     ConstrucaoCivilDimensionamentoEletricoRoute,
   ConstrucaoCivilDrenagemCalhasRoute: ConstrucaoCivilDrenagemCalhasRoute,
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
+  ConstrucaoCivilHvacPerdasRoute: ConstrucaoCivilHvacPerdasRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
 }
