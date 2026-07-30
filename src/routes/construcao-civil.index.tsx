@@ -162,7 +162,14 @@ const calcs = [
     title: "Drenagem e Calhas",
     desc: "Vazão pluvial, seção de calhas, ralos e diâmetro de tubos.",
   },
+  {
+    to: "/construcao-civil/hvac-perdas" as const,
+    icon: Wind,
+    title: "Perdas Térmicas e HVAC",
+    desc: "Carga térmica por ambiente e capacidade de ar-condicionado em kW e BTU.",
+  },
 ];
+
 
 function ConstrucaoCivilPage() {
   return (
