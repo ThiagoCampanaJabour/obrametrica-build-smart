@@ -1,0 +1,77 @@
+{
+  "_aviso": "Valores de referência editáveis. Estimativa preliminar — não substitui projeto HVAC.",
+  "clima": [
+    { "cidade": "São Paulo", "t_ext_design_c": 32, "t_ext_noite_c": 23, "ur_pct": 70 },
+    { "cidade": "Rio de Janeiro", "t_ext_design_c": 36, "t_ext_noite_c": 26, "ur_pct": 75 },
+    { "cidade": "Belo Horizonte", "t_ext_design_c": 33, "t_ext_noite_c": 22, "ur_pct": 65 },
+    { "cidade": "Curitiba", "t_ext_design_c": 30, "t_ext_noite_c": 20, "ur_pct": 75 },
+    { "cidade": "Porto Alegre", "t_ext_design_c": 34, "t_ext_noite_c": 23, "ur_pct": 70 },
+    { "cidade": "Brasília", "t_ext_design_c": 32, "t_ext_noite_c": 21, "ur_pct": 55 },
+    { "cidade": "Salvador", "t_ext_design_c": 33, "t_ext_noite_c": 26, "ur_pct": 78 },
+    { "cidade": "Recife", "t_ext_design_c": 33, "t_ext_noite_c": 26, "ur_pct": 78 },
+    { "cidade": "Fortaleza", "t_ext_design_c": 34, "t_ext_noite_c": 26, "ur_pct": 76 },
+    { "cidade": "Manaus", "t_ext_design_c": 36, "t_ext_noite_c": 27, "ur_pct": 80 },
+    { "cidade": "Goiânia", "t_ext_design_c": 35, "t_ext_noite_c": 22, "ur_pct": 55 },
+    { "cidade": "Cuiabá", "t_ext_design_c": 38, "t_ext_noite_c": 25, "ur_pct": 55 }
+  ],
+  "fator_orientacao": {
+    "N": 0.9,
+    "NE": 0.7,
+    "L": 0.75,
+    "SE": 0.5,
+    "S": 0.3,
+    "SO": 0.7,
+    "O": 1.0,
+    "NO": 0.9
+  },
+  "irradiancia_pico_kw_m2": 0.63,
+  "u_values_w_m2k": {
+    "boa": { "parede": 1.4, "cobertura": 1.0, "piso": 1.2, "janela": 3.0 },
+    "media": { "parede": 2.4, "cobertura": 1.9, "piso": 1.8, "janela": 5.0 },
+    "ruim": { "parede": 3.2, "cobertura": 2.6, "piso": 2.2, "janela": 5.8 }
+  },
+  "shgc": {
+    "simples": 0.85,
+    "laminado": 0.7,
+    "duplo": 0.55,
+    "refletivo": 0.35
+  },
+  "cargas_internas": {
+    "residencial": {
+      "q_pessoa_sensivel_w": 100,
+      "equipamentos_w_m2": 10,
+      "ls_por_pessoa": 8,
+      "ach": 1.5,
+      "horas_dia": 8
+    },
+    "comercial": {
+      "q_pessoa_sensivel_w": 110,
+      "equipamentos_w_m2": 20,
+      "ls_por_pessoa": 10,
+      "ach": 5,
+      "horas_dia": 9
+    },
+    "loja": {
+      "q_pessoa_sensivel_w": 120,
+      "equipamentos_w_m2": 25,
+      "ls_por_pessoa": 12,
+      "ach": 6,
+      "horas_dia": 10
+    }
+  },
+  "q_pessoa_latente_w": 50,
+  "capacidades_comerciais": [
+    { "btu_h": 7000, "kw": 2.05 },
+    { "btu_h": 9000, "kw": 2.64 },
+    { "btu_h": 12000, "kw": 3.52 },
+    { "btu_h": 18000, "kw": 5.28 },
+    { "btu_h": 22000, "kw": 6.45 },
+    { "btu_h": 24000, "kw": 7.03 },
+    { "btu_h": 30000, "kw": 8.79 },
+    { "btu_h": 36000, "kw": 10.55 },
+    { "btu_h": 48000, "kw": 14.07 },
+    { "btu_h": 60000, "kw": 17.58 }
+  ],
+  "cop_referencia": { "convencional": 2.8, "inverter": 3.2, "alta_eficiencia": 4.0 },
+  "margem_recomendada_pct": { "min": 10, "padrao": 15, "max": 20 }
+}
