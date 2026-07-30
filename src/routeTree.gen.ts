@@ -55,6 +55,7 @@ import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/en
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
+import { Route as ConstrucaoCivilDrenagemCalhasRouteImport } from './routes/construcao-civil.drenagem-calhas'
 import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
@@ -300,6 +301,12 @@ const ConstrucaoCivilFundacaoSapataRoute =
     path: '/fundacao-sapata',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilDrenagemCalhasRoute =
+  ConstrucaoCivilDrenagemCalhasRouteImport.update({
+    id: '/drenagem-calhas',
+    path: '/drenagem-calhas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilDimensionamentoEletricoRoute =
   ConstrucaoCivilDimensionamentoEletricoRouteImport.update({
     id: '/dimensionamento-eletrico',
@@ -371,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
+  '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -422,6 +430,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
+  '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -476,6 +485,7 @@ export interface FileRoutesById {
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
+  '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -531,6 +541,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
+    | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -582,6 +593,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
+    | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -635,6 +647,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
+    | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/orcamento-por-etapa'
     | '/energia-solar/calculadora-bateria'
@@ -1011,6 +1024,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilFundacaoSapataRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/drenagem-calhas': {
+      id: '/construcao-civil/drenagem-calhas'
+      path: '/drenagem-calhas'
+      fullPath: '/construcao-civil/drenagem-calhas'
+      preLoaderRoute: typeof ConstrucaoCivilDrenagemCalhasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/dimensionamento-eletrico': {
       id: '/construcao-civil/dimensionamento-eletrico'
       path: '/dimensionamento-eletrico'
@@ -1065,6 +1085,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilCalculadoraLajesRoute: typeof ConstrucaoCivilCalculadoraLajesRoute
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
   ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
+  ConstrucaoCivilDrenagemCalhasRoute: typeof ConstrucaoCivilDrenagemCalhasRoute
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
@@ -1076,6 +1097,7 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
     ConstrucaoCivilCalculadoraMaoObraRoute,
   ConstrucaoCivilDimensionamentoEletricoRoute:
     ConstrucaoCivilDimensionamentoEletricoRoute,
+  ConstrucaoCivilDrenagemCalhasRoute: ConstrucaoCivilDrenagemCalhasRoute,
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
