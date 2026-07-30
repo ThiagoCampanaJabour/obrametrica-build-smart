@@ -1,0 +1,50 @@
+{
+  "_nota": "Valores ilustrativos para estimativa preliminar. Substituir por curvas IDF oficiais do município no projeto executivo.",
+  "duracoes_min": [5, 10, 15, 30, 60],
+  "intensidades_chuva_mm_h": {
+    "São Paulo": { "5": 180, "10": 150, "15": 130, "30": 95, "60": 65 },
+    "Rio de Janeiro": { "5": 195, "10": 160, "15": 138, "30": 100, "60": 70 },
+    "Belo Horizonte": { "5": 185, "10": 152, "15": 132, "30": 96, "60": 66 },
+    "Curitiba": { "5": 160, "10": 132, "15": 114, "30": 82, "60": 56 },
+    "Porto Alegre": { "5": 165, "10": 136, "15": 118, "30": 86, "60": 60 },
+    "Brasília": { "5": 175, "10": 145, "15": 125, "30": 90, "60": 62 },
+    "Salvador": { "5": 150, "10": 125, "15": 108, "30": 80, "60": 56 },
+    "Recife": { "5": 155, "10": 130, "15": 112, "30": 84, "60": 60 },
+    "Fortaleza": { "5": 158, "10": 130, "15": 112, "30": 82, "60": 58 },
+    "Manaus": { "5": 200, "10": 168, "15": 145, "30": 106, "60": 74 }
+  },
+  "coeficientes_escoamento": {
+    "telha": 0.9,
+    "laje": 0.95,
+    "asfalto": 0.9,
+    "piso_permeavel": 0.5,
+    "gramado": 0.2,
+    "_faixas": {
+      "gramado": [0.1, 0.3],
+      "asfalto": [0.8, 0.95],
+      "piso_permeavel": [0.4, 0.6]
+    }
+  },
+  "manning_n": {
+    "pvc": 0.009,
+    "pp": 0.01,
+    "ferro": 0.012,
+    "concreto": 0.013
+  },
+  "diametros_comerciais_mm": [50, 75, 100, 125, 150, 200, 250, 300, 400, 500, 600, 800, 1000],
+  "larguras_calha_mm": [100, 125, 150, 200, 250, 300, 400, 500, 600],
+  "velocidades_m_s": {
+    "projeto_padrao": 1.0,
+    "minima_sedimentacao": 0.6,
+    "maxima_abrasao": 3.0,
+    "faixa_calha": [0.5, 2.0]
+  },
+  "declividades_pct": {
+    "minima_recomendada": 0.5,
+    "boa_pratica": 1.0
+  },
+  "ralos": {
+    "capacidade_unitaria_L_s_padrao": 1.5,
+    "faixa_L_s": [0.5, 2.0]
+  }
+}
