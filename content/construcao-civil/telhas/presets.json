@@ -1,0 +1,45 @@
+{
+  "pecas": [
+    { "id": "piso-20x20", "nome": "Piso cerâmico 20×20 cm", "tipo": "piso-ceramico", "larguraMm": 200, "alturaMm": 200, "perdaDefault": 8 },
+    { "id": "piso-30x30", "nome": "Piso cerâmico 30×30 cm", "tipo": "piso-ceramico", "larguraMm": 300, "alturaMm": 300, "perdaDefault": 8 },
+    { "id": "piso-40x40", "nome": "Piso cerâmico 40×40 cm", "tipo": "piso-ceramico", "larguraMm": 400, "alturaMm": 400, "perdaDefault": 12 },
+    { "id": "porc-60x60", "nome": "Porcelanato 60×60 cm", "tipo": "porcelanato", "larguraMm": 600, "alturaMm": 600, "perdaDefault": 16 },
+    { "id": "porc-80x80", "nome": "Porcelanato 80×80 cm", "tipo": "porcelanato", "larguraMm": 800, "alturaMm": 800, "perdaDefault": 16 },
+    { "id": "porc-120x60", "nome": "Porcelanato 120×60 cm", "tipo": "placa-grande", "larguraMm": 1200, "alturaMm": 600, "perdaDefault": 16 },
+    { "id": "rev-30x60", "nome": "Revestimento parede 30×60 cm", "tipo": "revestimento-parede", "larguraMm": 300, "alturaMm": 600, "perdaDefault": 10 },
+    { "id": "rev-33x45", "nome": "Revestimento parede 33×45 cm", "tipo": "revestimento-parede", "larguraMm": 330, "alturaMm": 450, "perdaDefault": 6 },
+    { "id": "telha-colonial", "nome": "Telha colonial 450×200 mm", "tipo": "telha", "larguraMm": 450, "alturaMm": 200, "perdaDefault": 10 },
+    { "id": "telha-portuguesa", "nome": "Telha portuguesa 420×330 mm", "tipo": "telha", "larguraMm": 420, "alturaMm": 330, "perdaDefault": 10 },
+    { "id": "telha-romana", "nome": "Telha romana 420×250 mm", "tipo": "telha", "larguraMm": 420, "alturaMm": 250, "perdaDefault": 10 },
+    { "id": "telha-concreto", "nome": "Telha de concreto 420×330 mm", "tipo": "telha", "larguraMm": 420, "alturaMm": 330, "perdaDefault": 10 }
+  ],
+  "perdaBasePorTipo": {
+    "telha": 7,
+    "piso-ceramico": 8,
+    "porcelanato": 12,
+    "revestimento-parede": 6,
+    "placa-grande": 12,
+    "livre": 8
+  },
+  "perdaExtraPorLayout": {
+    "alinhado": 0,
+    "desloc50": 2,
+    "desloc33": 3,
+    "herringbone": 20,
+    "livre": 0
+  },
+  "fracaoCortesPorLayout": {
+    "alinhado": 0.2,
+    "desloc50": 0.3,
+    "desloc33": 0.32,
+    "herringbone": 0.45,
+    "livre": 0.25
+  },
+  "fatoresExtras": {
+    "quebraTelhaPct": 3,
+    "acrescimoPecaGrandePct": 4,
+    "limiarPecaGrandeM2": 0.16,
+    "margemSegurancaDefaultPct": 5,
+    "pecasReservaSugeridas": 5
+  }
+}

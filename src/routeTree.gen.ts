@@ -53,6 +53,7 @@ import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/ene
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
+import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './routes/construcao-civil.quantificacao-telhas-pecas'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilHvacPerdasRouteImport } from './routes/construcao-civil.hvac-perdas'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
@@ -290,6 +291,12 @@ const EnergiaSolarCalculadoraBateriaRoute =
     path: '/calculadora-bateria',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const ConstrucaoCivilQuantificacaoTelhasPecasRoute =
+  ConstrucaoCivilQuantificacaoTelhasPecasRouteImport.update({
+    id: '/quantificacao-telhas-pecas',
+    path: '/quantificacao-telhas-pecas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilOrcamentoPorEtapaRoute =
   ConstrucaoCivilOrcamentoPorEtapaRouteImport.update({
     id: '/orcamento-por-etapa',
@@ -389,6 +396,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -442,6 +450,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -498,6 +507,7 @@ export interface FileRoutesById {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -555,6 +565,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/quantificacao-telhas-pecas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -608,6 +619,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/quantificacao-telhas-pecas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -663,6 +675,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/quantificacao-telhas-pecas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -1023,6 +1036,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarCalculadoraBateriaRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/construcao-civil/quantificacao-telhas-pecas': {
+      id: '/construcao-civil/quantificacao-telhas-pecas'
+      path: '/quantificacao-telhas-pecas'
+      fullPath: '/construcao-civil/quantificacao-telhas-pecas'
+      preLoaderRoute: typeof ConstrucaoCivilQuantificacaoTelhasPecasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/orcamento-por-etapa': {
       id: '/construcao-civil/orcamento-por-etapa'
       path: '/orcamento-por-etapa'
@@ -1109,6 +1129,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilHvacPerdasRoute: typeof ConstrucaoCivilHvacPerdasRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  ConstrucaoCivilQuantificacaoTelhasPecasRoute: typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
 }
 
@@ -1122,6 +1143,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilHvacPerdasRoute: ConstrucaoCivilHvacPerdasRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
+  ConstrucaoCivilQuantificacaoTelhasPecasRoute:
+    ConstrucaoCivilQuantificacaoTelhasPecasRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
 }
 
