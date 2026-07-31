@@ -40,6 +40,11 @@ const ENTRIES: Entry[] = [
   { path: "/construcao-civil/dimensionamento-eletrico", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/drenagem-calhas", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/hvac-perdas", changefreq: "monthly", priority: "0.8" },
+  {
+    path: "/construcao-civil/quantificacao-telhas-pecas",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
   { path: "/quantas-placas-solares-preciso", changefreq: "monthly", priority: "0.8" },
   { path: "/simulador-solar-avancado", changefreq: "monthly", priority: "0.8" },
   { path: "/energia-solar/calculadora-payback", changefreq: "monthly", priority: "0.8" },
