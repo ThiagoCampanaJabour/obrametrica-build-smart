@@ -1,0 +1,93 @@
+{
+  "exemplos": [
+    {
+      "nome": "Piso cerâmico 20×20 em sala retangular de 12 m², alinhado",
+      "inputs": {
+        "tipo": "piso-ceramico",
+        "larguraMm": 200,
+        "alturaMm": 200,
+        "areaM2": 12,
+        "comprimentoM": 4,
+        "larguraAmbienteM": 3,
+        "layout": "alinhado",
+        "margemPct": 5,
+        "juntaMm": 3,
+        "pecasReserva": 5
+      },
+      "outputs": {
+        "areaPecaM2": 0.04,
+        "pecasBase": 292,
+        "perdaPctDefault": 8,
+        "perdaPctUsada": 8,
+        "margemPct": 5,
+        "pecasFinal": 332,
+        "pecasReserva": 5,
+        "pecasComprar": 337,
+        "pecasInteiras": 227,
+        "pecasCortadas": 65,
+        "percentCortes": 22,
+        "areaInteirasM2": 9.08,
+        "areaCortesM2": 2.92,
+        "perdaTotalPct": 15.4
+      }
+    },
+    {
+      "nome": "Porcelanato 60×60 em 20 m², deslocamento 50%",
+      "inputs": {
+        "tipo": "porcelanato",
+        "larguraMm": 600,
+        "alturaMm": 600,
+        "areaM2": 20,
+        "layout": "desloc50",
+        "margemPct": 5,
+        "juntaMm": 2,
+        "pecasReserva": 5
+      },
+      "outputs": {
+        "areaPecaM2": 0.36,
+        "pecasBase": 56,
+        "perdaPctDefault": 18,
+        "perdaPctUsada": 18,
+        "margemPct": 5,
+        "pecasFinal": 70,
+        "pecasReserva": 5,
+        "pecasComprar": 75,
+        "pecasInteiras": 39,
+        "pecasCortadas": 17,
+        "percentCortes": 30,
+        "areaInteirasM2": 14.04,
+        "areaCortesM2": 5.96,
+        "perdaTotalPct": 33.9
+      }
+    },
+    {
+      "nome": "Telha portuguesa 420×330 mm em 53,2 m² de cobertura",
+      "inputs": {
+        "tipo": "telha",
+        "larguraMm": 420,
+        "alturaMm": 330,
+        "areaM2": 53.2,
+        "layout": "alinhado",
+        "margemPct": 5,
+        "juntaMm": 0,
+        "pecasReserva": 10
+      },
+      "outputs": {
+        "areaPecaM2": 0.1386,
+        "pecasBase": 384,
+        "perdaPctDefault": 10,
+        "perdaPctUsada": 10,
+        "margemPct": 5,
+        "pecasFinal": 444,
+        "pecasReserva": 10,
+        "pecasComprar": 454,
+        "pecasInteiras": 307,
+        "pecasCortadas": 77,
+        "percentCortes": 20,
+        "areaInteirasM2": 42.55,
+        "areaCortesM2": 10.65,
+        "perdaTotalPct": 18.2
+      }
+    }
+  ]
+}

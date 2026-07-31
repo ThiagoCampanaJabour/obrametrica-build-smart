@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quanto de sobra devo comprar de piso ou telha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Para assentamento alinhado com peças pequenas, 7% a 10% de perda costuma bastar. Peças grandes e layouts com deslocamento pedem 12% a 15%, e o padrão espinha de peixe pode chegar a 25%. Some uma margem de segurança de 5% e cerca de 5 peças de reserva do mesmo lote."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peças grandes exigem mais perda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Em peças de 60×60 cm ou maiores cada recorte descarta uma fração maior de material e as sobras são difíceis de reaproveitar. A calculadora acrescenta cerca de 4 pontos percentuais de perda para peças a partir de 40×40 cm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A calculadora considera as juntas de assentamento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. A espessura da junta é somada às dimensões da peça para formar o módulo de repetição, reduzindo levemente o número de peças por metro quadrado. Informe a junta recomendada pelo fabricante."
+      }
+    }
+  ]
+}

@@ -163,6 +163,12 @@ const calcs = [
     desc: "Vazão pluvial, seção de calhas, ralos e diâmetro de tubos.",
   },
   {
+    to: "/construcao-civil/quantificacao-telhas-pecas" as const,
+    icon: LayoutGrid,
+    title: "Quantificação e Corte de Peças",
+    desc: "Telhas, pisos e revestimentos com layout, cortes e perdas.",
+  },
+  {
     to: "/construcao-civil/hvac-perdas" as const,
     icon: Wind,
     title: "Perdas Térmicas e HVAC",
