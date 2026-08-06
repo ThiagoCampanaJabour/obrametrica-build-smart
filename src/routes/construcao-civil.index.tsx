@@ -181,6 +181,12 @@ const calcs = [
     desc: "Módulos, plataformas, diagonais e escoras por fachada ou trecho.",
   },
   {
+    to: "/construcao-civil/estruturas-metalicas-basicas" as const,
+    icon: Ruler,
+    title: "Estruturas Metálicas Básicas",
+    desc: "Perfis, esforços e peso de aço para vigas, pórticos e pilares.",
+  },
+  {
     to: "/construcao-civil/simulador-iluminacao-fachadas" as const,
     icon: Sun,
     title: "Iluminação Natural e Sombras",
