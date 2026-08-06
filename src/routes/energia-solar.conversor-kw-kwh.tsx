@@ -134,8 +134,11 @@ function ConversorKwKwhPage() {
         </p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
-          <KwKwhForm state={form} onChange={setForm} />
-          <ResultsSummary
+          <div className="min-w-0">
+            <KwKwhForm state={form} onChange={setForm} />
+          </div>
+          <div className="min-w-0">
+            <ResultsSummary
             modo={form.modo}
             entrada={form.valor}
             fator={fator}
@@ -143,8 +146,9 @@ function ConversorKwKwhPage() {
             direto={direto}
             inverso={inverso}
             sensibilidade={sensibilidade}
-            exportPayload={exportPayload}
-          />
+              exportPayload={exportPayload}
+            />
+          </div>
         </div>
 
         <div className="mt-6">
