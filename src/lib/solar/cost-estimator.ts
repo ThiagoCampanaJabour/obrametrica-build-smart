@@ -878,8 +878,20 @@ export const DEFAULT_COST_INPUT: CostInput = {
   montagem: "paisagem",
   modulosPorString: 10,
   dcAcRatio: 1.2,
-  inversor: { ...PRESET_INVERSORES[0]!, label: undefined as never } as InversorInput,
-  estrutura: { ...PRESET_ESTRUTURAS[0]!, label: undefined as never } as EstruturaInput,
+  inversor: {
+    tipo: "string",
+    potenciaAC_kW: 5,
+    custoUnitario_R: 4200,
+    stringsPorInversor: 2,
+    vidaUtil_anos: 12,
+  },
+  estrutura: {
+    tipo: "telhado-inclinado",
+    rail_RporM: 38,
+    clampsPorModulo: 4,
+    clampUnitario_R: 9,
+    fator: 1,
+  },
   cabos: { dc_m: 60, dc_RporM: 9.5, ac_m: 25, ac_RporM: 14, eletrocalha_m: 0, eletrocalha_RporM: 22 },
   protecoes: {
     stringsPorStringBox: 4,
