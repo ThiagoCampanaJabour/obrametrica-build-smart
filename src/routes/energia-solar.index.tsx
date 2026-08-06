@@ -72,6 +72,12 @@ const tools = [
     title: "Simulação por Localização",
     desc: "Estime irradiância e produção anual/mensal por cidade, CEP ou coordenadas.",
   },
+  {
+    to: "/energia-solar/calculadora-perdas-eficiencia" as const,
+    icon: TrendingUp,
+    title: "Perdas e Eficiência",
+    desc: "Perdas por temperatura, sombra, sujidade, cabos, inversor e clipping com eficiência global.",
+  },
 ];
 
 function EnergiaSolarPage() {
