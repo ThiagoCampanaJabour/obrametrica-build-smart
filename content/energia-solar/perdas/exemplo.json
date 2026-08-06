@@ -1,0 +1,79 @@
+{
+  "casos": [
+    {
+      "nome": "Residencial 5 kWp",
+      "input": {
+        "energiaTeoricaDc_kWh": 7000,
+        "potenciaDc_kWp": 5,
+        "potenciaAc_kW": 5,
+        "coefTermico_pctPerC": -0.35,
+        "tempAmbiente_C": 26,
+        "noct_C": 45,
+        "irradianciaMedia_Wm2": 800,
+        "sombreamento_pct": 3,
+        "soiling_pct": 2,
+        "mismatch_pct": 1.5,
+        "cabosDc_pct": 1.5,
+        "eficienciaInversor_pct": 97,
+        "perdasAc_pct": 1,
+        "margemSeguranca_pct": 2
+      },
+      "expected": {
+        "dcAcRatio": 1.0,
+        "clipping_pct": 0,
+        "eficiencia_pct_aprox": 80,
+        "energiaFinalAc_kWh_aprox": 5600
+      }
+    },
+    {
+      "nome": "Comercial 50 kWp (DC/AC 1,25)",
+      "input": {
+        "energiaTeoricaDc_kWh": 72000,
+        "potenciaDc_kWp": 50,
+        "potenciaAc_kW": 40,
+        "coefTermico_pctPerC": -0.34,
+        "tempAmbiente_C": 29,
+        "noct_C": 45,
+        "irradianciaMedia_Wm2": 800,
+        "sombreamento_pct": 1,
+        "soiling_pct": 3,
+        "mismatch_pct": 2,
+        "cabosDc_pct": 2,
+        "eficienciaInversor_pct": 98,
+        "perdasAc_pct": 1.5,
+        "margemSeguranca_pct": 2
+      },
+      "expected": {
+        "dcAcRatio": 1.25,
+        "clipping_pct": 1.5,
+        "eficiencia_pct_aprox": 77,
+        "energiaFinalAc_kWh_aprox": 55400
+      }
+    },
+    {
+      "nome": "Usina solo 1.000 kWp (DC/AC 1,45)",
+      "input": {
+        "energiaTeoricaDc_kWh": 1600000,
+        "potenciaDc_kWp": 1000,
+        "potenciaAc_kW": 690,
+        "coefTermico_pctPerC": -0.32,
+        "tempAmbiente_C": 31,
+        "noct_C": 44,
+        "irradianciaMedia_Wm2": 850,
+        "sombreamento_pct": 0.5,
+        "soiling_pct": 5,
+        "mismatch_pct": 2,
+        "cabosDc_pct": 2.5,
+        "eficienciaInversor_pct": 98.5,
+        "perdasAc_pct": 2,
+        "margemSeguranca_pct": 2
+      },
+      "expected": {
+        "dcAcRatio": 1.45,
+        "clipping_pct": 5,
+        "eficiencia_pct_aprox": 72,
+        "energiaFinalAc_kWh_aprox": 1150000
+      }
+    }
+  ]
+}
