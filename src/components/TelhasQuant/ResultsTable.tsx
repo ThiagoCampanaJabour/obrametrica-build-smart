@@ -1,4 +1,6 @@
 import { LAYOUT_LABEL, TIPO_LABEL, type QuantResult } from "@/lib/telhas/calc";
+import { ExportButtons } from "./ExportButtons";
+import { LayoutPreview } from "./LayoutPreview";
 
 function Card({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
@@ -14,11 +16,14 @@ export function ResultsTable({
   result,
   onExportCSV,
   onExportJSON,
+  onCopy,
 }: {
   result: QuantResult;
   onExportCSV: () => void;
   onExportJSON: () => void;
+  onCopy: () => Promise<void> | void;
 }) {
+
   const r = result;
   return (
     <div aria-live="polite">
