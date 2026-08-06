@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é clipping em um sistema fotovoltaico?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clipping é a limitação da potência quando o arranjo DC gera mais do que o inversor consegue converter. Ocorre em relações DC/AC elevadas: até 1,1 a perda é desprezível; entre 1,1 e 1,4 fica entre 0,5% e 3%; acima de 1,4 pode chegar a 8% da energia anual."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O que é perda por mismatch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mismatch é a diferença de desempenho entre módulos de uma mesma string, causada por tolerância de fabricação, envelhecimento e sujeira desigual. Como a string opera limitada pelo módulo mais fraco, perdem-se tipicamente de 1% a 3% da energia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como estimar a perda por sujidade (soiling)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende do ambiente e da frequência de limpeza: cerca de 2% em áreas urbanas com chuva regular, 4% em áreas rurais ou industriais e de 8% a 10% em regiões áridas ou com poeira intensa sem limpeza periódica."
+      }
+    }
+  ]
+}
