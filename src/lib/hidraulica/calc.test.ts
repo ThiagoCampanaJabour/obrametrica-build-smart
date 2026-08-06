@@ -76,7 +76,7 @@ describe("perdas", () => {
   it("Hazen-Williams — caso 2 (D=100mm, L=200m, Q=10 L/s, C=140)", () => {
     const hf = hazenWilliamsHeadLoss(0.01, 140, 0.1, 200);
     expect(hf).toBeGreaterThan(1);
-    expect(hf).toBeLessThan(3);
+    expect(hf).toBeCloseTo(3.323, 2);
   });
 
   it("perdas localizadas", () => {
