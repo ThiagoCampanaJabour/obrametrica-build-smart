@@ -48,30 +48,11 @@ export function ResultsTable({
           <Card label="Perda total" value={`${r.perdaTotalPct}%`} hint={`${r.pecasDescartadas} peças de sobra`} />
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={onExportCSV}
-            className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted"
-          >
-            Exportar CSV
-          </button>
-          <button
-            type="button"
-            onClick={onExportJSON}
-            className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted"
-          >
-            Exportar JSON
-          </button>
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted"
-          >
-            Imprimir
-          </button>
-        </div>
+        <ExportButtons onExportCSV={onExportCSV} onExportJSON={onExportJSON} onCopy={onCopy} />
       </div>
+
+      <LayoutPreview result={r} />
+
 
       <div className="mt-6 overflow-x-auto rounded-xl border border-border bg-card">
         <table className="w-full text-left text-sm">
