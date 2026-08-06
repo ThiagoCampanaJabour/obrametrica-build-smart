@@ -174,6 +174,12 @@ const calcs = [
     title: "Perdas Térmicas e HVAC",
     desc: "Carga térmica por ambiente e capacidade de ar-condicionado em kW e BTU.",
   },
+  {
+    to: "/construcao-civil/andaimes-escoras" as const,
+    icon: Layers,
+    title: "Andaimes e Escoras",
+    desc: "Módulos, plataformas, diagonais e escoras por fachada ou trecho.",
+  },
 ];
 
 

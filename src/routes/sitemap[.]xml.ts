@@ -40,6 +40,7 @@ const ENTRIES: Entry[] = [
   { path: "/construcao-civil/dimensionamento-eletrico", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/drenagem-calhas", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/hvac-perdas", changefreq: "monthly", priority: "0.8" },
+  { path: "/construcao-civil/andaimes-escoras", changefreq: "monthly", priority: "0.8" },
   {
     path: "/construcao-civil/quantificacao-telhas-pecas",
     changefreq: "monthly",
