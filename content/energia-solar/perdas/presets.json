@@ -1,0 +1,44 @@
+{
+  "soiling": [
+    { "id": "urbano", "label": "Urbano com chuvas regulares", "pct": 2 },
+    { "id": "rural", "label": "Rural / industrial", "pct": 4 },
+    { "id": "arido", "label": "Árido / poeira intensa", "pct": 9 }
+  ],
+  "mismatch": [
+    { "id": "lote-unico", "label": "String 10–20 módulos, mesmo lote", "pct": 1.5 },
+    { "id": "heterogeneo", "label": "Arranjo heterogêneo", "pct": 3 }
+  ],
+  "cabosDc": [
+    { "id": "curto", "label": "Percurso curto / seção folgada", "pct": 0.8 },
+    { "id": "tipico", "label": "Típico residencial", "pct": 1.5 },
+    { "id": "longo", "label": "Percurso longo", "pct": 3 }
+  ],
+  "inversor": [
+    { "id": "string-transformerless", "label": "String transformerless", "eficiencia_pct": 97.5 },
+    { "id": "string-padrao", "label": "String padrão", "eficiencia_pct": 96.5 },
+    { "id": "com-trafo", "label": "Com transformador", "eficiencia_pct": 95.5 }
+  ],
+  "clippingPorDcAc": [
+    { "ratioMax": 1.1, "pct": 0 },
+    { "ratioMax": 1.2, "pct": 0.5 },
+    { "ratioMax": 1.3, "pct": 1.5 },
+    { "ratioMax": 1.4, "pct": 3 },
+    { "ratioMax": 1.6, "pct": 5 },
+    { "ratioMax": 99, "pct": 8 }
+  ],
+  "temperatura": {
+    "noct_C_default": 45,
+    "irradiancia_Wm2_default": 800,
+    "coefTermico_pctPerC_default": -0.35,
+    "coefTermico_faixa": [-0.5, -0.2]
+  },
+  "perdasAc_pct": { "default": 1, "faixa": [1, 2] },
+  "margemSeguranca_pct": { "default": 2, "faixa": [0, 5] },
+  "degradacaoAnual_pct": { "default": 0.5, "faixa": [0.3, 0.8] },
+  "fontes": [
+    "IEC 61724-1 — Photovoltaic system performance",
+    "NREL PVWatts / SAM — loss model documentation",
+    "Atlas Brasileiro de Energia Solar (INPE/CEPEL)",
+    "ABNT NBR 16274"
+  ]
+}
