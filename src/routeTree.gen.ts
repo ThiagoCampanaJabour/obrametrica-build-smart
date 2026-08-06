@@ -51,6 +51,7 @@ import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-ci
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarIncentivosSubsidiosRegionaisRouteImport } from './routes/energia-solar.incentivos-subsidios-regionais'
 import { Route as EnergiaSolarEstimadorCustoTotalRouteImport } from './routes/energia-solar.estimador-custo-total'
+import { Route as EnergiaSolarConversorKwKwhRouteImport } from './routes/energia-solar.conversor-kw-kwh'
 import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/energia-solar.comparador-sistemas'
 import { Route as EnergiaSolarCalculadoraPerdasEficienciaRouteImport } from './routes/energia-solar.calculadora-perdas-eficiencia'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
@@ -288,6 +289,12 @@ const EnergiaSolarEstimadorCustoTotalRoute =
     path: '/estimador-custo-total',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const EnergiaSolarConversorKwKwhRoute =
+  EnergiaSolarConversorKwKwhRouteImport.update({
+    id: '/conversor-kw-kwh',
+    path: '/conversor-kw-kwh',
+    getParentRoute: () => EnergiaSolarRoute,
+  } as any)
 const EnergiaSolarComparadorSistemasRoute =
   EnergiaSolarComparadorSistemasRouteImport.update({
     id: '/comparador-sistemas',
@@ -471,6 +478,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/conversor-kw-kwh': typeof EnergiaSolarConversorKwKwhRoute
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
@@ -534,6 +542,7 @@ export interface FileRoutesByTo {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/conversor-kw-kwh': typeof EnergiaSolarConversorKwKwhRoute
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
@@ -600,6 +609,7 @@ export interface FileRoutesById {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/conversor-kw-kwh': typeof EnergiaSolarConversorKwKwhRoute
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
@@ -667,6 +677,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/conversor-kw-kwh'
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
@@ -730,6 +741,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/conversor-kw-kwh'
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
@@ -795,6 +807,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/conversor-kw-kwh'
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
@@ -1139,6 +1152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarEstimadorCustoTotalRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/energia-solar/conversor-kw-kwh': {
+      id: '/energia-solar/conversor-kw-kwh'
+      path: '/conversor-kw-kwh'
+      fullPath: '/energia-solar/conversor-kw-kwh'
+      preLoaderRoute: typeof EnergiaSolarConversorKwKwhRouteImport
+      parentRoute: typeof EnergiaSolarRoute
+    }
     '/energia-solar/comparador-sistemas': {
       id: '/energia-solar/comparador-sistemas'
       path: '/comparador-sistemas'
@@ -1353,6 +1373,7 @@ interface EnergiaSolarRouteChildren {
   EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
   EnergiaSolarCalculadoraPerdasEficienciaRoute: typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   EnergiaSolarComparadorSistemasRoute: typeof EnergiaSolarComparadorSistemasRoute
+  EnergiaSolarConversorKwKwhRoute: typeof EnergiaSolarConversorKwKwhRoute
   EnergiaSolarEstimadorCustoTotalRoute: typeof EnergiaSolarEstimadorCustoTotalRoute
   EnergiaSolarIncentivosSubsidiosRegionaisRoute: typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   EnergiaSolarSimulacaoRadiacaoRoute: typeof EnergiaSolarSimulacaoRadiacaoRoute
@@ -1368,6 +1389,7 @@ const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
   EnergiaSolarCalculadoraPerdasEficienciaRoute:
     EnergiaSolarCalculadoraPerdasEficienciaRoute,
   EnergiaSolarComparadorSistemasRoute: EnergiaSolarComparadorSistemasRoute,
+  EnergiaSolarConversorKwKwhRoute: EnergiaSolarConversorKwKwhRoute,
   EnergiaSolarEstimadorCustoTotalRoute: EnergiaSolarEstimadorCustoTotalRoute,
   EnergiaSolarIncentivosSubsidiosRegionaisRoute:
     EnergiaSolarIncentivosSubsidiosRegionaisRoute,
@@ -1421,13 +1443,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

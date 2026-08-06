@@ -96,6 +96,12 @@ const tools = [
     title: "Incentivos e Subsídios Regionais",
     desc: "Incentivos por UF e município com impacto em CAPEX, OPEX e payback, e fontes oficiais.",
   },
+  {
+    to: "/energia-solar/conversor-kw-kwh" as const,
+    icon: Sun,
+    title: "Conversor kW ↔ kWh",
+    desc: "Converta kWp instalados em produção anual e vice-versa, com fatores por cidade e PR.",
+  },
 ];
 
 
