@@ -1,0 +1,87 @@
+{
+  "_nota": "Valores de referência do mercado brasileiro coletados em 2026-01. São estimativas para pré-orçamento e devem ser substituídos por cotações reais na proposta final.",
+  "coleta": "2026-01",
+  "moeda": "BRL",
+  "modulos": [
+    { "label": "400 Wp mono", "pmp_W": 400, "custo_RporWp": 1.05, "comprimento_m": 1.95, "largura_m": 0.99, "porCaixa": 31 },
+    { "label": "550 Wp mono half-cell", "pmp_W": 550, "custo_RporWp": 0.95, "comprimento_m": 2.28, "largura_m": 1.13, "porCaixa": 31 },
+    { "label": "610 Wp bifacial", "pmp_W": 610, "custo_RporWp": 1.0, "comprimento_m": 2.38, "largura_m": 1.13, "porCaixa": 31 }
+  ],
+  "inversores": [
+    { "label": "String 5 kW (residencial)", "tipo": "string", "potenciaAC_kW": 5, "custoUnitario_R": 4200, "stringsPorInversor": 2, "vidaUtil_anos": 12 },
+    { "label": "String 10 kW (residencial+)", "tipo": "string", "potenciaAC_kW": 10, "custoUnitario_R": 7200, "stringsPorInversor": 4, "vidaUtil_anos": 12 },
+    { "label": "String 25 kW (comercial)", "tipo": "string", "potenciaAC_kW": 25, "custoUnitario_R": 13500, "stringsPorInversor": 6, "vidaUtil_anos": 12 },
+    { "label": "Central 75 kW", "tipo": "central", "potenciaAC_kW": 75, "custoUnitario_R": 33000, "stringsPorInversor": 10, "vidaUtil_anos": 15 },
+    { "label": "Híbrido 8 kW", "tipo": "hibrido", "potenciaAC_kW": 8, "custoUnitario_R": 12500, "stringsPorInversor": 3, "vidaUtil_anos": 10 }
+  ],
+  "estruturas": [
+    { "label": "Telhado inclinado (cerâmico/metálico)", "tipo": "telhado-inclinado", "rail_RporM": 38, "clampsPorModulo": 4, "clampUnitario_R": 9, "fator": 1 },
+    { "label": "Telhado plano (triangular)", "tipo": "telhado-plano", "rail_RporM": 38, "clampsPorModulo": 4, "clampUnitario_R": 9, "fator": 1.6 },
+    { "label": "Solo — fixed tilt", "tipo": "solo-fixo", "rail_RporM": 45, "clampsPorModulo": 4, "clampUnitario_R": 9, "fator": 2.2 },
+    { "label": "Solo — tracker 1 eixo", "tipo": "tracker", "rail_RporM": 60, "clampsPorModulo": 4, "clampUnitario_R": 11, "fator": 3 }
+  ],
+  "cabos": {
+    "dc_RporM": { "default": 9.5, "faixa": [7, 14], "nota": "Cabo solar 6 mm² dupla isolação." },
+    "ac_RporM": { "default": 14, "faixa": [9, 40], "nota": "Varia muito com a seção; 6 a 35 mm²." },
+    "eletrocalha_RporM": { "default": 22, "faixa": [12, 45] }
+  },
+  "protecoes": {
+    "stringsPorStringBox": 4,
+    "stringBox_R": 850,
+    "fusivelPorString_R": 45,
+    "spd_R": 320,
+    "quadroProtecao_R": 780,
+    "aterramento_R": 450,
+    "transformador_R": 0,
+    "medicao_R": 0
+  },
+  "maoObra": {
+    "custo_RporkWp": { "default": 700, "faixa": [450, 1100] },
+    "horasPorkWp": { "default": 8, "faixa": [6, 10] },
+    "taxaHora_R": { "default": 85, "faixa": [60, 130] }
+  },
+  "logistica": {
+    "pctEquipamentos": { "default": 2, "faixa": [1, 5] },
+    "custo_RporKm": { "default": 4.5, "faixa": [3, 8] },
+    "descarregamento_R": { "default": 250, "faixa": [150, 900] }
+  },
+  "servicos": {
+    "projeto_R": { "default": 900, "faixa": [600, 3500] },
+    "licencas_R": { "default": 350, "faixa": [0, 1500] },
+    "comissionamento_pct": { "default": 1.5, "faixa": [1, 3] }
+  },
+  "contingencia_pct": { "default": 7, "faixa": [5, 10] },
+  "markup_pct": { "default": 15, "faixa": [10, 25] },
+  "spare_pct": { "default": 0, "faixa": [0, 5] },
+  "opex": {
+    "limpeza_RporkWpAno": { "default": 25, "faixa": [20, 35] },
+    "manutencao_RporkWpAno": { "default": 20, "faixa": [15, 30] },
+    "monitoramento_RporkWpAno": { "default": 8, "faixa": [5, 12] },
+    "seguro_pctCapexAno": { "default": 0.4, "faixa": [0.3, 0.6] },
+    "garantiaEstendida_Rano": { "default": 0, "faixa": [0, 1200] }
+  },
+  "bateria": {
+    "custo_RporkWh": { "default": 3200, "faixa": [2500, 4500], "nota": "LFP com BMS, sem inversor híbrido." },
+    "vidaUtil_anos": { "default": 10, "faixa": [8, 15] }
+  },
+  "financeiro": {
+    "vidaUtil_anos": { "default": 25, "faixa": [20, 30] },
+    "taxaDesconto_pct": { "default": 8, "faixa": [0, 15] },
+    "degradacaoAnual_pct": { "default": 0.5, "faixa": [0.3, 0.8] },
+    "tarifa_RporkWh": { "default": 0.95, "faixa": [0.7, 1.3] }
+  },
+  "referenciasCustoPorkWp": [
+    { "porte": "Residencial 2–5 kWp", "faixa_RporkWp": [4200, 5500] },
+    { "porte": "Residencial 5–10 kWp", "faixa_RporkWp": [3500, 4500] },
+    { "porte": "Comercial 10–50 kWp", "faixa_RporkWp": [3000, 4000] },
+    { "porte": "Comercial 50–500 kWp", "faixa_RporkWp": [2600, 3600] }
+  ],
+  "fontes": [
+    "ABNT NBR 16274",
+    "ABNT NBR 16690",
+    "Lei 14.300/2022",
+    "IRENA — Renewable Power Generation Costs",
+    "NREL — U.S. Solar PV System Cost Benchmark",
+    "Greener — Estudo Estratégico do Mercado Fotovoltaico"
+  ]
+}
