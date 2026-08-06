@@ -1,0 +1,94 @@
+{
+  "casos": [
+    {
+      "nome": "Caso 1 — Telhado plano 12 × 8 m, módulo 400 Wp paisagem",
+      "input": {
+        "nome": "Telhado plano — galpão",
+        "tipoLocal": "telhado-plano",
+        "areaLargura_m": 12,
+        "areaComprimento_m": 8,
+        "azimute_deg": 0,
+        "inclinacao_deg": 15,
+        "latitude_deg": -23.55,
+        "modulo": { "label": "400 Wp — 1,95 × 0,99 m", "pmp_W": 400, "comprimento_m": 1.95, "largura_m": 0.99, "vmpp_V": 31 },
+        "montagem": "paisagem",
+        "gapTransversal_m": 0.03,
+        "gapLongitudinal_m": 0.01,
+        "margemBorda_m": 0.3,
+        "corredorManutencao_m": 0.6,
+        "fileirasPorBloco": 0,
+        "coberturaMax_pct": 80,
+        "usarEspacamentoFileiras": false,
+        "obstaculos": [],
+        "modulosPorString": 10,
+        "reserva_pct": 2
+      },
+      "output_esperado": {
+        "nColunas": 5,
+        "nFileiras": 7,
+        "nModulos": 35,
+        "potencia_kWp": 14,
+        "areaOcupada_m2": 67.57,
+        "coberturaEfetiva_pct": 70.39,
+        "nStrings": 4,
+        "modulosUltimaString": 5
+      }
+    },
+    {
+      "nome": "Caso 2 — Telhado inclinado 6 × 20 m, montagem retrato",
+      "input": {
+        "nome": "Água oeste — residência",
+        "tipoLocal": "telhado-inclinado",
+        "areaLargura_m": 6,
+        "areaComprimento_m": 20,
+        "azimute_deg": 270,
+        "inclinacao_deg": 27,
+        "latitude_deg": -19.92,
+        "modulo": { "label": "550 Wp — 2,28 × 1,13 m", "pmp_W": 550, "comprimento_m": 2.28, "largura_m": 1.13, "vmpp_V": 42 },
+        "montagem": "retrato",
+        "gapTransversal_m": 0.03,
+        "gapLongitudinal_m": 0.01,
+        "margemBorda_m": 0.3,
+        "corredorManutencao_m": 0.6,
+        "fileirasPorBloco": 4,
+        "coberturaMax_pct": 80,
+        "usarEspacamentoFileiras": false,
+        "obstaculos": [],
+        "modulosPorString": 8,
+        "reserva_pct": 2
+      },
+      "output_esperado": {
+        "nColunas": 4,
+        "observacao": "Largura útil 5,40 m / 1,16 m efetivo = 4 colunas; fileiras limitadas pelo comprimento útil de 19,40 m com corredores a cada 4 fileiras."
+      }
+    },
+    {
+      "nome": "Caso 3 — Solo com espaçamento entre fileiras",
+      "input": {
+        "nome": "Usina de solo — Porto Alegre",
+        "tipoLocal": "solo",
+        "areaLargura_m": 30,
+        "areaComprimento_m": 40,
+        "azimute_deg": 0,
+        "inclinacao_deg": 25,
+        "latitude_deg": -30.03,
+        "modulo": { "label": "550 Wp — 2,28 × 1,13 m", "pmp_W": 550, "comprimento_m": 2.28, "largura_m": 1.13, "vmpp_V": 42 },
+        "montagem": "paisagem",
+        "gapTransversal_m": 0.03,
+        "gapLongitudinal_m": 0.02,
+        "margemBorda_m": 1,
+        "corredorManutencao_m": 0.8,
+        "fileirasPorBloco": 5,
+        "coberturaMax_pct": 70,
+        "usarEspacamentoFileiras": true,
+        "obstaculos": [],
+        "modulosPorString": 12,
+        "reserva_pct": 3
+      },
+      "output_esperado": {
+        "espacamentoFileiras_m_aprox": 1.67,
+        "observacao": "Elevação solar de inverno ≈ 36,5°; passo entre fileiras maior que a altura efetiva, reduzindo o número de fileiras."
+      }
+    }
+  ]
+}
