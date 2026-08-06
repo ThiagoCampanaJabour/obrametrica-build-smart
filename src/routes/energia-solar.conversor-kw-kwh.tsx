@@ -139,15 +139,16 @@ function ConversorKwKwhPage() {
           </div>
           <div className="min-w-0">
             <ResultsSummary
-            modo={form.modo}
-            entrada={form.valor}
-            fator={fator}
-            losses_pct={form.losses_pct}
-            direto={direto}
-            inverso={inverso}
-            sensibilidade={sensibilidade}
+              modo={form.modo}
+              entrada={form.valor}
+              fator={fator}
+              losses_pct={form.losses_pct}
+              direto={direto}
+              inverso={inverso}
+              sensibilidade={sensibilidade}
               exportPayload={exportPayload}
             />
+
           </div>
         </div>
 
