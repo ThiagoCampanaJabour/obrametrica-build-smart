@@ -1,0 +1,92 @@
+{
+  "dataset": "incentives_v1",
+  "descricao": "Cenários de validação da Calculadora de Incentivos / Subsídios Regionais.",
+  "cenarios": [
+    {
+      "id": "c1-residencial-sp-5kwp",
+      "titulo": "Residencial 5 kWp em SP com subvenção de 20% (teto R$ 10.000) e isenção de ICMS",
+      "estimate": {
+        "uf": "SP",
+        "municipio": "São Paulo",
+        "classe": "residencial",
+        "potencia_kWp": 5,
+        "capex_R": 25000,
+        "opexAnual_R": 600,
+        "producaoAnual_kWh": 7300,
+        "tarifa_RporkWh": 1,
+        "dataInstalacao": "2026-09-01"
+      },
+      "incentivos": ["dist-generico-bonus-adesao", "sp-icms-energia-injetada"],
+      "esperado": {
+        "capex_depois_R": 20000,
+        "desconto_capex_R": 5000,
+        "receita_extra_ano_R": 1314,
+        "payback_reduz": true
+      },
+      "nota": "CAPEX × 20% = 5.000 (abaixo do teto de 10.000). ICMS: 7.300 × 18% = 1.314/ano."
+    },
+    {
+      "id": "c2-comercial-50kwp-financiamento",
+      "titulo": "Comercial 50 kWp com desconto de 1 p.p. na taxa de financiamento",
+      "estimate": {
+        "uf": "BA",
+        "municipio": "Salvador",
+        "classe": "comercial",
+        "potencia_kWp": 50,
+        "capex_R": 180000,
+        "opexAnual_R": 3600,
+        "producaoAnual_kWh": 75000,
+        "tarifa_RporkWh": 0.85,
+        "dataInstalacao": "2026-10-01"
+      },
+      "incentivos": ["fed-fne-sol"],
+      "esperado": {
+        "opex_reducao_ano_R": 2700,
+        "capex_depois_R": 180000,
+        "payback_reduz": true
+      },
+      "nota": "180.000 × 3 p.p. × 0,5 = 2.700/ano de economia de juros (FNE Sol, Δ -3 p.p.)."
+    },
+    {
+      "id": "c3-exclusividade-icms",
+      "titulo": "Dois incentivos de ICMS sobre a mesma base (federal + estadual)",
+      "estimate": {
+        "uf": "MG",
+        "municipio": "Belo Horizonte",
+        "classe": "residencial",
+        "potencia_kWp": 8,
+        "capex_R": 34000,
+        "opexAnual_R": 800,
+        "producaoAnual_kWh": 11500,
+        "tarifa_RporkWh": 0.98,
+        "dataInstalacao": "2026-09-01"
+      },
+      "incentivos": ["fed-convenio-icms-16-2015", "mg-icms-energia-injetada"],
+      "esperado": {
+        "incentivos_aplicados": 1,
+        "conflito_reportado": true
+      },
+      "nota": "Ambos pertencem ao grupo exclusivo 'icms-energia-injetada'; apenas o de maior benefício é mantido."
+    },
+    {
+      "id": "c4-inelegivel-por-potencia",
+      "titulo": "Projeto industrial de 2.000 kWp frente à isenção limitada a 1 MW",
+      "estimate": {
+        "uf": "SP",
+        "municipio": "Campinas",
+        "classe": "industrial",
+        "potencia_kWp": 2000,
+        "capex_R": 6000000,
+        "opexAnual_R": 90000,
+        "producaoAnual_kWh": 3000000,
+        "tarifa_RporkWh": 0.62,
+        "dataInstalacao": "2026-11-01"
+      },
+      "incentivos": ["sp-icms-energia-injetada"],
+      "esperado": {
+        "incentivos_aplicados": 0,
+        "motivo": "Potência acima do limite de 1000 kWp do programa."
+      }
+    }
+  ]
+}

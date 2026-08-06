@@ -90,7 +90,14 @@ const tools = [
     title: "Estimador de Custo Total (TCO)",
     desc: "CAPEX item a item, OPEX anual, substituições, payback, LCOE e fluxo de caixa.",
   },
+  {
+    to: "/energia-solar/incentivos-subsidios-regionais" as const,
+    icon: TrendingUp,
+    title: "Incentivos e Subsídios Regionais",
+    desc: "Incentivos por UF e município com impacto em CAPEX, OPEX e payback, e fontes oficiais.",
+  },
 ];
+
 
 function EnergiaSolarPage() {
   return (

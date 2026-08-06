@@ -1,0 +1,374 @@
+{
+  "version": "incentives_v1",
+  "generated_at": "2026-08-01",
+  "curator": "ObraMétrica — curadoria editorial",
+  "review_cycle_months": 3,
+  "disclaimer": "Base de orientação inicial. Cada registro traz a fonte oficial e a data da última verificação. Programas com confiança 'baixa' são placeholders e exigem confirmação junto ao órgão competente antes de qualquer uso comercial.",
+  "incentives": [
+    {
+      "id": "fed-lei-14300-transicao",
+      "scope": "federal",
+      "title": "Regra de transição da Lei 14.300 (desconto no Fio B)",
+      "type": "net_metering_bonus",
+      "description": "Sistemas de geração distribuída com solicitação de acesso protocolada dentro do prazo legal mantêm compensação integral ou parcial da energia injetada durante a transição.",
+      "details": "A Lei 14.300/2022 instituiu o marco legal da microgeração e minigeração distribuída. Unidades que protocolaram a solicitação de acesso até 06/01/2023 mantêm a compensação integral até 2045; as demais pagam o Fio B de forma escalonada. O bônus modelado aqui representa a fração da tarifa cheia efetivamente compensada em relação a um cenário sem qualquer desconto.",
+      "impact_model": { "kind": "net_metering_bonus", "extra_credit_percent": 10 },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 5000,
+        "documentos": [
+          "Protocolo de solicitação de acesso junto à distribuidora",
+          "Parecer de acesso aprovado",
+          "ART do responsável técnico"
+        ],
+        "observacoes": "O percentual efetivo depende do ano de conexão e do escalonamento do Fio B previsto no art. 27."
+      },
+      "validity": { "start_date": "2023-01-07", "end_date": "2045-12-31" },
+      "source": {
+        "organization": "Presidência da República / ANEEL",
+        "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14300.htm",
+        "doc_reference": "Lei nº 14.300, de 6 de janeiro de 2022",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "alta",
+      "notes": "Não é subvenção: é regra de compensação. Modelado como bônus sobre a receita."
+    },
+    {
+      "id": "fed-convenio-icms-16-2015",
+      "scope": "federal",
+      "title": "Convênio ICMS 16/2015 — isenção do ICMS sobre a energia compensada",
+      "type": "exemption_icms",
+      "description": "Estados aderentes isentam o ICMS sobre a parcela de energia injetada e compensada pelo sistema de compensação de energia elétrica.",
+      "details": "O Convênio ICMS 16/2015 autoriza a isenção do ICMS incidente sobre a energia elétrica fornecida pela distribuidora e compensada no âmbito do SCEE, limitada a 1 MW de potência instalada. A adesão é estadual e existem ressalvas por unidade federada — confirme o regulamento do ICMS do estado.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 18,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": [
+          "Cadastro da unidade consumidora no SCEE",
+          "Fatura da distribuidora com discriminação da energia injetada"
+        ],
+        "observacoes": "Limitado a 1 MW de potência instalada. Alíquota real varia por estado e classe."
+      },
+      "validity": { "start_date": "2015-04-22", "end_date": null },
+      "source": {
+        "organization": "CONFAZ",
+        "url": "https://www.confaz.fazenda.gov.br/legislacao/convenios/2015/CV016_15",
+        "doc_reference": "Convênio ICMS 16/2015",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "alta",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "fed-fne-sol",
+      "scope": "federal",
+      "title": "FNE Sol — Banco do Nordeste (linha de crédito com juros reduzidos)",
+      "type": "financing_rate",
+      "description": "Linha de financiamento do Fundo Constitucional do Nordeste para geração própria de energia renovável, com taxas abaixo das praticadas no mercado.",
+      "details": "Financia até 100% do investimento em micro e minigeração distribuída para clientes localizados na área de atuação do FNE (Nordeste, norte de MG e norte do ES). Taxas, prazos e bônus de adimplência são revisados anualmente pelo Banco do Nordeste.",
+      "impact_model": {
+        "kind": "financing_rate",
+        "rate_annual_pct": 8.5,
+        "subsidy_rate_delta_pp": -3,
+        "term_years": 12
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural"],
+        "ufs": ["BA", "PE", "CE", "MA", "PI", "RN", "PB", "AL", "SE", "MG", "ES"],
+        "kwp_min": 0,
+        "kwp_max": 5000,
+        "documentos": [
+          "Cadastro no Banco do Nordeste",
+          "Projeto técnico e orçamento do integrador",
+          "Comprovação de capacidade de pagamento e garantias"
+        ]
+      },
+      "validity": { "start_date": "2019-01-01", "end_date": null },
+      "source": {
+        "organization": "Banco do Nordeste",
+        "url": "https://www.bnb.gov.br/fne-sol",
+        "doc_reference": "Programa FNE Sol",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "financiamento"
+    },
+    {
+      "id": "fed-bndes-finame-baixo-carbono",
+      "scope": "federal",
+      "title": "BNDES Finame Baixo Carbono — energia solar",
+      "type": "financing_rate",
+      "description": "Financiamento de equipamentos credenciados no BNDES para geração fotovoltaica, com prazos longos e taxa referenciada em TLP/IPCA.",
+      "details": "Aplica-se à aquisição de módulos, inversores e estruturas credenciados (CFI). O custo final combina taxa do BNDES, spread do agente financeiro e risco de crédito. O delta de taxa aqui modelado é uma referência conservadora frente a crédito bancário comum.",
+      "impact_model": {
+        "kind": "financing_rate",
+        "rate_annual_pct": 12,
+        "subsidy_rate_delta_pp": -2,
+        "term_years": 10
+      },
+      "eligibility": {
+        "classes": ["comercial", "industrial", "rural"],
+        "kwp_min": 10,
+        "kwp_max": 5000,
+        "documentos": [
+          "Equipamentos com código CFI credenciado",
+          "Aprovação de crédito junto ao agente financeiro repassador"
+        ]
+      },
+      "validity": { "start_date": "2023-01-01", "end_date": null },
+      "source": {
+        "organization": "BNDES",
+        "url": "https://www.bndes.gov.br/wps/portal/site/home/financiamento/produto/bndes-finame",
+        "doc_reference": "BNDES Finame — Baixo Carbono",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "financiamento"
+    },
+    {
+      "id": "sp-icms-energia-injetada",
+      "scope": "estadual",
+      "uf": "SP",
+      "title": "São Paulo — isenção de ICMS sobre energia compensada (RICMS/SP)",
+      "type": "exemption_icms",
+      "description": "São Paulo aderiu ao Convênio ICMS 16/2015, isentando o ICMS sobre a energia injetada e compensada, até 1 MW.",
+      "details": "A isenção consta do Anexo I do RICMS/SP. A alíquota base do ICMS sobre energia elétrica residencial em SP é usada como referência de impacto.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 18,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": ["Unidade cadastrada no SCEE da distribuidora"]
+      },
+      "validity": { "start_date": "2016-01-01", "end_date": null },
+      "source": {
+        "organization": "Secretaria da Fazenda de São Paulo",
+        "url": "https://legislacao.fazenda.sp.gov.br/Paginas/RCJ2000.aspx",
+        "doc_reference": "RICMS/SP — Anexo I (Convênio ICMS 16/2015)",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "mg-icms-energia-injetada",
+      "scope": "estadual",
+      "uf": "MG",
+      "title": "Minas Gerais — isenção de ICMS sobre energia compensada",
+      "type": "exemption_icms",
+      "description": "MG aderiu ao Convênio ICMS 16/2015 e isenta a parcela compensada de energia injetada.",
+      "details": "Previsto no RICMS/MG. Alíquota de referência de 18% para consumo residencial e comercial de baixa tensão.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 18,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": ["Unidade cadastrada no SCEE da distribuidora"]
+      },
+      "validity": { "start_date": "2016-01-01", "end_date": null },
+      "source": {
+        "organization": "Secretaria de Estado de Fazenda de Minas Gerais",
+        "url": "http://www.fazenda.mg.gov.br/empresas/legislacao_tributaria/ricms_2023/",
+        "doc_reference": "RICMS/MG (Convênio ICMS 16/2015)",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "rs-icms-energia-injetada",
+      "scope": "estadual",
+      "uf": "RS",
+      "title": "Rio Grande do Sul — isenção de ICMS sobre energia compensada",
+      "type": "exemption_icms",
+      "description": "RS aderiu ao Convênio ICMS 16/2015 para microgeração e minigeração distribuída.",
+      "details": "Confirmar limites de potência e classes atendidas no Livro I do RICMS/RS antes de considerar em proposta comercial.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 17,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": ["Unidade cadastrada no SCEE da distribuidora"]
+      },
+      "validity": { "start_date": "2016-01-01", "end_date": null },
+      "source": {
+        "organization": "Receita Estadual do Rio Grande do Sul",
+        "url": "https://receita.fazenda.rs.gov.br/conteudo/4326/legislacao-do-icms",
+        "doc_reference": "RICMS/RS (Convênio ICMS 16/2015)",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "go-icms-energia-injetada",
+      "scope": "estadual",
+      "uf": "GO",
+      "title": "Goiás — isenção de ICMS sobre energia compensada",
+      "type": "exemption_icms",
+      "description": "Goiás adota a isenção do Convênio ICMS 16/2015 para a energia compensada no SCEE.",
+      "details": "Verifique no Anexo IX do RCTE/GO a redação vigente e eventuais tetos de potência.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 19,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": ["Unidade cadastrada no SCEE da distribuidora"]
+      },
+      "validity": { "start_date": "2016-01-01", "end_date": null },
+      "source": {
+        "organization": "Secretaria da Economia de Goiás",
+        "url": "https://www.economia.go.gov.br/legisla%C3%A7%C3%A3o-tribut%C3%A1ria.html",
+        "doc_reference": "RCTE/GO — Anexo IX (Convênio ICMS 16/2015)",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "ba-icms-energia-injetada",
+      "scope": "estadual",
+      "uf": "BA",
+      "title": "Bahia — isenção de ICMS sobre energia compensada",
+      "type": "exemption_icms",
+      "description": "Bahia aderiu ao Convênio ICMS 16/2015 para geração distribuída.",
+      "details": "Confirmar limite de potência instalada e classes no RICMS/BA vigente.",
+      "impact_model": {
+        "kind": "icms_exemption",
+        "aliquota_icms_pct": 20.5,
+        "percent": 100,
+        "years": 25
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural"],
+        "kwp_min": 0,
+        "kwp_max": 1000,
+        "documentos": ["Unidade cadastrada no SCEE da distribuidora"]
+      },
+      "validity": { "start_date": "2016-01-01", "end_date": null },
+      "source": {
+        "organization": "Secretaria da Fazenda da Bahia",
+        "url": "https://www.sefaz.ba.gov.br/geral/legislacao/",
+        "doc_reference": "RICMS/BA (Convênio ICMS 16/2015)",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "icms-energia-injetada"
+    },
+    {
+      "id": "pe-programa-estadual-placeholder",
+      "scope": "estadual",
+      "uf": "PE",
+      "title": "Pernambuco — programa estadual de incentivo (a confirmar)",
+      "type": "grant",
+      "description": "Registro placeholder para programas estaduais de fomento a energias renováveis em Pernambuco.",
+      "details": "Não há norma confirmada na base atual. Este registro existe apenas para sinalizar a necessidade de curadoria e não deve ser apresentado ao cliente como benefício vigente.",
+      "impact_model": { "kind": "rebate_fixed", "amount_R": 0 },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "industrial", "rural"],
+        "kwp_min": 0,
+        "kwp_max": 5000,
+        "documentos": ["A confirmar junto à Secretaria de Desenvolvimento Econômico"]
+      },
+      "validity": { "start_date": null, "end_date": null },
+      "source": {
+        "organization": "Placeholder — pesquisar",
+        "url": "https://www.pe.gov.br/",
+        "doc_reference": "pesquisar / placeholder",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "baixa",
+      "notes": "Placeholder: não usar em proposta comercial."
+    },
+    {
+      "id": "mun-generico-iptu-verde",
+      "scope": "municipal",
+      "title": "IPTU Verde municipal (modelo genérico)",
+      "type": "tax_credit",
+      "description": "Diversos municípios concedem desconto no IPTU para imóveis com geração fotovoltaica instalada.",
+      "details": "O desconto costuma variar de 3% a 20% do IPTU anual, por prazo determinado, mediante requerimento e laudo técnico. Cada município tem lei própria: valide o percentual, o teto e o prazo antes de considerar na proposta. O valor modelado aqui é uma referência conservadora informada pelo usuário como economia fiscal anual.",
+      "impact_model": { "kind": "opex_reduction_fixed", "amount_R_per_year": 300, "years": 5 },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 100,
+        "documentos": [
+          "Requerimento na prefeitura",
+          "Laudo/ART da instalação fotovoltaica",
+          "Certidão negativa de débitos municipais"
+        ],
+        "observacoes": "Modelo genérico. Substitua pelo percentual da lei municipal aplicável."
+      },
+      "validity": { "start_date": null, "end_date": null },
+      "source": {
+        "organization": "Legislação municipal (variável)",
+        "url": "https://www.gov.br/pt-br",
+        "doc_reference": "pesquisar / placeholder — lei municipal específica",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "baixa",
+      "notes": "Registro genérico: confirme a lei do município antes de exibir ao cliente."
+    },
+    {
+      "id": "dist-generico-bonus-adesao",
+      "scope": "concessionaria",
+      "title": "Bônus / programa de eficiência da distribuidora (PEE)",
+      "type": "subsidy",
+      "description": "Chamadas públicas do Programa de Eficiência Energética (PEE) das distribuidoras podem custear parte de projetos fotovoltaicos, sobretudo em baixa renda e entidades públicas.",
+      "details": "Os recursos do PEE seguem a Lei 9.991/2000 e a regulação da ANEEL. As chamadas públicas são periódicas e possuem escopo restrito (baixa renda, hospitais, entidades sem fins lucrativos). O percentual varia por edital.",
+      "impact_model": {
+        "kind": "direct_capex_discount",
+        "percent": 20,
+        "ceiling_R": 50000
+      },
+      "eligibility": {
+        "classes": ["residencial", "comercial", "condominio"],
+        "kwp_min": 0,
+        "kwp_max": 500,
+        "documentos": [
+          "Inscrição em chamada pública vigente da distribuidora",
+          "Projeto técnico e orçamento",
+          "Documentação da entidade beneficiária"
+        ],
+        "observacoes": "Depende de edital aberto no momento da instalação."
+      },
+      "validity": { "start_date": null, "end_date": null },
+      "source": {
+        "organization": "ANEEL — Programa de Eficiência Energética",
+        "url": "https://www.gov.br/aneel/pt-br/assuntos/eficiencia-energetica",
+        "doc_reference": "Lei 9.991/2000 e PROPEE/ANEEL",
+        "last_checked_date": "2026-07-15"
+      },
+      "confidence": "media",
+      "exclusive_group": "subvencao-capex"
+    }
+  ]
+}
