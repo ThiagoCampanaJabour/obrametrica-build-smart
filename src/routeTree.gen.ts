@@ -55,6 +55,7 @@ import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/en
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport } from './routes/construcao-civil.simulador-iluminacao-fachadas'
 import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './routes/construcao-civil.quantificacao-telhas-pecas'
+import { Route as ConstrucaoCivilPerdaAtritoTubulacoesRouteImport } from './routes/construcao-civil.perda-atrito-tubulacoes'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilHvacPerdasRouteImport } from './routes/construcao-civil.hvac-perdas'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
@@ -307,6 +308,12 @@ const ConstrucaoCivilQuantificacaoTelhasPecasRoute =
     path: '/quantificacao-telhas-pecas',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilPerdaAtritoTubulacoesRoute =
+  ConstrucaoCivilPerdaAtritoTubulacoesRouteImport.update({
+    id: '/perda-atrito-tubulacoes',
+    path: '/perda-atrito-tubulacoes',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilOrcamentoPorEtapaRoute =
   ConstrucaoCivilOrcamentoPorEtapaRouteImport.update({
     id: '/orcamento-por-etapa',
@@ -427,6 +434,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -485,6 +493,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -546,6 +555,7 @@ export interface FileRoutesById {
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
@@ -608,6 +618,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
@@ -666,6 +677,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
@@ -726,6 +738,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
+    | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
@@ -1102,6 +1115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilQuantificacaoTelhasPecasRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/perda-atrito-tubulacoes': {
+      id: '/construcao-civil/perda-atrito-tubulacoes'
+      path: '/perda-atrito-tubulacoes'
+      fullPath: '/construcao-civil/perda-atrito-tubulacoes'
+      preLoaderRoute: typeof ConstrucaoCivilPerdaAtritoTubulacoesRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/orcamento-por-etapa': {
       id: '/construcao-civil/orcamento-por-etapa'
       path: '/orcamento-por-etapa'
@@ -1212,6 +1232,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilHvacPerdasRoute: typeof ConstrucaoCivilHvacPerdasRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
+  ConstrucaoCivilPerdaAtritoTubulacoesRoute: typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   ConstrucaoCivilQuantificacaoTelhasPecasRoute: typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   ConstrucaoCivilSimuladorIluminacaoFachadasRoute: typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
@@ -1232,6 +1253,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilHvacPerdasRoute: ConstrucaoCivilHvacPerdasRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
+  ConstrucaoCivilPerdaAtritoTubulacoesRoute:
+    ConstrucaoCivilPerdaAtritoTubulacoesRoute,
   ConstrucaoCivilQuantificacaoTelhasPecasRoute:
     ConstrucaoCivilQuantificacaoTelhasPecasRoute,
   ConstrucaoCivilSimuladorIluminacaoFachadasRoute:
