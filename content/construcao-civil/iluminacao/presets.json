@@ -1,0 +1,32 @@
+{
+  "cidades": [
+    { "id": "sao-paulo", "nome": "São Paulo (SP)", "latitude": -23.55, "dni_pico_wm2": 820, "difusa_pico_wm2": 180, "ceu_encoberto_lux": 5000 },
+    { "id": "rio-de-janeiro", "nome": "Rio de Janeiro (RJ)", "latitude": -22.9, "dni_pico_wm2": 860, "difusa_pico_wm2": 190, "ceu_encoberto_lux": 5200 },
+    { "id": "belo-horizonte", "nome": "Belo Horizonte (MG)", "latitude": -19.92, "dni_pico_wm2": 880, "difusa_pico_wm2": 180, "ceu_encoberto_lux": 5200 },
+    { "id": "brasilia", "nome": "Brasília (DF)", "latitude": -15.78, "dni_pico_wm2": 920, "difusa_pico_wm2": 170, "ceu_encoberto_lux": 5400 },
+    { "id": "salvador", "nome": "Salvador (BA)", "latitude": -12.97, "dni_pico_wm2": 900, "difusa_pico_wm2": 210, "ceu_encoberto_lux": 5600 },
+    { "id": "fortaleza", "nome": "Fortaleza (CE)", "latitude": -3.72, "dni_pico_wm2": 940, "difusa_pico_wm2": 220, "ceu_encoberto_lux": 5800 },
+    { "id": "curitiba", "nome": "Curitiba (PR)", "latitude": -25.43, "dni_pico_wm2": 780, "difusa_pico_wm2": 180, "ceu_encoberto_lux": 4800 },
+    { "id": "porto-alegre", "nome": "Porto Alegre (RS)", "latitude": -30.03, "dni_pico_wm2": 800, "difusa_pico_wm2": 175, "ceu_encoberto_lux": 4800 }
+  ],
+  "vidros": {
+    "simples": { "Tv": 0.8 },
+    "duplo": { "Tv": 0.65 },
+    "low-e": { "Tv": 0.5 },
+    "refletivo": { "Tv": 0.3 }
+  },
+  "pelicula_fator": { "nenhuma": 1, "leve": 0.85, "media": 0.7, "forte": 0.5 },
+  "persiana_reducao": { "nenhuma": 0, "baixa": 0.2, "media": 0.4, "alta": 0.6 },
+  "obstrucao_fator": { "nenhuma": 1, "parcial": 0.7, "total": 0.4 },
+  "albedo_fator": { "claro": 1.15, "medio": 1, "escuro": 0.85 },
+  "target_lux": {
+    "escritorio": 400,
+    "sala": 200,
+    "circulacao": 150,
+    "escola": 400
+  },
+  "maintenance_factor": 0.8,
+  "lux_por_wm2": 120,
+  "glare_limiares_wm2": { "medio": 90, "alto": 200 },
+  "mes_fator": [1.05, 1.03, 1.0, 0.95, 0.9, 0.87, 0.88, 0.93, 0.98, 1.02, 1.05, 1.06]
+}
