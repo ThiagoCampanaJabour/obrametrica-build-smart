@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "atualizado_em": "2026-08-06",
+  "observacao": "Valores médios de mercado para pré-dimensionamento. Validar com dados locais (PVGIS, LABREN/INPE) antes de uso em proposta formal.",
+  "cidades": [
+    { "id": "sp", "cidade": "São Paulo", "uf": "SP", "latitude": -23.55, "fator_default": 1500, "fator_min": 1400, "fator_max": 1700, "he_ano": 1745 },
+    { "id": "rj", "cidade": "Rio de Janeiro", "uf": "RJ", "latitude": -22.91, "fator_default": 1550, "fator_min": 1500, "fator_max": 1750, "he_ano": 1802 },
+    { "id": "bh", "cidade": "Belo Horizonte", "uf": "MG", "latitude": -19.92, "fator_default": 1480, "fator_min": 1400, "fator_max": 1650, "he_ano": 1721 },
+    { "id": "for", "cidade": "Fortaleza", "uf": "CE", "latitude": -3.73, "fator_default": 1850, "fator_min": 1700, "fator_max": 2000, "he_ano": 2151 },
+    { "id": "bsb", "cidade": "Brasília", "uf": "DF", "latitude": -15.79, "fator_default": 1700, "fator_min": 1600, "fator_max": 1850, "he_ano": 1977 },
+    { "id": "cwb", "cidade": "Curitiba", "uf": "PR", "latitude": -25.43, "fator_default": 1400, "fator_min": 1300, "fator_max": 1500, "he_ano": 1628 },
+    { "id": "poa", "cidade": "Porto Alegre", "uf": "RS", "latitude": -30.03, "fator_default": 1300, "fator_min": 1200, "fator_max": 1400, "he_ano": 1512 }
+  ],
+  "performance_ratio": [
+    { "id": "conservador", "label": "Conservador", "losses_pct": 25, "pr": 0.75 },
+    { "id": "padrao", "label": "Padrão", "losses_pct": 14, "pr": 0.86 },
+    { "id": "otimista", "label": "Otimista", "losses_pct": 10, "pr": 0.9 }
+  ],
+  "modulos": [
+    { "id": "m400", "potencia_W": 400, "area_m2": 1.95, "eficiencia_pct": 20.5 },
+    { "id": "m450", "potencia_W": 450, "area_m2": 2.1, "eficiencia_pct": 21.4 },
+    { "id": "m550", "potencia_W": 550, "area_m2": 2.58, "eficiencia_pct": 21.3 },
+    { "id": "m610", "potencia_W": 610, "area_m2": 2.79, "eficiencia_pct": 21.9 }
+  ]
+}

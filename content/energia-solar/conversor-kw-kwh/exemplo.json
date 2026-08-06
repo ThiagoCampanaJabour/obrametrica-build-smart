@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "casos": [
+    {
+      "id": "A-residencial-sp",
+      "descricao": "5 kWp em São Paulo com PR 0,86",
+      "modo": "kwp-to-kwh",
+      "entradas": { "kWp": 5, "fator_kwh_per_kwp": 1500, "losses_pct": 14 },
+      "esperado": {
+        "energy_kwh": 6450,
+        "energy_month_kwh": 537.5,
+        "base_energy_kwh": 7500,
+        "losses_kwh": 1050,
+        "pr": 0.86
+      }
+    },
+    {
+      "id": "B-comercial-fortaleza",
+      "descricao": "Meta de 9.000 kWh/ano em Fortaleza, módulo de 550 W e reserva de 3%",
+      "modo": "kwh-to-kwp",
+      "entradas": {
+        "energy_kwh": 9000,
+        "fator_kwh_per_kwp": 1850,
+        "losses_pct": 14,
+        "module_power_W": 550,
+        "spare_pct": 3
+      },
+      "esperado": {
+        "kWp_required": 5.6577,
+        "kWp_sugerido": 5.7,
+        "modules_qty": 12,
+        "kWp_instalado": 6.6
+      }
+    },
+    {
+      "id": "C-he-pr",
+      "descricao": "10 kWp com HE de 1.700 h/ano e PR 0,78 (perdas já embutidas no PR)",
+      "modo": "kwp-to-kwh",
+      "entradas": { "kWp": 10, "he_ano": 1700, "pr": 0.78, "losses_pct": 0 },
+      "esperado": { "fator_kwh_per_kwp": 1326, "energy_kwh": 13260 }
+    }
+  ]
+}
