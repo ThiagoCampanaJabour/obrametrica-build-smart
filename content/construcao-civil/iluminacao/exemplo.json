@@ -1,0 +1,76 @@
+{
+  "casos": [
+    {
+      "id": "caso-a",
+      "descricao": "Fachada Leste em São Paulo, escritório pequeno, sem proteção solar",
+      "input": {
+        "id": "amb-a",
+        "nome": "Escritório Leste",
+        "orientacao": "L",
+        "cidadeId": "sao-paulo",
+        "mes": 3,
+        "larguraJanelaM": 2.0,
+        "alturaJanelaM": 1.5,
+        "areaAmbienteM2": 20,
+        "profundidadeM": 4,
+        "peDireitoM": 2.7,
+        "vidro": "simples",
+        "obstrucao": "nenhuma",
+        "albedo": "medio",
+        "uso": "escritorio",
+        "targetLux": 400,
+        "protecoes": { "beiralM": 0, "briseHorizM": 0, "briseVertM": 0, "pelicula": "nenhuma", "persiana": "nenhuma" },
+        "faixas": [{ "inicio": 8, "fim": 12 }]
+      },
+      "esperado": "DF entre 1% e 6%; iluminância média da faixa entre 100 e 60.000 lux; recomendações de brise vertical priorizadas"
+    },
+    {
+      "id": "caso-b",
+      "descricao": "Fachada Oeste no Rio de Janeiro com beiral de 1,00 m no período da tarde",
+      "input": {
+        "id": "amb-b",
+        "nome": "Sala Oeste",
+        "orientacao": "O",
+        "cidadeId": "rio-de-janeiro",
+        "mes": 3,
+        "larguraJanelaM": 3.0,
+        "alturaJanelaM": 1.5,
+        "areaAmbienteM2": 35,
+        "profundidadeM": 5,
+        "peDireitoM": 2.7,
+        "vidro": "simples",
+        "obstrucao": "nenhuma",
+        "albedo": "medio",
+        "uso": "sala",
+        "targetLux": 200,
+        "protecoes": { "beiralM": 1.0, "briseHorizM": 0, "briseVertM": 0, "pelicula": "nenhuma", "persiana": "nenhuma" },
+        "faixas": [{ "inicio": 12, "fim": 16 }]
+      },
+      "esperado": "Iluminância média menor que o mesmo caso sem beiral; risco de ofuscamento reduzido"
+    },
+    {
+      "id": "caso-c",
+      "descricao": "Ambiente profundo com obstrução severa e vidro refletivo",
+      "input": {
+        "id": "amb-c",
+        "nome": "Sala interna Sul",
+        "orientacao": "S",
+        "cidadeId": "curitiba",
+        "mes": 6,
+        "larguraJanelaM": 1.2,
+        "alturaJanelaM": 1.0,
+        "areaAmbienteM2": 30,
+        "profundidadeM": 8,
+        "peDireitoM": 2.6,
+        "vidro": "refletivo",
+        "obstrucao": "total",
+        "albedo": "escuro",
+        "uso": "escritorio",
+        "targetLux": 400,
+        "protecoes": { "beiralM": 0, "briseHorizM": 0, "briseVertM": 0, "pelicula": "nenhuma", "persiana": "nenhuma" },
+        "faixas": [{ "inicio": 10, "fim": 14 }]
+      },
+      "esperado": "DF abaixo de 1%; status 'não atende'; alerta de profundidade excessiva"
+    }
+  ]
+}

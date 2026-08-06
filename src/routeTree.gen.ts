@@ -53,6 +53,7 @@ import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/ene
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
+import { Route as ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport } from './routes/construcao-civil.simulador-iluminacao-fachadas'
 import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './routes/construcao-civil.quantificacao-telhas-pecas'
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilHvacPerdasRouteImport } from './routes/construcao-civil.hvac-perdas'
@@ -292,6 +293,12 @@ const EnergiaSolarCalculadoraBateriaRoute =
     path: '/calculadora-bateria',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const ConstrucaoCivilSimuladorIluminacaoFachadasRoute =
+  ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport.update({
+    id: '/simulador-iluminacao-fachadas',
+    path: '/simulador-iluminacao-fachadas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilQuantificacaoTelhasPecasRoute =
   ConstrucaoCivilQuantificacaoTelhasPecasRouteImport.update({
     id: '/quantificacao-telhas-pecas',
@@ -405,6 +412,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
+  '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -460,6 +468,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
+  '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -518,6 +527,7 @@ export interface FileRoutesById {
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
+  '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -577,6 +587,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/construcao-civil/quantificacao-telhas-pecas'
+    | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -632,6 +643,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/construcao-civil/quantificacao-telhas-pecas'
+    | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -689,6 +701,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
     | '/construcao-civil/quantificacao-telhas-pecas'
+    | '/construcao-civil/simulador-iluminacao-fachadas'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -1049,6 +1062,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarCalculadoraBateriaRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/construcao-civil/simulador-iluminacao-fachadas': {
+      id: '/construcao-civil/simulador-iluminacao-fachadas'
+      path: '/simulador-iluminacao-fachadas'
+      fullPath: '/construcao-civil/simulador-iluminacao-fachadas'
+      preLoaderRoute: typeof ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/quantificacao-telhas-pecas': {
       id: '/construcao-civil/quantificacao-telhas-pecas'
       path: '/quantificacao-telhas-pecas'
@@ -1151,6 +1171,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilHvacPerdasRoute: typeof ConstrucaoCivilHvacPerdasRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
   ConstrucaoCivilQuantificacaoTelhasPecasRoute: typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
+  ConstrucaoCivilSimuladorIluminacaoFachadasRoute: typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
   ConstrucaoCivilIndexRoute: typeof ConstrucaoCivilIndexRoute
 }
 
@@ -1167,6 +1188,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
   ConstrucaoCivilQuantificacaoTelhasPecasRoute:
     ConstrucaoCivilQuantificacaoTelhasPecasRoute,
+  ConstrucaoCivilSimuladorIluminacaoFachadasRoute:
+    ConstrucaoCivilSimuladorIluminacaoFachadasRoute,
   ConstrucaoCivilIndexRoute: ConstrucaoCivilIndexRoute,
 }
 
