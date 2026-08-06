@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "descricao": "Unidades preferenciais por categoria, usadas como atalhos rápidos no UnitPicker.",
+  "presets": {
+    "comprimento": ["m", "cm", "mm", "in"],
+    "area": ["m2", "cm2", "mm2", "ft2"],
+    "volume": ["m3", "L", "ft3", "cm3"],
+    "massa": ["kg", "g", "t", "lb"],
+    "densidade": ["kg_m3", "g_cm3", "t_m3", "lb_ft3"],
+    "forca": ["kN", "N", "kgf", "tf"],
+    "pressao": ["MPa", "kPa", "kgf_cm2", "psi"],
+    "energia": ["kWh", "J", "kcal", "BTU"],
+    "potencia": ["kW", "W", "BTU_h", "cv"],
+    "temperatura": ["C", "F", "K"],
+    "velocidade": ["m_s", "km_h", "ft_s"],
+    "vazao": ["L_s", "m3_h", "m3_s", "L_min"],
+    "fluxo-massa": ["kg_s", "kg_h", "t_h"],
+    "torque": ["kNm", "Nm", "kgfm", "tfm"],
+    "angulo": ["deg", "pct", "rad"],
+    "eletricidade": ["V", "kV", "mV"]
+  },
+  "sistemas": {
+    "metrico": ["m", "m2", "m3", "kg", "kg_m3", "kN", "MPa", "kWh", "kW", "C"],
+    "imperial": ["ft", "ft2", "ft3", "lb", "lb_ft3", "lbf", "psi", "BTU", "hp", "F"]
+  }
+}
