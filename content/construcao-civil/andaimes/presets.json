@@ -1,0 +1,67 @@
+{
+  "presets": {
+    "tubular-fachada": {
+      "label": "Andaime modular tubular (fachada)",
+      "module_width_m": 2.0,
+      "platform_depth_m": 0.75,
+      "spacing_vertical_m": 2.0,
+      "platform_panel_area_m2": 1.5,
+      "diagonais_por_modulo": 0.6,
+      "guarda_corpo_por_modulo": 1,
+      "sapatas_por_modulo_base": 2,
+      "travessas_por_modulo": 2,
+      "ancoragem_cada_m2": 12,
+      "escoras_por_m2": 0,
+      "altura_projeto_m": 12,
+      "peso_modulo_kg": 45
+    },
+    "multidirecional": {
+      "label": "Andaime multidirecional",
+      "module_width_m": 1.5,
+      "platform_depth_m": 0.9,
+      "spacing_vertical_m": 2.0,
+      "platform_panel_area_m2": 1.35,
+      "diagonais_por_modulo": 0.8,
+      "guarda_corpo_por_modulo": 1,
+      "sapatas_por_modulo_base": 2,
+      "travessas_por_modulo": 3,
+      "ancoragem_cada_m2": 10,
+      "escoras_por_m2": 0,
+      "altura_projeto_m": 12,
+      "peso_modulo_kg": 52
+    },
+    "escora-metalica": {
+      "label": "Escoramento metálico",
+      "module_width_m": 1.0,
+      "platform_depth_m": 1.0,
+      "spacing_vertical_m": 3.0,
+      "platform_panel_area_m2": 2.0,
+      "diagonais_por_modulo": 0.3,
+      "guarda_corpo_por_modulo": 0,
+      "sapatas_por_modulo_base": 1,
+      "travessas_por_modulo": 1,
+      "ancoragem_cada_m2": 0,
+      "escoras_por_m2": 0.7,
+      "altura_projeto_m": 6,
+      "peso_modulo_kg": 14
+    },
+    "escora-madeira": {
+      "label": "Escoramento em madeira",
+      "module_width_m": 1.0,
+      "platform_depth_m": 1.0,
+      "spacing_vertical_m": 3.0,
+      "platform_panel_area_m2": 2.0,
+      "diagonais_por_modulo": 0.4,
+      "guarda_corpo_por_modulo": 0,
+      "sapatas_por_modulo_base": 1,
+      "travessas_por_modulo": 1,
+      "ancoragem_cada_m2": 0,
+      "escoras_por_m2": 1.0,
+      "altura_projeto_m": 4,
+      "peso_modulo_kg": 9
+    }
+  },
+  "margem_seguranca_pct_default": 10,
+  "fator_carga": { "leve": 1.0, "media": 1.15, "pesada": 1.3 },
+  "limites": { "largura_max_m": 100, "altura_max_m": 200 }
+}

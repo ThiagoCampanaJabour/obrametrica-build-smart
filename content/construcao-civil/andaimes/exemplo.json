@@ -1,0 +1,69 @@
+{
+  "casos": [
+    {
+      "id": "caso-1",
+      "descricao": "Fachada A — trabalho leve (pintura), andaime tubular padrão",
+      "inputs": {
+        "nome": "Fachada A",
+        "largura_m": 10,
+        "altura_m": 6,
+        "carga": "leve",
+        "sistema": "tubular-fachada",
+        "module_width_m": 2.0,
+        "spacing_vertical_m": 2.0,
+        "platform_depth_m": 0.75,
+        "margem_pct": 10
+      },
+      "esperado": {
+        "niveis": 3,
+        "modulos_por_nivel": 5,
+        "modulos_base": 15,
+        "modulos_total_com_margem": 17,
+        "area_plataforma_m2": 22.5,
+        "alertas": []
+      }
+    },
+    {
+      "id": "caso-2",
+      "descricao": "Fachada B — trabalho médio, altura no limite do sistema",
+      "inputs": {
+        "nome": "Fachada B",
+        "largura_m": 20,
+        "altura_m": 12,
+        "carga": "media",
+        "sistema": "tubular-fachada",
+        "module_width_m": 2.0,
+        "spacing_vertical_m": 2.0,
+        "platform_depth_m": 0.75,
+        "margem_pct": 10
+      },
+      "esperado": {
+        "niveis": 6,
+        "modulos_por_nivel": 10,
+        "modulos_base": 60,
+        "modulos_total_com_margem": 66,
+        "area_plataforma_m2": 90,
+        "alertas": ["altura >= 12 m exige projeto de montagem"]
+      }
+    },
+    {
+      "id": "caso-3",
+      "descricao": "Laje escorada — escoramento metálico",
+      "inputs": {
+        "nome": "Laje térreo",
+        "largura_m": 8,
+        "altura_m": 3,
+        "carga": "pesada",
+        "sistema": "escora-metalica",
+        "margem_pct": 10
+      },
+      "esperado": {
+        "niveis": 1,
+        "modulos_por_nivel": 8,
+        "escoras_maior_que_zero": true,
+        "guarda_corpos": 0,
+        "alertas": ["carga pesada sugere consulta técnica"]
+      }
+    }
+  ]
+}

@@ -61,6 +61,7 @@ import { Route as ConstrucaoCivilDrenagemCalhasRouteImport } from './routes/cons
 import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
+import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
@@ -339,6 +340,12 @@ const ConstrucaoCivilCalculadoraLajesRoute =
     path: '/calculadora-lajes',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilAndaimesEscorasRoute =
+  ConstrucaoCivilAndaimesEscorasRouteImport.update({
+    id: '/andaimes-escoras',
+    path: '/andaimes-escoras',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -389,6 +396,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
@@ -443,6 +451,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
@@ -500,6 +509,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
@@ -558,6 +568,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
@@ -612,6 +623,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
@@ -668,6 +680,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/termos-de-uso'
     | '/blog/$slug'
+    | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
@@ -1092,6 +1105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilCalculadoraLajesRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/andaimes-escoras': {
+      id: '/construcao-civil/andaimes-escoras'
+      path: '/andaimes-escoras'
+      fullPath: '/construcao-civil/andaimes-escoras'
+      preLoaderRoute: typeof ConstrucaoCivilAndaimesEscorasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -1122,6 +1142,7 @@ const BlogRouteChildren: BlogRouteChildren = {
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface ConstrucaoCivilRouteChildren {
+  ConstrucaoCivilAndaimesEscorasRoute: typeof ConstrucaoCivilAndaimesEscorasRoute
   ConstrucaoCivilCalculadoraLajesRoute: typeof ConstrucaoCivilCalculadoraLajesRoute
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
   ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
@@ -1134,6 +1155,7 @@ interface ConstrucaoCivilRouteChildren {
 }
 
 const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
+  ConstrucaoCivilAndaimesEscorasRoute: ConstrucaoCivilAndaimesEscorasRoute,
   ConstrucaoCivilCalculadoraLajesRoute: ConstrucaoCivilCalculadoraLajesRoute,
   ConstrucaoCivilCalculadoraMaoObraRoute:
     ConstrucaoCivilCalculadoraMaoObraRoute,
