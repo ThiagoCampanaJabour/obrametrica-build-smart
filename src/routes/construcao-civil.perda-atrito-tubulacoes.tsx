@@ -190,7 +190,7 @@ function PerdaAtritoPage() {
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             {erro && (
               <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground">
                 {erro}
