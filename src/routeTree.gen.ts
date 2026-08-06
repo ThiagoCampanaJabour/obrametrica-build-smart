@@ -50,6 +50,7 @@ import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.in
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/energia-solar.comparador-sistemas'
+import { Route as EnergiaSolarCalculadoraPerdasEficienciaRouteImport } from './routes/energia-solar.calculadora-perdas-eficiencia'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
@@ -278,6 +279,12 @@ const EnergiaSolarComparadorSistemasRoute =
     path: '/comparador-sistemas',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const EnergiaSolarCalculadoraPerdasEficienciaRoute =
+  EnergiaSolarCalculadoraPerdasEficienciaRouteImport.update({
+    id: '/calculadora-perdas-eficiencia',
+    path: '/calculadora-perdas-eficiencia',
+    getParentRoute: () => EnergiaSolarRoute,
+  } as any)
 const EnergiaSolarCalculadoraPaybackRoute =
   EnergiaSolarCalculadoraPaybackRouteImport.update({
     id: '/calculadora-payback',
@@ -440,6 +447,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
@@ -499,6 +507,7 @@ export interface FileRoutesByTo {
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
@@ -561,6 +570,7 @@ export interface FileRoutesById {
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
+  '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
@@ -624,6 +634,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
@@ -683,6 +694,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil'
@@ -744,6 +756,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
+    | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
@@ -1080,6 +1093,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarComparadorSistemasRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/energia-solar/calculadora-perdas-eficiencia': {
+      id: '/energia-solar/calculadora-perdas-eficiencia'
+      path: '/calculadora-perdas-eficiencia'
+      fullPath: '/energia-solar/calculadora-perdas-eficiencia'
+      preLoaderRoute: typeof EnergiaSolarCalculadoraPerdasEficienciaRouteImport
+      parentRoute: typeof EnergiaSolarRoute
+    }
     '/energia-solar/calculadora-payback': {
       id: '/energia-solar/calculadora-payback'
       path: '/calculadora-payback'
@@ -1270,6 +1290,7 @@ interface EnergiaSolarRouteChildren {
   EnergiaSolarCalculadoraBateriaRoute: typeof EnergiaSolarCalculadoraBateriaRoute
   EnergiaSolarCalculadoraInversorRoute: typeof EnergiaSolarCalculadoraInversorRoute
   EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
+  EnergiaSolarCalculadoraPerdasEficienciaRoute: typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   EnergiaSolarComparadorSistemasRoute: typeof EnergiaSolarComparadorSistemasRoute
   EnergiaSolarSimulacaoRadiacaoRoute: typeof EnergiaSolarSimulacaoRadiacaoRoute
   EnergiaSolarIndexRoute: typeof EnergiaSolarIndexRoute
@@ -1279,6 +1300,8 @@ const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
   EnergiaSolarCalculadoraBateriaRoute: EnergiaSolarCalculadoraBateriaRoute,
   EnergiaSolarCalculadoraInversorRoute: EnergiaSolarCalculadoraInversorRoute,
   EnergiaSolarCalculadoraPaybackRoute: EnergiaSolarCalculadoraPaybackRoute,
+  EnergiaSolarCalculadoraPerdasEficienciaRoute:
+    EnergiaSolarCalculadoraPerdasEficienciaRoute,
   EnergiaSolarComparadorSistemasRoute: EnergiaSolarComparadorSistemasRoute,
   EnergiaSolarSimulacaoRadiacaoRoute: EnergiaSolarSimulacaoRadiacaoRoute,
   EnergiaSolarIndexRoute: EnergiaSolarIndexRoute,
