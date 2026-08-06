@@ -11,9 +11,9 @@ const PATH = "/blog";
 const PAGE_SIZE = 6;
 
 type BlogSearch = {
-  q: string;
-  cat: string;
-  page: number;
+  q?: string;
+  cat?: string;
+  page?: number;
 };
 
 export const Route = createFileRoute("/blog")({
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/blog")({
 });
 
 function BlogIndex() {
-  const { q, cat, page } = Route.useSearch();
+  const { q = "", cat = "", page = 1 } = Route.useSearch();
   const navigate = Route.useNavigate();
 
   const allSorted = useMemo(() => [...BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), []);
