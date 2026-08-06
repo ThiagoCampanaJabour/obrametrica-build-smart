@@ -83,7 +83,8 @@ function QuantificacaoPage() {
 
   const result = useMemo(() => {
     if (!calculated) return null;
-    if (!(state.areaM2 > 0) || !(state.larguraMm > 0) || !(state.alturaMm > 0)) return null;
+    if (!(state.areaM2 > 0) || state.areaM2 > 10000) return null;
+    if (!(state.larguraMm > 0) || !(state.alturaMm > 0)) return null;
     return calcQuantification({
       tipo: state.tipo,
       larguraMm: state.larguraMm,
@@ -142,7 +143,7 @@ function QuantificacaoPage() {
                 role="alert"
                 className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
               >
-                Informe uma área maior que zero e dimensões válidas da peça.
+                Informe uma área entre 0 e 10.000 m² e dimensões válidas da peça.
               </div>
             ) : !result ? (
               <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
