@@ -78,6 +78,12 @@ const tools = [
     title: "Perdas e Eficiência",
     desc: "Perdas por temperatura, sombra, sujidade, cabos, inversor e clipping com eficiência global.",
   },
+  {
+    to: "/energia-solar/calculadora-area-layout-paineis" as const,
+    icon: Sun,
+    title: "Área e Layout de Painéis",
+    desc: "Quantos módulos cabem na área, kWp, strings, corredores e preview 2D do arranjo.",
+  },
 ];
 
 function EnergiaSolarPage() {
