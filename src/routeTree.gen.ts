@@ -54,6 +54,7 @@ import { Route as EnergiaSolarCalculadoraPerdasEficienciaRouteImport } from './r
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
+import { Route as EnergiaSolarCalculadoraAreaLayoutPaineisRouteImport } from './routes/energia-solar.calculadora-area-layout-paineis'
 import { Route as ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport } from './routes/construcao-civil.simulador-iluminacao-fachadas'
 import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './routes/construcao-civil.quantificacao-telhas-pecas'
 import { Route as ConstrucaoCivilPerdaAtritoTubulacoesRouteImport } from './routes/construcao-civil.perda-atrito-tubulacoes'
@@ -303,6 +304,12 @@ const EnergiaSolarCalculadoraBateriaRoute =
     path: '/calculadora-bateria',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const EnergiaSolarCalculadoraAreaLayoutPaineisRoute =
+  EnergiaSolarCalculadoraAreaLayoutPaineisRouteImport.update({
+    id: '/calculadora-area-layout-paineis',
+    path: '/calculadora-area-layout-paineis',
+    getParentRoute: () => EnergiaSolarRoute,
+  } as any)
 const ConstrucaoCivilSimuladorIluminacaoFachadasRoute =
   ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport.update({
     id: '/simulador-iluminacao-fachadas',
@@ -444,6 +451,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
+  '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -504,6 +512,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
+  '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -567,6 +576,7 @@ export interface FileRoutesById {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
+  '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
@@ -631,6 +641,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
+    | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -691,6 +702,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
+    | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -753,6 +765,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
+    | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
     | '/energia-solar/calculadora-payback'
@@ -1121,6 +1134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarCalculadoraBateriaRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/energia-solar/calculadora-area-layout-paineis': {
+      id: '/energia-solar/calculadora-area-layout-paineis'
+      path: '/calculadora-area-layout-paineis'
+      fullPath: '/energia-solar/calculadora-area-layout-paineis'
+      preLoaderRoute: typeof EnergiaSolarCalculadoraAreaLayoutPaineisRouteImport
+      parentRoute: typeof EnergiaSolarRoute
+    }
     '/construcao-civil/simulador-iluminacao-fachadas': {
       id: '/construcao-civil/simulador-iluminacao-fachadas'
       path: '/simulador-iluminacao-fachadas'
@@ -1287,6 +1307,7 @@ const ConstrucaoCivilRouteWithChildren = ConstrucaoCivilRoute._addFileChildren(
 )
 
 interface EnergiaSolarRouteChildren {
+  EnergiaSolarCalculadoraAreaLayoutPaineisRoute: typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   EnergiaSolarCalculadoraBateriaRoute: typeof EnergiaSolarCalculadoraBateriaRoute
   EnergiaSolarCalculadoraInversorRoute: typeof EnergiaSolarCalculadoraInversorRoute
   EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
@@ -1297,6 +1318,8 @@ interface EnergiaSolarRouteChildren {
 }
 
 const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
+  EnergiaSolarCalculadoraAreaLayoutPaineisRoute:
+    EnergiaSolarCalculadoraAreaLayoutPaineisRoute,
   EnergiaSolarCalculadoraBateriaRoute: EnergiaSolarCalculadoraBateriaRoute,
   EnergiaSolarCalculadoraInversorRoute: EnergiaSolarCalculadoraInversorRoute,
   EnergiaSolarCalculadoraPaybackRoute: EnergiaSolarCalculadoraPaybackRoute,
