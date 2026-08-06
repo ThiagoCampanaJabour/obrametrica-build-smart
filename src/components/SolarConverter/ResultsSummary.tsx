@@ -171,8 +171,8 @@ export function ResultsSummary({
         <p className="text-sm font-medium text-foreground">
           Sensibilidade (±10% no fator e ±5 p.p. nas perdas)
         </p>
-        <div className="mt-2 overflow-x-auto">
-          <table className="w-full min-w-[420px] text-left text-sm">
+        <div className="mt-2 w-full overflow-x-auto">
+          <table className="w-full min-w-[300px] text-left text-sm">
             <thead>
               <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
                 <th scope="col" className="py-2 pr-3">Cenário</th>
