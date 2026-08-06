@@ -89,6 +89,11 @@ const ENTRIES: Entry[] = [
     changefreq: "monthly",
     priority: "0.8",
   },
+  {
+    path: "/energia-solar/conversor-kw-kwh",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
 
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },
