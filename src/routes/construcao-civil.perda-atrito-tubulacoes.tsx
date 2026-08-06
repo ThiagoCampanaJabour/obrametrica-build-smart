@@ -177,7 +177,7 @@ function PerdaAtritoPage() {
           profissional qualificado (<em>ABNT NBR 5626</em> / <em>NBR 12218</em>).
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,540px)_1fr]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(420px,520px)_1fr]">
           <div className="rounded-xl border border-border bg-card p-6">
             <PerdaForm
               state={state}

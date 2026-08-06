@@ -10,13 +10,13 @@ function Plot({
   points,
   xLabel,
   yLabel,
-  color,
+  colorClass,
 }: {
   title: string;
   points: Point[];
   xLabel: string;
   yLabel: string;
-  color: string;
+  colorClass: string;
 }) {
   const W = 520;
   const H = 220;
@@ -66,9 +66,9 @@ function Plot({
             strokeWidth={1}
           />
         ))}
-        <path d={d} fill="none" stroke={color} strokeWidth={2} />
+        <path d={d} fill="none" stroke="currentColor" strokeWidth={2} className={colorClass} />
         {points.map((p, i) => (
-          <circle key={i} cx={sx(p.x)} cy={sy(p.y)} r={2.5} fill={color} />
+          <circle key={i} cx={sx(p.x)} cy={sy(p.y)} r={2.5} fill="currentColor" className={colorClass} />
         ))}
         <text x={pad.left - 8} y={sy(maxY)} textAnchor="end" className="fill-muted-foreground text-[10px]">
           {fmt(maxY, 2)}
@@ -123,14 +123,14 @@ export function PerdaChart({
         points={result.perfil.map((p) => ({ x: p.x_m, y: p.h_m }))}
         xLabel="Comprimento (m)"
         yLabel="Perda (m.c.a.)"
-        color="hsl(var(--primary))"
+        colorClass="text-primary"
       />
       <Plot
         title="Curva do sistema — altura manométrica vs vazão"
         points={curva.map((p) => ({ x: p.Q_Ls, y: p.head_m }))}
         xLabel="Vazão (L/s)"
         yLabel="Altura (m)"
-        color="hsl(var(--accent-foreground))"
+        colorClass="text-accent-foreground"
       />
     </div>
   );
