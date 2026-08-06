@@ -52,10 +52,15 @@ function getSvgSource(): { source: string; width: number; height: number } | nul
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
   clone.setAttribute("width", String(width));
   clone.setAttribute("height", String(height));
-  // Converte classes utilitárias em cores concretas para o arquivo exportado.
-  clone.querySelectorAll("rect, text").forEach((node) => {
-    const original = el.querySelector(`#${CSS.escape(node.id)}`);
-    void original;
+  // Copia as cores computadas para o arquivo exportado (fora do DOM não há CSS).
+  const originais = el.querySelectorAll("rect, text");
+  clone.querySelectorAll("rect, text").forEach((node, idx) => {
+    const src = originais[idx];
+    if (!src) return;
+    const cs = window.getComputedStyle(src);
+    node.setAttribute("fill", cs.fill);
+    node.setAttribute("stroke", cs.stroke);
+    node.removeAttribute("class");
   });
   const source = new XMLSerializer().serializeToString(clone);
   return { source, width, height };
