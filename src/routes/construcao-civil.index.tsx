@@ -175,6 +175,12 @@ const calcs = [
     desc: "Carga térmica por ambiente e capacidade de ar-condicionado em kW e BTU.",
   },
   {
+    to: "/construcao-civil/perda-atrito-tubulacoes" as const,
+    icon: Droplet,
+    title: "Perda de Carga em Tubulações",
+    desc: "Darcy-Weisbach, Hazen-Williams, perdas localizadas e potência de bomba.",
+  },
+  {
     to: "/construcao-civil/andaimes-escoras" as const,
     icon: Layers,
     title: "Andaimes e Escoras",
