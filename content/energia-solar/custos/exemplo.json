@@ -1,0 +1,99 @@
+{
+  "_nota": "Cenários de validação do estimador de custo total. Os valores esperados assumem os presets de 2026-01.",
+  "casos": [
+    {
+      "nome": "Caso 1 — Residencial 4 kWp",
+      "input": {
+        "nome": "Residencial 4 kWp",
+        "local": "São Paulo — SP",
+        "potenciaAlvo_kWp": 4,
+        "modulo": { "label": "400 Wp mono", "pmp_W": 400, "custo_RporWp": 1.05, "comprimento_m": 1.95, "largura_m": 0.99, "porCaixa": 1 },
+        "spare_pct": 0,
+        "montagem": "paisagem",
+        "modulosPorString": 10,
+        "dcAcRatio": 1.2,
+        "inversor": { "tipo": "string", "potenciaAC_kW": 5, "custoUnitario_R": 4200, "stringsPorInversor": 2, "vidaUtil_anos": 12 },
+        "estrutura": { "tipo": "telhado-inclinado", "rail_RporM": 38, "clampsPorModulo": 4, "clampUnitario_R": 9, "fator": 1 },
+        "cabos": { "dc_m": 60, "dc_RporM": 9.5, "ac_m": 25, "ac_RporM": 14, "eletrocalha_m": 0, "eletrocalha_RporM": 22 },
+        "maoObra": { "modo": "kwp", "custo_RporkWp": 700, "horasPorkWp": 8, "taxaHora_R": 85 },
+        "contingencia_pct": 7,
+        "markup_pct": 15,
+        "bateria": null,
+        "vidaUtil_anos": 25,
+        "taxaDesconto_pct": 8,
+        "producaoAnual_kWh": 6000,
+        "tarifa_RporkWh": 0.95
+      },
+      "output_esperado": {
+        "nModulos": 10,
+        "potenciaDC_kWp": 4,
+        "nStrings": 1,
+        "nInversores": 1,
+        "dcAcRatioReal": 0.8,
+        "custoModulos_R": 4200,
+        "rails_m": 39,
+        "clamps_qty": 40,
+        "opexAnual_R_aprox": 292,
+        "paybackSimples_anos_aprox": 3.8,
+        "substituicoes": [12, 24]
+      }
+    },
+    {
+      "nome": "Caso 2 — Comercial 50 kWp",
+      "input": {
+        "nome": "Comercial 50 kWp",
+        "local": "Belo Horizonte — MG",
+        "potenciaAlvo_kWp": 50,
+        "modulo": { "label": "550 Wp mono half-cell", "pmp_W": 550, "custo_RporWp": 0.95, "comprimento_m": 2.28, "largura_m": 1.13, "porCaixa": 31 },
+        "spare_pct": 2,
+        "montagem": "paisagem",
+        "modulosPorString": 15,
+        "dcAcRatio": 1.2,
+        "inversor": { "tipo": "string", "potenciaAC_kW": 25, "custoUnitario_R": 13500, "stringsPorInversor": 6, "vidaUtil_anos": 12 },
+        "estrutura": { "tipo": "telhado-plano", "rail_RporM": 38, "clampsPorModulo": 4, "clampUnitario_R": 9, "fator": 1.6 },
+        "cabos": { "dc_m": 320, "dc_RporM": 9.5, "ac_m": 60, "ac_RporM": 28, "eletrocalha_m": 60, "eletrocalha_RporM": 30 },
+        "maoObra": { "modo": "kwp", "custo_RporkWp": 550, "horasPorkWp": 7, "taxaHora_R": 85 },
+        "contingencia_pct": 7,
+        "markup_pct": 12,
+        "bateria": null,
+        "vidaUtil_anos": 25,
+        "taxaDesconto_pct": 8,
+        "producaoAnual_kWh": 75000,
+        "tarifa_RporkWh": 0.85
+      },
+      "output_esperado": {
+        "nModulos": 91,
+        "potenciaDC_kWp": 50.05,
+        "nModulosComprados": 93,
+        "nCaixas": 3,
+        "nStrings": 7,
+        "nInversores": 2,
+        "entradasStringDisponiveis": 12,
+        "substituicoes": [12, 24],
+        "custoSubstituicaoInversor_R": 27000
+      }
+    },
+    {
+      "nome": "Caso 3 — Residencial 4 kWp com bateria de 10 kWh",
+      "input": {
+        "nome": "Residencial com backup",
+        "local": "Curitiba — PR",
+        "potenciaAlvo_kWp": 4,
+        "modulo": { "label": "400 Wp mono", "pmp_W": 400, "custo_RporWp": 1.05, "comprimento_m": 1.95, "largura_m": 0.99, "porCaixa": 1 },
+        "inversor": { "tipo": "hibrido", "potenciaAC_kW": 8, "custoUnitario_R": 12500, "stringsPorInversor": 3, "vidaUtil_anos": 10 },
+        "bateria": { "capacidade_kWh": 10, "custo_RporkWh": 3200, "vidaUtil_anos": 10 },
+        "vidaUtil_anos": 25,
+        "producaoAnual_kWh": 5600,
+        "tarifa_RporkWh": 0.95
+      },
+      "output_esperado": {
+        "custoBateria_R": 32000,
+        "capexMaiorQueSemBateria": true,
+        "seguroMaiorQueSemBateria": true,
+        "substituicoesBateria": [10, 20],
+        "substituicoesInversor": [10, 20],
+        "paybackMaisLongoQueSemBateria": true
+      }
+    }
+  ]
+}

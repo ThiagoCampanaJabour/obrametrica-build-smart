@@ -84,6 +84,12 @@ const tools = [
     title: "Área e Layout de Painéis",
     desc: "Quantos módulos cabem na área, kWp, strings, corredores e preview 2D do arranjo.",
   },
+  {
+    to: "/energia-solar/estimador-custo-total" as const,
+    icon: TrendingUp,
+    title: "Estimador de Custo Total (TCO)",
+    desc: "CAPEX item a item, OPEX anual, substituições, payback, LCOE e fluxo de caixa.",
+  },
 ];
 
 function EnergiaSolarPage() {
