@@ -61,6 +61,7 @@ import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/cons
 import { Route as ConstrucaoCivilEstruturasMetalicasBasicasRouteImport } from './routes/construcao-civil.estruturas-metalicas-basicas'
 import { Route as ConstrucaoCivilDrenagemCalhasRouteImport } from './routes/construcao-civil.drenagem-calhas'
 import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
+import { Route as ConstrucaoCivilConversorUnidadesTecnicasRouteImport } from './routes/construcao-civil.conversor-unidades-tecnicas'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
 import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
@@ -342,6 +343,12 @@ const ConstrucaoCivilDimensionamentoEletricoRoute =
     path: '/dimensionamento-eletrico',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilConversorUnidadesTecnicasRoute =
+  ConstrucaoCivilConversorUnidadesTecnicasRouteImport.update({
+    id: '/conversor-unidades-tecnicas',
+    path: '/conversor-unidades-tecnicas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilCalculadoraMaoObraRoute =
   ConstrucaoCivilCalculadoraMaoObraRouteImport.update({
     id: '/calculadora-mao-obra',
@@ -413,6 +420,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/conversor-unidades-tecnicas': typeof ConstrucaoCivilConversorUnidadesTecnicasRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
@@ -470,6 +478,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/conversor-unidades-tecnicas': typeof ConstrucaoCivilConversorUnidadesTecnicasRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
@@ -530,6 +539,7 @@ export interface FileRoutesById {
   '/construcao-civil/andaimes-escoras': typeof ConstrucaoCivilAndaimesEscorasRoute
   '/construcao-civil/calculadora-lajes': typeof ConstrucaoCivilCalculadoraLajesRoute
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  '/construcao-civil/conversor-unidades-tecnicas': typeof ConstrucaoCivilConversorUnidadesTecnicasRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
   '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
@@ -591,6 +601,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/conversor-unidades-tecnicas'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/estruturas-metalicas-basicas'
@@ -648,6 +659,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/conversor-unidades-tecnicas'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/estruturas-metalicas-basicas'
@@ -707,6 +719,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/andaimes-escoras'
     | '/construcao-civil/calculadora-lajes'
     | '/construcao-civil/calculadora-mao-obra'
+    | '/construcao-civil/conversor-unidades-tecnicas'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
     | '/construcao-civil/estruturas-metalicas-basicas'
@@ -1131,6 +1144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilDimensionamentoEletricoRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/conversor-unidades-tecnicas': {
+      id: '/construcao-civil/conversor-unidades-tecnicas'
+      path: '/conversor-unidades-tecnicas'
+      fullPath: '/construcao-civil/conversor-unidades-tecnicas'
+      preLoaderRoute: typeof ConstrucaoCivilConversorUnidadesTecnicasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/calculadora-mao-obra': {
       id: '/construcao-civil/calculadora-mao-obra'
       path: '/calculadora-mao-obra'
@@ -1185,6 +1205,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilAndaimesEscorasRoute: typeof ConstrucaoCivilAndaimesEscorasRoute
   ConstrucaoCivilCalculadoraLajesRoute: typeof ConstrucaoCivilCalculadoraLajesRoute
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
+  ConstrucaoCivilConversorUnidadesTecnicasRoute: typeof ConstrucaoCivilConversorUnidadesTecnicasRoute
   ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
   ConstrucaoCivilDrenagemCalhasRoute: typeof ConstrucaoCivilDrenagemCalhasRoute
   ConstrucaoCivilEstruturasMetalicasBasicasRoute: typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
@@ -1201,6 +1222,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilCalculadoraLajesRoute: ConstrucaoCivilCalculadoraLajesRoute,
   ConstrucaoCivilCalculadoraMaoObraRoute:
     ConstrucaoCivilCalculadoraMaoObraRoute,
+  ConstrucaoCivilConversorUnidadesTecnicasRoute:
+    ConstrucaoCivilConversorUnidadesTecnicasRoute,
   ConstrucaoCivilDimensionamentoEletricoRoute:
     ConstrucaoCivilDimensionamentoEletricoRoute,
   ConstrucaoCivilDrenagemCalhasRoute: ConstrucaoCivilDrenagemCalhasRoute,

@@ -192,6 +192,12 @@ const calcs = [
     title: "Iluminação Natural e Sombras",
     desc: "Daylight factor, iluminância por hora, ofuscamento e proteção solar.",
   },
+  {
+    to: "/construcao-civil/conversor-unidades-tecnicas" as const,
+    icon: Ruler,
+    title: "Conversor de Unidades Técnicas",
+    desc: "Área, volume, massa, densidade, tensão, potência, vazão e torque.",
+  },
 ];
 
 
