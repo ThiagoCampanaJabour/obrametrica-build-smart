@@ -162,7 +162,13 @@ function QuantificacaoPage() {
                     "application/json",
                   )
                 }
+                onCopy={() =>
+                  navigator.clipboard.writeText(
+                    JSON.stringify({ inputs: state, outputs: result }, null, 2),
+                  )
+                }
               />
+
             )}
           </div>
         </div>
