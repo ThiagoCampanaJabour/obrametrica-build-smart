@@ -1,0 +1,43 @@
+{
+  "materiais": [
+    { "id": "pvc", "nome": "PVC / PVC-U", "epsilon_mm": 0.0015, "hazenC": 150 },
+    { "id": "pead", "nome": "PEAD (HDPE)", "epsilon_mm": 0.0015, "hazenC": 150 },
+    { "id": "cobre", "nome": "Cobre", "epsilon_mm": 0.0015, "hazenC": 140 },
+    { "id": "aco-liso", "nome": "Aço comercial (liso)", "epsilon_mm": 0.045, "hazenC": 120 },
+    { "id": "aco-galv", "nome": "Aço galvanizado", "epsilon_mm": 0.15, "hazenC": 120 },
+    { "id": "ferro-fundido", "nome": "Ferro fundido", "epsilon_mm": 0.26, "hazenC": 120 },
+    { "id": "concreto", "nome": "Concreto", "epsilon_mm": 0.3, "hazenC": 110 },
+    { "id": "personalizado", "nome": "Personalizado", "epsilon_mm": 0.05, "hazenC": 130 }
+  ],
+  "temperaturas": [
+    { "T_C": 5, "rho": 999.96, "mu": 0.0015192 },
+    { "T_C": 10, "rho": 999.7, "mu": 0.0013059 },
+    { "T_C": 20, "rho": 998.2, "mu": 0.001002 },
+    { "T_C": 40, "rho": 992.22, "mu": 0.0006527 }
+  ],
+  "pecas": [
+    { "label": "Curva 90° raio longo", "K": 0.6 },
+    { "label": "Curva 90° padrão", "K": 0.9 },
+    { "label": "Curva 45°", "K": 0.4 },
+    { "label": "Tê passagem direta", "K": 0.6 },
+    { "label": "Tê saída lateral", "K": 1.8 },
+    { "label": "Válvula gaveta aberta", "K": 0.2 },
+    { "label": "Válvula esfera aberta", "K": 0.1 },
+    { "label": "Válvula globo aberta", "K": 10.0 },
+    { "label": "Válvula de retenção", "K": 2.5 },
+    { "label": "Entrada de borda viva", "K": 0.5 },
+    { "label": "Saída de tubulação", "K": 1.0 },
+    { "label": "Redução gradual", "K": 0.15 }
+  ],
+  "unidades": {
+    "vazao": ["m3/s", "L/s", "m3/h", "gpm"],
+    "diametro": ["mm", "m", "in"],
+    "pressao": ["m.c.a.", "Pa", "kPa", "psi"]
+  },
+  "fontes": [
+    "Munson, Young & Okiishi — Fundamentals of Fluid Mechanics",
+    "White, F. M. — Fluid Mechanics",
+    "Colebrook, C. F. (1939); Swamee & Jain (1976)",
+    "ABNT NBR 5626 — Instalações prediais de água fria"
+  ]
+}

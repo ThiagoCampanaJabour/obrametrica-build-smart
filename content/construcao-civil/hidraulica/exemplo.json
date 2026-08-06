@@ -1,0 +1,65 @@
+{
+  "casos": [
+    {
+      "id": "caso-1",
+      "titulo": "Ramal de PVC 50 mm — Darcy (Swamee-Jain)",
+      "inputs": {
+        "metodo": "darcy-swamee-jain",
+        "temperatura_C": 20,
+        "trechos": [
+          { "label": "Trecho único", "D_mm": 50, "L_m": 100, "material": "pvc", "Q_Ls": 2 }
+        ],
+        "pecas": [],
+        "desnivel_m": 0,
+        "eficienciaBomba": 0.6
+      },
+      "esperado": {
+        "V_m_s": 1.019,
+        "Reynolds_aprox": 50700,
+        "f_aprox": 0.0208,
+        "hf_m_aprox": 2.2
+      }
+    },
+    {
+      "id": "caso-2",
+      "titulo": "Adutora 100 mm — Hazen-Williams vs Darcy",
+      "inputs": {
+        "metodo": "hazen-williams",
+        "temperatura_C": 20,
+        "trechos": [
+          { "label": "Adutora", "D_mm": 100, "L_m": 200, "material": "pvc", "C": 140, "Q_Ls": 10 }
+        ],
+        "pecas": [],
+        "desnivel_m": 0,
+        "eficienciaBomba": 0.6
+      },
+      "esperado": {
+        "hf_m_hazen": 3.323,
+        "hf_m_darcy_aprox": 3.1,
+        "observacao": "Diferença típica de 5–15% entre métodos para PVC."
+      }
+    },
+    {
+      "id": "caso-3",
+      "titulo": "Dois trechos em série com curva e válvula",
+      "inputs": {
+        "metodo": "darcy-colebrook",
+        "temperatura_C": 20,
+        "trechos": [
+          { "label": "Trecho A", "D_mm": 80, "L_m": 50, "material": "pvc", "Q_Ls": 5 },
+          { "label": "Trecho B", "D_mm": 50, "L_m": 30, "material": "pvc", "Q_Ls": 5 }
+        ],
+        "pecas": [
+          { "label": "Curva 90° padrão", "K": 0.9, "qty": 1, "trecho": "Trecho B" },
+          { "label": "Válvula gaveta aberta", "K": 0.2, "qty": 1, "trecho": "Trecho B" }
+        ],
+        "desnivel_m": 8,
+        "eficienciaBomba": 0.6
+      },
+      "esperado": {
+        "somaK_trecho_B": 1.1,
+        "observacao": "hf_total = hf_atrito + hf_local; altura manométrica = hf_total + 8 m."
+      }
+    }
+  ]
+}
