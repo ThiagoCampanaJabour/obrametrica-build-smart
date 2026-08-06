@@ -58,6 +58,7 @@ import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './r
 import { Route as ConstrucaoCivilOrcamentoPorEtapaRouteImport } from './routes/construcao-civil.orcamento-por-etapa'
 import { Route as ConstrucaoCivilHvacPerdasRouteImport } from './routes/construcao-civil.hvac-perdas'
 import { Route as ConstrucaoCivilFundacaoSapataRouteImport } from './routes/construcao-civil.fundacao-sapata'
+import { Route as ConstrucaoCivilEstruturasMetalicasBasicasRouteImport } from './routes/construcao-civil.estruturas-metalicas-basicas'
 import { Route as ConstrucaoCivilDrenagemCalhasRouteImport } from './routes/construcao-civil.drenagem-calhas'
 import { Route as ConstrucaoCivilDimensionamentoEletricoRouteImport } from './routes/construcao-civil.dimensionamento-eletrico'
 import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/construcao-civil.calculadora-mao-obra'
@@ -323,6 +324,12 @@ const ConstrucaoCivilFundacaoSapataRoute =
     path: '/fundacao-sapata',
     getParentRoute: () => ConstrucaoCivilRoute,
   } as any)
+const ConstrucaoCivilEstruturasMetalicasBasicasRoute =
+  ConstrucaoCivilEstruturasMetalicasBasicasRouteImport.update({
+    id: '/estruturas-metalicas-basicas',
+    path: '/estruturas-metalicas-basicas',
+    getParentRoute: () => ConstrucaoCivilRoute,
+  } as any)
 const ConstrucaoCivilDrenagemCalhasRoute =
   ConstrucaoCivilDrenagemCalhasRouteImport.update({
     id: '/drenagem-calhas',
@@ -408,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
+  '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
@@ -464,6 +472,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
+  '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
@@ -523,6 +532,7 @@ export interface FileRoutesById {
   '/construcao-civil/calculadora-mao-obra': typeof ConstrucaoCivilCalculadoraMaoObraRoute
   '/construcao-civil/dimensionamento-eletrico': typeof ConstrucaoCivilDimensionamentoEletricoRoute
   '/construcao-civil/drenagem-calhas': typeof ConstrucaoCivilDrenagemCalhasRoute
+  '/construcao-civil/estruturas-metalicas-basicas': typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
   '/construcao-civil/fundacao-sapata': typeof ConstrucaoCivilFundacaoSapataRoute
   '/construcao-civil/hvac-perdas': typeof ConstrucaoCivilHvacPerdasRoute
   '/construcao-civil/orcamento-por-etapa': typeof ConstrucaoCivilOrcamentoPorEtapaRoute
@@ -583,6 +593,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
+    | '/construcao-civil/estruturas-metalicas-basicas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
@@ -639,6 +650,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
+    | '/construcao-civil/estruturas-metalicas-basicas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
@@ -697,6 +709,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/calculadora-mao-obra'
     | '/construcao-civil/dimensionamento-eletrico'
     | '/construcao-civil/drenagem-calhas'
+    | '/construcao-civil/estruturas-metalicas-basicas'
     | '/construcao-civil/fundacao-sapata'
     | '/construcao-civil/hvac-perdas'
     | '/construcao-civil/orcamento-por-etapa'
@@ -1097,6 +1110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilFundacaoSapataRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/construcao-civil/estruturas-metalicas-basicas': {
+      id: '/construcao-civil/estruturas-metalicas-basicas'
+      path: '/estruturas-metalicas-basicas'
+      fullPath: '/construcao-civil/estruturas-metalicas-basicas'
+      preLoaderRoute: typeof ConstrucaoCivilEstruturasMetalicasBasicasRouteImport
+      parentRoute: typeof ConstrucaoCivilRoute
+    }
     '/construcao-civil/drenagem-calhas': {
       id: '/construcao-civil/drenagem-calhas'
       path: '/drenagem-calhas'
@@ -1167,6 +1187,7 @@ interface ConstrucaoCivilRouteChildren {
   ConstrucaoCivilCalculadoraMaoObraRoute: typeof ConstrucaoCivilCalculadoraMaoObraRoute
   ConstrucaoCivilDimensionamentoEletricoRoute: typeof ConstrucaoCivilDimensionamentoEletricoRoute
   ConstrucaoCivilDrenagemCalhasRoute: typeof ConstrucaoCivilDrenagemCalhasRoute
+  ConstrucaoCivilEstruturasMetalicasBasicasRoute: typeof ConstrucaoCivilEstruturasMetalicasBasicasRoute
   ConstrucaoCivilFundacaoSapataRoute: typeof ConstrucaoCivilFundacaoSapataRoute
   ConstrucaoCivilHvacPerdasRoute: typeof ConstrucaoCivilHvacPerdasRoute
   ConstrucaoCivilOrcamentoPorEtapaRoute: typeof ConstrucaoCivilOrcamentoPorEtapaRoute
@@ -1183,6 +1204,8 @@ const ConstrucaoCivilRouteChildren: ConstrucaoCivilRouteChildren = {
   ConstrucaoCivilDimensionamentoEletricoRoute:
     ConstrucaoCivilDimensionamentoEletricoRoute,
   ConstrucaoCivilDrenagemCalhasRoute: ConstrucaoCivilDrenagemCalhasRoute,
+  ConstrucaoCivilEstruturasMetalicasBasicasRoute:
+    ConstrucaoCivilEstruturasMetalicasBasicasRoute,
   ConstrucaoCivilFundacaoSapataRoute: ConstrucaoCivilFundacaoSapataRoute,
   ConstrucaoCivilHvacPerdasRoute: ConstrucaoCivilHvacPerdasRoute,
   ConstrucaoCivilOrcamentoPorEtapaRoute: ConstrucaoCivilOrcamentoPorEtapaRoute,
