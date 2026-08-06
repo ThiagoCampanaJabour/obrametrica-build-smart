@@ -1,0 +1,44 @@
+{
+  "modulos": [
+    { "id": "mod-330", "label": "330 Wp — 1,95 × 0,99 m", "pmp_W": 330, "comprimento_m": 1.95, "largura_m": 0.99, "vmpp_V": 34 },
+    { "id": "mod-400", "label": "400 Wp — 1,95 × 0,99 m", "pmp_W": 400, "comprimento_m": 1.95, "largura_m": 0.99, "vmpp_V": 31 },
+    { "id": "mod-550", "label": "550 Wp — 2,28 × 1,13 m", "pmp_W": 550, "comprimento_m": 2.28, "largura_m": 1.13, "vmpp_V": 42 },
+    { "id": "mod-540", "label": "540 Wp — 2,30 × 1,16 m", "pmp_W": 540, "comprimento_m": 2.3, "largura_m": 1.16, "vmpp_V": 41 }
+  ],
+  "gaps_m": {
+    "transversal_default": 0.03,
+    "transversal_faixa": [0.02, 0.05],
+    "longitudinal_default": 0.01,
+    "longitudinal_faixa": [0.01, 0.02]
+  },
+  "margemBorda_m": { "default": 0.3, "faixa": [0.3, 0.5] },
+  "corredorManutencao_m": { "default": 0.6, "faixa": [0.6, 0.8] },
+  "fileirasPorBloco": { "default": 4, "faixa": [3, 5] },
+  "coberturaMax_pct": { "default": 80, "faixa": [60, 90] },
+  "reserva_pct": { "default": 2, "faixa": [2, 5] },
+  "modulosPorString": { "default": 10, "faixa": [8, 15] },
+  "tilt": {
+    "minimo_autolimpeza_deg": 10,
+    "regra": "tilt ≈ |latitude| para máxima geração anual",
+    "azimute_hemisferio_sul_deg": 0
+  },
+  "latitudes_referencia": [
+    { "cidade": "São Paulo", "lat": -23.55, "elevacao_inverno_deg": 43.1 },
+    { "cidade": "Belo Horizonte", "lat": -19.92, "elevacao_inverno_deg": 46.6 },
+    { "cidade": "Brasília", "lat": -15.79, "elevacao_inverno_deg": 50.8 },
+    { "cidade": "Recife", "lat": -8.05, "elevacao_inverno_deg": 58.5 },
+    { "cidade": "Porto Alegre", "lat": -30.03, "elevacao_inverno_deg": 36.5 },
+    { "cidade": "Curitiba", "lat": -25.43, "elevacao_inverno_deg": 41.1 }
+  ],
+  "area_por_kwp_m2": {
+    "coplanar_telhado": [5, 6],
+    "telhado_plano_com_espacamento": [10, 15],
+    "solo": [12, 18]
+  },
+  "fontes": [
+    "ABNT NBR 16274",
+    "ABNT NBR 16690",
+    "NREL — Best Practices for PV System Design and Row Spacing",
+    "Atlas Brasileiro de Energia Solar (INPE/CEPEL)"
+  ]
+}
