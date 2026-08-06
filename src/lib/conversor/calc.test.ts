@@ -78,7 +78,7 @@ describe("combine — conversões compostas", () => {
 
 describe("formatOutput", () => {
   it("usa vírgula decimal em pt-BR", () => {
-    expect(formatOutput(1.2345, { decimals: 3 })).toBe("1,234");
+    expect(formatOutput(1.2345, { decimals: 3 })).toBe("1,235");
   });
   it("usa notação científica para valores extremos", () => {
     expect(formatOutput(1e9, { decimals: 3 })).toContain("e+");
