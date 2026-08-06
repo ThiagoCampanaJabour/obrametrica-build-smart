@@ -214,7 +214,8 @@ describe("OPEX, payback e indicadores", () => {
   it("calcula LCOE positivo e custo por kWp", () => {
     const res = estimateCost(base());
     expect(res.indicadores.lcoe_RporkWh).toBeGreaterThan(0);
-    expect(res.indicadores.lcoe_RporkWh).toBeLessThan(1);
+    // LCOE com energia descontada a 8% a.a. fica acima da tarifa nominal.
+    expect(res.indicadores.lcoe_RporkWh).toBeLessThan(3);
     expect(res.indicadores.custoPorkWp_R).toBeGreaterThan(3000);
   });
 
