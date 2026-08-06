@@ -1,0 +1,80 @@
+{
+  "aviso": "Ferramenta de estimativa — não substitui projeto estrutural ou cálculo executivo. Todas as recomendações devem ser verificadas por engenheiro estrutural responsável antes da fabricação e montagem.",
+  "casos": [
+    {
+      "id": "caso-1-viga-simples",
+      "titulo": "Viga simplesmente apoiada, L = 6 m, q = 5 kN/m",
+      "input": {
+        "nome": "Viga V1",
+        "tipo": "viga-simples",
+        "vaoM": 6,
+        "alturaM": 3,
+        "cargaDistribuidaKnM": 5,
+        "cargaPontualKn": 0,
+        "apoio": "biapoiado",
+        "material": "S275",
+        "familia": "IPE",
+        "fatorMargem": 1,
+        "quantidade": 1,
+        "extraCorteM": 0.1
+      },
+      "esperado": {
+        "momentoMaxKnM": 22.5,
+        "cortanteMaxKn": 15,
+        "wReqCm3": 140.6,
+        "perfilSugerido": "IPE 180",
+        "observacao": "Flecha estimada próxima do limite L/250 — avaliar IPE 200."
+      }
+    },
+    {
+      "id": "caso-2-carga-pontual",
+      "titulo": "Viga com carga concentrada P = 20 kN no centro, L = 4 m",
+      "input": {
+        "nome": "Viga de transição VT1",
+        "tipo": "viga-simples",
+        "vaoM": 4,
+        "alturaM": 3,
+        "cargaDistribuidaKnM": 0,
+        "cargaPontualKn": 20,
+        "apoio": "biapoiado",
+        "material": "S275",
+        "familia": "IPE",
+        "fatorMargem": 1,
+        "quantidade": 1,
+        "extraCorteM": 0.1
+      },
+      "esperado": {
+        "momentoMaxKnM": 20,
+        "cortanteMaxKn": 10,
+        "wReqCm3": 125,
+        "perfilSugerido": "IPE 180",
+        "observacao": "Exige enrijecedor de alma sob a carga concentrada (não calculado)."
+      }
+    },
+    {
+      "id": "caso-3-portico",
+      "titulo": "Pórtico simples: vão 5 m, altura 3 m, carga de topo 10 kN",
+      "input": {
+        "nome": "Pórtico P1",
+        "tipo": "portico-simples",
+        "vaoM": 5,
+        "alturaM": 3,
+        "cargaDistribuidaKnM": 0,
+        "cargaPontualKn": 10,
+        "apoio": "biapoiado",
+        "material": "S275",
+        "familia": "auto",
+        "fatorMargem": 1,
+        "quantidade": 1,
+        "extraCorteM": 0.1
+      },
+      "esperado": {
+        "momentoVigaKnM": 10.63,
+        "reacaoTopoPorPilarKn": 5,
+        "momentoPilarKnM": 7.5,
+        "comprimentoPorPorticoM": 11,
+        "observacao": "Pilares de pórtico geralmente são governados por esbeltez e estabilidade, não por flexão."
+      }
+    }
+  ]
+}

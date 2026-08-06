@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home, Zap, Sun } from "lucide-react";
+import { Hammer, Boxes, LayoutGrid, Paintbrush, Layers, Droplet, Waves, Pickaxe, Wind, ArrowRight, Home, Zap, Sun, Ruler } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { CategoryLatestPosts } from "@/components/category-latest-posts";
 
@@ -179,6 +179,12 @@ const calcs = [
     icon: Layers,
     title: "Andaimes e Escoras",
     desc: "Módulos, plataformas, diagonais e escoras por fachada ou trecho.",
+  },
+  {
+    to: "/construcao-civil/estruturas-metalicas-basicas" as const,
+    icon: Ruler,
+    title: "Estruturas Metálicas Básicas",
+    desc: "Perfis, esforços e peso de aço para vigas, pórticos e pilares.",
   },
   {
     to: "/construcao-civil/simulador-iluminacao-fachadas" as const,
