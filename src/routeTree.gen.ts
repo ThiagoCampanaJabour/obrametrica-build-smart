@@ -49,6 +49,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
+import { Route as EnergiaSolarEstimadorCustoTotalRouteImport } from './routes/energia-solar.estimador-custo-total'
 import { Route as EnergiaSolarComparadorSistemasRouteImport } from './routes/energia-solar.comparador-sistemas'
 import { Route as EnergiaSolarCalculadoraPerdasEficienciaRouteImport } from './routes/energia-solar.calculadora-perdas-eficiencia'
 import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/energia-solar.calculadora-payback'
@@ -274,6 +275,12 @@ const EnergiaSolarSimulacaoRadiacaoRoute =
     path: '/simulacao-radiacao',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
+const EnergiaSolarEstimadorCustoTotalRoute =
+  EnergiaSolarEstimadorCustoTotalRouteImport.update({
+    id: '/estimador-custo-total',
+    path: '/estimador-custo-total',
+    getParentRoute: () => EnergiaSolarRoute,
+  } as any)
 const EnergiaSolarComparadorSistemasRoute =
   EnergiaSolarComparadorSistemasRouteImport.update({
     id: '/comparador-sistemas',
@@ -457,6 +464,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
@@ -518,6 +526,7 @@ export interface FileRoutesByTo {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
@@ -582,6 +591,7 @@ export interface FileRoutesById {
   '/energia-solar/calculadora-payback': typeof EnergiaSolarCalculadoraPaybackRoute
   '/energia-solar/calculadora-perdas-eficiencia': typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   '/energia-solar/comparador-sistemas': typeof EnergiaSolarComparadorSistemasRoute
+  '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
@@ -647,6 +657,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/estimador-custo-total'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
     | '/energia-solar/'
@@ -708,6 +719,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/estimador-custo-total'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil'
     | '/energia-solar'
@@ -771,6 +783,7 @@ export interface FileRouteTypes {
     | '/energia-solar/calculadora-payback'
     | '/energia-solar/calculadora-perdas-eficiencia'
     | '/energia-solar/comparador-sistemas'
+    | '/energia-solar/estimador-custo-total'
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
     | '/energia-solar/'
@@ -1099,6 +1112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarSimulacaoRadiacaoRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
+    '/energia-solar/estimador-custo-total': {
+      id: '/energia-solar/estimador-custo-total'
+      path: '/estimador-custo-total'
+      fullPath: '/energia-solar/estimador-custo-total'
+      preLoaderRoute: typeof EnergiaSolarEstimadorCustoTotalRouteImport
+      parentRoute: typeof EnergiaSolarRoute
+    }
     '/energia-solar/comparador-sistemas': {
       id: '/energia-solar/comparador-sistemas'
       path: '/comparador-sistemas'
@@ -1313,6 +1333,7 @@ interface EnergiaSolarRouteChildren {
   EnergiaSolarCalculadoraPaybackRoute: typeof EnergiaSolarCalculadoraPaybackRoute
   EnergiaSolarCalculadoraPerdasEficienciaRoute: typeof EnergiaSolarCalculadoraPerdasEficienciaRoute
   EnergiaSolarComparadorSistemasRoute: typeof EnergiaSolarComparadorSistemasRoute
+  EnergiaSolarEstimadorCustoTotalRoute: typeof EnergiaSolarEstimadorCustoTotalRoute
   EnergiaSolarSimulacaoRadiacaoRoute: typeof EnergiaSolarSimulacaoRadiacaoRoute
   EnergiaSolarIndexRoute: typeof EnergiaSolarIndexRoute
 }
@@ -1326,6 +1347,7 @@ const EnergiaSolarRouteChildren: EnergiaSolarRouteChildren = {
   EnergiaSolarCalculadoraPerdasEficienciaRoute:
     EnergiaSolarCalculadoraPerdasEficienciaRoute,
   EnergiaSolarComparadorSistemasRoute: EnergiaSolarComparadorSistemasRoute,
+  EnergiaSolarEstimadorCustoTotalRoute: EnergiaSolarEstimadorCustoTotalRoute,
   EnergiaSolarSimulacaoRadiacaoRoute: EnergiaSolarSimulacaoRadiacaoRoute,
   EnergiaSolarIndexRoute: EnergiaSolarIndexRoute,
 }
