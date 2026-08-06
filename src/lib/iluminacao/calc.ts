@@ -316,8 +316,7 @@ export function azimuteSolarAprox(hora: number, latitude: number): number {
 
 /** Diferença angular absoluta entre dois azimutes (0..180). */
 function deltaAzimute(a: number, b: number): number {
-  const d = Math.abs(((a - b + 540) % 360) - 180);
-  return 180 - d;
+  return Math.abs(((a - b + 540) % 360) - 180);
 }
 
 /**
