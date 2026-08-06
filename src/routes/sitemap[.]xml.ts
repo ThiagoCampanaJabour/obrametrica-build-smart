@@ -42,6 +42,11 @@ const ENTRIES: Entry[] = [
   { path: "/construcao-civil/hvac-perdas", changefreq: "monthly", priority: "0.8" },
   { path: "/construcao-civil/andaimes-escoras", changefreq: "monthly", priority: "0.8" },
   {
+    path: "/construcao-civil/simulador-iluminacao-fachadas",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
+  {
     path: "/construcao-civil/quantificacao-telhas-pecas",
     changefreq: "monthly",
     priority: "0.8",

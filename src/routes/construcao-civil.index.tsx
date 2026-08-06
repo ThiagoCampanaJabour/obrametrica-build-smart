@@ -180,6 +180,12 @@ const calcs = [
     title: "Andaimes e Escoras",
     desc: "Módulos, plataformas, diagonais e escoras por fachada ou trecho.",
   },
+  {
+    to: "/construcao-civil/simulador-iluminacao-fachadas" as const,
+    icon: Sun,
+    title: "Iluminação Natural e Sombras",
+    desc: "Daylight factor, iluminância por hora, ofuscamento e proteção solar.",
+  },
 ];
 
 
