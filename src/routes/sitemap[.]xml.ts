@@ -79,6 +79,11 @@ const ENTRIES: Entry[] = [
     changefreq: "monthly",
     priority: "0.8",
   },
+  {
+    path: "/energia-solar/estimador-custo-total",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },
   { path: "/conversor-cm-para-polegada", changefreq: "monthly", priority: "0.7" },
