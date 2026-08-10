@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
-import { LayoutDashboard, Calculator, Zap, Save, FileText, BarChart3, Settings, HelpCircle, Download } from "lucide-react";
+import { LayoutDashboard, Calculator, Zap, Save, FileText, BarChart3, Settings, HelpCircle, Download, ArrowRight, TrendingUp } from "lucide-react";
 import { useState, useMemo } from "react";
 import { calculateBudgetComparison } from "@/lib/solar/pv-economic";
 import { BudgetInput } from "@/lib/types/budget";
@@ -43,7 +43,7 @@ function OrcamentoPage() {
 
   const handleExportCSV = () => {
     const headers = "Mes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
-    const rows = results.monthlyData.map(d => `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}`).join("\n");
+    const rows = results.monthlyData.map((d: any) => `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}`).join("\n");
     const blob = new Blob([headers + rows], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -161,6 +161,64 @@ function OrcamentoPage() {
                       className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
                     />
                     <p className="mt-1 text-[10px] text-slate-500 italic">Padrão: 45% residencial / 70% comercial</p>
+                  </div>
+                  </div>
+              </section>
+
+              <section className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl border border-primary/20 p-6 shadow-sm">
+                <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" /> Sliders de Sensibilidade
+                </h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
+                      Variação Tarifa 
+                      <span className={cn("text-xs font-bold", input.tariff > 0.85 ? "text-red-500" : "text-emerald-500")}>
+                        {input.tariff > 0.85 ? "+" : ""}{(((input.tariff - 0.85) / 0.85) * 100).toFixed(0)}%
+                      </span>
+                    </label>
+                    <input 
+                      type="range" 
+                      min="0.68" 
+                      max="1.02" 
+                      step="0.01"
+                      value={input.tariff} 
+                      onChange={(e) => setInput({...input, tariff: Number(e.target.value)})}
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
+                      Fator de Produção 
+                      <span className="text-primary text-xs font-bold">{input.pv?.productionFactor} kWh/kWp</span>
+                    </label>
+                    <input 
+                      type="range" 
+                      min="1350" 
+                      max="1650" 
+                      step="10"
+                      value={input.pv?.productionFactor} 
+                      onChange={(e) => setInput({...input, pv: { ...input.pv!, productionFactor: Number(e.target.value) }})}
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
+                      Perdas Sistêmicas 
+                      <span className="text-primary text-xs font-bold">{input.pv?.lossesPct}%</span>
+                    </label>
+                    <input 
+                      type="range" 
+                      min="9" 
+                      max="19" 
+                      step="1"
+                      value={input.pv?.lossesPct} 
+                      onChange={(e) => setInput({...input, pv: { ...input.pv!, lossesPct: Number(e.target.value) }})}
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
                   </div>
                 </div>
               </section>
