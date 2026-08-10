@@ -36,7 +36,9 @@ describe('Cálculos Financeiros - Veículos', () => {
       insuranceAnnual: 1200,
       ipvaAnnual: 1200,
       vehicleValue: 50000,
-      depreciationRateAnnualPct: 10
+      depreciationRateAnnualPct: 10,
+      licensingAnnual: 0,
+      chargingEfficiencyPct: 90
     };
     const res = calculateVehicleExpenses([vehicle]);
     expect(res.totalMonthly).toBeCloseTo(1216.67, 1);
@@ -55,7 +57,9 @@ describe('Cálculos Financeiros - Veículos', () => {
       insuranceAnnual: 2400,
       ipvaAnnual: 0,
       vehicleValue: 150000,
-      depreciationRateAnnualPct: 8
+      depreciationRateAnnualPct: 8,
+      licensingAnnual: 0,
+      chargingEfficiencyPct: 90
     };
     const res = calculateVehicleExpenses([vehicle]);
     expect(res.totalMonthly).toBe(1370);
