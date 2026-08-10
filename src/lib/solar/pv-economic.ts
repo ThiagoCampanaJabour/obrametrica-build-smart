@@ -1,16 +1,10 @@
 /**
  * src/lib/solar/pv-economic.ts
  * Funções puras para cálculos econômicos simplificados de sistemas fotovoltaicos.
- * 
- * Observações:
- * - Valores monetários retornados em R$ (mesmo que entradas possam ser unit-less).
- * - Presume-se que factor_kwh_per_kwp_year seja em kWh/kWp/ano.
- * - Funções são puras e testáveis.
- * 
- * Limitações:
- * - Modelos simplificados apropriados para estimativas iniciais. Para análise detalhada
- * recomenda-se cálculo horário e análise NPV/IRR.
  */
+
+import { BudgetInput, BudgetResult } from '../types/budget';
+import { calcCostWithTaxes, totalAppliancesConsumption } from '../finance/budget';
 
 export type PVCalculationResult = {
   production_kwh_year: number;
@@ -29,7 +23,7 @@ export function energyFromPower(
   losses_pct = 14
 ): number {
   if (kWp < 0 || factor_kwh_per_kwp_year < 0) {
-    throw new Error('Invalid inputs to energyFromPower');
+    return 0;
   }
   const lossesFrac = losses_pct / 100;
   return kWp * factor_kwh_per_kwp_year * (1 - lossesFrac);
@@ -39,7 +33,7 @@ export function calcUsedOnSite(
   production_kwh_year: number,
   overlap_factor = 0.45
 ): number {
-  if (production_kwh_year < 0) throw new Error('production must be >= 0');
+  if (production_kwh_year < 0) return 0;
   return production_kwh_year * overlap_factor;
 }
 
@@ -90,25 +84,87 @@ export function calcLCOE(
   lifespan_years = 25
 ): number | null {
   if (!capex || capex <= 0 || production_kwh_year <= 0) return null;
-  // Simplified straight-line annualized capex
   const annualized_capex = capex / lifespan_years;
   return (annualized_capex + opex_annual) / production_kwh_year;
 }
 
-/**
- * Distribui um valor anual em 12 meses por um perfil mensal opcional (array[12] soma = 1)
- * Se não fornecido, faz distribuição uniforme.
- */
 export function distributeAnnualToMonthly(annualValue: number, monthlyProfile?: number[]): number[] {
-  if (annualValue < 0) throw new Error('annualValue must be >= 0');
+  if (annualValue < 0) return new Array(12).fill(0);
   if (monthlyProfile) {
     if (!Array.isArray(monthlyProfile) || monthlyProfile.length !== 12) {
-      throw new Error('monthlyProfile must be array of length 12');
+      return new Array(12).fill(annualValue / 12);
     }
     const sum = monthlyProfile.reduce((s, v) => s + v, 0);
-    if (Math.abs(sum - 1) > 1e-6) throw new Error('monthlyProfile must sum to 1');
+    if (Math.abs(sum - 1) > 1e-6) return new Array(12).fill(annualValue / 12);
     return monthlyProfile.map((p) => annualValue * p);
   }
-  const perMonth = annualValue / 12;
-  return new Array(12).fill(Math.round(perMonth * 100) / 100);
+  return new Array(12).fill(annualValue / 12);
+}
+
+/**
+ * Função principal de orquestração para o Simulador de Orçamento
+ */
+export function calculateBudgetComparison(input: BudgetInput): BudgetResult {
+  const monthlyKwh = input.consumptionMode === 'direct' 
+    ? (input.monthlyKwh || 0) 
+    : totalAppliancesConsumption(input.appliances);
+
+  const annualKwh = monthlyKwh * 12;
+  const monthlyCost = calcCostWithTaxes(monthlyKwh, input.tariff, input.taxPct);
+  const annualCost = monthlyCost * 12;
+
+  const pv = input.pv || {
+    kwp: 0,
+    productionFactor: 1500,
+    lossesPct: 14,
+    overlapFactor: 0.45,
+    opexAnnual: 0,
+    lifespanYears: 25,
+    creditRate: input.tariff
+  };
+
+  const productionYear = energyFromPower(pv.kwp || 0, pv.productionFactor, pv.lossesPct);
+  const usedOnSiteYear = calcUsedOnSite(productionYear, pv.overlapFactor);
+  const exportedYear = calcExported(productionYear, usedOnSiteYear);
+  
+  const creditRate = pv.creditRate ?? input.tariff;
+  const annualSavings = annualKwh > 0 ? calcAnnualSavings(usedOnSiteYear, input.tariff, exportedYear, creditRate, pv.opexAnnual) : 0;
+  
+  const payback = calcPayback(pv.capex || null, annualSavings);
+  const lcoe = calcLCOE(pv.capex || null, pv.opexAnnual, productionYear, pv.lifespanYears);
+
+  const monthlyData = Array.from({ length: 12 }, (_, i) => {
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const monthlyProd = productionYear / 12;
+    const monthlyUsed = usedOnSiteYear / 12;
+    const monthlyExport = exportedYear / 12;
+    
+    const baseMonthlyCost = calcCostWithTaxes(monthlyKwh, input.tariff, input.taxPct);
+    const savingsFromUsed = monthlyUsed * input.tariff;
+    const creditFromExport = monthlyExport * creditRate;
+    const costWithPV = Math.max(0, baseMonthlyCost - savingsFromUsed - creditFromExport);
+
+    return {
+      month: months[i],
+      consumption: monthlyKwh,
+      generation: monthlyProd,
+      export: monthlyExport,
+      costRede: baseMonthlyCost,
+      costWithPV: costWithPV
+    };
+  });
+
+  return {
+    monthlyConsumptionKwh: monthlyKwh,
+    annualConsumptionKwh: annualKwh,
+    monthlyCost,
+    annualCost,
+    pvProductionYear: productionYear,
+    energyUsedOnSiteYear: usedOnSiteYear,
+    energyExportedYear: exportedYear,
+    annualSavings,
+    paybackYears: payback,
+    lcoe,
+    monthlyData
+  };
 }
