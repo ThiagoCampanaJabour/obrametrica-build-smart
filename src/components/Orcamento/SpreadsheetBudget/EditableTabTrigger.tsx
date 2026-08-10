@@ -119,15 +119,24 @@ export function EditableTabTrigger({
         {name}
       </span>
       {isRenameable && isActive && (
-        <button
+        <span
           onClick={handleStartEdit}
-          className="p-0.5 hover:bg-slate-200 rounded text-slate-400 group-hover:text-slate-600 transition-colors"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setIsEditing(true);
+            }
+          }}
+          className="p-0.5 hover:bg-slate-200 rounded text-slate-400 group-hover:text-slate-600 transition-colors cursor-pointer"
           data-testid={`sheet-rename-btn-${index}`}
           aria-label={`Renomear aba ${name}`}
         >
           <Edit2 className="h-3 w-3" />
-        </button>
+        </span>
       )}
+
     </div>
   );
 }
