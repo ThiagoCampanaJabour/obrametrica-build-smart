@@ -82,12 +82,12 @@ export const VehicleInputSchema = z.object({
   
   // Recarga elétrica específica
   electricityPriceResidential: z.number().min(0).optional(),
-  chargingEfficiencyPct: z.number().min(1).max(100).default(90),
+  chargingEfficiencyPct: z.number().min(1).max(100).default(90).optional(),
 
   maintenanceMonthly: z.number().min(0).default(0),
   insuranceAnnual: z.number().min(0).default(0),
   ipvaAnnual: z.number().min(0).default(0),
-  licensingAnnual: z.number().min(0).default(0),
+  licensingAnnual: z.number().min(0).default(0).optional(),
   
   vehicleValue: z.number().min(0).optional(),
   depreciationRateAnnualPct: z.number().min(0).default(10),
