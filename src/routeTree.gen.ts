@@ -17,6 +17,7 @@ import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quanta
 import { Route as PoliticaDmcaRouteImport } from './routes/politica-dmca'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
+import { Route as OrcamentoDomesticoRouteImport } from './routes/orcamento-domestico'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EquipeRouteImport } from './routes/equipe'
@@ -50,7 +51,6 @@ import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
-import { Route as FerramentasOrcamentoDomesticoRouteImport } from './routes/ferramentas.orcamento-domestico'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarIncentivosSubsidiosRegionaisRouteImport } from './routes/energia-solar.incentivos-subsidios-regionais'
 import { Route as EnergiaSolarEstimadorCustoTotalRouteImport } from './routes/energia-solar.estimador-custo-total'
@@ -116,6 +116,11 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
 const PoliticaDeCookiesRoute = PoliticaDeCookiesRouteImport.update({
   id: '/politica-de-cookies',
   path: '/politica-de-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentoDomesticoRoute = OrcamentoDomesticoRouteImport.update({
+  id: '/orcamento-domestico',
+  path: '/orcamento-domestico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MetodologiaRoute = MetodologiaRouteImport.update({
@@ -284,12 +289,6 @@ const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ConstrucaoCivilRoute,
 } as any)
-const FerramentasOrcamentoDomesticoRoute =
-  FerramentasOrcamentoDomesticoRouteImport.update({
-    id: '/ferramentas/orcamento-domestico',
-    path: '/ferramentas/orcamento-domestico',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const EnergiaSolarSimulacaoRadiacaoRoute =
   EnergiaSolarSimulacaoRadiacaoRouteImport.update({
     id: '/simulacao-radiacao',
@@ -471,6 +470,7 @@ export interface FileRoutesByFullPath {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -503,7 +503,6 @@ export interface FileRoutesByFullPath {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
-  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -538,6 +537,7 @@ export interface FileRoutesByTo {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -570,7 +570,6 @@ export interface FileRoutesByTo {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
-  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -608,6 +607,7 @@ export interface FileRoutesById {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -640,7 +640,6 @@ export interface FileRoutesById {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
-  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -679,6 +678,7 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
+    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -711,7 +711,6 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
-    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -746,6 +745,7 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
+    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -778,7 +778,6 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
-    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
@@ -815,6 +814,7 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
+    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -847,7 +847,6 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
-    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -885,6 +884,7 @@ export interface RootRouteChildren {
   EquipeRoute: typeof EquipeRoute
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
+  OrcamentoDomesticoRoute: typeof OrcamentoDomesticoRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   PoliticaDmcaRoute: typeof PoliticaDmcaRoute
@@ -893,7 +893,6 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
-  FerramentasOrcamentoDomesticoRoute: typeof FerramentasOrcamentoDomesticoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -952,6 +951,13 @@ declare module '@tanstack/react-router' {
       path: '/politica-de-cookies'
       fullPath: '/politica-de-cookies'
       preLoaderRoute: typeof PoliticaDeCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamento-domestico': {
+      id: '/orcamento-domestico'
+      path: '/orcamento-domestico'
+      fullPath: '/orcamento-domestico'
+      preLoaderRoute: typeof OrcamentoDomesticoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/metodologia': {
@@ -1184,13 +1190,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/construcao-civil/'
       preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
-    }
-    '/ferramentas/orcamento-domestico': {
-      id: '/ferramentas/orcamento-domestico'
-      path: '/ferramentas/orcamento-domestico'
-      fullPath: '/ferramentas/orcamento-domestico'
-      preLoaderRoute: typeof FerramentasOrcamentoDomesticoRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/energia-solar/simulacao-radiacao': {
       id: '/energia-solar/simulacao-radiacao'
@@ -1494,6 +1493,7 @@ const rootRouteChildren: RootRouteChildren = {
   EquipeRoute: EquipeRoute,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
+  OrcamentoDomesticoRoute: OrcamentoDomesticoRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   PoliticaDmcaRoute: PoliticaDmcaRoute,
@@ -1502,18 +1502,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
-  FerramentasOrcamentoDomesticoRoute: FerramentasOrcamentoDomesticoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
