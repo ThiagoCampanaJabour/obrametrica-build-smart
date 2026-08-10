@@ -17,7 +17,6 @@ import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quanta
 import { Route as PoliticaDmcaRouteImport } from './routes/politica-dmca'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
-import { Route as OrcamentoDomesticoRouteImport } from './routes/orcamento-domestico'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EquipeRouteImport } from './routes/equipe'
@@ -49,6 +48,7 @@ import { Route as CalculadoraArCondicionadoRouteImport } from './routes/calculad
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OrcamentoDomesticoIndexRouteImport } from './routes/orcamento-domestico.index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
@@ -116,11 +116,6 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
 const PoliticaDeCookiesRoute = PoliticaDeCookiesRouteImport.update({
   id: '/politica-de-cookies',
   path: '/politica-de-cookies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrcamentoDomesticoRoute = OrcamentoDomesticoRouteImport.update({
-  id: '/orcamento-domestico',
-  path: '/orcamento-domestico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MetodologiaRoute = MetodologiaRouteImport.update({
@@ -277,6 +272,11 @@ const AvisoLegalRoute = AvisoLegalRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentoDomesticoIndexRoute = OrcamentoDomesticoIndexRouteImport.update({
+  id: '/orcamento-domestico/',
+  path: '/orcamento-domestico/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnergiaSolarIndexRoute = EnergiaSolarIndexRouteImport.update({
@@ -470,7 +470,6 @@ export interface FileRoutesByFullPath {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -505,6 +504,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
+  '/orcamento-domestico/': typeof OrcamentoDomesticoIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRoutesByTo {
@@ -537,7 +537,6 @@ export interface FileRoutesByTo {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -572,6 +571,7 @@ export interface FileRoutesByTo {
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRoutesById {
@@ -607,7 +607,6 @@ export interface FileRoutesById {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -642,6 +641,7 @@ export interface FileRoutesById {
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
+  '/orcamento-domestico/': typeof OrcamentoDomesticoIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
 }
 export interface FileRouteTypes {
@@ -678,7 +678,6 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
-    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -713,6 +712,7 @@ export interface FileRouteTypes {
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
     | '/energia-solar/'
+    | '/orcamento-domestico/'
     | '/blog/categoria/$categoria'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -745,7 +745,6 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
-    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -780,6 +779,7 @@ export interface FileRouteTypes {
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil'
     | '/energia-solar'
+    | '/orcamento-domestico'
     | '/blog/categoria/$categoria'
   id:
     | '__root__'
@@ -814,7 +814,6 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/faq'
     | '/metodologia'
-    | '/orcamento-domestico'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
     | '/politica-dmca'
@@ -849,6 +848,7 @@ export interface FileRouteTypes {
     | '/energia-solar/simulacao-radiacao'
     | '/construcao-civil/'
     | '/energia-solar/'
+    | '/orcamento-domestico/'
     | '/blog/categoria/$categoria'
   fileRoutesById: FileRoutesById
 }
@@ -884,7 +884,6 @@ export interface RootRouteChildren {
   EquipeRoute: typeof EquipeRoute
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
-  OrcamentoDomesticoRoute: typeof OrcamentoDomesticoRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   PoliticaDmcaRoute: typeof PoliticaDmcaRoute
@@ -893,6 +892,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  OrcamentoDomesticoIndexRoute: typeof OrcamentoDomesticoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -951,13 +951,6 @@ declare module '@tanstack/react-router' {
       path: '/politica-de-cookies'
       fullPath: '/politica-de-cookies'
       preLoaderRoute: typeof PoliticaDeCookiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/orcamento-domestico': {
-      id: '/orcamento-domestico'
-      path: '/orcamento-domestico'
-      fullPath: '/orcamento-domestico'
-      preLoaderRoute: typeof OrcamentoDomesticoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/metodologia': {
@@ -1175,6 +1168,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamento-domestico/': {
+      id: '/orcamento-domestico/'
+      path: '/orcamento-domestico'
+      fullPath: '/orcamento-domestico/'
+      preLoaderRoute: typeof OrcamentoDomesticoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia-solar/': {
@@ -1493,7 +1493,6 @@ const rootRouteChildren: RootRouteChildren = {
   EquipeRoute: EquipeRoute,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
-  OrcamentoDomesticoRoute: OrcamentoDomesticoRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   PoliticaDmcaRoute: PoliticaDmcaRoute,
@@ -1502,6 +1501,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  OrcamentoDomesticoIndexRoute: OrcamentoDomesticoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

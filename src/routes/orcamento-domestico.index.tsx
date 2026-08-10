@@ -18,7 +18,7 @@ import { ExamplesPanel } from "@/components/Budget/ExamplesPanel";
 import { HelpPanel } from "@/components/Budget/HelpPanel";
 import { MarketExpenses } from "@/components/Budget/MarketExpenses";
 
-export const Route = createFileRoute("/orcamento-domestico")({
+export const Route = createFileRoute("/orcamento-domestico/")({
   head: () =>
     pageHead({
       title: "Orçamento Doméstico & Simulador Energético — ObraMétrica",
