@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calculateMarketExpenses, projectionWithInflation, reconcileMarketBudget } from '../market';
-import { MarketInput } from '../../types/budget';
+import { calculateMarketExpenses, projectionWithInflation, reconcileMarketBudget } from './market';
+import { MarketInput } from '../types/budget';
 
 describe('Market Calculations', () => {
   const mockInput: MarketInput = {
@@ -37,7 +37,7 @@ describe('Market Calculations', () => {
 
   it('reconciles budget by scaling categories', () => {
     const reconciled = reconcileMarketBudget(mockInput, 'scale-categories');
-    const sum = reconciled.categories.reduce((s, c) => s + c.amount, 0);
+    const sum = reconciled.categories.reduce((s: number, c) => s + c.amount, 0);
     expect(sum).toBeCloseTo(1000, 0);
   });
 });
