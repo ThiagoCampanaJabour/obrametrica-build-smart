@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateMarketExpenses, projectionWithInflation, reconcileMarketBudget } from './market';
+import { calculateMarketExpenses, projectionWithInflation, reconcileMarketBudget, normalizeCategories } from './market';
 import { MarketInput } from '../types/budget';
 
 describe('Market Calculations', () => {
