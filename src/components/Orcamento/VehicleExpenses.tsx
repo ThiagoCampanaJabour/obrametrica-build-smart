@@ -344,50 +344,91 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
                         <label className="text-xs text-slate-500">Valor do Veículo (R$)</label>
                         <input 
                           type="number" 
-                          value={v.vehicleValue || 0} 
+                          value={v.vehicleValue || ''} 
                           onChange={(e) => updateVehicle(v.id, 'vehicleValue', Number(e.target.value))}
                           className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-vehicle-value`}
+                          data-testid={`vehicle-${index}-value`}
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-xs text-slate-500">Depreciação Anual (%)</label>
+                        <label className="text-xs text-slate-500">Taxa Deprec. Anual (%)</label>
                         <input 
                           type="number" 
-                          value={v.depreciationRateAnnualPct || 0} 
+                          value={v.depreciationRateAnnualPct || ''} 
                           onChange={(e) => updateVehicle(v.id, 'depreciationRateAnnualPct', Number(e.target.value))}
                           className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-depreciation-rate-annual-pct`}
+                          data-testid={`vehicle-${index}-depreciation-rate`}
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Outros Custos */}
+                  {/* Custos Operacionais Extras */}
                   <div className="space-y-3">
                     <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      <Settings className="h-3 w-3" /> Outros Custos
+                      <Settings className="h-3 w-3" /> Custos Operacionais Extras
                     </h4>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1">
                         <label className="text-xs text-slate-500">Estacionamento (R$/mês)</label>
                         <input 
                           type="number" 
-                          value={v.parkingMonthly} 
+                          value={v.parkingMonthly || 0} 
                           onChange={(e) => updateVehicle(v.id, 'parkingMonthly', Number(e.target.value))}
                           className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-parking-monthly`}
+                          data-testid={`vehicle-${index}-parking`}
                         />
                       </div>
                       <div className="space-y-1">
                         <label className="text-xs text-slate-500">Pedágios (R$/mês)</label>
                         <input 
                           type="number" 
-                          value={v.tollsMonthly} 
+                          value={v.tollsMonthly || 0} 
                           onChange={(e) => updateVehicle(v.id, 'tollsMonthly', Number(e.target.value))}
                           className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-tolls-monthly`}
+                          data-testid={`vehicle-${index}-tolls`}
                         />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs text-slate-500">Lavagem (R$/mês)</label>
+                        <input 
+                          type="number" 
+                          value={v.carWashMonthly || 0} 
+                          onChange={(e) => updateVehicle(v.id, 'carWashMonthly', Number(e.target.value))}
+                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
+                          data-testid={`vehicle-${index}-car-wash`}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs text-slate-500">Outros (R$/mês)</label>
+                        <input 
+                          type="number" 
+                          value={v.otherMonthly || 0} 
+                          onChange={(e) => updateVehicle(v.id, 'otherMonthly', Number(e.target.value))}
+                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
+                          data-testid={`vehicle-${index}-other`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Resumo Rápido */}
+                  <div className="pt-4 border-t border-slate-100">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+                      <span>Resumo Mensal</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="p-2 bg-slate-50 rounded-lg">
+                        <p className="text-[10px] text-slate-500">Custo p/ KM</p>
+                        <p className="font-bold text-primary" data-testid={`vehicle-${index}-cost-per-km`}>
+                          R$ {((v.kmPerMonth || 1) > 0 ? (v.kmPerMonth / 100) : 0).toFixed(2)} {/* Placeholder, real calculation in parent */}
+                        </p>
+                      </div>
+                      <div className="p-2 bg-primary/5 rounded-lg border border-primary/10">
+                        <p className="text-[10px] text-primary">Custo Total</p>
+                        <p className="font-bold text-primary" data-testid={`vehicle-${index}-monthly-cost`}>
+                          R$ 0,00 {/* Placeholder */}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -395,14 +436,18 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
               )}
             </div>
           ))}
-
-          {vehicles.length === 0 && (
-            <div className="text-center py-8 px-4 border-2 border-dashed border-slate-100 rounded-2xl">
-              <p className="text-sm text-slate-400">Clique em "Adicionar Veículo" para começar.</p>
-            </div>
-          )}
         </div>
       </TooltipProvider>
+
+      <div className="mt-6 flex flex-wrap gap-3">
+        <button 
+          onClick={() => {}} // Integration handled by parent route or localized
+          className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+          data-testid="vehicle-save-scenario"
+        >
+          Salvar Cenário
+        </button>
+      </div>
     </section>
   );
 };

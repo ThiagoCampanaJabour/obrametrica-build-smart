@@ -49,5 +49,57 @@
         "overlapFactor": 0.7
       }
     }
+  },
+  {
+    "id": "frota-mista-tco",
+    "name": "Frota Mista (Popular + EV + SUV)",
+    "input": {
+      "consumptionMode": "direct",
+      "tariff": 0.95,
+      "taxPct": 25,
+      "vehicles": [
+        {
+          "id": "v1",
+          "name": "Popular Gasolina",
+          "type": "gasolina",
+          "kmPerMonth": 1200,
+          "consumptionKmPerL": 12.5,
+          "fuelPricePerL": 5.85,
+          "maintenanceMonthly": 150,
+          "maintenanceAnnual": 800,
+          "insuranceAnnual": 2400,
+          "ipvaAnnual": 1800,
+          "licensingAnnual": 160,
+          "vehicleValue": 65000,
+          "depreciationRateAnnualPct": 12,
+          "finiteItems": {
+            "tires": { "costPerSet": 1600, "replacementIntervalKm": 45000, "numberOfTires": 4 },
+            "oilChange": { "costPerChange": 280, "intervalKm": 10000 }
+          }
+        },
+        {
+          "id": "v2",
+          "name": "BYD Dolphin",
+          "type": "eletrico",
+          "kmPerMonth": 1500,
+          "consumptionKwhPer100Km": 15.0,
+          "electricityPricePerKwh": 0.95,
+          "chargingEfficiencyPct": 95,
+          "maintenanceMonthly": 80,
+          "maintenanceAnnual": 400,
+          "insuranceAnnual": 3800,
+          "ipvaAnnual": 0,
+          "licensingAnnual": 160,
+          "vehicleValue": 150000,
+          "depreciationRateAnnualPct": 8,
+          "financing": {
+            "financedAmount": 50000,
+            "annualRatePct": 14.5,
+            "termYears": 3,
+            "amortizationType": "PRICE"
+          }
+        }
+      ]
+    }
   }
 ]
