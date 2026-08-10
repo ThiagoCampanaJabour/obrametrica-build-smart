@@ -5,15 +5,19 @@ import { MarketInput, VehicleInput } from '../types/budget';
 describe('Cálculos Financeiros - Mercado', () => {
   it('deve calcular gasto per capita e projeção corretamente', () => {
     const input: MarketInput = {
-      budgetTotalMonth: 1500,
+      budgetTotalMonth: 2000,
       familyMembers: 4,
       annualInflationPct: 5,
       projectionYears: 3,
-      categories: []
+      categories: [
+        { id: '1', name: 'Geral', amount: 1500, isLocked: false }
+      ]
     };
     const res = calculateMarketExpenses(input);
+    expect(res.monthlyTotal).toBe(1500);
     expect(res.perCapitaMonth).toBe(375);
     expect(res.annualTotal).toBe(18000);
+    expect(res.remainingBudget).toBe(500);
     // Ano 1 (t=1): 18000 * 1.05 = 18900
     expect(res.projection[1].amount).toBeCloseTo(18900);
   });
@@ -35,12 +39,6 @@ describe('Cálculos Financeiros - Veículos', () => {
       depreciationRateAnnualPct: 10
     };
     const res = calculateVehicleExpenses([vehicle]);
-    // Combustível: (1000/10)*5 = 500
-    // Manutenção: 100
-    // Seguro: 1200/12 = 100
-    // IPVA: 1200/12 = 100
-    // Depreciação: (50000*0.1)/12 = 416.67
-    // Total: 500+100+100+100+416.67 = 1216.67
     expect(res.totalMonthly).toBeCloseTo(1216.67, 1);
     expect(res.list[0].costPerKm).toBeCloseTo(1.216, 2);
   });
@@ -60,12 +58,6 @@ describe('Cálculos Financeiros - Veículos', () => {
       depreciationRateAnnualPct: 8
     };
     const res = calculateVehicleExpenses([vehicle]);
-    // Energia: (1000 * 15 / 100) * 0.8 = 150 * 0.8 = 120
-    // Manutenção: 50
-    // Seguro: 2400/12 = 200
-    // IPVA: 0
-    // Depreciação: (150000*0.08)/12 = 1000
-    // Total: 120+50+200+0+1000 = 1370
     expect(res.totalMonthly).toBe(1370);
   });
 });
