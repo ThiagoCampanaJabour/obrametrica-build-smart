@@ -127,6 +127,7 @@ const ENTRIES: Entry[] = [
   { path: "/blog/checklist-entrega-obra-pequena-guia", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/como-calcular-kwp-kwh", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/guia-andaimes-escoras", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/pv-vs-rede-orcamento-domestico", changefreq: "monthly", priority: "0.8" },
 
   { path: "/sobre", changefreq: "yearly", priority: "0.4" },
   { path: "/contato", changefreq: "yearly", priority: "0.4" },
