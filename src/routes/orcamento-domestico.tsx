@@ -16,7 +16,7 @@ const CRUMBS = [
   { name: "Orçamento Doméstico", path: PATH },
 ];
 
-export const Route = createFileRoute("/orcamento-domestico/")({
+export const Route = createFileRoute("/orcamento-domestico")({
   head: () =>
     pageHead({
       title: "Orçamento Doméstico — Gestão de Mercado, Veículos e Energia | ObraMétrica",
