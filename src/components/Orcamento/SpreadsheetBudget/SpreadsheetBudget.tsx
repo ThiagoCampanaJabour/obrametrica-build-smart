@@ -94,6 +94,20 @@ export function SpreadsheetBudget() {
     setActiveTab(newSheet.id);
   };
 
+  const removeSheet = (id: string) => {
+    if (!workbook || workbook.sheets.length <= 1) return;
+    const updated = {
+      ...workbook,
+      sheets: workbook.sheets.filter(s => s.id !== id)
+    };
+    setWorkbook(updated);
+    if (activeTab === id) {
+      setActiveTab(updated.sheets[0].id);
+    }
+  };
+
+  const handleRowsChange = (sheetId: string, newRows: SheetRow[]) => {
+    if (!workbook) return;
     const updatedSheets = workbook.sheets.map(s => {
       if (s.id === sheetId) {
         return { ...s, rows: newRows };
@@ -102,6 +116,7 @@ export function SpreadsheetBudget() {
     });
     setWorkbook({ ...workbook, sheets: updatedSheets });
   };
+
 
 
   if (!workbook) return <div>Carregando...</div>;
