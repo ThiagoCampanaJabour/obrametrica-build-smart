@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
-import { LayoutDashboard, Calculator, Zap, Save, FileText, BarChart3, Settings, HelpCircle, Download } from "lucide-react";
+import { LayoutDashboard, Calculator, Zap, Save, FileText, BarChart3, Settings, HelpCircle, Download, ArrowRight, TrendingUp } from "lucide-react";
 import { useState, useMemo } from "react";
 import { calculateBudgetComparison } from "@/lib/solar/pv-economic";
 import { BudgetInput } from "@/lib/types/budget";
