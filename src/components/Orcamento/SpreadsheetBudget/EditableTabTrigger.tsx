@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from "@/lib/utils";
-import { Edit2, Check, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Edit2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 interface EditableTabTriggerProps {
@@ -37,7 +36,7 @@ export function EditableTabTrigger({
     }
   }, [isEditing]);
 
-  const handleStartEdit = (e: React.MouseEvent) => {
+  const handleStartEdit = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (!isRenameable) return;
     e.preventDefault();
     e.stopPropagation();
@@ -121,14 +120,13 @@ export function EditableTabTrigger({
       {isRenameable && isActive && (
         <span
           onClick={handleStartEdit}
-          role="button"
-          tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              setIsEditing(true);
+              handleStartEdit(e);
             }
           }}
+          role="button"
+          tabIndex={0}
           className="p-0.5 hover:bg-slate-200 rounded text-slate-400 group-hover:text-slate-600 transition-colors cursor-pointer"
           data-testid={`sheet-rename-btn-${index}`}
           aria-label={`Renomear aba ${name}`}
@@ -136,7 +134,6 @@ export function EditableTabTrigger({
           <Edit2 className="h-3 w-3" />
         </span>
       )}
-
     </div>
   );
 }
