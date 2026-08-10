@@ -1,24 +1,30 @@
 {
-  "factors_by_city": {
-    "SP": 1500,
-    "RJ": 1550,
-    "BH": 1600,
-    "Fortaleza": 1800,
-    "Brasília": 1650,
-    "Curitiba": 1400
-  },
-  "default_losses_pct": 14,
-  "overlap_factors": {
-    "residential": 0.45,
-    "commercial": 0.7
-  },
-  "default_tariffs": {
-    "SP": 0.85,
-    "RJ": 0.92,
-    "BH": 0.88,
-    "Fortaleza": 0.82,
-    "Brasília": 0.78,
-    "Curitiba": 0.84
-  },
-  "source": "[FONTE_A_VERIFICAR]"
+  "market": {
+    "defaultInflationPct": 5.5,
+    "sourceInflation": "IPCA Médio Estimado 2024-2025 [FONTE_A_VERIFICAR]",
+    "categories": [
+      { "id": "hortifruti", "name": "Hortifruti (Frutas, Legumes, Verduras)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "proteinas", "name": "Carnes & Proteínas (Bovino, Frango, Peixe, Frios)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "graos", "name": "Cereais & Grãos (Arroz, Feijão, Farinha, Aveia)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "massas", "name": "Massas (Macarrão, Lasanhas)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "laticinios", "name": "Laticínios (Leite, Queijos, Iogurtes, Manteiga)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "padaria", "name": "Pães & Assados", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "bebidas", "name": "Bebidas (Água, Refrigerantes, Sucos, Cerveja)", "amount": 0, "parentCategory": "Bebidas" },
+      { "id": "doces", "name": "Açúcares & Doces (Chocolates, Balas)", "amount": 0, "parentCategory": "Snacks" },
+      { "id": "biscoitos", "name": "Biscoitos & Snacks", "amount": 0, "parentCategory": "Snacks" },
+      { "id": "cafe", "name": "Café & Chás", "amount": 0, "parentCategory": "Bebidas" },
+      { "id": "temperos", "name": "Óleos, Condimentos & Temperos", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "congelados", "name": "Congelados (Pratos Prontos, Nuggets)", "amount": 0, "parentCategory": "Alimentação" },
+      { "id": "higiene", "name": "Higiene Pessoal (Shampoo, Sabonete, Dental)", "amount": 0, "parentCategory": "Higiene" },
+      { "id": "limpeza", "name": "Limpeza Doméstica (Detergente, Papel Higiênico)", "amount": 0, "parentCategory": "Limpeza" },
+      { "id": "pet", "name": "Pet Food & Acessórios", "amount": 0, "parentCategory": "Outros" },
+      { "id": "outros", "name": "Outros Itens", "amount": 0, "parentCategory": "Outros" }
+    ],
+    "benchmarks": {
+      "perCapitaLow": 400,
+      "perCapitaMedium": 800,
+      "perCapitaHigh": 1500,
+      "source": "Estimativas baseadas em POF/IBGE adaptadas [FONTE_A_VERIFICAR]"
+    }
+  }
 }
