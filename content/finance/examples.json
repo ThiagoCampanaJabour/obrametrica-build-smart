@@ -1,0 +1,53 @@
+[
+  {
+    "id": "res-4kwp-sp",
+    "name": "Residencial 4 kWp (São Paulo)",
+    "input": {
+      "consumptionMode": "direct",
+      "monthlyKwh": 500,
+      "tariff": 0.82,
+      "taxPct": 25,
+      "pv": {
+        "kwp": 4,
+        "productionFactor": 1500,
+        "lossesPct": 14,
+        "capex": 18000,
+        "overlapFactor": 0.45
+      }
+    }
+  },
+  {
+    "id": "res-5kwp-for",
+    "name": "Residencial 5 kWp (Fortaleza)",
+    "input": {
+      "consumptionMode": "direct",
+      "monthlyKwh": 650,
+      "tariff": 0.75,
+      "taxPct": 25,
+      "pv": {
+        "kwp": 5,
+        "productionFactor": 1850,
+        "lossesPct": 14,
+        "capex": 22000,
+        "overlapFactor": 0.45
+      }
+    }
+  },
+  {
+    "id": "com-50kwp-bh",
+    "name": "Comercial 50 kWp (Belo Horizonte)",
+    "input": {
+      "consumptionMode": "direct",
+      "monthlyKwh": 6000,
+      "tariff": 0.88,
+      "taxPct": 25,
+      "pv": {
+        "kwp": 50,
+        "productionFactor": 1480,
+        "lossesPct": 14,
+        "capex": 180000,
+        "overlapFactor": 0.7
+      }
+    }
+  }
+]

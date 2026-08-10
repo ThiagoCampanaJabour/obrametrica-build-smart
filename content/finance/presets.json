@@ -1,0 +1,17 @@
+{
+  "cities": [
+    { "id": "sp", "name": "São Paulo", "factor": 1500, "tariff": 0.82 },
+    { "id": "rj", "name": "Rio de Janeiro", "factor": 1550, "tariff": 0.95 },
+    { "id": "bh", "name": "Belo Horizonte", "factor": 1480, "tariff": 0.88 },
+    { "id": "for", "name": "Fortaleza", "factor": 1850, "tariff": 0.75 },
+    { "id": "bsb", "name": "Brasília", "factor": 1700, "tariff": 0.78 },
+    { "id": "cwb", "name": "Curitiba", "factor": 1400, "tariff": 0.80 },
+    { "id": "poa", "name": "Porto Alegre", "factor": 1300, "tariff": 0.85 }
+  ],
+  "default_losses_pct": 14,
+  "overlap_factors": {
+    "residential": 0.45,
+    "commercial": 0.7
+  },
+  "sources": "Placeholder values [FONTE_A_VERIFICAR]. Bases baseadas em médias de mercado 2024."
+}

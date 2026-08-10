@@ -1,6 +1,8 @@
 // Conteúdo dos artigos do blog ObraMétrica.
 // Cada artigo possui mais de 1200 palavras, estrutura H1/H2, FAQ e conclusão.
 
+import { NEW_BLOG_POSTS } from "./new-blog-posts";
+
 export type BlogSection = { heading: string; paragraphs: string[] };
 export type BlogFaq = { question: string; answer: string };
 
@@ -19,6 +21,7 @@ export type BlogPost = {
 };
 
 export const BLOG_POSTS: BlogPost[] = [
+  ...NEW_BLOG_POSTS,
   {
     slug: "como-calcular-tijolos-para-uma-parede",
     title: "Como calcular tijolos para uma parede sem desperdício",

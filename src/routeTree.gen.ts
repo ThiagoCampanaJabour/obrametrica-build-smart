@@ -50,6 +50,7 @@ import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
+import { Route as FerramentasOrcamentoDomesticoRouteImport } from './routes/ferramentas.orcamento-domestico'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarIncentivosSubsidiosRegionaisRouteImport } from './routes/energia-solar.incentivos-subsidios-regionais'
 import { Route as EnergiaSolarEstimadorCustoTotalRouteImport } from './routes/energia-solar.estimador-custo-total'
@@ -283,6 +284,12 @@ const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ConstrucaoCivilRoute,
 } as any)
+const FerramentasOrcamentoDomesticoRoute =
+  FerramentasOrcamentoDomesticoRouteImport.update({
+    id: '/ferramentas/orcamento-domestico',
+    path: '/ferramentas/orcamento-domestico',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EnergiaSolarSimulacaoRadiacaoRoute =
   EnergiaSolarSimulacaoRadiacaoRouteImport.update({
     id: '/simulacao-radiacao',
@@ -496,6 +503,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -562,6 +570,7 @@ export interface FileRoutesByTo {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -631,6 +640,7 @@ export interface FileRoutesById {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/ferramentas/orcamento-domestico': typeof FerramentasOrcamentoDomesticoRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -701,6 +711,7 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -767,6 +778,7 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
@@ -835,6 +847,7 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/ferramentas/orcamento-domestico'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -880,6 +893,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  FerramentasOrcamentoDomesticoRoute: typeof FerramentasOrcamentoDomesticoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1170,6 +1184,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/construcao-civil/'
       preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
+    }
+    '/ferramentas/orcamento-domestico': {
+      id: '/ferramentas/orcamento-domestico'
+      path: '/ferramentas/orcamento-domestico'
+      fullPath: '/ferramentas/orcamento-domestico'
+      preLoaderRoute: typeof FerramentasOrcamentoDomesticoRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/energia-solar/simulacao-radiacao': {
       id: '/energia-solar/simulacao-radiacao'
@@ -1481,6 +1502,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  FerramentasOrcamentoDomesticoRoute: FerramentasOrcamentoDomesticoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
