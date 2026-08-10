@@ -1,26 +1,44 @@
-import { pricePayment, generateAmortizationSchedule, presentValue, futureValueMonthlyContributions } from './budget';
-import { describe, test, expect } from 'vitest';
+/**
+ * src/lib/finance/budget.test.ts
+ * Testes para funções financeiras do ObraMétrica.
+ */
 
-describe('finance budget', () => {
-  test('price payment basic', () => {
-    const rate = 0.08 / 12;
-    const pmt = pricePayment(100000, rate, 240);
-    expect(pmt).toBeGreaterThan(700);
+import { describe, it, expect } from 'vitest';
+import { 
+  nominalToPeriodicRate, 
+  pricePayment, 
+  generateAmortizationSchedule, 
+  futureValueMonthlyContributions,
+  roundTo
+} from './budget';
+
+describe('Budget Finance Lib', () => {
+  it('nominalToPeriodicRate converts annual to monthly', () => {
+    expect(nominalToPeriodicRate(12, 12)).toBe(0.01);
+    expect(nominalToPeriodicRate(6, 12)).toBe(0.005);
   });
 
-  test('generate schedule has correct last balance', () => {
+  it('pricePayment calculates correct monthly payment (PMT)', () => {
+    // R$ 10.000, 1% am, 12 meses -> R$ 888.48...
+    const pmt = pricePayment(10000, 0.01, 12);
+    expect(roundTo(pmt, 2)).toBe(888.49);
+  });
+
+  it('generateAmortizationSchedule (PRICE) results in zero balance', () => {
     const schedule = generateAmortizationSchedule({
-      principal: 100000,
-      annualRatePct: 8,
-      years: 20,
+      principal: 10000,
+      annualRatePct: 12,
+      years: 1,
       amortizationType: 'PRICE'
     });
-    const last = schedule.rows[schedule.rows.length - 1];
-    expect(last.balance).toBeCloseTo(0, 1);
+    expect(schedule.rows.length).toBe(12);
+    expect(roundTo(schedule.rows[11].balance, 2)).toBe(0);
   });
 
-  test('fv monthly contributions', () => {
+  it('futureValueMonthlyContributions calculates correct FV', () => {
+    // R$ 100/mês, 12% aa (1% am), 12 meses
     const fv = futureValueMonthlyContributions(100, 12, 12);
-    expect(fv).toBeGreaterThan(1200);
+    // FV = 100 * ((1.01^12 - 1) / 0.01) = 100 * (0.1268... / 0.01) = 1268.25
+    expect(roundTo(fv, 2)).toBe(1268.25);
   });
 });
