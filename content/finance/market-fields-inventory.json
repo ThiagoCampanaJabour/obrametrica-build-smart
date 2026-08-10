@@ -1,0 +1,187 @@
+[
+  {
+    "fieldKey": "budgetTotalMonth",
+    "label": "Orçamento Mensal (R$)",
+    "description": "Valor total reservado pela família para gastos com mercado.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "R$",
+    "validations": {
+      "min": 0,
+      "required": true
+    },
+    "defaultValue": 1500,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Afeta remainingBudget, exceededPct, e reconciliação proporcional.",
+    "exportName": "budgetTotalMonth",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/BudgetInput.tsx",
+    "notes": "Preset inicial de R$ 1500 [FONTE_A_VERIFICAR]"
+  },
+  {
+    "fieldKey": "familyMembers",
+    "label": "Membros da Família",
+    "description": "Número de pessoas que compõem o núcleo familiar para cálculo per capita.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "Pessoas",
+    "validations": {
+      "min": 1,
+      "required": true,
+      "step": 1
+    },
+    "defaultValue": 2,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Afeta perCapitaMonth e annualPerCapita.",
+    "exportName": "familyMembers",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/MarketExpensesPage.tsx",
+    "notes": "Cálculo matemático: monthlyTotal / familyMembers"
+  },
+  {
+    "fieldKey": "annualInflationPct",
+    "label": "Inflação Anual (%)",
+    "description": "Taxa de inflação estimada para projeções de longo prazo.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "%",
+    "validations": {
+      "min": 0
+    },
+    "defaultValue": 5.5,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Afeta os valores futuros no array projection.",
+    "exportName": "annualInflationPct",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/MarketExpensesPage.tsx",
+    "notes": "Preset de 5.5% baseado em IPCA Médio [FONTE_A_VERIFICAR]"
+  },
+  {
+    "fieldKey": "projectionYears",
+    "label": "Anos de Projeção",
+    "description": "Período em anos para o qual o gasto será projetado.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "Anos",
+    "validations": {
+      "min": 1,
+      "max": 20,
+      "step": 1
+    },
+    "defaultValue": 10,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Determina o tamanho do array de resultados projection.",
+    "exportName": "projectionYears",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/MarketExpensesPage.tsx",
+    "notes": "Limite máximo de 20 anos configurado no Zod Schema"
+  },
+  {
+    "fieldKey": "categories.name",
+    "label": "Nome da Categoria",
+    "description": "Identificador da categoria de gasto.",
+    "placeholder": null,
+    "type": "text",
+    "unit": null,
+    "validations": {
+      "required": true
+    },
+    "defaultValue": "Nova Categoria",
+    "visible": true,
+    "editable": true,
+    "dependencies": "Identifica o item no breakdown e no CSV.",
+    "exportName": "categories[].name",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/CategoryRow.tsx",
+    "notes": "Editável na lista de categorias."
+  },
+  {
+    "fieldKey": "categories.amount",
+    "label": "Valor Mensal (R$)",
+    "description": "Gasto estimado mensal para a categoria específica.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "R$",
+    "validations": {
+      "min": 0
+    },
+    "defaultValue": 0,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Componente principal do monthlyTotal.",
+    "exportName": "categories[].amount",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/CategoryRow.tsx",
+    "notes": "Gatilho para o cálculo de reconciliação."
+  },
+  {
+    "fieldKey": "categories.quantity",
+    "label": "Quantidade/Frequência",
+    "description": "Campo opcional para anotar volume de compra.",
+    "placeholder": null,
+    "type": "number",
+    "unit": "unidades",
+    "validations": {
+      "min": 0
+    },
+    "defaultValue": 0,
+    "visible": true,
+    "editable": true,
+    "dependencies": "Atualmente não afeta fórmulas matemáticas, apenas metadado.",
+    "exportName": "categories[].quantity",
+    "ariaNotes": null,
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/CategoryRow.tsx",
+    "notes": "Mapeado no Schema mas não utilizado no cálculo financeiro."
+  },
+  {
+    "outputKey": "monthlyTotal",
+    "label": "Total Categorias",
+    "formula": "sum(categories.amount)",
+    "unit": "R$",
+    "updateTriggers": ["categories.amount"],
+    "rounding": "toFixed(2)",
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/SummaryCard.tsx"
+  },
+  {
+    "outputKey": "perCapitaMonth",
+    "label": "Per Capita",
+    "formula": "monthlyTotal / familyMembers",
+    "unit": "R$",
+    "updateTriggers": ["monthlyTotal", "familyMembers"],
+    "rounding": "toFixed(2)",
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/SummaryCard.tsx"
+  },
+  {
+    "outputKey": "remainingBudget",
+    "label": "Saldo do Orçamento",
+    "formula": "budgetTotalMonth - monthlyTotal",
+    "unit": "R$",
+    "updateTriggers": ["budgetTotalMonth", "monthlyTotal"],
+    "rounding": "toFixed(2)",
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/SummaryCard.tsx"
+  },
+  {
+    "outputKey": "projection",
+    "label": "Projeção Anual",
+    "formula": "annualTotal * (1 + inflation)^year",
+    "unit": "R$",
+    "updateTriggers": ["monthlyTotal", "annualInflationPct", "projectionYears"],
+    "rounding": "toFixed(2)",
+    "testSelectors": null,
+    "fileOrigin": "src/components/Orcamento/MarketExpenses/ProjectionTable.tsx"
+  }
+]
