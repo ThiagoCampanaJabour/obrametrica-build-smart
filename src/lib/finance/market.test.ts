@@ -9,8 +9,8 @@ describe('Market Calculations', () => {
     annualInflationPct: 5,
     projectionYears: 2,
     categories: [
-      { id: '1', name: 'Alimentação', amount: 800, isLocked: false },
-      { id: '2', name: 'Limpeza', amount: 300, isLocked: false }
+      { id: 'alimentacao', name: 'Alimentação', amount: 800, value_month: 800, quantity: 10, isLocked: false },
+      { id: 'limpeza', name: 'Limpeza', amount: 300, value_month: 300, quantity: null, isLocked: false }
     ]
   };
 
@@ -39,5 +39,22 @@ describe('Market Calculations', () => {
     const reconciled = reconcileMarketBudget(mockInput, 'scale-categories');
     const sum = reconciled.categories.reduce((s: number, c) => s + c.amount, 0);
     expect(sum).toBeCloseTo(1000, 0);
+  });
+
+  it('preserves value_month and quantity in normalization', () => {
+    const input: any = [
+      { id: 'test', name: 'Test', amount: 100, value_month: 100, quantity: 5 }
+    ];
+    const normalized = normalizeCategories(input);
+    expect(normalized[0].value_month).toBe(100);
+    expect(normalized[0].quantity).toBe(5);
+  });
+
+  it('handles null quantity correctly', () => {
+    const input: any = [
+      { id: 'test', name: 'Test', amount: 100, value_month: 100, quantity: null }
+    ];
+    const normalized = normalizeCategories(input);
+    expect(normalized[0].quantity).toBe(null);
   });
 });

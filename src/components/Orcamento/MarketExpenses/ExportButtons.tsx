@@ -22,9 +22,11 @@ export const ExportButtons: React.FC<{ input: MarketInput, result: MarketResult 
   };
 
   const exportCSV = () => {
-    let csv = "Categoria;Valor Mensal (R$);Percentual (%)\n";
-    result.categoryBreakdown.forEach(c => {
-      csv += `${c.name};${c.amount.toFixed(2)};${c.percentage.toFixed(2)}\n`;
+    let csv = "Categoria;Valor Mensal (R$);Quantidade;Percentual (%)\n";
+    input.categories.forEach(c => {
+      const breakdown = result.categoryBreakdown.find(b => b.name === c.name);
+      const percentage = breakdown ? breakdown.percentage : 0;
+      csv += `${c.name};${(c.value_month ?? c.amount).toFixed(2)};${c.quantity ?? ""};${percentage.toFixed(2)}\n`;
     });
     
     csv += "\nProjeção Anual com Inflação\n";
