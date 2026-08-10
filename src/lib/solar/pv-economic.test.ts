@@ -1,4 +1,4 @@
-import { energyFromPower, calcUsedOnSite, calcExported, calcAnnualSavings, calcPayback, calcLCOE } from '../../src/lib/solar/pv-economic';
+import { energyFromPower, calcUsedOnSite, calcExported, calcAnnualSavings, calcPayback, calcLCOE } from './pv-economic';
 import { describe, test, expect } from 'vitest';
 
 describe('pv-economic', () => {
