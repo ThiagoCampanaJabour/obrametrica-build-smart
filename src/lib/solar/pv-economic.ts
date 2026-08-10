@@ -1,136 +1,114 @@
-import { PVInput, BudgetResult, BudgetInput } from '../types/budget';
-import { calcCostWithTaxes, totalAppliancesConsumption } from '../finance/budget';
-
 /**
- * Produção anual estimada: kWp × fator × (1 - perdas)
+ * src/lib/solar/pv-economic.ts
+ * Funções puras para cálculos econômicos simplificados de sistemas fotovoltaicos.
+ * 
+ * Observações:
+ * - Valores monetários retornados em R$ (mesmo que entradas possam ser unit-less).
+ * - Presume-se que factor_kwh_per_kwp_year seja em kWh/kWp/ano.
+ * - Funções são puras e testáveis.
+ * 
+ * Limitações:
+ * - Modelos simplificados apropriados para estimativas iniciais. Para análise detalhada
+ * recomenda-se cálculo horário e análise NPV/IRR.
  */
-export function calcPVProduction(kwp: number, factor: number, lossesPct: number): number {
-  return kwp * factor * (1 - lossesPct / 100);
+
+export type PVCalculationResult = {
+  production_kwh_year: number;
+  used_on_site_kwh: number;
+  exported_kwh: number;
+  avoided_cost_R_per_year: number;
+  credit_R_per_year: number;
+  annualSavings_R: number;
+  payback_years: number | null;
+  lcoe_R_per_kwh: number | null;
+};
+
+export function energyFromPower(
+  kWp: number,
+  factor_kwh_per_kwp_year: number,
+  losses_pct = 14
+): number {
+  if (kWp < 0 || factor_kwh_per_kwp_year < 0) {
+    throw new Error('Invalid inputs to energyFromPower');
+  }
+  const lossesFrac = losses_pct / 100;
+  return kWp * factor_kwh_per_kwp_year * (1 - lossesFrac);
 }
 
-/**
- * Economia anual estimada
- */
-export function calcPVEconomy(
-  productionKwhYear: number,
-  tariff: number,
-  taxPct: number,
-  overlapFactor: number,
-  creditRate?: number
-): { avoidedCost: number; creditValue: number } {
-  const usedOnSite = productionKwhYear * overlapFactor;
-  const exported = Math.max(0, productionKwhYear - usedOnSite);
-  
-  const effectiveTariff = tariff * (1 + taxPct / 100);
-  const avoidedCost = usedOnSite * effectiveTariff;
-  
-  // Se não houver creditRate, assume net-metering 1:1 (ou seja, economiza a tarifa cheia)
-  const rate = creditRate ?? effectiveTariff;
-  const creditValue = exported * rate;
-  
-  return { avoidedCost, creditValue };
+export function calcUsedOnSite(
+  production_kwh_year: number,
+  overlap_factor = 0.45
+): number {
+  if (production_kwh_year < 0) throw new Error('production must be >= 0');
+  return production_kwh_year * overlap_factor;
 }
 
-/**
- * Payback simples: Investimento / Economia Líquida Anual
- */
-export function calcPayback(capex: number, annualSavings: number): number | null {
+export function calcExported(
+  production_kwh_year: number,
+  used_on_site_kwh: number
+): number {
+  const exported = production_kwh_year - used_on_site_kwh;
+  return exported >= 0 ? exported : 0;
+}
+
+export function calcAvoidedCost(
+  used_on_site_kwh: number,
+  tariff_R_per_kwh: number
+): number {
+  return used_on_site_kwh * tariff_R_per_kwh;
+}
+
+export function calcCredit(
+  exported_kwh: number,
+  credit_rate_R_per_kwh: number
+): number {
+  return exported_kwh * credit_rate_R_per_kwh;
+}
+
+export function calcAnnualSavings(
+  used_on_site_kwh: number,
+  tariff_R_per_kwh: number,
+  exported_kwh: number,
+  credit_rate_R_per_kwh: number,
+  opex_annual = 0
+): number {
+  const avoided = calcAvoidedCost(used_on_site_kwh, tariff_R_per_kwh);
+  const credit = calcCredit(exported_kwh, credit_rate_R_per_kwh);
+  return avoided + credit - opex_annual;
+}
+
+export function calcPayback(capex: number | null, annualSavings: number): number | null {
+  if (capex == null || capex <= 0) return null;
   if (annualSavings <= 0) return null;
   return capex / annualSavings;
 }
 
-/**
- * LCOE Simplificado = (Custo Anualizado do Capital + OPEX) / Produção Anual
- */
 export function calcLCOE(
-  capex: number,
-  opexAnnual: number,
-  lifespanYears: number,
-  productionAnnual: number
+  capex: number | null,
+  opex_annual: number,
+  production_kwh_year: number,
+  lifespan_years = 25
 ): number | null {
-  if (productionAnnual <= 0) return null;
-  const annualizedCapex = capex / lifespanYears;
-  return (annualizedCapex + opexAnnual) / productionAnnual;
+  if (!capex || capex <= 0 || production_kwh_year <= 0) return null;
+  // Simplified straight-line annualized capex
+  const annualized_capex = capex / lifespan_years;
+  return (annualized_capex + opex_annual) / production_kwh_year;
 }
 
 /**
- * Orquestrador principal dos cálculos do Simulador
+ * Distribui um valor anual em 12 meses por um perfil mensal opcional (array[12] soma = 1)
+ * Se não fornecido, faz distribuição uniforme.
  */
-export function calculateBudgetComparison(input: BudgetInput): BudgetResult {
-  const monthlyConsumptionKwh = input.consumptionMode === 'direct' 
-    ? (input.monthlyKwh ?? 0) 
-    : totalAppliancesConsumption(input.appliances);
-  
-  const annualConsumptionKwh = monthlyConsumptionKwh * 12;
-  const monthlyCost = calcCostWithTaxes(monthlyConsumptionKwh, input.tariff, input.taxPct);
-  const annualCost = monthlyCost * 12;
-  
-  let pvProductionYear = 0;
-  let energyUsedOnSiteYear = 0;
-  let energyExportedYear = 0;
-  let annualSavings = 0;
-  let paybackYears: number | null = null;
-  let lcoe: number | null = null;
-
-  if (input.pv) {
-    const kwp = input.pv.kwp ?? (input.pv.targetProductionKwhYear ? input.pv.targetProductionKwhYear / (input.pv.productionFactor * (1 - input.pv.lossesPct / 100)) : 0);
-    
-    pvProductionYear = calcPVProduction(kwp, input.pv.productionFactor, input.pv.lossesPct);
-    
-    const { avoidedCost, creditValue } = calcPVEconomy(
-      pvProductionYear,
-      input.tariff,
-      input.taxPct,
-      input.pv.overlapFactor,
-      input.pv.creditRate
-    );
-    
-    energyUsedOnSiteYear = pvProductionYear * input.pv.overlapFactor;
-    energyExportedYear = Math.max(0, pvProductionYear - energyUsedOnSiteYear);
-    
-    annualSavings = avoidedCost + creditValue - (input.pv.opexAnnual ?? 0);
-    
-    if (input.pv.capex) {
-      paybackYears = calcPayback(input.pv.capex, annualSavings);
-      lcoe = calcLCOE(input.pv.capex, input.pv.opexAnnual ?? 0, input.pv.lifespanYears, pvProductionYear);
+export function distributeAnnualToMonthly(annualValue: number, monthlyProfile?: number[]): number[] {
+  if (annualValue < 0) throw new Error('annualValue must be >= 0');
+  if (monthlyProfile) {
+    if (!Array.isArray(monthlyProfile) || monthlyProfile.length !== 12) {
+      throw new Error('monthlyProfile must be array of length 12');
     }
+    const sum = monthlyProfile.reduce((s, v) => s + v, 0);
+    if (Math.abs(sum - 1) > 1e-6) throw new Error('monthlyProfile must sum to 1');
+    return monthlyProfile.map((p) => annualValue * p);
   }
-
-  // Dados mensais (simplificado: distribuição uniforme)
-  const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-  const monthlyData = months.map(m => {
-    const gen = pvProductionYear / 12;
-    const cons = monthlyConsumptionKwh;
-    const onSite = gen * (input.pv?.overlapFactor ?? 0.45);
-    const exp = Math.max(0, gen - onSite);
-    
-    const costRede = monthlyCost;
-    // O custo com PV é o consumo que não foi atendido on-site, menos os créditos da exportação
-    const effectiveTariff = input.tariff * (1 + input.taxPct / 100);
-    const costRemaining = Math.max(0, cons - onSite) * effectiveTariff;
-    const creditVal = exp * (input.pv?.creditRate ?? effectiveTariff);
-    
-    return {
-      month: m,
-      consumption: cons,
-      generation: gen,
-      export: exp,
-      costRede,
-      costWithPV: Math.max(0, costRemaining - creditVal)
-    };
-  });
-
-  return {
-    monthlyConsumptionKwh,
-    annualConsumptionKwh,
-    monthlyCost,
-    annualCost,
-    pvProductionYear,
-    energyUsedOnSiteYear,
-    energyExportedYear,
-    annualSavings,
-    paybackYears,
-    lcoe,
-    monthlyData
-  };
+  const perMonth = annualValue / 12;
+  return new Array(12).fill(Math.round(perMonth * 100) / 100);
 }
