@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { cn } from "@/lib/utils";
 import { 
   ShoppingCart, 
   Car, 
@@ -50,7 +51,8 @@ const tools = [
     to: "/orcamento-domestico/gastos-veiculos" as const,
     icon: Car,
     title: "Gastos com Veículos",
-    desc: "Gestão completa de frota: combustível, manutenção, seguro, IPVA e depreciação.",
+    desc: "Em reestruturação. Retornará em breve com melhorias e novos recursos.",
+    archived: true
   },
 ];
 
@@ -79,11 +81,15 @@ function OrcamentoHubPage() {
         </p>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-          {tools.map(({ to, icon: Icon, title, desc }) => (
+          {tools.map(({ to, icon: Icon, title, desc, archived }) => (
             <Link
               key={to}
-              to={to}
-              className="group rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-primary hover:shadow-xl"
+              to={archived ? undefined : to}
+              disabled={archived}
+              className={cn(
+                "group rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-primary hover:shadow-xl",
+                archived && "opacity-60 cursor-not-allowed hover:border-slate-200 hover:shadow-none"
+              )}
             >
               <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-slate-50 text-slate-900 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                 <Icon className="h-7 w-7" />
@@ -91,8 +97,8 @@ function OrcamentoHubPage() {
               <h2 className="mt-6 text-xl font-bold text-slate-900">{title}</h2>
               <p className="mt-3 text-slate-600 leading-relaxed">{desc}</p>
               <div className="mt-6 flex items-center gap-2 text-sm font-bold text-primary opacity-80 group-hover:opacity-100">
-                Acessar calculadora
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                {archived ? "Em manutenção" : "Acessar calculadora"}
+                {!archived && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
               </div>
             </Link>
           ))}

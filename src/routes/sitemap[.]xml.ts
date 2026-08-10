@@ -106,7 +106,6 @@ const ENTRIES: Entry[] = [
     priority: "0.8",
   },
   {
-    path: "/orcamento-domestico/gastos-veiculos",
     changefreq: "monthly",
     priority: "0.8",
   },

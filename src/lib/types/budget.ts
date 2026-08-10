@@ -49,9 +49,10 @@ export const MarketInputSchema = z.object({
 
 export type MarketInput = z.infer<typeof MarketInputSchema>;
 
-import { VehicleInput, VehicleInputSchema } from './vehicle';
-export type { VehicleInput };
-export { VehicleInputSchema };
+// Arquivado temporariamente
+// import { VehicleInput, VehicleInputSchema } from './vehicle';
+export type VehicleInput = any;
+export const VehicleInputSchema = z.any();
 
 export const BudgetInputSchema = z.object({
   consumptionMode: z.enum(['direct', 'appliances']),
