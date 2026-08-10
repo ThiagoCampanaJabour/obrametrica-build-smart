@@ -1,49 +1,37 @@
 [
   {
-    "id": "small-car",
-    "label": "Carro Popular (1.0)",
+    "id": "popular-gasolina",
+    "label": "Carro Popular 1.0 (Gasolina)",
     "type": "gasolina",
-    "kmPerMonth": 1000,
-    "consumption": 12,
-    "fuelPrice": 5.80,
+    "kmPerMonth": 1200,
+    "consumptionKmPerL": 12.5,
+    "fuelPricePerL": 5.85,
     "maintenanceMonthly": 150,
-    "insuranceAnnual": 2200,
-    "ipvaAnnual": 1500,
+    "maintenanceAnnual": 800,
+    "insuranceAnnual": 2400,
+    "ipvaAnnual": 1800,
     "licensingAnnual": 160,
     "vehicleValue": 65000,
-    "depreciationRateAnnualPct": 10,
-    "finiteItems": {
-      "tires": { "costPerSet": 1600, "replacementIntervalKm": 40000, "numberOfTires": 4 },
-      "oilChange": { "costPerChange": 250, "intervalKm": 10000 }
-    }
-  },
-  {
-    "id": "suv-medium",
-    "label": "SUV Médio",
-    "type": "flex",
-    "kmPerMonth": 1200,
-    "consumption": 8.5,
-    "fuelPrice": 5.80,
-    "maintenanceMonthly": 300,
-    "insuranceAnnual": 4500,
-    "ipvaAnnual": 4000,
-    "licensingAnnual": 160,
-    "vehicleValue": 140000,
     "depreciationRateAnnualPct": 12,
     "finiteItems": {
-      "tires": { "costPerSet": 3200, "replacementIntervalKm": 35000, "numberOfTires": 4 },
-      "oilChange": { "costPerChange": 450, "intervalKm": 10000 }
-    }
+      "tires": { "costPerSet": 1600, "replacementIntervalKm": 45000, "numberOfTires": 4 },
+      "oilChange": { "costPerChange": 280, "intervalKm": 10000 }
+    },
+    "parkingMonthly": 100,
+    "tollsMonthly": 50,
+    "carWashMonthly": 60,
+    "otherMonthly": 0
   },
   {
-    "id": "ev-compact",
-    "label": "Elétrico Compacto",
+    "id": "eletrico-compacto",
+    "label": "BYD Dolphin (Elétrico)",
     "type": "eletrico",
-    "kmPerMonth": 1000,
-    "consumption": 15,
-    "fuelPrice": 0.90,
-    "chargingEfficiencyPct": 92,
+    "kmPerMonth": 1500,
+    "consumptionKwhPer100Km": 15.0,
+    "electricityPricePerKwh": 0.95,
+    "chargingEfficiencyPct": 95,
     "maintenanceMonthly": 80,
+    "maintenanceAnnual": 400,
     "insuranceAnnual": 3800,
     "ipvaAnnual": 0,
     "licensingAnnual": 160,
@@ -52,24 +40,33 @@
     "finiteItems": {
       "tires": { "costPerSet": 2800, "replacementIntervalKm": 40000, "numberOfTires": 4 },
       "oilChange": { "costPerChange": 0, "intervalKm": 999999 }
-    }
+    },
+    "parkingMonthly": 200,
+    "tollsMonthly": 80,
+    "carWashMonthly": 80,
+    "otherMonthly": 0
   },
   {
-    "id": "motorcycle",
-    "label": "Motocicleta (250cc)",
-    "type": "gasolina",
-    "kmPerMonth": 800,
-    "consumption": 30,
-    "fuelPrice": 5.80,
-    "maintenanceMonthly": 100,
-    "insuranceAnnual": 1200,
-    "ipvaAnnual": 600,
+    "id": "suv-diesel",
+    "label": "SUV Médio (Diesel 4x4)",
+    "type": "diesel",
+    "kmPerMonth": 2000,
+    "consumptionKmPerL": 10.5,
+    "fuelPricePerL": 6.20,
+    "maintenanceMonthly": 350,
+    "maintenanceAnnual": 1800,
+    "insuranceAnnual": 5500,
+    "ipvaAnnual": 6000,
     "licensingAnnual": 160,
-    "vehicleValue": 22000,
-    "depreciationRateAnnualPct": 15,
+    "vehicleValue": 220000,
+    "depreciationRateAnnualPct": 10,
     "finiteItems": {
-      "tires": { "costPerSet": 800, "replacementIntervalKm": 15000, "numberOfTires": 2 },
-      "oilChange": { "costPerChange": 120, "intervalKm": 5000 }
-    }
+      "tires": { "costPerSet": 4800, "replacementIntervalKm": 50000, "numberOfTires": 4 },
+      "oilChange": { "costPerChange": 650, "intervalKm": 10000 }
+    },
+    "parkingMonthly": 300,
+    "tollsMonthly": 250,
+    "carWashMonthly": 120,
+    "otherMonthly": 50
   }
 ]
