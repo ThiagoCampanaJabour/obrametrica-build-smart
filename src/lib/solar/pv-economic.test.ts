@@ -8,9 +8,9 @@ import {
   energyFromPower, 
   calcAnnualSavings, 
   calcPayback, 
-  calcLCOE,
-  roundTo 
+  calcLCOE 
 } from './pv-economic';
+import { roundTo } from '../finance/budget';
 
 describe('PV Economic Lib', () => {
   it('energyFromPower calculates correct annual generation', () => {
