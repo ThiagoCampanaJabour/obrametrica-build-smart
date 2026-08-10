@@ -450,19 +450,3 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
       </div>
     </section>
   );
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-
-          {vehicles.length === 0 && (
-            <div className="text-center py-8 px-4 border-2 border-dashed border-slate-100 rounded-2xl">
-              <p className="text-sm text-slate-400">Clique em "Adicionar Veículo" para começar.</p>
-            </div>
-          )}
-        </div>
-      </TooltipProvider>
-    </section>
-  );
-};
