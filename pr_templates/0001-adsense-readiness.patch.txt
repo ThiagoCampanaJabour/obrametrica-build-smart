@@ -1,18 +1,10 @@
-Título do PR: feat: AdSense readiness — conteúdos, políticas e checklist
+Objetivo: Preparação do site obrametrica.com.br para aprovação no Google AdSense.
 
-Descrição: Este PR adiciona os artefatos iniciais para preparar o site ObraMétrica para re‑submissão ao Google AdSense:
+Alterações:
+1. Implementação de 11 artigos técnicos de alta densidade (800+ palavras) em content/blog/.
+2. Inclusão de metadados SEO e Schemas JSON-LD (Article) para cada postagem.
+3. Criação de landing articles para as ferramentas de maior tráfego.
+4. Padronização de E-A-T com bylines de autores e referências técnicas.
+5. Checklist de prioridades e QA consolidado.
 
-- article: content/blog/como-calcular-kwp-kwh.md
-- json‑ld: content/blog/kwp-kwh-jsonld.html
-- privacy & cookie: content/legal/*
-- checklist: checklist/*
-- asset placeholder e README
-
-Instruções de deploy e validação no README_obrametrica_adsense_ready.md
-
-Checklist de revisão PR:
-[ ] Substituir [INSERIR] nos arquivos (autor, email).
-[ ] Imagens substituídas e otimizadas.
-[ ] JSON‑LD validado com Rich Results Test.
-[ ] Cookie consent implementado e bloqueando scripts de terceiros.
-[ ] Evidence pack (screenshots + lighthouse) anexado.
+Impacto: Aumento da autoridade técnica percebida e conformidade com políticas de conteúdo útil.
