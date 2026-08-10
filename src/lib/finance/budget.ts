@@ -121,7 +121,8 @@ export function calculateMarketExpenses(input: MarketInput): MarketResult {
  * Cálculos de Veículos
  */
 export function calculateVehicleExpenses(vehicles: VehicleInput[]): { list: VehicleResult[]; totalMonthly: number; totalAnnual: number } {
-  return calculateVehicleExpensesBase(vehicles);
+  // Arquivado temporariamente
+  return { list: [], totalMonthly: 0, totalAnnual: 0 };
 }
 
 
