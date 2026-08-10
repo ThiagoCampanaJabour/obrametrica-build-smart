@@ -93,7 +93,7 @@ function BlogIndex() {
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Guias, tutoriais e referências práticas sobre construção civil, energia solar e
-            conversores técnicos. Conteúdo focado em quem executa e decide.
+            conversores técnicos. Conteúdo focado em quem executa e decide, produzido por especialistas da Equipe ObraMétrica.
           </p>
         </header>
 
