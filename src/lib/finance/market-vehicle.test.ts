@@ -30,17 +30,28 @@ describe('Cálculos Financeiros - Veículos', () => {
       name: 'Carro Teste',
       type: 'gasolina',
       kmPerMonth: 1000,
-      consumption: 10,
-      fuelPrice: 5.0,
+      consumptionKmPerL: 10,
+      fuelPricePerL: 5.0,
       maintenanceMonthly: 100,
+      maintenanceAnnual: 0,
       insuranceAnnual: 1200,
       ipvaAnnual: 1200,
       vehicleValue: 50000,
       depreciationRateAnnualPct: 10,
       licensingAnnual: 0,
-      chargingEfficiencyPct: 90
+      chargingEfficiencyPct: 90,
+      parkingMonthly: 0,
+      tollsMonthly: 0,
+      carWashMonthly: 0,
+      otherMonthly: 0
     };
     const res = calculateVehicleExpenses([vehicle]);
+    // Fuel: 500
+    // Maint: 100
+    // Insurance: 100
+    // IPVA: 100
+    // Depr: 50000 * 0.1 / 12 = 416.66...
+    // Total = 500 + 100 + 100 + 100 + 416.66 = 1216.66
     expect(res.totalMonthly).toBeCloseTo(1216.67, 1);
     expect(res.list[0].costPerKm).toBeCloseTo(1.216, 2);
   });
@@ -51,17 +62,28 @@ describe('Cálculos Financeiros - Veículos', () => {
       name: 'Elétrico Teste',
       type: 'eletrico',
       kmPerMonth: 1000,
-      consumption: 15, // 15kWh/100km
-      fuelPrice: 0.8, // R$/kWh
+      consumptionKwhPer100Km: 15,
+      electricityPricePerKwh: 0.8,
+      chargingEfficiencyPct: 100, // simplify for exact match
       maintenanceMonthly: 50,
+      maintenanceAnnual: 0,
       insuranceAnnual: 2400,
       ipvaAnnual: 0,
       vehicleValue: 150000,
       depreciationRateAnnualPct: 8,
       licensingAnnual: 0,
-      chargingEfficiencyPct: 90
+      parkingMonthly: 0,
+      tollsMonthly: 0,
+      carWashMonthly: 0,
+      otherMonthly: 0
     };
     const res = calculateVehicleExpenses([vehicle]);
+    // Energy: (1000 * 15 / 100) * 0.8 = 120
+    // Maint: 50
+    // Insurance: 200
+    // IPVA: 0
+    // Depr: 150000 * 0.08 / 12 = 1000
+    // Total = 120 + 50 + 200 + 1000 = 1370
     expect(res.totalMonthly).toBe(1370);
   });
 });
