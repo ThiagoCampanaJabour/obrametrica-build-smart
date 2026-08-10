@@ -29,8 +29,9 @@ export const MarketCategorySchema = z.object({
   id: z.string(),
   name: z.string(),
   parentCategory: z.string().optional(),
-  amount: z.number().min(0),
-  quantity: z.number().min(0).optional(),
+  amount: z.number().min(0), // Remapped to value_month in export
+  value_month: z.number().min(0).optional(), // Direct mapping for value
+  quantity: z.number().min(0).nullable().optional(),
   unit: z.string().optional(),
   note: z.string().optional(),
   isLocked: z.boolean().default(false),

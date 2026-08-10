@@ -6,8 +6,9 @@ import { MarketInput, MarketResult, MarketCategory } from '../types/budget';
 export function normalizeCategories(categories: MarketCategory[]): MarketCategory[] {
   return categories.map(c => ({
     ...c,
-    amount: Math.max(0, c.amount || 0),
-    quantity: Math.max(0, c.quantity || 0)
+    amount: Math.max(0, c.value_month ?? c.amount ?? 0),
+    value_month: Math.max(0, c.value_month ?? c.amount ?? 0),
+    quantity: c.quantity !== null && c.quantity !== undefined ? Math.max(0, c.quantity) : null
   }));
 }
 
