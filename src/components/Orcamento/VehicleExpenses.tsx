@@ -450,3 +450,4 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
       </div>
     </section>
   );
+};
