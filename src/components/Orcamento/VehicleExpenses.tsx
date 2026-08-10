@@ -450,54 +450,6 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
       </div>
     </section>
   );
-};
-                          type="number" 
-                          value={v.vehicleValue || 0} 
-                          onChange={(e) => updateVehicle(v.id, 'vehicleValue', Number(e.target.value))}
-                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-vehicle-value`}
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-slate-500">Depreciação Anual (%)</label>
-                        <input 
-                          type="number" 
-                          value={v.depreciationRateAnnualPct || 0} 
-                          onChange={(e) => updateVehicle(v.id, 'depreciationRateAnnualPct', Number(e.target.value))}
-                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-depreciation-rate-annual-pct`}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Outros Custos */}
-                  <div className="space-y-3">
-                    <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      <Settings className="h-3 w-3" /> Outros Custos
-                    </h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs text-slate-500">Estacionamento (R$/mês)</label>
-                        <input 
-                          type="number" 
-                          value={v.parkingMonthly} 
-                          onChange={(e) => updateVehicle(v.id, 'parkingMonthly', Number(e.target.value))}
-                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-parking-monthly`}
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-slate-500">Pedágios (R$/mês)</label>
-                        <input 
-                          type="number" 
-                          value={v.tollsMonthly} 
-                          onChange={(e) => updateVehicle(v.id, 'tollsMonthly', Number(e.target.value))}
-                          className="w-full h-9 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none"
-                          data-testid={`vehicle-${index}-tolls-monthly`}
-                        />
-                      </div>
-                    </div>
                   </div>
                 </div>
               )}
