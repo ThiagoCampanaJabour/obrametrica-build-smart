@@ -14,7 +14,7 @@ export const ExamplesPanel: React.FC<ExamplesPanelProps> = ({ onSelect }) => {
         <BookOpen className="h-5 w-5 text-primary" /> Exemplos Reais
       </h2>
       <div className="space-y-3">
-        {examples.map((ex: any) => (
+        {examples.scenarios.map((ex: any) => (
           <button
             key={ex.id}
             onClick={() => onSelect(ex.input as BudgetInput)}
