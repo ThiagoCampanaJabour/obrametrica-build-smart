@@ -20,111 +20,42 @@ export function SiteFooter() {
               />
             </div>
             <p className="mt-4 max-w-md text-sm text-primary-foreground/80">
-              Cálculos inteligentes para construir melhor. Calculadoras para construção civil,
-              energia solar e conversores técnicos.
+              Cálculos inteligentes para construir melhor. Portal especializado em calculadoras técnicas para construção civil, energia solar e engenharia.
             </p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-accent">Categorias</h3>
+            <h3 className="text-sm font-semibold text-accent uppercase tracking-wider">Ferramentas</h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link to="/construcao-civil" className="hover:text-accent">
-                  Construção Civil
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar" className="hover:text-accent">
-                  Energia Solar
-                </Link>
-              </li>
-              <li>
-                <Link to="/simulador-solar-avancado" className="hover:text-accent">
-                  Simulador Solar Avançado
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar/calculadora-payback" className="hover:text-accent">
-                  Calculadora de Payback
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar/comparador-sistemas" className="hover:text-accent">
-                  Comparador On/Off/Híbrido
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar/calculadora-inversor" className="hover:text-accent">
-                  Calculadora de Inversor
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar/calculadora-bateria" className="hover:text-accent">
-                  Calculadora de Bateria
-                </Link>
-              </li>
-              <li>
-                <Link to="/energia-solar/simulacao-radiacao" className="hover:text-accent">
-                  Simulação por Localização
-                </Link>
-              </li>
-              <li>
-                <Link to="/conversores" className="hover:text-accent">
-                  Conversores
-                </Link>
-              </li>
+              <li><Link to="/construcao-civil" className="hover:text-accent transition-colors">Construção Civil</Link></li>
+              <li><Link to="/energia-solar" className="hover:text-accent transition-colors">Energia Solar</Link></li>
+              <li><Link to="/conversores" className="hover:text-accent transition-colors">Conversores Técnicos</Link></li>
+              <li><Link to="/metodologia" className="hover:text-accent transition-colors">Nossa Metodologia</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-accent">Institucional</h3>
+            <h3 className="text-sm font-semibold text-accent uppercase tracking-wider">Institucional</h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link to="/sobre" className="hover:text-accent">
-                  Sobre
-                </Link>
-              </li>
-              <li>
-                <Link to="/contato" className="hover:text-accent">
-                  Contato
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-accent">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-accent">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/politica-de-privacidade" className="hover:text-accent">
-                  Política de Privacidade
-                </Link>
-              </li>
-              <li>
-                <Link to="/politica-de-cookies" className="hover:text-accent">
-                  Política de Cookies
-                </Link>
-              </li>
-              <li>
-                <Link to="/termos-de-uso" className="hover:text-accent">
-                  Termos de Uso
-                </Link>
-              </li>
-              <li>
-                <Link to="/aviso-legal" className="hover:text-accent">
-                  Aviso Legal
-                </Link>
-              </li>
+              <li><Link to="/sobre" className="hover:text-accent transition-colors">Sobre Nós</Link></li>
+              <li><Link to="/equipe" className="hover:text-accent transition-colors">Nossa Equipe</Link></li>
+              <li><Link to="/contato" className="hover:text-accent transition-colors">Contato</Link></li>
+              <li><Link to="/blog" className="hover:text-accent transition-colors">Blog & Artigos</Link></li>
+              <li><Link to="/politica-de-privacidade" className="hover:text-accent transition-colors">Privacidade</Link></li>
+              <li><Link to="/politica-de-cookies" className="hover:text-accent transition-colors">Cookies</Link></li>
+              <li><Link to="/termos-de-uso" className="hover:text-accent transition-colors">Termos de Uso</Link></li>
+              <li><Link to="/politica-dmca" className="hover:text-accent transition-colors">DMCA</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-xs text-primary-foreground/70">
-          © {year} ObraMétrica · obrametrica.com.br · Todos os direitos reservados.
+        <div className="mt-10 border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/70">
+          <p>© {year} ObraMétrica · Todos os direitos reservados.</p>
+          <div className="flex gap-4">
+            <span>Siga-nos:</span>
+            <a href="#" className="hover:text-accent">LinkedIn</a>
+            <a href="#" className="hover:text-accent">Instagram</a>
+          </div>
         </div>
       </div>
     </footer>

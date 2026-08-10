@@ -117,6 +117,8 @@ const ENTRIES: Entry[] = [
   { path: "/politica-de-cookies", changefreq: "yearly", priority: "0.3" },
   { path: "/termos-de-uso", changefreq: "yearly", priority: "0.3" },
   { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
+  { path: "/politica-dmca", changefreq: "yearly", priority: "0.3" },
+  { path: "/equipe", changefreq: "monthly", priority: "0.5" },
 ];
 
 

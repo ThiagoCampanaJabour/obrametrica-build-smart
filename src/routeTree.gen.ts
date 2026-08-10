@@ -14,10 +14,12 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SimuladorSolarAvancadoRouteImport } from './routes/simulador-solar-avancado'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
+import { Route as PoliticaDmcaRouteImport } from './routes/politica-dmca'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EquipeRouteImport } from './routes/equipe'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
@@ -100,6 +102,11 @@ const QuantasPlacasSolaresPrecisoRoute =
     path: '/quantas-placas-solares-preciso',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PoliticaDmcaRoute = PoliticaDmcaRouteImport.update({
+  id: '/politica-dmca',
+  path: '/politica-dmca',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
   id: '/politica-de-privacidade',
   path: '/politica-de-privacidade',
@@ -118,6 +125,11 @@ const MetodologiaRoute = MetodologiaRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipeRoute = EquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
@@ -449,10 +461,12 @@ export interface FileRoutesByFullPath {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -513,10 +527,12 @@ export interface FileRoutesByTo {
   '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -580,10 +596,12 @@ export interface FileRoutesById {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -648,10 +666,12 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -712,10 +732,12 @@ export interface FileRouteTypes {
     | '/conversor-m2-para-hectare'
     | '/conversores'
     | '/economia-energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -778,10 +800,12 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -845,10 +869,12 @@ export interface RootRouteChildren {
   ConversoresRoute: typeof ConversoresRoute
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRouteWithChildren
+  EquipeRoute: typeof EquipeRoute
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  PoliticaDmcaRoute: typeof PoliticaDmcaRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
   SimuladorSolarAvancadoRoute: typeof SimuladorSolarAvancadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -893,6 +919,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuantasPlacasSolaresPrecisoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/politica-dmca': {
+      id: '/politica-dmca'
+      path: '/politica-dmca'
+      fullPath: '/politica-dmca'
+      preLoaderRoute: typeof PoliticaDmcaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/politica-de-privacidade': {
       id: '/politica-de-privacidade'
       path: '/politica-de-privacidade'
@@ -919,6 +952,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipe': {
+      id: '/equipe'
+      path: '/equipe'
+      fullPath: '/equipe'
+      preLoaderRoute: typeof EquipeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia-solar': {
@@ -1430,10 +1470,12 @@ const rootRouteChildren: RootRouteChildren = {
   ConversoresRoute: ConversoresRoute,
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRouteWithChildren,
+  EquipeRoute: EquipeRoute,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  PoliticaDmcaRoute: PoliticaDmcaRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
   SimuladorSolarAvancadoRoute: SimuladorSolarAvancadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
