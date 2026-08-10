@@ -1,0 +1,41 @@
+{
+  "regions": [
+    {
+      "uf": "SP",
+      "fuelPrices": {
+        "gasolina": 5.85,
+        "etanol": 3.75,
+        "diesel": 5.95
+      },
+      "electricityPrice": 0.92,
+      "ipvaRate": 0.04
+    },
+    {
+      "uf": "RJ",
+      "fuelPrices": {
+        "gasolina": 6.10,
+        "etanol": 4.10,
+        "diesel": 6.15
+      },
+      "electricityPrice": 1.05,
+      "ipvaRate": 0.04
+    }
+  ],
+  "defaults": {
+    "depreciation": {
+      "combustion": 10,
+      "ev": 15
+    },
+    "maintenance": {
+      "tireCost": 1800,
+      "tireLifeKm": 45000,
+      "oilChangeCost": 350,
+      "oilChangeInterval": 10000
+    },
+    "ev": {
+      "consumptionKwh100km": 16,
+      "chargingEfficiency": 95
+    }
+  },
+  "note": "Valores marcados como [FONTE_A_VERIFICAR]"
+}

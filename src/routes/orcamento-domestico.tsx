@@ -51,8 +51,8 @@ const tools = [
     to: "/orcamento-domestico/gastos-veiculos" as const,
     icon: Car,
     title: "Gastos com Veículos",
-    desc: "Em reestruturação. Retornará em breve com melhorias e novos recursos.",
-    archived: true
+    desc: "Simulador completo de TCO (Custo Total de Propriedade) com impostos, depreciação e manutenção.",
+    archived: false
   },
 ];
 
