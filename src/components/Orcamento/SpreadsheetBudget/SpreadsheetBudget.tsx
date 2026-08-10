@@ -22,7 +22,8 @@ import {
   Users, 
   Trash2,
   PieChart,
-  Table as TableIcon
+  Table as TableIcon,
+  Settings
 } from "lucide-react";
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
 import { calculateWorkbookTotals } from '@/lib/finance/budgetSheets';
@@ -30,12 +31,15 @@ import { toast } from "sonner";
 
 // Componentes internos
 import { SheetTable } from './SheetTable';
-// import { SummaryAggregate } from './SummaryAggregate';
+import { EditableTabTrigger } from './EditableTabTrigger';
+
 
 
 export function SpreadsheetBudget() {
   const [workbook, setWorkbook] = useState<BudgetWorkbook | null>(null);
   const [activeTab, setActiveTab] = useState<string>("");
+  const [isAddingNew, setIsAddingNew] = useState(false);
+
 
   useEffect(() => {
     const saved = localStorage.getItem('obrametrica_workbook_main');
@@ -81,7 +85,7 @@ export function SpreadsheetBudget() {
     if (!workbook) return;
     const newSheet: Sheet = {
       id: crypto.randomUUID(),
-      name: `Nova Aba (${type})`,
+      name: `Nova Aba`,
       type,
       rows: [],
       mode: 'detailed'
@@ -92,7 +96,29 @@ export function SpreadsheetBudget() {
     };
     setWorkbook(updated);
     setActiveTab(newSheet.id);
+    setIsAddingNew(true); // Ativa o modo de edição no TabsBar
   };
+
+  const renameSheet = (id: string, newName: string) => {
+    if (!workbook) return;
+    
+    // Verifica duplicatas
+    const nameExists = workbook.sheets.some(s => s.id !== id && s.name.trim().toLowerCase() === newName.trim().toLowerCase());
+    if (nameExists) {
+      toast.error("Já existe outra aba com este nome.");
+      return;
+    }
+
+    const updatedSheets = workbook.sheets.map(s => {
+      if (s.id === id) {
+        return { ...s, name: newName };
+      }
+      return s;
+    });
+    setWorkbook({ ...workbook, sheets: updatedSheets });
+    setIsAddingNew(false);
+  };
+
 
   const removeSheet = (id: string) => {
     if (!workbook || workbook.sheets.length <= 1) return;
@@ -144,9 +170,10 @@ export function SpreadsheetBudget() {
         </div>
         
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => addSheet()}>
+          <Button variant="outline" size="sm" onClick={() => addSheet()} data-testid="sheet-add-button">
             <Plus className="h-4 w-4 mr-2" /> Nova Aba
           </Button>
+
           <Button variant="outline" size="sm" onClick={saveWorkbook}>
             <Save className="h-4 w-4 mr-2" /> Salvar
           </Button>
@@ -159,15 +186,30 @@ export function SpreadsheetBudget() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="flex items-center justify-between overflow-x-auto pb-2 mb-4 scrollbar-hide">
           <TabsList className="bg-slate-100 p-1 h-auto flex-nowrap">
-            {workbook.sheets.map((sheet) => (
+            {workbook.sheets.map((sheet, index) => (
               <TabsTrigger 
                 key={sheet.id} 
                 value={sheet.id}
                 className="data-[state=active]:bg-white data-[state=active]:shadow-sm px-4 py-2 text-sm font-medium transition-all"
               >
-                {sheet.name}
+                <EditableTabTrigger
+                  id={sheet.id}
+                  name={sheet.name}
+                  index={index}
+                  isActive={activeTab === sheet.id}
+                  isRenameable={true}
+                  isNew={isAddingNew && activeTab === sheet.id}
+                  onRename={(newName) => renameSheet(sheet.id, newName)}
+                  onCancelNew={() => {
+                    if (isAddingNew && activeTab === sheet.id) {
+                      removeSheet(sheet.id);
+                    }
+                    setIsAddingNew(false);
+                  }}
+                />
               </TabsTrigger>
             ))}
+
             <TabsTrigger 
               value="resumo"
               className="data-[state=active]:bg-primary data-[state=active]:text-white px-4 py-2 text-sm font-medium"
