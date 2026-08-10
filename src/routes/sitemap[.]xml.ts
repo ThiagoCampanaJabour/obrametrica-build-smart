@@ -96,9 +96,19 @@ const ENTRIES: Entry[] = [
     priority: "0.8",
   },
   {
-    path: "/ferramentas/orcamento-domestico",
-    changefreq: "monthly",
+    path: "/orcamento-domestico",
+    changefreq: "weekly",
     priority: "0.9",
+  },
+  {
+    path: "/orcamento-domestico/gastos-mercado",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
+  {
+    path: "/orcamento-domestico/gastos-veiculos",
+    changefreq: "monthly",
+    priority: "0.8",
   },
 
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
