@@ -29,8 +29,7 @@ export const Route = createFileRoute("/orcamento-domestico/gastos-mercado")({
 
 function GastosMercadoPage() {
   const [marketInput, setMarketInput] = useState<MarketInput>({
-    mode: 'total',
-    monthlyTotal: 1500,
+    budgetTotalMonth: 1500,
     categories: [],
     familyMembers: 2,
     annualInflationPct: 5,

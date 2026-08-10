@@ -5,8 +5,7 @@ import { MarketInput, VehicleInput } from '../types/budget';
 describe('Cálculos Financeiros - Mercado', () => {
   it('deve calcular gasto per capita e projeção corretamente', () => {
     const input: MarketInput = {
-      mode: 'total',
-      monthlyTotal: 1500,
+      budgetTotalMonth: 1500,
       familyMembers: 4,
       annualInflationPct: 5,
       projectionYears: 3,
