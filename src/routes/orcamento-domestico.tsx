@@ -15,6 +15,7 @@ import { SensitivitySliders } from "@/components/Budget/SensitivitySliders";
 import { ExportButtons } from "@/components/Budget/ExportButtons";
 import { ExamplesPanel } from "@/components/Budget/ExamplesPanel";
 import { HelpPanel } from "@/components/Budget/HelpPanel";
+import { MarketExpenses } from "@/components/Budget/MarketExpenses";
 
 export const Route = createFileRoute("/orcamento-domestico")({
   head: () =>
@@ -40,6 +41,14 @@ function OrcamentoPage() {
       lifespanYears: 25,
       opexAnnual: 200,
       kwp: 4
+    },
+    market: {
+      mode: 'total',
+      monthlyTotal: 1500,
+      categories: [],
+      familyMembers: 2,
+      annualInflationPct: 5,
+      projectionYears: 3
     },
     appliances: []
   });
@@ -73,12 +82,27 @@ function OrcamentoPage() {
               <PVComparisonForm input={input} onChange={setInput} />
               <SensitivitySliders input={input} onChange={setInput} />
               <ExamplesPanel onSelect={setInput} />
+              <MarketExpenses input={input} onChange={setInput} />
               <HelpPanel />
             </div>
 
             {/* Coluna Direita: Resultados */}
             <div className="lg:col-span-8 space-y-8">
               <ResultsSummary results={results} />
+              
+              {results.market && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Gasto Mercado/Pessoa</p>
+                    <p className="text-2xl font-black text-slate-900">R$ {results.market.perCapitaMonth.toFixed(2)}</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Gasto Mercado Anual</p>
+                    <p className="text-2xl font-black text-slate-900">R$ {results.market.annualTotal.toFixed(2)}</p>
+                  </div>
+                </div>
+              )}
+
               <MonthlyChart data={results.monthlyData} />
 
               {/* LCOE & Methodology Link */}

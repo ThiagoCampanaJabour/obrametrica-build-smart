@@ -4,7 +4,7 @@
  */
 
 import { BudgetInput, BudgetResult } from '../types/budget';
-import { calcCostWithTaxes, totalAppliancesConsumption } from '../finance/budget';
+import { calcCostWithTaxes, totalAppliancesConsumption, calculateMarketExpenses } from '../finance/budget';
 
 export type PVCalculationResult = {
   production_kwh_year: number;
@@ -154,8 +154,8 @@ export function calculateBudgetComparison(input: BudgetInput): BudgetResult {
     };
   });
 
-  // Calculate market expenses if input provided
-  const market = input.market ? (import.meta.env.SSR ? undefined : require('../finance/budget').calculateMarketExpenses(input.market)) : undefined;
+  const market = input.market ? calculateMarketExpenses(input.market) : undefined;
+
 
   return {
     monthlyConsumptionKwh: monthlyKwh,
