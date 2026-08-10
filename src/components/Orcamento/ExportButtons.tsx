@@ -25,9 +25,9 @@ export const ExportButtons: React.FC<ExportButtonsProps> = ({ results }) => {
     }
 
     if (results.vehicles && results.vehicles.list.length > 0) {
-      content += "\nGastos com Veiculos\nVeiculo,Combustivel (Mes),Manutencao (Mes),Seguro/IPVA (Mes),Depreciacao (Mes),Total (Mes),Custo/KM\n";
+      content += "\nGastos com Veiculos\nVeiculo,Tipo,KM/Mes,Combustivel (Mes),Manutencao (Mes),Seguro/IPVA (Mes),Financiamento (Mes),Depreciacao (Mes),Total (Mes),Custo/KM\n";
       results.vehicles.list.forEach((v: any) => {
-        content += `${v.name},${v.monthlyFuelCost.toFixed(2)},${v.monthlyMaintenance.toFixed(2)},${(v.monthlyInsurance + v.monthlyIpva).toFixed(2)},${v.monthlyDepreciation.toFixed(2)},${v.totalMonthly.toFixed(2)},${v.costPerKm.toFixed(2)}\n`;
+        content += `${v.name},${v.type},${v.kmPerMonth || 0},${(v.monthly.fuel + v.monthly.energy).toFixed(2)},${(v.monthly.maintenance + v.monthly.tires + v.monthly.oil).toFixed(2)},${(v.monthly.insurance + v.monthly.ipva).toFixed(2)},${v.monthly.financing.toFixed(2)},${v.monthly.depreciation.toFixed(2)},${v.monthly.total.toFixed(2)},${v.costPerKm ? v.costPerKm.toFixed(2) : 'N/A'}\n`;
       });
     }
 
