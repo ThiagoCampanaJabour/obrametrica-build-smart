@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Calculator, Wallet } from "lucide-react";
 import { pageHead } from "@/lib/seo";
-import { ShoppingCart } from "lucide-react";
-import { MarketExpensesPage } from "@/components/Orcamento/MarketExpenses/MarketExpensesPage";
 
 const PATH = "/orcamento-domestico/gastos-mercado";
 const CRUMBS = [
@@ -15,36 +14,34 @@ const CRUMBS = [
 export const Route = createFileRoute("/orcamento-domestico/gastos-mercado")({
   head: () =>
     pageHead({
-      title: "Calculadora de Gastos com Mercado e Alimentação Detalhada | ObraMétrica",
-      description: "Controle seu orçamento de mercado item por item. Defina um teto mensal, detalhe categorias e veja o saldo em tempo real com projeção de inflação.",
+      title: "Página Removida | ObraMétrica",
+      description: "Esta ferramenta foi removida para reestruturação.",
       path: PATH,
       breadcrumbs: CRUMBS,
     }),
-  component: GastosMercadoRoute,
+  component: RemovedToolPage,
 });
 
-function GastosMercadoRoute() {
+function RemovedToolPage() {
   return (
     <SiteLayout>
-      <div className="bg-slate-50 min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <Breadcrumbs items={CRUMBS} />
-          
-          <div className="mt-8 mb-10">
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-sm">
-                <ShoppingCart className="h-7 w-7" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-slate-900 tracking-tight sm:text-4xl">Orçamento de Mercado</h1>
-                <p className="mt-1 text-slate-600">Gestão detalhada de alimentação, higiene e limpeza familiar.</p>
-              </div>
-            </div>
-          </div>
-
-          <MarketExpensesPage />
+      <section className="mx-auto max-w-4xl px-4 py-20 text-center">
+        <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 text-slate-400 mb-8">
+          <Calculator className="h-10 w-10" />
         </div>
-      </div>
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">Ferramenta Removida</h1>
+        <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+          A calculadora de "Gastos com Mercado" foi desativada permanentemente desta rota como parte de uma reestruturação do módulo de Orçamento Doméstico.
+        </p>
+        <div className="flex justify-center gap-4">
+          <a
+            href="/orcamento-domestico"
+            className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-primary/90"
+          >
+            Voltar ao Hub de Orçamento
+          </a>
+        </div>
+      </section>
     </SiteLayout>
   );
 }

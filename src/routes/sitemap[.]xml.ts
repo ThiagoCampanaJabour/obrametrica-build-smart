@@ -100,16 +100,6 @@ const ENTRIES: Entry[] = [
     changefreq: "weekly",
     priority: "0.9",
   },
-  {
-    path: "/orcamento-domestico/gastos-mercado",
-    changefreq: "monthly",
-    priority: "0.8",
-  },
-  {
-    path: "/orcamento-domestico/gastos-veiculos",
-    changefreq: "monthly",
-    priority: "0.8",
-  },
 
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },

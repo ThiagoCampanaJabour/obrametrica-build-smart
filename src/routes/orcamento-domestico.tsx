@@ -40,21 +40,8 @@ function OrcamentoDomesticoLayout() {
   return <OrcamentoHubPage />;
 }
 
-const tools = [
-  {
-    to: "/orcamento-domestico/gastos-mercado" as const,
-    icon: ShoppingCart,
-    title: "Gastos com Mercado",
-    desc: "Calcule gastos mensais por família e per capita com projeção de inflação.",
-  },
-  {
-    to: "/orcamento-domestico/gastos-veiculos" as const,
-    icon: Car,
-    title: "Gastos com Veículos",
-    desc: "Simulador completo de TCO (Custo Total de Propriedade) com impostos, depreciação e manutenção.",
-    archived: false
-  },
-];
+const tools: any[] = [];
+
 
 function OrcamentoHubPage() {
   return (
@@ -103,10 +90,10 @@ function OrcamentoHubPage() {
             </Link>
           ))}
           
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-8 flex flex-col justify-center items-center text-center opacity-70">
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-8 flex flex-col justify-center items-center text-center opacity-70 col-span-full">
               <Calculator className="h-10 w-10 text-slate-400 mb-4" />
-              <h3 className="text-lg font-semibold text-slate-700">Simulador Energético</h3>
-              <p className="text-sm text-slate-500 mt-2">Módulo temporariamente removido para manutenção. Em breve uma nova versão integrada.</p>
+              <h3 className="text-lg font-semibold text-slate-700">Módulos de Orçamento</h3>
+              <p className="text-sm text-slate-500 mt-2">Estamos reestruturando nossas ferramentas de gestão financeira para oferecer uma experiência mais integrada. Em breve novidades.</p>
           </div>
         </div>
       </section>
