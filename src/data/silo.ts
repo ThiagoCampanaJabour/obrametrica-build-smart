@@ -51,6 +51,7 @@ export const SILO_CATEGORIES: SiloCategory[] = [
     calculators: [
       { path: "/quantas-placas-solares-preciso", label: "Quantas Placas Solares Preciso" },
       { path: "/economia-energia-solar", label: "Economia com Energia Solar" },
+      { path: "/ferramentas/orcamento-domestico", label: "Orçamento & Simulador Solar" },
     ],
   },
   {
