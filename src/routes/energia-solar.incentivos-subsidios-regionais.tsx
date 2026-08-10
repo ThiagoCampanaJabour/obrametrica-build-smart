@@ -89,7 +89,7 @@ function IncentivosRegionaisPage() {
   const impactos = useMemo(() => {
     const map = new Map<string, IncentiveImpact>();
     disponiveis.forEach((inc) => {
-      map.set(inc.id, computeIncentiveImpact(inc, estimate as any));
+      map.set(inc.id, computeIncentiveImpact(estimate, inc));
     });
     return map;
   }, [disponiveis, estimate]);
