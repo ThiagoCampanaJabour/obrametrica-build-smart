@@ -97,6 +97,7 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
               <div 
                 className="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-100/50 transition-colors"
                 onClick={() => toggleExpand(v.id)}
+                data-testid={`vehicle-${index}-header`}
               >
                 <div className="flex items-center gap-3">
                   <div className="h-8 w-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400">

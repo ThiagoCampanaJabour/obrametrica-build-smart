@@ -79,9 +79,8 @@ describe('VehicleExpenses Component', () => {
       </TooltipProvider>
     );
     
-    // Abrir o acordeão clicando no container do cabeçalho
-    const header = screen.getByTestId('vehicle-0-label').parentElement?.parentElement;
-    if (header) fireEvent.click(header);
+    // Abrir o acordeão pelo data-testid do header
+    fireEvent.click(screen.getByTestId('vehicle-0-header'));
     
     const kmInput = screen.getByTestId('vehicle-0-km-per-month');
     fireEvent.change(kmInput, { target: { value: '2000' } });
