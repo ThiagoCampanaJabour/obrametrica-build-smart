@@ -111,6 +111,7 @@ const ENTRIES: Entry[] = [
     priority: "0.7",
   })),
   { path: "/blog/como-calcular-kwp-kwh", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/guia-incentivos-energia-solar", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/guia-andaimes-escoras", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/como-calcular-tijolos-para-uma-parede", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/como-ser-aprovado-no-adsense", changefreq: "monthly", priority: "0.7" },

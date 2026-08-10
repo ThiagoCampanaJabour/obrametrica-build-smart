@@ -18,6 +18,7 @@ import {
 const PATH = "/politica-de-privacidade";
 const CRUMBS = [
   { name: "Início", path: "/" },
+  { name: "Legal", path: "/aviso-legal" },
   { name: "Política de Privacidade", path: PATH },
 ];
 

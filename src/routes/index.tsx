@@ -59,7 +59,7 @@ function Index() {
               Cálculos inteligentes para <span className="text-accent">construir melhor</span>.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-primary-foreground/80">
-              O **ObraMétrica** é a sua central definitiva de ferramentas técnicas para engenharia, arquitetura e energia renovável. Nossa missão é simplificar cálculos complexos, reduzindo o desperdício de materiais na construção civil e otimizando o retorno financeiro em projetos de energia solar.
+              O **ObraMétrica** é a sua central definitiva de ferramentas técnicas para engenharia, arquitetura e energia renovável. Nossa missão é simplificar cálculos complexos, reduzindo o desperdício de materiais na construção civil e otimizando o retorno financeiro em projetos de energia solar. Todo o nosso conteúdo é revisado por especialistas técnicos para garantir precisão e utilidade prática.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link

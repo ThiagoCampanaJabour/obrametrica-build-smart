@@ -1,0 +1,7 @@
+Placeholder para asset de imagem:
+
+Nome sugerido: assets/images/kwp-kwh-cover.webp
+Tamanho recomendado: 1200×630 px
+Formato: WebP (qualidade 75)
+Alt text sugerido: "Ilustração conversor kWp para kWh"
+Obs: substituir por imagem real antes do deploy.
