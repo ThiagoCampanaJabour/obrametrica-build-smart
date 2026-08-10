@@ -4,7 +4,8 @@ import {
   BudgetWorkbook, 
   SheetTotals, 
   WorkbookTotals 
-} from './types/budget-sheets';
+} from '../types/budget-sheets';
+
 
 /**
  * Normaliza valores anuais para mensais
@@ -84,9 +85,10 @@ export function calculateSheetTotals(sheet: Sheet, workbookContext?: { kmPerMont
     };
   }
   
-  const monthly = sheet.rows.reduce((sum, row) => {
+  const monthly = sheet.rows.reduce((sum: number, row: SheetRow) => {
     return sum + normalizeRowToMonthly(row, workbookContext);
   }, 0);
+
   
   return {
     monthly,
@@ -106,7 +108,7 @@ export function calculateWorkbookTotals(workbook: BudgetWorkbook): WorkbookTotal
   // Nota: Implementação simplificada de kmPerMonth global por enquanto
   const context = { kmPerMonth: 1000 }; 
   
-  workbook.sheets.forEach(sheet => {
+  workbook.sheets.forEach((sheet: Sheet) => {
     const totals = calculateSheetTotals(sheet, context);
     totals.perCapita = totals.monthly / workbook.members;
     bySheet[sheet.id] = totals;
