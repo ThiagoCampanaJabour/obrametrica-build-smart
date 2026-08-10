@@ -34,4 +34,4 @@ Para garantir a precisão dos cálculos de TCO (Total Cost of Ownership) no Bras
   - Elétricos: Isenção total ou parcial em SP, DF, PR, RS, RJ.
 
 ---
-*Todos os dados em  estão marcados como [FONTE_A_VERIFICAR].*
+*Todos os dados em content/finance/vehicle-presets.json estão marcados como [FONTE_A_VERIFICAR].*
