@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
-import { Users, Linkedin, Mail, CheckCircle, Award, Target, History } from "lucide-react";
+import { Users, Link2, Mail, CheckCircle, Award, Target, History } from "lucide-react";
 
 const PATH = "/equipe";
 const CRUMBS = [
@@ -101,7 +101,7 @@ function EquipePage() {
                     <p className="text-slate-600 text-sm leading-relaxed mb-4">{pro.bio}</p>
                     <div className="flex gap-4">
                       <a href={pro.linkedin} className="text-slate-400 hover:text-[#0077b5] transition-colors">
-                        <Linkedin className="h-5 w-5" />
+                        <Link2 className="h-5 w-5" />
                       </a>
                       <a href={`mailto:obrametricasite@gmail.com`} className="text-slate-400 hover:text-primary transition-colors">
                         <Mail className="h-5 w-5" />

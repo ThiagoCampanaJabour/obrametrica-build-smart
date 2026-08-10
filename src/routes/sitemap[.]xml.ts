@@ -94,6 +94,11 @@ const ENTRIES: Entry[] = [
     changefreq: "monthly",
     priority: "0.8",
   },
+  {
+    path: "/ferramentas/orcamento-domestico",
+    changefreq: "monthly",
+    priority: "0.9",
+  },
 
   { path: "/economia-energia-solar", changefreq: "monthly", priority: "0.8" },
   { path: "/conversor-m2-para-hectare", changefreq: "monthly", priority: "0.7" },
