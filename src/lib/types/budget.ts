@@ -144,10 +144,22 @@ export interface VehicleResult {
   monthlyMaintenance: number;
   monthlyInsurance: number;
   monthlyIpva: number;
+  monthlyLicensing: number;
   monthlyDepreciation: number;
+  monthlyFinancing: number;
+  monthlyAdmin: number;
+  monthlyFiniteItems: number;
   totalMonthly: number;
   totalAnnual: number;
   costPerKm: number;
+  shares: {
+    fuel: number;
+    maintenance: number;
+    taxes: number;
+    depreciation: number;
+    financing: number;
+    admin: number;
+  };
 }
 
 export interface BudgetResult {
