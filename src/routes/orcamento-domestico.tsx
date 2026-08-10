@@ -9,6 +9,7 @@ import { BudgetInput } from "@/lib/types/budget";
 
 import { ConsumptionForm } from "@/components/Budget/ConsumptionForm";
 import { PVComparisonForm } from "@/components/Budget/PVComparisonForm";
+import { VehicleExpenses } from "@/components/Budget/VehicleExpenses";
 import { ResultsSummary } from "@/components/Budget/ResultsSummary";
 import { MonthlyChart } from "@/components/Budget/MonthlyChart";
 import { SensitivitySliders } from "@/components/Budget/SensitivitySliders";
@@ -80,7 +81,8 @@ function OrcamentoPage() {
             {/* Coluna Esquerda: Formulários */}
             <div className="lg:col-span-4 space-y-6">
               <ConsumptionForm input={input} onChange={setInput} />
-              <PVComparisonForm input={input} onChange={setInput} />
+              <MarketExpenses input={input} onChange={setInput} />
+              <VehicleExpenses input={input} onChange={setInput} />
               <SensitivitySliders input={input} onChange={setInput} />
               <ExamplesPanel onSelect={setInput} />
               <MarketExpenses input={input} onChange={setInput} />
@@ -91,18 +93,34 @@ function OrcamentoPage() {
             <div className="lg:col-span-8 space-y-8">
               <ResultsSummary results={results} />
               
-              {results.market && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Gasto Mercado/Pessoa</p>
-                    <p className="text-2xl font-black text-slate-900">R$ {results.market.perCapitaMonth.toFixed(2)}</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Gasto Mercado Anual</p>
-                    <p className="text-2xl font-black text-slate-900">R$ {results.market.annualTotal.toFixed(2)}</p>
-                  </div>
-                </div>
-              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {results.market && (
+                  <>
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Mercado (Pessoa/Mês)</p>
+                      <p className="text-2xl font-black text-slate-900">R$ {results.market.perCapitaMonth.toFixed(2)}</p>
+                    </div>
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Mercado (Total/Mês)</p>
+                      <p className="text-2xl font-black text-slate-900">R$ {(results.market.annualTotal / 12).toFixed(2)}</p>
+                    </div>
+                  </>
+                )}
+                {results.vehicles && (
+                  <>
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Veículos (Total/Mês)</p>
+                      <p className="text-2xl font-black text-slate-900">R$ {results.vehicles.totalMonthly.toFixed(2)}</p>
+                    </div>
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Custo Médio p/ KM</p>
+                      <p className="text-2xl font-black text-slate-900">
+                        R$ {(results.vehicles.list.reduce((acc, v) => acc + v.costPerKm, 0) / (results.vehicles.list.length || 1)).toFixed(2)}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
 
               <MonthlyChart data={results.monthlyData} />
 
