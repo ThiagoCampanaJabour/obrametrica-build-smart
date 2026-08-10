@@ -102,24 +102,30 @@ function GastosVeiculosPage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Combustível</p>
                           <p className="text-sm font-bold text-slate-900">R$ {v.monthlyFuelCost.toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Manutenção</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {v.monthlyMaintenance.toFixed(2)}</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthlyMaintenance + v.monthlyFiniteItems).toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
-                          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Seguro/IPVA</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthlyInsurance + v.monthlyIpva).toFixed(2)}</p>
+                          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Tributos/Seguro</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthlyInsurance + v.monthlyIpva + v.monthlyLicensing).toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Depreciação</p>
                           <p className="text-sm font-bold text-slate-900">R$ {v.monthlyDepreciation.toFixed(2)}</p>
                         </div>
-                        <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
+                        {v.monthlyFinancing > 0 && (
+                          <div className="p-3 bg-slate-50 rounded-xl">
+                            <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Financiamento</p>
+                            <p className="text-sm font-bold text-slate-900">R$ {v.monthlyFinancing.toFixed(2)}</p>
+                          </div>
+                        )}
+                        <div className="p-3 bg-primary/10 rounded-xl border border-primary/20 col-span-2 sm:col-span-1">
                           <p className="text-[10px] font-bold text-primary uppercase mb-1">Total Mês</p>
                           <p className="text-sm font-black text-primary">R$ {v.totalMonthly.toFixed(2)}</p>
                         </div>
