@@ -81,7 +81,7 @@ function IncentivosRegionaisPage() {
   const [detalhe, setDetalhe] = useState<string | null>(null);
   const [filtro, setFiltro] = useState<string>("");
 
-  const disponiveis = useMemo(() => fetchIncentivesForLocation(estimate.cep, estimate.uf), [
+  const disponiveis = useMemo(() => fetchIncentivesForLocation(estimate.cep ?? "", estimate.uf), [
     estimate.cep,
     estimate.uf,
   ]);
@@ -89,7 +89,7 @@ function IncentivosRegionaisPage() {
   const impactos = useMemo(() => {
     const map = new Map<string, IncentiveImpact>();
     disponiveis.forEach((inc) => {
-      map.set(inc.id, computeIncentiveImpact(inc, estimate));
+      map.set(inc.id, computeIncentiveImpact(inc, estimate as any));
     });
     return map;
   }, [disponiveis, estimate]);
@@ -113,7 +113,7 @@ function IncentivosRegionaisPage() {
     <CalculatorShell
       title="Calculadora de Incentivos e Subsídios Regionais (Solar)"
       description="Informe a localidade e as premissas do projeto para listar os incentivos aplicáveis e veja o impacto financeiro."
-      path={PATH}
+      breadcrumbs={CRUMBS}
       extrasId="solar-incentivos"
     >
       <div className="mt-8 print:hidden">

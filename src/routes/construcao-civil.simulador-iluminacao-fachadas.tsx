@@ -11,6 +11,7 @@ import {
 } from "@/lib/iluminacao/calc";
 import { IluminacaoForm, novoAmbiente } from "@/components/Iluminacao/IluminacaoForm";
 import { ResultsSummary } from "@/components/Iluminacao/ResultsSummary";
+import { CalculatorShell } from "@/components/calc-ui";
 
 const PATH = "/construcao-civil/simulador-iluminacao-fachadas";
 const CRUMBS = [
@@ -97,29 +98,21 @@ function IluminacaoPage() {
   }, [ambientes, calculado, erros]);
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Simulador de Iluminação Natural e Sombras
-        </h1>
-        <p className="mt-2 max-w-3xl text-muted-foreground">
-          Avalie a luz natural que chega a cada ambiente conforme orientação da fachada, tamanho do
-          vão, tipo de vidro, entorno e faixa horária. O simulador estima o daylight factor, a
-          iluminância interna, o risco de ofuscamento e indica proteções solares com o respectivo
-          compromisso entre conforto visual e luz disponível.
-        </p>
+    <CalculatorShell
+      title="Simulador de Iluminação Natural e Sombras"
+      description="Avalie a luz natural que chega a cada ambiente conforme orientação, vão e tipo de vidro."
+      breadcrumbs={CRUMBS}
+      extrasId="iluminacao"
+    >
+      <div
+        role="note"
+        className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
+      >
+        <strong>Estimativas para projeto conceitual</strong> — o modelo é heurístico, não considera
+        inter-reflexões nem geometria 3D do entorno.
+      </div>
 
-        <div
-          role="note"
-          className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
-        >
-          <strong>Estimativas para projeto conceitual</strong> — o modelo é heurístico, não considera
-          inter-reflexões nem geometria 3D do entorno. Para projeto final, use modelagem específica
-          (Radiance, Daysim, DIALux) e consulte um especialista em conforto ambiental.
-        </div>
-
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,540px)_1fr]">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,540px)_1fr]">
           <div className="rounded-xl border border-border bg-card p-6">
             <IluminacaoForm
               ambientes={ambientes}
