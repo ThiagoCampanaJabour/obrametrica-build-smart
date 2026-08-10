@@ -1,105 +1,119 @@
-[
-  {
-    "id": "res-4kwp-sp",
-    "name": "Residencial 4 kWp (São Paulo)",
-    "input": {
-      "consumptionMode": "direct",
-      "monthlyKwh": 500,
-      "tariff": 0.82,
-      "taxPct": 25,
-      "pv": {
-        "kwp": 4,
-        "productionFactor": 1500,
-        "lossesPct": 14,
-        "capex": 18000,
-        "overlapFactor": 0.45
-      }
-    }
-  },
-  {
-    "id": "res-5kwp-for",
-    "name": "Residencial 5 kWp (Fortaleza)",
-    "input": {
-      "consumptionMode": "direct",
-      "monthlyKwh": 650,
-      "tariff": 0.75,
-      "taxPct": 25,
-      "pv": {
-        "kwp": 5,
-        "productionFactor": 1850,
-        "lossesPct": 14,
-        "capex": 22000,
-        "overlapFactor": 0.45
-      }
-    }
-  },
-  {
-    "id": "com-50kwp-bh",
-    "name": "Comercial 50 kWp (Belo Horizonte)",
-    "input": {
-      "consumptionMode": "direct",
-      "monthlyKwh": 6000,
-      "tariff": 0.88,
-      "taxPct": 25,
-      "pv": {
-        "kwp": 50,
-        "productionFactor": 1480,
-        "lossesPct": 14,
-        "capex": 180000,
-        "overlapFactor": 0.7
-      }
-    }
-  },
-  {
-    "id": "frota-mista-tco",
-    "name": "Frota Mista (Popular + EV + SUV)",
-    "input": {
-      "consumptionMode": "direct",
-      "tariff": 0.95,
-      "taxPct": 25,
-      "vehicles": [
-        {
-          "id": "v1",
-          "name": "Popular Gasolina",
-          "type": "gasolina",
-          "kmPerMonth": 1200,
-          "consumptionKmPerL": 12.5,
-          "fuelPricePerL": 5.85,
-          "maintenanceMonthly": 150,
-          "maintenanceAnnual": 800,
-          "insuranceAnnual": 2400,
-          "ipvaAnnual": 1800,
-          "licensingAnnual": 160,
-          "vehicleValue": 65000,
-          "depreciationRateAnnualPct": 12,
-          "finiteItems": {
-            "tires": { "costPerSet": 1600, "replacementIntervalKm": 45000, "numberOfTires": 4 },
-            "oilChange": { "costPerChange": 280, "intervalKm": 10000 }
+{
+  "scenarios": [
+    {
+      "name": "Cenário Padrão",
+      "description": "Cenário base para simulação energética e orçamentária.",
+      "budget": {
+        "consumptionMode": "direct",
+        "tariff": 0.85,
+        "taxPct": 25,
+        "vehicles": [
+          {
+            "id": "popular-gasolina",
+            "name": "Carro Popular 1.0",
+            "type": "gasolina",
+            "kmPerMonth": 1200,
+            "consumptionKmPerL": 12.5,
+            "fuelPricePerL": 5.85,
+            "maintenanceMonthly": 150,
+            "maintenanceAnnual": 800,
+            "insuranceAnnual": 2400,
+            "ipvaAnnual": 1800,
+            "licensingAnnual": 160,
+            "vehicleValue": 65000,
+            "depreciationRateAnnualPct": 12,
+            "chargingEfficiencyPct": 95,
+            "finiteItems": {
+              "tires": { "costPerSet": 1600, "replacementIntervalKm": 45000, "numberOfTires": 4 },
+              "oilChange": { "costPerChange": 280, "intervalKm": 10000 }
+            },
+            "parkingMonthly": 100,
+            "tollsMonthly": 50,
+            "carWashMonthly": 60,
+            "otherMonthly": 0,
+            "financing": {
+              "financedAmount": 0,
+              "downPayment": 0,
+              "annualRatePct": 0,
+              "termYears": 0,
+              "amortizationType": "PRICE"
+            }
           }
-        },
-        {
-          "id": "v2",
-          "name": "BYD Dolphin",
-          "type": "eletrico",
-          "kmPerMonth": 1500,
-          "consumptionKwhPer100Km": 15.0,
-          "electricityPricePerKwh": 0.95,
-          "chargingEfficiencyPct": 95,
-          "maintenanceMonthly": 80,
-          "maintenanceAnnual": 400,
-          "insuranceAnnual": 3800,
-          "ipvaAnnual": 0,
-          "licensingAnnual": 160,
-          "vehicleValue": 150000,
-          "depreciationRateAnnualPct": 8,
-          "financing": {
-            "financedAmount": 50000,
-            "annualRatePct": 14.5,
-            "termYears": 3,
-            "amortizationType": "PRICE"
+        ]
+      }
+    },
+    {
+      "name": "Frota Mista (TCO)",
+      "description": "Comparativo real entre combustão e elétrico com financiamento.",
+      "budget": {
+        "consumptionMode": "direct",
+        "tariff": 0.95,
+        "taxPct": 25,
+        "vehicles": [
+          {
+            "id": "suv-diesel",
+            "name": "SUV Diesel 4x4",
+            "type": "diesel",
+            "kmPerMonth": 2000,
+            "consumptionKmPerL": 10.5,
+            "fuelPricePerL": 6.20,
+            "maintenanceMonthly": 350,
+            "maintenanceAnnual": 1800,
+            "insuranceAnnual": 5500,
+            "ipvaAnnual": 6000,
+            "licensingAnnual": 160,
+            "vehicleValue": 220000,
+            "depreciationRateAnnualPct": 10,
+            "chargingEfficiencyPct": 95,
+            "finiteItems": {
+              "tires": { "costPerSet": 4800, "replacementIntervalKm": 50000, "numberOfTires": 4 },
+              "oilChange": { "costPerChange": 650, "intervalKm": 10000 }
+            },
+            "financing": {
+              "financedAmount": 120000,
+              "downPayment": 100000,
+              "annualRatePct": 14.5,
+              "termYears": 3,
+              "amortizationType": "PRICE"
+            },
+            "parkingMonthly": 300,
+            "tollsMonthly": 250,
+            "carWashMonthly": 120,
+            "otherMonthly": 50
+          },
+          {
+            "id": "dolphin-ev",
+            "name": "BYD Dolphin EV",
+            "type": "eletrico",
+            "kmPerMonth": 1500,
+            "consumptionKwhPer100Km": 15,
+            "electricityPricePerKwh": 0.95,
+            "chargingEfficiencyPct": 95,
+            "maintenanceMonthly": 80,
+            "maintenanceAnnual": 400,
+            "insuranceAnnual": 3800,
+            "ipvaAnnual": 0,
+            "licensingAnnual": 160,
+            "vehicleValue": 150000,
+            "depreciationRateAnnualPct": 8,
+            "finiteItems": {
+              "tires": { "costPerSet": 2800, "replacementIntervalKm": 40000, "numberOfTires": 4 },
+              "oilChange": { "costPerChange": 0, "intervalKm": 999999 }
+            },
+            "financing": {
+              "financedAmount": 0,
+              "downPayment": 150000,
+              "annualRatePct": 0,
+              "termYears": 0,
+              "amortizationType": "PRICE"
+            },
+            "parkingMonthly": 200,
+            "tollsMonthly": 80,
+            "carWashMonthly": 80,
+            "otherMonthly": 0
           }
-        }
-      ]
+        ]
+      }
     }
-  }
-]
+  ]
+}
