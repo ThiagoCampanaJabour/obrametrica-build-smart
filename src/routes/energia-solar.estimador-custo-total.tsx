@@ -85,7 +85,7 @@ function EstimadorCustoTotalPage() {
     <CalculatorShell
       title="Estimador de Custo Total do Sistema Solar (TCO)"
       description="Calcule CAPEX, OPEX, substituições, payback e LCOE de sistemas fotovoltaicos com lista de materiais detalhada."
-      path={PATH}
+      breadcrumbs={CRUMBS}
       extrasId="solar-tco"
     >
       <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm print:hidden">

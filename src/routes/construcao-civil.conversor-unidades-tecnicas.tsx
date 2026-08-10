@@ -6,6 +6,7 @@ import { pageHead } from "@/lib/seo";
 import { ConverterForm } from "@/components/Conversor/ConverterForm";
 import { ComposedPanel } from "@/components/Conversor/ComposedPanel";
 import { HistoryPanel } from "@/components/Conversor/HistoryPanel";
+import { CalculatorShell } from "@/components/calc-ui";
 import { HISTORY_VERSION, type HistoryEntry } from "@/lib/conversor/calc";
 import type { CategoryId } from "@/lib/conversor/units";
 
@@ -167,33 +168,22 @@ function ConversorPage() {
   }
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Conversor de Unidades Técnicas
-        </h1>
-        <p className="mt-2 max-w-3xl text-muted-foreground">
-          Conversões rápidas entre as unidades usadas em obra e projeto: comprimento, área, volume,
-          massa, densidade, força, tensão, energia, potência, temperatura, velocidade, vazão,
-          torque, ângulos e seções de perfis. Aceita notação científica e expressões simples, com
-          histórico e favoritos salvos no seu navegador.
-        </p>
+    <CalculatorShell
+      title="Conversor de Unidades Técnicas"
+      description="Conversões rápidas entre as unidades usadas em obra e projeto."
+      breadcrumbs={CRUMBS}
+      extrasId="conversor"
+    >
+      <div className="mt-6 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+        <p className="font-medium text-foreground">Como usar</p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>Escolha a categoria e as unidades de origem e destino.</li>
+          <li>Digite o valor — aceita notação científica e expressões.</li>
+          <li>Use “Inverter” para trocar as unidades e “Copiar” para o resultado.</li>
+        </ul>
+      </div>
 
-        <div className="mt-6 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
-          <p className="font-medium text-foreground">Como usar</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li>Escolha a categoria e as unidades de origem e destino.</li>
-            <li>
-              Digite o valor — aceita <code>1.2e3</code>, <code>2,5</code> ou{" "}
-              <code>3 * (2 + 1)</code>.
-            </li>
-            <li>Use “Inverter” para trocar as unidades e “Copiar” para levar o resultado.</li>
-            <li>Para massa a partir de volume, use o painel de conversão composta.</li>
-          </ul>
-        </div>
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div>
             <ConverterForm
               decimals={decimals}

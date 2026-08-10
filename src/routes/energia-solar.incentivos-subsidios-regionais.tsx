@@ -81,8 +81,8 @@ function IncentivosRegionaisPage() {
   const [detalhe, setDetalhe] = useState<string | null>(null);
   const [filtro, setFiltro] = useState<string>("");
 
-  const disponiveis = useMemo(() => fetchIncentivesForLocation(estimate.cep ?? "", estimate.uf), [
-    estimate.cep,
+  const disponiveis = useMemo(() => fetchIncentivesForLocation((estimate as any).cep ?? "", estimate.uf), [
+    (estimate as any).cep,
     estimate.uf,
   ]);
 
