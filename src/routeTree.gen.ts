@@ -18,6 +18,7 @@ import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EquipeRouteImport } from './routes/equipe'
 import { Route as EnergiaSolarRouteImport } from './routes/energia-solar'
 import { Route as EconomiaEnergiaSolarRouteImport } from './routes/economia-energia-solar'
 import { Route as ConversoresRouteImport } from './routes/conversores'
@@ -118,6 +119,11 @@ const MetodologiaRoute = MetodologiaRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipeRoute = EquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnergiaSolarRoute = EnergiaSolarRouteImport.update({
@@ -449,6 +455,7 @@ export interface FileRoutesByFullPath {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -513,6 +520,7 @@ export interface FileRoutesByTo {
   '/conversor-m2-para-hectare': typeof ConversorM2ParaHectareRoute
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -580,6 +588,7 @@ export interface FileRoutesById {
   '/conversores': typeof ConversoresRoute
   '/economia-energia-solar': typeof EconomiaEnergiaSolarRoute
   '/energia-solar': typeof EnergiaSolarRouteWithChildren
+  '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
@@ -648,6 +657,7 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -712,6 +722,7 @@ export interface FileRouteTypes {
     | '/conversor-m2-para-hectare'
     | '/conversores'
     | '/economia-energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -778,6 +789,7 @@ export interface FileRouteTypes {
     | '/conversores'
     | '/economia-energia-solar'
     | '/energia-solar'
+    | '/equipe'
     | '/faq'
     | '/metodologia'
     | '/politica-de-cookies'
@@ -845,6 +857,7 @@ export interface RootRouteChildren {
   ConversoresRoute: typeof ConversoresRoute
   EconomiaEnergiaSolarRoute: typeof EconomiaEnergiaSolarRoute
   EnergiaSolarRoute: typeof EnergiaSolarRouteWithChildren
+  EquipeRoute: typeof EquipeRoute
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
@@ -919,6 +932,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipe': {
+      id: '/equipe'
+      path: '/equipe'
+      fullPath: '/equipe'
+      preLoaderRoute: typeof EquipeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia-solar': {
@@ -1430,6 +1450,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConversoresRoute: ConversoresRoute,
   EconomiaEnergiaSolarRoute: EconomiaEnergiaSolarRoute,
   EnergiaSolarRoute: EnergiaSolarRouteWithChildren,
+  EquipeRoute: EquipeRoute,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
@@ -1443,13 +1464,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
