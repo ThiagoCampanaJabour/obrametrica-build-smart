@@ -1,4 +1,4 @@
-import { BudgetInput, BudgetResult } from './budget';
+import { Appliance, BudgetInput, BudgetResult, PVInput } from './budget';
 
 export interface AmortizationRow {
   period: number;
@@ -22,4 +22,5 @@ export interface LoanParams {
   amortizationType?: 'PRICE' | 'SAC';
 }
 
+export type { Appliance, BudgetInput, BudgetResult, PVInput };
 export * from './budget';
