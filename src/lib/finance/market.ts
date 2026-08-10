@@ -17,7 +17,7 @@ export function normalizeCategories(categories: MarketCategory[]): MarketCategor
 export function calculateMarketExpenses(input: MarketInput): MarketResult {
   const normalizedCategories = normalizeCategories(input.categories);
   const monthlyTotal = normalizedCategories.reduce((sum, c) => sum + c.amount, 0);
-  console.log('calculateMarketExpenses - monthlyTotal:', monthlyTotal, 'categories count:', normalizedCategories.length);
+
 
   
   const familyMembers = Math.max(1, input.familyMembers);
