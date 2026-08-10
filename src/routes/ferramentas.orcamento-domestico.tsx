@@ -2,14 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
-import { LayoutDashboard, Calculator, Zap, Save, FileText, BarChart3, Settings, HelpCircle, Download, ArrowRight, TrendingUp } from "lucide-react";
+import { HelpCircle, FileText } from "lucide-react";
 import { useState, useMemo } from "react";
 import { calculateBudgetComparison } from "@/lib/solar/pv-economic";
 import { BudgetInput } from "@/lib/types/budget";
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
-} from 'recharts';
-import { cn } from "@/lib/utils";
+
+import { ConsumptionForm } from "@/components/Budget/ConsumptionForm";
+import { PVComparisonForm } from "@/components/Budget/PVComparisonForm";
+import { ResultsSummary } from "@/components/Budget/ResultsSummary";
+import { MonthlyChart } from "@/components/Budget/MonthlyChart";
+import { SensitivitySliders } from "@/components/Budget/SensitivitySliders";
+import { ExportButtons } from "@/components/Budget/ExportButtons";
+import { ExamplesPanel } from "@/components/Budget/ExamplesPanel";
+import { HelpPanel } from "@/components/Budget/HelpPanel";
 
 export const Route = createFileRoute("/ferramentas/orcamento-domestico")({
   head: () =>
@@ -41,22 +46,15 @@ function OrcamentoPage() {
 
   const results = useMemo(() => calculateBudgetComparison(input), [input]);
 
-  const handleExportCSV = () => {
-    const headers = "Mes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
-    const rows = results.monthlyData.map((d: any) => `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}`).join("\n");
-    const blob = new Blob([headers + rows], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'obrametrica-simulador-solar.csv';
-    a.click();
-  };
-
   return (
     <SiteLayout>
       <div className="bg-slate-50 min-h-screen py-8">
         <div className="container mx-auto px-4 max-w-7xl">
-          <Breadcrumbs items={[{ name: "Início", path: "/" }, { name: "Ferramentas", path: "/conversores" }, { name: "Orçamento & Solar", path: "/ferramentas/orcamento-domestico" }]} />
+          <Breadcrumbs items={[
+            { name: "Início", path: "/" }, 
+            { name: "Ferramentas", path: "/conversores" }, 
+            { name: "Orçamento & Solar", path: "/ferramentas/orcamento-domestico" }
+          ]} />
           
           <div className="mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
@@ -65,210 +63,23 @@ function OrcamentoPage() {
                 Compare o custo da rede elétrica convencional contra a economia de um sistema fotovoltaico em tempo real.
               </p>
             </div>
-            <div className="flex gap-2">
-              <button 
-                onClick={handleExportCSV}
-                className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm"
-              >
-                <Download className="h-4 w-4" /> Exportar CSV
-              </button>
-            </div>
+            <ExportButtons results={results} />
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-12">
-            {/* Left Column: Inputs */}
+            {/* Coluna Esquerda: Formulários */}
             <div className="lg:col-span-4 space-y-6">
-              <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-primary" /> Dados de Consumo
-                </h2>
-                
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Consumo Mensal (kWh)</label>
-                    <input 
-                      type="number" 
-                      value={input.monthlyKwh} 
-                      onChange={(e) => setInput({...input, monthlyKwh: Number(e.target.value)})}
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                      placeholder="Ex: 500"
-                    />
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tarifa (R$/kWh)</label>
-                      <input 
-                        type="number" 
-                        step="0.01"
-                        value={input.tariff} 
-                        onChange={(e) => setInput({...input, tariff: Number(e.target.value)})} 
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Impostos (%)</label>
-                      <input 
-                        type="number" 
-                        value={input.taxPct} 
-                        onChange={(e) => setInput({...input, taxPct: Number(e.target.value)})} 
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none" 
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <Settings className="h-5 w-5 text-primary" /> Sistema Fotovoltaico
-                </h2>
-                
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Potência Instalada (kWp)</label>
-                    <input 
-                      type="number" 
-                      step="0.1"
-                      value={input.pv?.kwp} 
-                      onChange={(e) => setInput({...input, pv: { ...input.pv!, kwp: Number(e.target.value) }})}
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Investimento CAPEX (R$)</label>
-                    <input 
-                      type="number" 
-                      value={input.pv?.capex} 
-                      onChange={(e) => setInput({...input, pv: { ...input.pv!, capex: Number(e.target.value) }})}
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none" 
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
-                      Simultaneidade (Overlap) 
-                      <span className="text-primary text-xs font-normal">{(input.pv?.overlapFactor ?? 0.45) * 100}%</span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="0.1" 
-                      max="1" 
-                      step="0.05"
-                      value={input.pv?.overlapFactor} 
-                      onChange={(e) => setInput({...input, pv: { ...input.pv!, overlapFactor: Number(e.target.value) }})}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                    />
-                    <p className="mt-1 text-[10px] text-slate-500 italic">Padrão: 45% residencial / 70% comercial</p>
-                  </div>
-                  </div>
-              </section>
-
-              <section className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl border border-primary/20 p-6 shadow-sm">
-                <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-primary" /> Sliders de Sensibilidade
-                </h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
-                      Variação Tarifa 
-                      <span className={cn("text-xs font-bold", input.tariff > 0.85 ? "text-red-500" : "text-emerald-500")}>
-                        {input.tariff > 0.85 ? "+" : ""}{(((input.tariff - 0.85) / 0.85) * 100).toFixed(0)}%
-                      </span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="0.68" 
-                      max="1.02" 
-                      step="0.01"
-                      value={input.tariff} 
-                      onChange={(e) => setInput({...input, tariff: Number(e.target.value)})}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
-                      Fator de Produção 
-                      <span className="text-primary text-xs font-bold">{input.pv?.productionFactor} kWh/kWp</span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="1350" 
-                      max="1650" 
-                      step="10"
-                      value={input.pv?.productionFactor} 
-                      onChange={(e) => setInput({...input, pv: { ...input.pv!, productionFactor: Number(e.target.value) }})}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
-                      Perdas Sistêmicas 
-                      <span className="text-primary text-xs font-bold">{input.pv?.lossesPct}%</span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="9" 
-                      max="19" 
-                      step="1"
-                      value={input.pv?.lossesPct} 
-                      onChange={(e) => setInput({...input, pv: { ...input.pv!, lossesPct: Number(e.target.value) }})}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                    />
-                  </div>
-                </div>
-              </section>
+              <ConsumptionForm input={input} onChange={setInput} />
+              <PVComparisonForm input={input} onChange={setInput} />
+              <SensitivitySliders input={input} onChange={setInput} />
+              <ExamplesPanel onSelect={setInput} />
+              <HelpPanel />
             </div>
 
-            {/* Right Column: Results & Charts */}
+            {/* Coluna Direita: Resultados */}
             <div className="lg:col-span-8 space-y-8">
-              {/* Summary Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-primary/30 transition-colors">
-                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Custo Rede/Mês</p>
-                  <p className="text-2xl font-black text-slate-900">R$ {results.monthlyCost.toFixed(2)}</p>
-                </div>
-                <div className="bg-primary p-5 rounded-2xl shadow-lg shadow-primary/20 text-white">
-                  <p className="text-xs font-medium text-white/80 uppercase tracking-wider mb-1">Novo Custo/Mês</p>
-                  <p className="text-2xl font-black">R$ {results.monthlyData[0].costWithPV.toFixed(2)}</p>
-                </div>
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Economia Anual</p>
-                  <p className="text-2xl font-black text-emerald-600">R$ {results.annualSavings.toFixed(2)}</p>
-                </div>
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Payback Simples</p>
-                  <p className="text-2xl font-black text-orange-600">
-                    {results.paybackYears ? `${results.paybackYears.toFixed(1)} anos` : "N/A"}
-                  </p>
-                </div>
-              </div>
-
-              {/* Chart */}
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-primary" /> Comparativo Mensal (Geração vs Consumo)
-                </h3>
-                <div className="h-[350px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={results.monthlyData}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                      <XAxis dataKey="month" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                      <Tooltip 
-                        contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                      />
-                      <Legend verticalAlign="top" height={36}/>
-                      <Bar name="Consumo (kWh)" dataKey="consumption" fill="#94a3b8" radius={[4, 4, 0, 0]} />
-                      <Bar name="Geração (kWh)" dataKey="generation" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
+              <ResultsSummary results={results} />
+              <MonthlyChart data={results.monthlyData} />
 
               {/* LCOE & Methodology Link */}
               <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">

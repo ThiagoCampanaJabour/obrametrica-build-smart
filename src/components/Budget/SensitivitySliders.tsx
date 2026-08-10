@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { TrendingUp, FileText, HelpCircle } from 'lucide-react';
-import { BudgetInput } from '@/lib/types/budget';
+import { TrendingUp } from 'lucide-react';
+import { BudgetInput, PVInput } from '@/lib/types/budget';
 
 interface SensitivitySlidersProps {
   input: BudgetInput;
@@ -9,9 +9,15 @@ interface SensitivitySlidersProps {
 }
 
 export const SensitivitySliders: React.FC<SensitivitySlidersProps> = ({ input, onChange }) => {
-  const pv = input.pv || { productionFactor: 1500, lossesPct: 14 };
+  const pv: PVInput = input.pv || { 
+    productionFactor: 1500, 
+    lossesPct: 14,
+    opexAnnual: 0,
+    lifespanYears: 25,
+    overlapFactor: 0.45
+  };
 
-  const updatePV = (field: string, value: any) => {
+  const updatePV = (field: keyof PVInput, value: any) => {
     onChange({
       ...input,
       pv: { ...pv, [field]: value }
