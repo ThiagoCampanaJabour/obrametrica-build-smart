@@ -1,4 +1,4 @@
-import { pricePayment, generateAmortizationSchedule, presentValue, futureValueMonthlyContributions } from '../../src/lib/finance/budget';
+import { pricePayment, generateAmortizationSchedule, presentValue, futureValueMonthlyContributions } from './budget';
 import { describe, test, expect } from 'vitest';
 
 describe('finance budget', () => {
