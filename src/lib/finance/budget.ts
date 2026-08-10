@@ -6,7 +6,7 @@
 
 import { Appliance, MarketInput, MarketResult, MarketCategory, VehicleInput, VehicleResult } from '../types/budget';
 import { calculateMarketExpenses as calculateMarketExpensesBase } from './market';
-import { calculateVehicleExpenses as calculateVehicleExpensesBase } from './vehicle';
+// import { calculateVehicleExpenses as calculateVehicleExpensesBase } from './vehicle';
 import { AmortizationRow, AmortizationSchedule, LoanParams } from '../types/index';
 
 export function nominalToPeriodicRate(annualRatePct: number, paymentsPerYear = 12): number {
