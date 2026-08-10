@@ -19,11 +19,30 @@ export const PVInputSchema = z.object({
   capex: z.number().min(0).optional(),
   opexAnnual: z.number().min(0).default(0),
   lifespanYears: z.number().min(1).max(40).default(25),
-  overlapFactor: z.number().min(0).max(1).default(0.45), // 0.45 residencial, 0.7 comercial
-  creditRate: z.number().min(0).optional(), // Se null, usa tarifa 1:1
+  overlapFactor: z.number().min(0).max(1).default(0.45),
+  creditRate: z.number().min(0).optional(),
 });
 
 export type PVInput = z.infer<typeof PVInputSchema>;
+
+export const MarketCategorySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  amount: z.number().min(0),
+});
+
+export type MarketCategory = z.infer<typeof MarketCategorySchema>;
+
+export const MarketInputSchema = z.object({
+  mode: z.enum(['total', 'categories']),
+  monthlyTotal: z.number().min(0).default(1500),
+  categories: z.array(MarketCategorySchema).default([]),
+  familyMembers: z.number().int().min(1).default(1),
+  annualInflationPct: z.number().min(0).default(5),
+  projectionYears: z.number().int().min(1).max(10).default(1),
+});
+
+export type MarketInput = z.infer<typeof MarketInputSchema>;
 
 export const BudgetInputSchema = z.object({
   consumptionMode: z.enum(['direct', 'appliances']),
@@ -32,9 +51,26 @@ export const BudgetInputSchema = z.object({
   tariff: z.number().min(0).default(0.85),
   taxPct: z.number().min(0).max(100).default(25),
   pv: PVInputSchema.optional(),
+  market: MarketInputSchema.optional(),
 });
 
 export type BudgetInput = z.infer<typeof BudgetInputSchema>;
+
+export interface MarketResult {
+  perCapitaMonth: number;
+  annualTotal: number;
+  annualPerCapita: number;
+  projection: Array<{
+    year: number;
+    amount: number;
+    variationPct: number;
+  }>;
+  categoryBreakdown: Array<{
+    name: string;
+    amount: number;
+    percentage: number;
+  }>;
+}
 
 export interface BudgetResult {
   monthlyConsumptionKwh: number;
@@ -55,4 +91,6 @@ export interface BudgetResult {
     costRede: number;
     costWithPV: number;
   }>;
+  market?: MarketResult;
 }
+
