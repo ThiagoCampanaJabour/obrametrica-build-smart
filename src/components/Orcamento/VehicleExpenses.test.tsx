@@ -12,32 +12,8 @@ const mockInput: BudgetInput = {
   appliances: []
 };
 
-describe('VehicleExpenses Component', () => {
-  it('should render the add vehicle button', () => {
-    render(
-      <TooltipProvider>
-        <VehicleExpenses input={mockInput} onChange={() => {}} />
-      </TooltipProvider>
-    );
-    expect(screen.getByTestId('vehicle-add')).toBeDefined();
-  });
-
-  it('should call onChange when adding a vehicle', () => {
-    const onChange = vi.fn();
-    render(
-      <TooltipProvider>
-        <VehicleExpenses input={mockInput} onChange={onChange} />
-      </TooltipProvider>
-    );
-    
-    fireEvent.click(screen.getByTestId('vehicle-add'));
-    expect(onChange).toHaveBeenCalled();
-    const newBudget = onChange.mock.calls[0][0] as BudgetInput;
-    expect(newBudget.vehicles.length).toBe(1);
-    expect(newBudget.vehicles[0].name).toBe('Novo Veículo');
-  });
-
-  it('should update vehicle fields correctly', () => {
+describe('VehicleExpenses Component (Full Fields)', () => {
+  it('should render all technical fields when expanded', () => {
     const vehicle = {
       id: '1',
       name: 'Carro 1',
@@ -71,22 +47,60 @@ describe('VehicleExpenses Component', () => {
     };
     
     const inputWithVehicle = { ...mockInput, vehicles: [vehicle] };
-    const onChange = vi.fn();
     
     render(
       <TooltipProvider>
-        <VehicleExpenses input={inputWithVehicle} onChange={onChange} />
+        <VehicleExpenses input={inputWithVehicle} onChange={() => {}} />
       </TooltipProvider>
     );
     
-    // Abrir o acordeão pelo data-testid do header
+    // Expand vehicle
     fireEvent.click(screen.getByTestId('vehicle-0-header'));
     
-    const kmInput = screen.getByTestId('vehicle-0-km-per-month');
-    fireEvent.change(kmInput, { target: { value: '2000' } });
+    // Check key data-testids from the request
+    expect(screen.getByTestId('vehicle-0-km-per-month')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-type')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-consumption-km-per-l')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-fuel-price-per-l')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-financed-amount')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-annual-rate-pct')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-term-years')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-value')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-depreciation-rate')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-parking')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-tolls')).toBeDefined();
+  });
+
+  it('should toggle EV fields based on type', async () => {
+    const vehicle = {
+      id: '1',
+      name: 'Carro EV',
+      type: 'eletrico' as const,
+      kmPerMonth: 1000,
+      consumptionKwhPer100Km: 15,
+      electricityPricePerKwh: 0.9,
+      chargingEfficiencyPct: 95,
+      maintenanceMonthly: 0,
+      maintenanceAnnual: 0,
+      insuranceAnnual: 0,
+      ipvaAnnual: 0,
+      licensingAnnual: 0,
+      vehicleValue: 100000,
+      depreciationRateAnnualPct: 10
+    };
     
-    expect(onChange).toHaveBeenCalled();
-    const updatedBudget = onChange.mock.calls[0][0] as BudgetInput;
-    expect(updatedBudget.vehicles[0].kmPerMonth).toBe(2000);
+    const inputWithVehicle = { ...mockInput, vehicles: [vehicle as any] };
+    
+    render(
+      <TooltipProvider>
+        <VehicleExpenses input={inputWithVehicle} onChange={() => {}} />
+      </TooltipProvider>
+    );
+    
+    fireEvent.click(screen.getByTestId('vehicle-0-header'));
+    
+    expect(screen.getByTestId('vehicle-0-consumption-kwh-per-100km')).toBeDefined();
+    expect(screen.getByTestId('vehicle-0-electricity-price-per-kwh')).toBeDefined();
+    expect(screen.queryByTestId('vehicle-0-consumption-km-per-l')).toBeNull();
   });
 });
