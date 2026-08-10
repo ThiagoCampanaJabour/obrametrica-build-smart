@@ -1,0 +1,47 @@
+{
+  "sheets": [
+    {
+      "id": "template-supermercado",
+      "name": "Supermercado",
+      "type": "Supermercado",
+      "categories": [
+        "Hortifruti", "Carnes", "Massas", "Cereais", "Laticínios", "Pães", 
+        "Bebidas", "Doces", "Biscoitos", "Café & Chá", "Óleos & Condimentos", 
+        "Congelados", "Higiene", "Limpeza", "Pet Food", "Outros"
+      ],
+      "defaultRows": [
+        { "category": "Hortifruti", "subcategory": "Frutas e Legumes", "unit": "kg", "quantity": 5, "unitPrice": 8.5 },
+        { "category": "Laticínios", "subcategory": "Leite", "unit": "litro", "quantity": 12, "unitPrice": 4.8 },
+        { "category": "Carnes", "subcategory": "Frango/Carne Bovina", "unit": "kg", "quantity": 4, "unitPrice": 35.0 }
+      ]
+    },
+    {
+      "id": "template-casa",
+      "name": "Casa",
+      "type": "Casa",
+      "defaultRows": [
+        { "category": "Contas", "subcategory": "Energia Elétrica", "periodicity": "mensal", "unitPrice": 150 },
+        { "category": "Contas", "subcategory": "Água e Esgoto", "periodicity": "mensal", "unitPrice": 80 },
+        { "category": "Contas", "subcategory": "Internet/TV", "periodicity": "mensal", "unitPrice": 120 },
+        { "category": "Impostos", "subcategory": "IPTU", "periodicity": "anual", "unitPrice": 1200 }
+      ]
+    },
+    {
+      "id": "template-veiculos",
+      "name": "Veículos",
+      "type": "Veículos",
+      "defaultRows": [
+        { "category": "Combustível", "subcategory": "Gasolina/Etanol", "periodicity": "mensal", "unitPrice": 400 },
+        { "category": "Manutenção", "subcategory": "Troca de Óleo", "periodicity": "evento", "frequencyMonths": 6, "unitPrice": 250 },
+        { "category": "Impostos", "subcategory": "IPVA", "periodicity": "anual", "unitPrice": 2000 },
+        { "category": "Seguro", "subcategory": "Seguro Auto", "periodicity": "anual", "unitPrice": 2400 }
+      ]
+    }
+  ],
+  "units": ["kg", "un", "litro", "pacote", "m3", "kWh", "km"],
+  "sources": [
+    { "name": "ANP", "url": "https://www.gov.br/anp/pt-br", "status": "[FONTE_A_VERIFICAR]" },
+    { "name": "ANEEL", "url": "https://www.aneel.gov.br/", "status": "[FONTE_A_VERIFICAR]" },
+    { "name": "IBGE", "url": "https://www.ibge.gov.br/", "status": "[FONTE_A_VERIFICAR]" }
+  ]
+}
