@@ -49,18 +49,57 @@ export const MarketInputSchema = z.object({
 
 export type MarketInput = z.infer<typeof MarketInputSchema>;
 
+export const VehicleFinancingSchema = z.object({
+  financedAmount: z.number().min(0).default(0),
+  downPayment: z.number().min(0).default(0),
+  annualRatePct: z.number().min(0).default(0),
+  termYears: z.number().min(0).default(0),
+  amortizationType: z.enum(['PRICE', 'SAC']).default('PRICE'),
+});
+
+export const VehicleFiniteItemsSchema = z.object({
+  tires: z.object({
+    costPerSet: z.number().min(0).default(0),
+    replacementIntervalKm: z.number().min(1).default(40000),
+    numberOfTires: z.number().int().min(1).default(4),
+  }).default({}),
+  oilChange: z.object({
+    costPerChange: z.number().min(0).default(0),
+    intervalKm: z.number().min(1).default(10000),
+  }).default({}),
+});
+
 export const VehicleInputSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: z.enum(['gasolina', 'etanol', 'diesel', 'eletrico']),
+  type: z.enum(['gasolina', 'etanol', 'diesel', 'hibrido', 'eletrico']),
+  year: z.number().int().min(1900).max(2100).optional(),
+  brand: z.string().optional(),
+  model: z.string().optional(),
   kmPerMonth: z.number().min(0),
-  consumption: z.number().min(0.1), // km/L or kWh/100km
+  consumption: z.number().min(0.01), // km/L or kWh/100km
   fuelPrice: z.number().min(0), // R$/L or R$/kWh
+  
+  // Recarga elétrica específica
+  electricityPriceResidential: z.number().min(0).optional(),
+  chargingEfficiencyPct: z.number().min(1).max(100).default(90),
+
   maintenanceMonthly: z.number().min(0).default(0),
   insuranceAnnual: z.number().min(0).default(0),
   ipvaAnnual: z.number().min(0).default(0),
+  licensingAnnual: z.number().min(0).default(0),
+  
   vehicleValue: z.number().min(0).optional(),
   depreciationRateAnnualPct: z.number().min(0).default(10),
+  
+  financing: VehicleFinancingSchema.optional(),
+  finiteItems: VehicleFiniteItemsSchema.optional(),
+  
+  admin: z.object({
+    parkingMonthly: z.number().min(0).default(0),
+    tollsMonthly: z.number().min(0).default(0),
+    cleaningMonthly: z.number().min(0).default(0),
+  }).optional(),
 });
 
 export type VehicleInput = z.infer<typeof VehicleInputSchema>;
