@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { SiteLayout } from "@/components/site-layout";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
 import {
   KwKwhForm,
@@ -11,6 +9,7 @@ import {
 } from "@/components/SolarConverter/KwKwhForm";
 import { ResultsSummary } from "@/components/SolarConverter/ResultsSummary";
 import { ExamplesPanel } from "@/components/SolarConverter/ExamplesPanel";
+import { CalculatorShell } from "@/components/calc-ui";
 import { energyFromPower, powerFromEnergy, sensitivityRange } from "@/lib/solar/kwkwh";
 
 const PATH = "/energia-solar/conversor-kw-kwh";
@@ -112,90 +111,73 @@ function ConversorKwKwhPage() {
   );
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Conversor kW ↔ kWh · Produção por potência instalada
-        </h1>
-        <p className="mt-3 max-w-3xl text-muted-foreground">
-          Estime a geração anual de um sistema fotovoltaico a partir da potência instalada em kWp
-          — ou o caminho inverso, descobrindo quantos kWp são necessários para cobrir uma meta de
-          consumo. Os fatores de produção vêm de presets por cidade e podem ser substituídos por
-          horas equivalentes de sol e Performance Ratio próprios. Para detalhar as perdas item a
-          item, use a{" "}
-          <a
-            href="/energia-solar/calculadora-perdas-eficiencia"
-            className="underline hover:text-accent"
-          >
-            calculadora de perdas e eficiência
-          </a>
-          .
-        </p>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
-          <div className="min-w-0">
-            <KwKwhForm state={form} onChange={setForm} />
-          </div>
-          <div className="min-w-0">
-            <ResultsSummary
-              modo={form.modo}
-              entrada={form.valor}
-              fator={fator}
-              losses_pct={form.losses_pct}
-              direto={direto}
-              inverso={inverso}
-              sensibilidade={sensibilidade}
-              exportPayload={exportPayload}
-            />
-
-          </div>
+    <CalculatorShell
+      title="Conversor kW ↔ kWh · Produção por potência instalada"
+      description="Estime a geração anual de um sistema fotovoltaico a partir da potência instalada em kWp ou descubra a potência necessária."
+      breadcrumbs={CRUMBS}
+      extrasId="solar-kw-kwh"
+    >
+      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+        <div className="min-w-0">
+          <KwKwhForm state={form} onChange={setForm} />
         </div>
-
-        <div className="mt-6">
-          <ExamplesPanel
-            onLoad={(ex) =>
-              setForm((prev) => ({
-                ...prev,
-                modo: ex.modo,
-                valor: ex.valor,
-                cidadeId: ex.cidadeId,
-                fator: ex.fator,
-                fonteFator: "manual",
-                losses_pct: ex.losses_pct,
-                modulo_W: ex.modulo_W,
-              }))
-            }
+        <div className="min-w-0">
+          <ResultsSummary
+            modo={form.modo}
+            entrada={form.valor}
+            fator={fator}
+            losses_pct={form.losses_pct}
+            direto={direto}
+            inverso={inverso}
+            sensibilidade={sensibilidade}
+            exportPayload={exportPayload}
           />
         </div>
+      </div>
 
-        <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground">Fórmulas utilizadas</h2>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <strong className="text-foreground">kWp → kWh:</strong> Energia (kWh/ano) = Potência
-              (kWp) × Fator (kWh/kWp/ano) × (1 − perdas)
-            </li>
-            <li>
-              <strong className="text-foreground">kWh → kWp:</strong> Potência (kWp) = Energia
-              (kWh/ano) ÷ [Fator × (1 − perdas)]
-            </li>
-            <li>
-              <strong className="text-foreground">Fator por HE:</strong> Fator ≈ Horas
-              equivalentes (h/ano) × Performance Ratio
-            </li>
-            <li>
-              <strong className="text-foreground">Módulos:</strong> Quantidade = arredondar para
-              cima (kWp × 1000 ÷ potência do módulo) × (1 + reserva)
-            </li>
-          </ul>
-          <p className="mt-4 text-xs text-muted-foreground">
-            Premissas sempre visíveis: o fator e as perdas adotados aparecem no resultado. Os
-            valores anuais são médias e não representam a variação mês a mês nem eventos de
-            sombreamento pontual.
-          </p>
-        </div>
-      </section>
-    </SiteLayout>
+      <div className="mt-6">
+        <ExamplesPanel
+          onLoad={(ex) =>
+            setForm((prev) => ({
+              ...prev,
+              modo: ex.modo,
+              valor: ex.valor,
+              cidadeId: ex.cidadeId,
+              fator: ex.fator,
+              fonteFator: "manual",
+              losses_pct: ex.losses_pct,
+              modulo_W: ex.modulo_W,
+            }))
+          }
+        />
+      </div>
+
+      <div className="mt-8 rounded-xl border border-border bg-card p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-foreground">Fórmulas utilizadas</h2>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">kWp → kWh:</strong> Energia (kWh/ano) = Potência
+            (kWp) × Fator (kWh/kWp/ano) × (1 − perdas)
+          </li>
+          <li>
+            <strong className="text-foreground">kWh → kWp:</strong> Potência (kWp) = Energia
+            (kWh/ano) ÷ [Fator × (1 − perdas)]
+          </li>
+          <li>
+            <strong className="text-foreground">Fator por HE:</strong> Fator ≈ Horas
+            equivalentes (h/ano) × Performance Ratio
+          </li>
+          <li>
+            <strong className="text-foreground">Módulos:</strong> Quantidade = arredondar para
+            cima (kWp × 1000 ÷ potência do módulo) × (1 + reserva)
+          </li>
+        </ul>
+        <p className="mt-4 text-xs text-muted-foreground">
+          Premissas sempre visíveis: o fator e as perdas adotados aparecem no resultado. Os
+          valores anuais são médias e não representam a variação mês a mês nem eventos de
+          sombreamento pontual.
+        </p>
+      </div>
+    </CalculatorShell>
   );
 }

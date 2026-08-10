@@ -1,11 +1,10 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site-layout";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
 import { calcQuantification, toCSVTelhas } from "@/lib/telhas/calc";
 import { DEFAULT_QUANT_FORM, QuantForm, type QuantFormState } from "@/components/TelhasQuant/QuantForm";
 import { ResultsTable } from "@/components/TelhasQuant/ResultsTable";
+import { CalculatorShell } from "@/components/calc-ui";
 
 const PATH = "/construcao-civil/quantificacao-telhas-pecas";
 const CRUMBS = [
@@ -48,9 +47,9 @@ const FAQ_SCHEMA = {
 export const Route = createFileRoute("/construcao-civil/quantificacao-telhas-pecas")({
   head: () =>
     pageHead({
-      title: "Quantificação e Corte de Telhas e Peças — Piso e Revestimento | ObraMétrica",
+      title: "Quantificação e Corte de Telhas e Peças — ObraMétrica",
       description:
-        "Calcule quantas telhas, pisos ou porcelanatos comprar considerando layout de assentamento, cortes nas bordas, perdas e margem de segurança. Export CSV e JSON.",
+        "Calcule quantidade de telhas, pisos e revestimentos considerando layout de assentamento, recortes e perdas. Reduza o desperdício em sua obra.",
       path: PATH,
       breadcrumbs: CRUMBS,
       schema: {
@@ -103,28 +102,21 @@ function QuantificacaoPage() {
   const invalido = calculated && !result;
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Quantificação e Corte de Telhas e Peças
-        </h1>
-        <p className="mt-2 max-w-3xl text-muted-foreground">
-          Descubra quantas telhas, pisos, porcelanatos ou revestimentos comprar considerando o
-          padrão de assentamento, os cortes de borda, as perdas típicas por tipo de peça e uma
-          margem de segurança. Exporte a lista de compra em CSV ou JSON.
-        </p>
-
-        <div
-          role="note"
-          className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
-        >
-          <strong>Estimativa</strong> — os percentuais de corte são heurísticas de projeto. Confirme
-          as medidas no local, a área útil real da peça com o fornecedor e compre algumas peças
-          extras do mesmo lote para reposição.
-        </div>
-
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,520px)_1fr]">
+    <CalculatorShell
+      title="Quantificação e Corte de Telhas e Peças"
+      description="Descubra a quantidade ideal de materiais cerâmicos e revestimentos, prevendo cortes e perdas reais por layout."
+      breadcrumbs={CRUMBS}
+      extrasId="/construcao-civil/quantificacao-telhas-pecas"
+    >
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_1fr]">
+        <div className="space-y-6">
+          <div
+            role="note"
+            className="rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
+          >
+            <strong>Nota Técnica:</strong> Os percentuais de corte são baseados em padrões de assentamento NBR. Sempre valide as medidas no canteiro antes da compra.
+          </div>
+          
           <div className="rounded-xl border border-border bg-card p-6">
             <QuantForm
               state={state}
@@ -136,72 +128,43 @@ function QuantificacaoPage() {
               }}
             />
           </div>
-
-          <div>
-            {invalido ? (
-              <div
-                role="alert"
-                className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
-              >
-                Informe uma área entre 0 e 10.000 m² e dimensões válidas da peça.
-              </div>
-            ) : !result ? (
-              <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
-                Informe a área, escolha a peça e o layout e clique em <strong>Calcular</strong> para
-                ver a quantidade, os cortes estimados e a lista de compra.
-              </div>
-            ) : (
-              <ResultsTable
-                result={result}
-                onExportCSV={() =>
-                  download("quantificacao-telhas.csv", toCSVTelhas(result), "text/csv")
-                }
-                onExportJSON={() =>
-                  download(
-                    "quantificacao-telhas.json",
-                    JSON.stringify({ inputs: state, outputs: result }, null, 2),
-                    "application/json",
-                  )
-                }
-                onCopy={() =>
-                  navigator.clipboard.writeText(
-                    JSON.stringify({ inputs: state, outputs: result }, null, 2),
-                  )
-                }
-              />
-
-            )}
-          </div>
         </div>
 
-        <div className="mt-10 grid gap-6 rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground sm:grid-cols-2">
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Como o cálculo funciona</h2>
-            <p className="mt-2">
-              A quantidade base é <code>teto(área ÷ área do módulo)</code>, onde o módulo inclui a
-              junta. Sobre ela aplicamos a perda por corte e a margem de segurança:{" "}
-              <code>teto(base × (1 + perda) × (1 + margem))</code>. Quando você informa comprimento e
-              largura do ambiente, os cortes são estimados pelas peças de borda em vez da heurística
-              por layout.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Limitações</h2>
-            <p className="mt-2">
-              O MVP não faz otimização de corte (nesting) nem considera recortes em torno de pilares,
-              ralos e soleiras. Ambientes em L devem ser divididos em retângulos. Veja a{" "}
-              <a href="/metodologia" className="underline">
-                metodologia
-              </a>{" "}
-              geral e a{" "}
-              <a href="/calculadora-de-telhas" className="underline">
-                calculadora de telhas
-              </a>{" "}
-              para coberturas inclinadas.
-            </p>
-          </div>
+        <div className="min-w-0">
+          {invalido ? (
+            <div
+              role="alert"
+              className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
+            >
+              Erro: Verifique se a área e as dimensões da peça são maiores que zero.
+            </div>
+          ) : !result ? (
+            <div className="flex h-full min-h-[300px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center text-muted-foreground">
+              <p>Preencha os dados da área e da peça para gerar o quantitativo.</p>
+            </div>
+          ) : (
+            <ResultsTable
+              result={result}
+              onExportCSV={() =>
+                download("quantificacao-telhas.csv", toCSVTelhas(result), "text/csv")
+              }
+              onExportJSON={() =>
+                download(
+                  "quantificacao-telhas.json",
+                  JSON.stringify({ inputs: state, outputs: result }, null, 2),
+                  "application/json",
+                )
+              }
+              onCopy={() =>
+                navigator.clipboard.writeText(
+                  JSON.stringify({ inputs: state, outputs: result }, null, 2),
+                )
+              }
+            />
+          )}
         </div>
-      </section>
-    </SiteLayout>
+      </div>
+    </CalculatorShell>
   );
 }
+
