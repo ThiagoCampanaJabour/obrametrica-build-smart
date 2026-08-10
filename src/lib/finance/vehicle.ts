@@ -1,4 +1,4 @@
-import { VehicleInput, VehicleResult } from '../types/budget';
+import { VehicleInput, VehicleResult, VehicleBreakdown } from '../types/budget';
 import { generateAmortizationSchedule } from './budget';
 
 /**
@@ -6,26 +6,26 @@ import { generateAmortizationSchedule } from './budget';
  */
 
 export function calcMonthlyFuelCost(v: VehicleInput): number {
-  if (v.kmPerMonth === 0 || v.consumption === 0) return 0;
+  if (v.kmPerMonth === 0) return 0;
 
   if (v.type === 'eletrico' || v.type === 'hibrido') {
-    // Para elétricos: consumption é kWh/100km, fuelPrice é R$/kWh
-    // Se híbrido, podemos simplificar usando a mesma lógica ou km/l se for plug-in
-    // Para simplificar conforme pedido: elétrico/híbrido usa kWh/100km e preço de energia
-    // Se o usuário inseriu preço de combustível em R$/L para híbrido, a UI deve orientar
+    const consumption = v.consumptionKwhPer100Km || 0;
+    const price = v.electricityPricePerKwh || 0;
+    const efficiency = (v.chargingEfficiencyPct || 95) / 100;
     
-    // Lógica específica para elétrico se tiver preço de energia residencial e eficiência
-    const price = v.electricityPriceResidential || v.fuelPrice;
-    const efficiency = (v.chargingEfficiencyPct || 90) / 100;
+    if (consumption === 0) return 0;
     
-    if (v.type === 'eletrico') {
-      const kwhPerMonth = (v.kmPerMonth * v.consumption) / 100;
-      return (kwhPerMonth * price) / efficiency;
-    }
+    // (km * kWh/100km) / 100 = kWh consumido
+    const kwhPerMonth = (v.kmPerMonth * consumption) / 100;
+    return (kwhPerMonth * price) / efficiency;
   }
 
-  // Combustão: consumption é km/L, fuelPrice é R$/L
-  return (v.kmPerMonth / v.consumption) * v.fuelPrice;
+  // Combustão
+  const consumption = v.consumptionKmPerL || 0;
+  const price = v.fuelPricePerL || 0;
+  if (consumption === 0) return 0;
+  
+  return (v.kmPerMonth / consumption) * price;
 }
 
 export function calcMonthlyTireCost(v: VehicleInput): number {
@@ -54,13 +54,20 @@ export function calcMonthlyFinancing(v: VehicleInput): number {
     paymentsPerYear: 12
   });
 
-  // Retorna a primeira parcela como estimativa mensal (ou média se SAC, mas PRICE é constante)
   return schedule.rows[0]?.payment || 0;
 }
 
 export function calcMonthlyDepreciation(v: VehicleInput): number {
-  if (!v.vehicleValue || !v.depreciationRateAnnualPct) return 0;
-  return (v.vehicleValue * (v.depreciationRateAnnualPct / 100)) / 12;
+  if (v.depreciationRateAnnualPct && v.vehicleValue) {
+    return (v.vehicleValue * (v.depreciationRateAnnualPct / 100)) / 12;
+  }
+  
+  if (v.vehicleValue && v.usefulLifeYears) {
+    const residual = v.residualValue || 0;
+    return (v.vehicleValue - residual) / (v.usefulLifeYears * 12);
+  }
+  
+  return 0;
 }
 
 export function calculateVehicleExpenses(vehicles: VehicleInput[]): { list: VehicleResult[]; totalMonthly: number; totalAnnual: number } {
@@ -69,64 +76,69 @@ export function calculateVehicleExpenses(vehicles: VehicleInput[]): { list: Vehi
   }
 
   const list = vehicles.map(v => {
-    const monthlyFuelCost = calcMonthlyFuelCost(v);
-    const monthlyMaintenance = v.maintenanceMonthly || 0;
-    const monthlyInsurance = (v.insuranceAnnual || 0) / 12;
-    const monthlyIpva = (v.ipvaAnnual || 0) / 12;
-    const monthlyLicensing = (v.licensingAnnual || 0) / 12;
-    const monthlyDepreciation = calcMonthlyDepreciation(v);
-    const monthlyFinancing = calcMonthlyFinancing(v);
+    const fuel = v.type === 'eletrico' ? 0 : calcMonthlyFuelCost(v);
+    const energy = v.type === 'eletrico' ? calcMonthlyFuelCost(v) : (v.type === 'hibrido' ? 0 : 0); // Hybrid simplification
     
-    const monthlyAdmin = (v.admin?.parkingMonthly || 0) + 
-                         (v.admin?.tollsMonthly || 0) + 
-                         (v.admin?.cleaningMonthly || 0);
-                         
-    const monthlyFiniteItems = calcMonthlyTireCost(v) + calcMonthlyOilCost(v);
+    const maintenance = v.maintenanceMonthly + (v.maintenanceAnnual / 12);
+    const tires = calcMonthlyTireCost(v);
+    const oil = calcMonthlyOilCost(v);
+    const insurance = v.insuranceAnnual / 12;
+    const ipva = v.ipvaAnnual / 12;
+    const financing = calcMonthlyFinancing(v);
+    const depreciation = calcMonthlyDepreciation(v);
+    
+    const parking = v.parkingMonthly || 0;
+    const tolls = v.tollsMonthly || 0;
+    const other = (v.carWashMonthly || 0) + (v.otherMonthly || 0);
 
-    const totalMonthly = monthlyFuelCost + 
-                         monthlyMaintenance + 
-                         monthlyInsurance + 
-                         monthlyIpva + 
-                         monthlyLicensing +
-                         monthlyDepreciation + 
-                         monthlyFinancing + 
-                         monthlyAdmin + 
-                         monthlyFiniteItems;
-                         
-    const totalAnnual = totalMonthly * 12;
-    const costPerKm = v.kmPerMonth > 0 ? totalMonthly / v.kmPerMonth : 0;
+    const monthlyTotal = fuel + energy + maintenance + tires + oil + insurance + ipva + financing + depreciation + parking + tolls + other;
 
-    // Shares
-    const taxes = monthlyInsurance + monthlyIpva + monthlyLicensing;
+    const monthly: VehicleBreakdown = {
+      fuel, energy, maintenance, tires, oil, insurance, ipva, financing, depreciation, parking, tolls, other,
+      total: monthlyTotal
+    };
+
+    const annual: VehicleBreakdown = {
+      fuel: fuel * 12,
+      energy: energy * 12,
+      maintenance: maintenance * 12,
+      tires: tires * 12,
+      oil: oil * 12,
+      insurance: insurance * 12,
+      ipva: ipva * 12,
+      financing: financing * 12,
+      depreciation: depreciation * 12,
+      parking: parking * 12,
+      tolls: tolls * 12,
+      other: other * 12,
+      total: monthlyTotal * 12
+    };
+
+    const costPerKm = v.kmPerMonth > 0 ? monthlyTotal / v.kmPerMonth : null;
+
+    const taxes = insurance + ipva + (v.licensingAnnual / 12);
+    const totalM = monthlyTotal;
     const shares = {
-      fuel: totalMonthly > 0 ? monthlyFuelCost / totalMonthly : 0,
-      maintenance: totalMonthly > 0 ? (monthlyMaintenance + monthlyFiniteItems) / totalMonthly : 0,
-      taxes: totalMonthly > 0 ? taxes / totalMonthly : 0,
-      depreciation: totalMonthly > 0 ? monthlyDepreciation / totalMonthly : 0,
-      financing: totalMonthly > 0 ? monthlyFinancing / totalMonthly : 0,
-      admin: totalMonthly > 0 ? monthlyAdmin / totalMonthly : 0,
+      fuel: totalM > 0 ? (fuel + energy) / totalM : 0,
+      maintenance: totalM > 0 ? (maintenance + tires + oil) / totalM : 0,
+      taxes: totalM > 0 ? taxes / totalM : 0,
+      depreciation: totalM > 0 ? depreciation / totalM : 0,
+      financing: totalM > 0 ? financing / totalM : 0,
+      admin: totalM > 0 ? (parking + tolls + other) / totalM : 0,
     };
 
     return {
       id: v.id,
       name: v.name,
-      monthlyFuelCost,
-      monthlyMaintenance,
-      monthlyInsurance,
-      monthlyIpva,
-      monthlyLicensing,
-      monthlyDepreciation,
-      monthlyFinancing,
-      monthlyAdmin,
-      monthlyFiniteItems,
-      totalMonthly,
-      totalAnnual,
+      type: v.type,
+      monthly,
+      annual,
       costPerKm,
       shares
     };
   });
 
-  const totalMonthly = list.reduce((sum, v) => sum + v.totalMonthly, 0);
+  const totalMonthly = list.reduce((sum, v) => sum + v.monthly.total, 0);
   const totalAnnual = totalMonthly * 12;
 
   return { list, totalMonthly, totalAnnual };
