@@ -122,10 +122,13 @@ function BlogPostPage() {
             {post.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
+            <Link
+              to="/equipe"
+              className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+            >
               <User className="h-4 w-4" aria-hidden />
               Equipe ObraMétrica
-            </span>
+            </Link>
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-4 w-4" aria-hidden />
               <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -235,7 +238,9 @@ function BlogPostPage() {
             <User className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-foreground">Equipe ObraMétrica</p>
+            <Link to="/equipe" className="text-sm font-semibold text-foreground hover:text-primary">
+              Equipe ObraMétrica
+            </Link>
             <p className="mt-1 text-sm text-muted-foreground">
               Editorial técnico do ObraMétrica: engenheiros, arquitetos e especialistas em energia
               solar produzindo conteúdo revisado, com foco em aplicações práticas para obra e

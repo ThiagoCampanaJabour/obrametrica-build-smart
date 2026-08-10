@@ -112,8 +112,6 @@ const ENTRIES: Entry[] = [
   })),
   { path: "/blog/como-calcular-kwp-kwh", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/guia-andaimes-escoras", changefreq: "monthly", priority: "0.7" },
-  { path: "/blog/como-calcular-kwp-kwh", changefreq: "monthly", priority: "0.7" },
-  { path: "/blog/guia-andaimes-escoras", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/como-calcular-tijolos-para-uma-parede", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/como-ser-aprovado-no-adsense", changefreq: "monthly", priority: "0.7" },
   { path: "/blog/guia-energia-solar-residencial", changefreq: "monthly", priority: "0.7" },

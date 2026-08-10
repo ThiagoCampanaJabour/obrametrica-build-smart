@@ -162,8 +162,10 @@ function Index() {
               <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
                 Milhares de engenheiros, arquitetos e proprietários utilizam o ObraMétrica diariamente para garantir a eficiência de seus projetos. Junte-se a eles e comece a calcular agora mesmo.
               </p>
-              <div className="mt-8 flex justify-center gap-4">
+              <div className="mt-8 flex flex-wrap justify-center gap-6">
                 <Link to="/construcao-civil" className="font-bold text-accent hover:underline">Ver todas as calculadoras →</Link>
+                <Link to="/equipe" className="font-bold text-accent hover:underline">Conheça nossa Equipe Técnica →</Link>
+                <Link to="/metodologia" className="font-bold text-accent hover:underline">Nossa Metodologia →</Link>
               </div>
             </div>
           </div>
