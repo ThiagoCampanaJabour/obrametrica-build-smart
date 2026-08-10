@@ -114,7 +114,7 @@ export function calcCostWithTaxes(kwh: number, tariff: number, taxPct: number): 
 export function calculateMarketExpenses(input: MarketInput): MarketResult {
   const monthlyTotal = input.mode === 'total' 
     ? input.monthlyTotal 
-    : input.categories.reduce((sum, c) => sum + c.amount, 0);
+    : input.categories.reduce((sum, c) => sum + (c.amount || 0), 0);
   
   const familyMembers = Math.max(1, input.familyMembers);
   const perCapitaMonth = monthlyTotal / familyMembers;

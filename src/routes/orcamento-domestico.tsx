@@ -50,7 +50,8 @@ function OrcamentoPage() {
       annualInflationPct: 5,
       projectionYears: 3
     },
-    appliances: []
+    appliances: [],
+    vehicles: []
   });
 
   const results = useMemo(() => calculateBudgetComparison(input), [input]);
