@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { cn } from "@/lib/utils";
 import { 
   ShoppingCart, 
   Car, 
