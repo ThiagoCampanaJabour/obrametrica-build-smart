@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Car, Fuel, ShieldCheck, Wrench, Settings, CreditCard, Plus, Trash2, Info, ChevronDown, ChevronUp, History, Calculator } from 'lucide-react';
-import { BudgetInput, VehicleInput } from '@/lib/types/budget';
+import { BudgetInput } from '@/lib/types/budget';
+import { VehicleInput } from '@/lib/types/vehicle';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
