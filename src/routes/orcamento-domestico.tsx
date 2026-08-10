@@ -1,159 +1,98 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { 
+  ShoppingCart, 
+  Car, 
+  ArrowRight, 
+  Wallet,
+  Calculator
+} from "lucide-react";
 import { pageHead } from "@/lib/seo";
-import { HelpCircle, FileText } from "lucide-react";
-import { useState, useMemo } from "react";
-import { calculateBudgetComparison } from "@/lib/solar/pv-economic";
-import { BudgetInput } from "@/lib/types/budget";
 
-import { ConsumptionForm } from "@/components/Budget/ConsumptionForm";
-import { PVComparisonForm } from "@/components/Budget/PVComparisonForm";
-import { VehicleExpenses } from "@/components/Budget/VehicleExpenses";
-import { ResultsSummary } from "@/components/Budget/ResultsSummary";
-import { MonthlyChart } from "@/components/Budget/MonthlyChart";
-import { SensitivitySliders } from "@/components/Budget/SensitivitySliders";
-import { ExportButtons } from "@/components/Budget/ExportButtons";
-import { ExamplesPanel } from "@/components/Budget/ExamplesPanel";
-import { HelpPanel } from "@/components/Budget/HelpPanel";
-import { MarketExpenses } from "@/components/Budget/MarketExpenses";
+const PATH = "/orcamento-domestico";
+const CRUMBS = [
+  { name: "Início", path: "/" },
+  { name: "Orçamento Doméstico", path: PATH },
+];
 
 export const Route = createFileRoute("/orcamento-domestico")({
   head: () =>
     pageHead({
-      title: "Orçamento Doméstico & Simulador Energético — ObraMétrica",
-      description: "Controle seus gastos com energia, compare custo rede vs solar e simule seu payback em minutos.",
-      path: "/orcamento-domestico",
+      title: "Orçamento Doméstico — Gestão de Mercado, Veículos e Energia | ObraMétrica",
+      description:
+        "Ferramentas modulares para controle orçamentário: gastos com mercado, veículos e simulador energético. Otimize suas finanças familiares.",
+      path: PATH,
+      breadcrumbs: CRUMBS,
     }),
-  component: OrcamentoPage,
+  component: OrcamentoHubPage,
 });
 
-function OrcamentoPage() {
-  const [input, setInput] = useState<BudgetInput>({
-    consumptionMode: "direct",
-    monthlyKwh: 500,
-    tariff: 0.85,
-    taxPct: 25,
-    pv: {
-      productionFactor: 1500,
-      lossesPct: 14,
-      overlapFactor: 0.45,
-      capex: 18000,
-      lifespanYears: 25,
-      opexAnnual: 200,
-      kwp: 4
-    },
-    market: {
-      mode: 'total',
-      monthlyTotal: 1500,
-      categories: [],
-      familyMembers: 2,
-      annualInflationPct: 5,
-      projectionYears: 3
-    },
-    appliances: [],
-    vehicles: []
-  });
+const tools = [
+  {
+    to: "/orcamento-domestico/gastos-mercado" as const,
+    icon: ShoppingCart,
+    title: "Gastos com Mercado",
+    desc: "Calcule gastos mensais por família e per capita com projeção de inflação.",
+  },
+  {
+    to: "/orcamento-domestico/gastos-veiculos" as const,
+    icon: Car,
+    title: "Gastos com Veículos",
+    desc: "Gestão completa de frota: combustível, manutenção, seguro, IPVA e depreciação.",
+  },
+];
 
-  const results = useMemo(() => calculateBudgetComparison(input), [input]);
-
+function OrcamentoHubPage() {
   return (
     <SiteLayout>
-      <div className="bg-slate-50 min-h-screen py-8">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <Breadcrumbs items={[
-            { name: "Início", path: "/" }, 
-            { name: "Ferramentas", path: "/conversores" }, 
-            { name: "Orçamento & Solar", path: "/orcamento-domestico" }
-          ]} />
-          
-          <div className="mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <Breadcrumbs items={CRUMBS} />
+        
+        <div className="mt-8 flex items-center gap-3">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Wallet className="h-6 w-6" />
+            </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Orçamento Doméstico & Simulador Energético</h1>
-              <p className="mt-2 text-slate-600 max-w-2xl text-lg">
-                Compare o custo da rede elétrica convencional contra a economia de um sistema fotovoltaico em tempo real.
-              </p>
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                    Finanças Familiares
+                </span>
+                <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+                    Orçamento Doméstico
+                </h1>
             </div>
-            <ExportButtons results={results} />
-          </div>
+        </div>
+        
+        <p className="mt-6 max-w-2xl text-lg text-slate-600">
+          Conjunto de ferramentas especializadas para ajudar no controle de custos fixos e variáveis da sua casa, facilitando a tomada de decisões financeiras.
+        </p>
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-12">
-            {/* Coluna Esquerda: Formulários */}
-            <div className="lg:col-span-4 space-y-6">
-              <ConsumptionForm input={input} onChange={setInput} />
-              <MarketExpenses input={input} onChange={setInput} />
-              <VehicleExpenses input={input} onChange={setInput} />
-              <SensitivitySliders input={input} onChange={setInput} />
-              <ExamplesPanel onSelect={setInput} />
-              <MarketExpenses input={input} onChange={setInput} />
-              <HelpPanel />
-            </div>
-
-            {/* Coluna Direita: Resultados */}
-            <div className="lg:col-span-8 space-y-8">
-              <ResultsSummary results={results} />
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {results.market && (
-                  <>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Mercado (Pessoa/Mês)</p>
-                      <p className="text-2xl font-black text-slate-900">R$ {results.market.perCapitaMonth.toFixed(2)}</p>
-                    </div>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Mercado (Total/Mês)</p>
-                      <p className="text-2xl font-black text-slate-900">R$ {(results.market.annualTotal / 12).toFixed(2)}</p>
-                    </div>
-                  </>
-                )}
-                {results.vehicles && (
-                  <>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Veículos (Total/Mês)</p>
-                      <p className="text-2xl font-black text-slate-900">R$ {results.vehicles.totalMonthly.toFixed(2)}</p>
-                    </div>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Custo Médio p/ KM</p>
-                      <p className="text-2xl font-black text-slate-900">
-                        R$ {(results.vehicles.list.reduce((acc, v) => acc + v.costPerKm, 0) / (results.vehicles.list.length || 1)).toFixed(2)}
-                      </p>
-                    </div>
-                  </>
-                )}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {tools.map(({ to, icon: Icon, title, desc }) => (
+            <Link
+              key={to}
+              to={to}
+              className="group rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-primary hover:shadow-xl"
+            >
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-slate-50 text-slate-900 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                <Icon className="h-7 w-7" />
               </div>
-
-              <MonthlyChart data={results.monthlyData} />
-
-              {/* LCOE & Methodology Link */}
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex gap-4 items-center">
-                  <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center">
-                    <HelpCircle className="h-6 w-6 text-slate-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">LCOE Estimado</h4>
-                    <p className="text-2xl font-black text-primary">
-                      R$ {results.lcoe ? results.lcoe.toFixed(2) : "0.00"} <span className="text-xs font-medium text-slate-400">/kWh</span>
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <a href="/blog/pv-vs-rede-orcamento-domestico" className="text-primary font-semibold hover:underline flex items-center gap-2 justify-end">
-                    Ver metodologia completa <FileText className="h-4 w-4" />
-                  </a>
-                  <p className="text-[10px] text-slate-500 mt-1 max-w-xs ml-auto italic">
-                    Baseado em vida útil de 25 anos e OPEX anual de R$ {input.pv?.opexAnnual}.
-                  </p>
-                </div>
+              <h2 className="mt-6 text-xl font-bold text-slate-900">{title}</h2>
+              <p className="mt-3 text-slate-600 leading-relaxed">{desc}</p>
+              <div className="mt-6 flex items-center gap-2 text-sm font-bold text-primary opacity-80 group-hover:opacity-100">
+                Acessar calculadora
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </div>
-              
-              <div className="p-4 bg-slate-100 border border-slate-200 rounded-xl text-xs text-slate-500 text-center">
-                <p><strong>Atenção:</strong> Os cálculos apresentados são aproximações baseadas nas premissas fornecidas. O retorno real pode variar dependendo de fatores climáticos, regulatórios e técnicos específicos da instalação.</p>
-              </div>
-            </div>
+            </Link>
+          ))}
+          
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-8 flex flex-col justify-center items-center text-center opacity-70">
+              <Calculator className="h-10 w-10 text-slate-400 mb-4" />
+              <h3 className="text-lg font-semibold text-slate-700">Simulador Energético</h3>
+              <p className="text-sm text-slate-500 mt-2">Módulo temporariamente removido para manutenção. Em breve uma nova versão integrada.</p>
           </div>
         </div>
-      </div>
+      </section>
     </SiteLayout>
   );
 }
