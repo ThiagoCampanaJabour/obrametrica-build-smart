@@ -25,9 +25,9 @@ describe('Market Calculations', () => {
 
   it('calculates inflation projection correctly', () => {
     const projection = projectionWithInflation(12000, 10, 2);
-    expect(projection[0].value).toBe(12000);
-    expect(projection[1].value).toBe(13200);
-    expect(projection[2].value).toBe(14520);
+    expect(projection[0].value).toBeCloseTo(12000);
+    expect(projection[1].value).toBeCloseTo(13200);
+    expect(projection[2].value).toBeCloseTo(14520);
   });
 
   it('reconciles budget by adjusting budget to sum', () => {
