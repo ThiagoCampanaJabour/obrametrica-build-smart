@@ -16,12 +16,12 @@ import { ExportButtons } from "@/components/Budget/ExportButtons";
 import { ExamplesPanel } from "@/components/Budget/ExamplesPanel";
 import { HelpPanel } from "@/components/Budget/HelpPanel";
 
-export const Route = createFileRoute("/ferramentas/orcamento-domestico")({
+export const Route = createFileRoute("/orcamento-domestico")({
   head: () =>
     pageHead({
       title: "Orçamento Doméstico & Simulador Energético — ObraMétrica",
       description: "Controle seus gastos com energia, compare custo rede vs solar e simule seu payback em minutos.",
-      path: "/ferramentas/orcamento-domestico",
+      path: "/orcamento-domestico",
     }),
   component: OrcamentoPage,
 });
@@ -53,7 +53,7 @@ function OrcamentoPage() {
           <Breadcrumbs items={[
             { name: "Início", path: "/" }, 
             { name: "Ferramentas", path: "/conversores" }, 
-            { name: "Orçamento & Solar", path: "/ferramentas/orcamento-domestico" }
+            { name: "Orçamento & Solar", path: "/orcamento-domestico" }
           ]} />
           
           <div className="mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
