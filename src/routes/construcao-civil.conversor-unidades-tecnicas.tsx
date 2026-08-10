@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site-layout";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
 import { ConverterForm } from "@/components/Conversor/ConverterForm";
 import { ComposedPanel } from "@/components/Conversor/ComposedPanel";
 import { HistoryPanel } from "@/components/Conversor/HistoryPanel";
+import { CalculatorShell } from "@/components/calc-ui";
 import { HISTORY_VERSION, type HistoryEntry } from "@/lib/conversor/calc";
 import type { CategoryId } from "@/lib/conversor/units";
 
@@ -167,117 +166,105 @@ function ConversorPage() {
   }
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Conversor de Unidades Técnicas
-        </h1>
-        <p className="mt-2 max-w-3xl text-muted-foreground">
-          Conversões rápidas entre as unidades usadas em obra e projeto: comprimento, área, volume,
-          massa, densidade, força, tensão, energia, potência, temperatura, velocidade, vazão,
-          torque, ângulos e seções de perfis. Aceita notação científica e expressões simples, com
-          histórico e favoritos salvos no seu navegador.
-        </p>
+    <CalculatorShell
+      title="Conversor de Unidades Técnicas"
+      description="Conversões rápidas entre as unidades usadas em obra e projeto."
+      breadcrumbs={CRUMBS}
+      extrasId="conversor"
+    >
+      <div className="mt-6 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+        <p className="font-medium text-foreground">Como usar</p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>Escolha a categoria e as unidades de origem e destino.</li>
+          <li>Digite o valor — aceita notação científica e expressões.</li>
+          <li>Use “Inverter” para trocar as unidades e “Copiar” para o resultado.</li>
+        </ul>
+      </div>
 
-        <div className="mt-6 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
-          <p className="font-medium text-foreground">Como usar</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li>Escolha a categoria e as unidades de origem e destino.</li>
-            <li>
-              Digite o valor — aceita <code>1.2e3</code>, <code>2,5</code> ou{" "}
-              <code>3 * (2 + 1)</code>.
-            </li>
-            <li>Use “Inverter” para trocar as unidades e “Copiar” para levar o resultado.</li>
-            <li>Para massa a partir de volume, use o painel de conversão composta.</li>
-          </ul>
-        </div>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <div>
+          <ConverterForm
+            decimals={decimals}
+            scientific={scientific}
+            favorites={favorites}
+            onResult={handleResult}
+            restore={restore}
+          />
+          <ComposedPanel decimals={decimals} />
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <div>
-            <ConverterForm
-              decimals={decimals}
-              scientific={scientific}
-              favorites={favorites}
-              onResult={handleResult}
-              restore={restore}
-            />
-            <ComposedPanel decimals={decimals} />
-
-            <div className="mt-6 rounded-xl border border-border bg-card p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-foreground">Configurações</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                <div>
-                  <label htmlFor="precisao" className="block text-sm font-medium text-foreground">
-                    Precisão
-                  </label>
-                  <select
-                    id="precisao"
-                    value={decimals}
-                    onChange={(event) => saveSettings({ decimals: Number(event.target.value) })}
-                    className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
-                  >
-                    <option value={3}>Rápido (3 casas)</option>
-                    <option value={8}>Preciso (8 casas)</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="historico" className="block text-sm font-medium text-foreground">
-                    Tamanho do histórico
-                  </label>
+          <div className="mt-6 rounded-xl border border-border bg-card p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-foreground">Configurações</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div>
+                <label htmlFor="precisao" className="block text-sm font-medium text-foreground">
+                  Precisão
+                </label>
+                <select
+                  id="precisao"
+                  value={decimals}
+                  onChange={(event) => saveSettings({ decimals: Number(event.target.value) })}
+                  className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
+                >
+                  <option value={3}>Rápido (3 casas)</option>
+                  <option value={8}>Preciso (8 casas)</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="historico" className="block text-sm font-medium text-foreground">
+                  Tamanho do histórico
+                </label>
+                <input
+                  id="historico"
+                  type="number"
+                  min={10}
+                  max={100}
+                  step={10}
+                  value={maxHistory}
+                  onChange={(event) =>
+                    saveSettings({
+                      maxHistory: Math.min(100, Math.max(10, Number(event.target.value) || 20)),
+                    })
+                  }
+                  className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
+                />
+              </div>
+              <div className="flex items-end">
+                <label className="inline-flex items-center gap-2 text-sm text-foreground">
                   <input
-                    id="historico"
-                    type="number"
-                    min={10}
-                    max={100}
-                    step={10}
-                    value={maxHistory}
-                    onChange={(event) =>
-                      saveSettings({
-                        maxHistory: Math.min(100, Math.max(10, Number(event.target.value) || 20)),
-                      })
-                    }
-                    className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
+                    type="checkbox"
+                    checked={scientific}
+                    onChange={(event) => saveSettings({ scientific: event.target.checked })}
+                    className="h-4 w-4 rounded border-input"
                   />
-                </div>
-                <div className="flex items-end">
-                  <label className="inline-flex items-center gap-2 text-sm text-foreground">
-                    <input
-                      type="checkbox"
-                      checked={scientific}
-                      onChange={(event) => saveSettings({ scientific: event.target.checked })}
-                      className="h-4 w-4 rounded border-input"
-                    />
-                    Forçar notação científica
-                  </label>
-                </div>
+                  Forçar notação científica
+                </label>
               </div>
             </div>
           </div>
-
-          <HistoryPanel
-            entries={history}
-            favorites={favorites}
-            decimals={decimals}
-            onReuse={(entry) =>
-              setRestore({
-                category: entry.category as CategoryId,
-                from: entry.fromUnit,
-                to: entry.toUnit,
-                input: entry.input,
-              })
-            }
-            onToggleFavorite={toggleFavorite}
-            onDelete={(id) => persistHistory(history.filter((item) => item.id !== id))}
-            onClear={() => persistHistory([])}
-          />
         </div>
 
-        <p className="mt-8 text-xs text-muted-foreground">
-          Fatores de conversão baseados no SI (BIPM), NIST SP 811 e ISO 80000. Todos os cálculos
-          são feitos no seu dispositivo — nenhum dado é enviado a servidores.
-        </p>
-      </section>
-    </SiteLayout>
+        <HistoryPanel
+          entries={history}
+          favorites={favorites}
+          decimals={decimals}
+          onReuse={(entry) =>
+            setRestore({
+              category: entry.category as CategoryId,
+              from: entry.fromUnit,
+              to: entry.toUnit,
+              input: entry.input,
+            })
+          }
+          onToggleFavorite={toggleFavorite}
+          onDelete={(id) => persistHistory(history.filter((item) => item.id !== id))}
+          onClear={() => persistHistory([])}
+        />
+      </div>
+
+      <p className="mt-8 text-xs text-muted-foreground">
+        Fatores de conversão baseados no SI (BIPM), NIST SP 811 e ISO 80000. Todos os cálculos são
+        feitos no seu dispositivo.
+      </p>
+    </CalculatorShell>
   );
 }

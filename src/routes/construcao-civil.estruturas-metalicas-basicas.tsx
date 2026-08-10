@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site-layout";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
 import {
   calcEstruturas,
@@ -11,6 +9,7 @@ import {
 } from "@/lib/estruturas/calc";
 import { StructureForm, novoElemento } from "@/components/EstruturasMetalicas/StructureForm";
 import { ResultsSummary } from "@/components/EstruturasMetalicas/ResultsSummary";
+import { CalculatorShell } from "@/components/calc-ui";
 
 const PATH = "/construcao-civil/estruturas-metalicas-basicas";
 const CRUMBS = [
@@ -108,119 +107,79 @@ function EstruturasMetalicasPage() {
   }, [elementos, calculado, erros]);
 
   return (
-    <SiteLayout>
-      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <Breadcrumbs items={CRUMBS} />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Cálculo de Estruturas Metálicas Básicas
-        </h1>
-        <p className="mt-2 max-w-3xl text-muted-foreground">
-          Estimativas rápidas de momento fletor, esforço cortante, perfil metálico compatível
-          (IPE, HEA, HEB e tubos retangulares), peso por peça e consumo total de aço para vigas
-          simplesmente apoiadas, vigas contínuas de dois vãos, pórticos simples e pilares.
-        </p>
+    <CalculatorShell
+      title="Cálculo de Estruturas Metálicas Básicas"
+      description="Estime momento, cortante, perfil metálico e consumo de aço."
+      breadcrumbs={CRUMBS}
+      extrasId="estruturas-metalicas"
+    >
+      <div
+        role="note"
+        className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
+      >
+        <strong>Aviso importante</strong> — {DISCLAIMER}
+      </div>
 
-        <div
-          role="note"
-          className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-foreground"
-        >
-          <strong>Aviso importante</strong> — {DISCLAIMER}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,520px)_1fr]">
+        <div className="rounded-xl border border-border bg-card p-6">
+          <StructureForm
+            elementos={elementos}
+            setElementos={setElementos}
+            onCalculate={() => setCalculado(true)}
+            onReset={() => {
+              setElementos([novoElemento(1)]);
+              setCalculado(false);
+            }}
+          />
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,520px)_1fr]">
-          <div className="rounded-xl border border-border bg-card p-6">
-            <StructureForm
-              elementos={elementos}
-              setElementos={setElementos}
-              onCalculate={() => setCalculado(true)}
-              onReset={() => {
-                setElementos([novoElemento(1)]);
-                setCalculado(false);
-              }}
+        <div>
+          {calculado && erros.length > 0 ? (
+            <div
+              role="alert"
+              className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
+            >
+              <ul className="list-disc space-y-1 pl-5">
+                {erros.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            </div>
+          ) : !result ? (
+            <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
+              Informe o tipo de elemento, o vão e as cargas e clique em <strong>Calcular</strong>{" "}
+              para ver os esforços, o perfil sugerido e o consumo de aço.
+            </div>
+          ) : (
+            <ResultsSummary
+              result={result}
+              onExportCSV={() =>
+                download("estruturas-metalicas.csv", toCSVEstruturas(result), "text/csv")
+              }
+              onExportJSON={() =>
+                download(
+                  "estruturas-metalicas.json",
+                  JSON.stringify(
+                    { aviso: DISCLAIMER, inputs: elementos, outputs: result },
+                    null,
+                    2,
+                  ),
+                  "application/json",
+                )
+              }
+              onCopy={() =>
+                navigator.clipboard.writeText(
+                  JSON.stringify(
+                    { aviso: DISCLAIMER, inputs: elementos, outputs: result },
+                    null,
+                    2,
+                  ),
+                )
+              }
             />
-          </div>
-
-          <div>
-            {calculado && erros.length > 0 ? (
-              <div
-                role="alert"
-                className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
-              >
-                <ul className="list-disc space-y-1 pl-5">
-                  {erros.map((e) => (
-                    <li key={e}>{e}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : !result ? (
-              <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
-                Informe o tipo de elemento, o vão e as cargas e clique em <strong>Calcular</strong>{" "}
-                para ver os esforços, o perfil sugerido e o consumo de aço.
-              </div>
-            ) : (
-              <ResultsSummary
-                result={result}
-                onExportCSV={() =>
-                  download("estruturas-metalicas.csv", toCSVEstruturas(result), "text/csv")
-                }
-                onExportJSON={() =>
-                  download(
-                    "estruturas-metalicas.json",
-                    JSON.stringify(
-                      { aviso: DISCLAIMER, inputs: elementos, outputs: result },
-                      null,
-                      2,
-                    ),
-                    "application/json",
-                  )
-                }
-                onCopy={() =>
-                  navigator.clipboard.writeText(
-                    JSON.stringify(
-                      { aviso: DISCLAIMER, inputs: elementos, outputs: result },
-                      null,
-                      2,
-                    ),
-                  )
-                }
-              />
-            )}
-          </div>
+          )}
         </div>
-
-        <div className="mt-10 grid gap-6 rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground sm:grid-cols-2">
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Fórmulas utilizadas</h2>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Viga biapoiada: <code>M = qL²/8 + PL/4</code> e <code>V = qL/2 + P/2</code>.</li>
-              <li>
-                Viga contínua de 2 vãos: <code>M_apoio ≈ qL²/8 + 3PL/16</code> e{" "}
-                <code>M_vão ≈ qL²/14 + PL/6</code>.
-              </li>
-              <li>Pórtico simples: viga com <code>0,85·M</code> e pilar com <code>M ≈ N·h/2</code>.</li>
-              <li>Perfil: <code>W_req = M_max / σ_adm</code>, escolhendo o perfil comercial mais leve com W ≥ W_req.</li>
-              <li>Flecha: <code>δ = 5qL⁴/(384EI) + PL³/(48EI)</code>, com E = 210 GPa.</li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Limitações</h2>
-            <p className="mt-2">
-              A ferramenta não realiza combinações de ações, verificação de estados limites últimos,
-              flambagem lateral com torção, estabilidade global, ligações, soldas ou placas de base.
-              Vãos desiguais, carregamentos alternados e ação do vento alteram significativamente os
-              esforços. Consulte a{" "}
-              <a href="/metodologia" className="underline">
-                metodologia
-              </a>{" "}
-              geral e{" "}
-              <a href="/contato" className="underline">
-                fale com um engenheiro
-              </a>{" "}
-              antes de fabricar.
-            </p>
-          </div>
-        </div>
-      </section>
-    </SiteLayout>
+      </div>
+    </CalculatorShell>
   );
 }
