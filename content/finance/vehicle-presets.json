@@ -1,0 +1,75 @@
+[
+  {
+    "id": "small-car",
+    "label": "Carro Popular (1.0)",
+    "type": "gasolina",
+    "kmPerMonth": 1000,
+    "consumption": 12,
+    "fuelPrice": 5.80,
+    "maintenanceMonthly": 150,
+    "insuranceAnnual": 2200,
+    "ipvaAnnual": 1500,
+    "licensingAnnual": 160,
+    "vehicleValue": 65000,
+    "depreciationRateAnnualPct": 10,
+    "finiteItems": {
+      "tires": { "costPerSet": 1600, "replacementIntervalKm": 40000, "numberOfTires": 4 },
+      "oilChange": { "costPerChange": 250, "intervalKm": 10000 }
+    }
+  },
+  {
+    "id": "suv-medium",
+    "label": "SUV Médio",
+    "type": "flex",
+    "kmPerMonth": 1200,
+    "consumption": 8.5,
+    "fuelPrice": 5.80,
+    "maintenanceMonthly": 300,
+    "insuranceAnnual": 4500,
+    "ipvaAnnual": 4000,
+    "licensingAnnual": 160,
+    "vehicleValue": 140000,
+    "depreciationRateAnnualPct": 12,
+    "finiteItems": {
+      "tires": { "costPerSet": 3200, "replacementIntervalKm": 35000, "numberOfTires": 4 },
+      "oilChange": { "costPerChange": 450, "intervalKm": 10000 }
+    }
+  },
+  {
+    "id": "ev-compact",
+    "label": "Elétrico Compacto",
+    "type": "eletrico",
+    "kmPerMonth": 1000,
+    "consumption": 15,
+    "fuelPrice": 0.90,
+    "chargingEfficiencyPct": 92,
+    "maintenanceMonthly": 80,
+    "insuranceAnnual": 3800,
+    "ipvaAnnual": 0,
+    "licensingAnnual": 160,
+    "vehicleValue": 150000,
+    "depreciationRateAnnualPct": 8,
+    "finiteItems": {
+      "tires": { "costPerSet": 2800, "replacementIntervalKm": 40000, "numberOfTires": 4 },
+      "oilChange": { "costPerChange": 0, "intervalKm": 999999 }
+    }
+  },
+  {
+    "id": "motorcycle",
+    "label": "Motocicleta (250cc)",
+    "type": "gasolina",
+    "kmPerMonth": 800,
+    "consumption": 30,
+    "fuelPrice": 5.80,
+    "maintenanceMonthly": 100,
+    "insuranceAnnual": 1200,
+    "ipvaAnnual": 600,
+    "licensingAnnual": 160,
+    "vehicleValue": 22000,
+    "depreciationRateAnnualPct": 15,
+    "finiteItems": {
+      "tires": { "costPerSet": 800, "replacementIntervalKm": 15000, "numberOfTires": 2 },
+      "oilChange": { "costPerChange": 120, "intervalKm": 5000 }
+    }
+  }
+]
