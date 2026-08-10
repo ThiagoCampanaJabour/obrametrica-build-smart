@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { 
@@ -25,8 +25,19 @@ export const Route = createFileRoute("/orcamento-domestico")({
       path: PATH,
       breadcrumbs: CRUMBS,
     }),
-  component: OrcamentoHubPage,
+  component: OrcamentoDomesticoLayout,
 });
+
+function OrcamentoDomesticoLayout() {
+  const location = useLocation();
+  const isHub = location.pathname === PATH;
+
+  if (!isHub) {
+    return <Outlet />;
+  }
+
+  return <OrcamentoHubPage />;
+}
 
 const tools = [
   {
