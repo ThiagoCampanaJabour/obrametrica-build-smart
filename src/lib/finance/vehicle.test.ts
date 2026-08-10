@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { calcMonthlyFuelCost, calcMonthlyTireCost, calcMonthlyOilCost, calcMonthlyDepreciation, calculateVehicleExpenses } from './vehicle';
-import { VehicleInput } from '../types/budget';
+import { VehicleInput } from '../types/vehicle';
 
 describe('Motor de Cálculo de Veículos', () => {
   const sampleVehicle: VehicleInput = {
@@ -24,7 +24,8 @@ describe('Motor de Cálculo de Veículos', () => {
     parkingMonthly: 100,
     tollsMonthly: 50,
     carWashMonthly: 50,
-    otherMonthly: 0
+    otherMonthly: 0,
+    chargingEfficiencyPct: 95
   };
 
   it('deve calcular custo mensal de combustível corretamente', () => {
