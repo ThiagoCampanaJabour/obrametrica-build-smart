@@ -51,6 +51,8 @@ import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnergiaSolarIndexRouteImport } from './routes/energia-solar.index'
 import { Route as ConstrucaoCivilIndexRouteImport } from './routes/construcao-civil.index'
+import { Route as OrcamentoDomesticoGastosVeiculosRouteImport } from './routes/orcamento-domestico.gastos-veiculos'
+import { Route as OrcamentoDomesticoGastosMercadoRouteImport } from './routes/orcamento-domestico.gastos-mercado'
 import { Route as EnergiaSolarSimulacaoRadiacaoRouteImport } from './routes/energia-solar.simulacao-radiacao'
 import { Route as EnergiaSolarIncentivosSubsidiosRegionaisRouteImport } from './routes/energia-solar.incentivos-subsidios-regionais'
 import { Route as EnergiaSolarEstimadorCustoTotalRouteImport } from './routes/energia-solar.estimador-custo-total'
@@ -289,6 +291,18 @@ const ConstrucaoCivilIndexRoute = ConstrucaoCivilIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ConstrucaoCivilRoute,
 } as any)
+const OrcamentoDomesticoGastosVeiculosRoute =
+  OrcamentoDomesticoGastosVeiculosRouteImport.update({
+    id: '/gastos-veiculos',
+    path: '/gastos-veiculos',
+    getParentRoute: () => OrcamentoDomesticoRoute,
+  } as any)
+const OrcamentoDomesticoGastosMercadoRoute =
+  OrcamentoDomesticoGastosMercadoRouteImport.update({
+    id: '/gastos-mercado',
+    path: '/gastos-mercado',
+    getParentRoute: () => OrcamentoDomesticoRoute,
+  } as any)
 const EnergiaSolarSimulacaoRadiacaoRoute =
   EnergiaSolarSimulacaoRadiacaoRouteImport.update({
     id: '/simulacao-radiacao',
@@ -470,7 +484,7 @@ export interface FileRoutesByFullPath {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRouteWithChildren
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -503,6 +517,8 @@ export interface FileRoutesByFullPath {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/orcamento-domestico/gastos-mercado': typeof OrcamentoDomesticoGastosMercadoRoute
+  '/orcamento-domestico/gastos-veiculos': typeof OrcamentoDomesticoGastosVeiculosRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -537,7 +553,7 @@ export interface FileRoutesByTo {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRouteWithChildren
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -570,6 +586,8 @@ export interface FileRoutesByTo {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/orcamento-domestico/gastos-mercado': typeof OrcamentoDomesticoGastosMercadoRoute
+  '/orcamento-domestico/gastos-veiculos': typeof OrcamentoDomesticoGastosVeiculosRoute
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -607,7 +625,7 @@ export interface FileRoutesById {
   '/equipe': typeof EquipeRoute
   '/faq': typeof FaqRoute
   '/metodologia': typeof MetodologiaRoute
-  '/orcamento-domestico': typeof OrcamentoDomesticoRoute
+  '/orcamento-domestico': typeof OrcamentoDomesticoRouteWithChildren
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/politica-dmca': typeof PoliticaDmcaRoute
@@ -640,6 +658,8 @@ export interface FileRoutesById {
   '/energia-solar/estimador-custo-total': typeof EnergiaSolarEstimadorCustoTotalRoute
   '/energia-solar/incentivos-subsidios-regionais': typeof EnergiaSolarIncentivosSubsidiosRegionaisRoute
   '/energia-solar/simulacao-radiacao': typeof EnergiaSolarSimulacaoRadiacaoRoute
+  '/orcamento-domestico/gastos-mercado': typeof OrcamentoDomesticoGastosMercadoRoute
+  '/orcamento-domestico/gastos-veiculos': typeof OrcamentoDomesticoGastosVeiculosRoute
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
@@ -711,6 +731,8 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/orcamento-domestico/gastos-mercado'
+    | '/orcamento-domestico/gastos-veiculos'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -778,6 +800,8 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/orcamento-domestico/gastos-mercado'
+    | '/orcamento-domestico/gastos-veiculos'
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
@@ -847,6 +871,8 @@ export interface FileRouteTypes {
     | '/energia-solar/estimador-custo-total'
     | '/energia-solar/incentivos-subsidios-regionais'
     | '/energia-solar/simulacao-radiacao'
+    | '/orcamento-domestico/gastos-mercado'
+    | '/orcamento-domestico/gastos-veiculos'
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
@@ -884,7 +910,7 @@ export interface RootRouteChildren {
   EquipeRoute: typeof EquipeRoute
   FaqRoute: typeof FaqRoute
   MetodologiaRoute: typeof MetodologiaRoute
-  OrcamentoDomesticoRoute: typeof OrcamentoDomesticoRoute
+  OrcamentoDomesticoRoute: typeof OrcamentoDomesticoRouteWithChildren
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   PoliticaDmcaRoute: typeof PoliticaDmcaRoute
@@ -1191,6 +1217,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstrucaoCivilIndexRouteImport
       parentRoute: typeof ConstrucaoCivilRoute
     }
+    '/orcamento-domestico/gastos-veiculos': {
+      id: '/orcamento-domestico/gastos-veiculos'
+      path: '/gastos-veiculos'
+      fullPath: '/orcamento-domestico/gastos-veiculos'
+      preLoaderRoute: typeof OrcamentoDomesticoGastosVeiculosRouteImport
+      parentRoute: typeof OrcamentoDomesticoRoute
+    }
+    '/orcamento-domestico/gastos-mercado': {
+      id: '/orcamento-domestico/gastos-mercado'
+      path: '/gastos-mercado'
+      fullPath: '/orcamento-domestico/gastos-mercado'
+      preLoaderRoute: typeof OrcamentoDomesticoGastosMercadoRouteImport
+      parentRoute: typeof OrcamentoDomesticoRoute
+    }
     '/energia-solar/simulacao-radiacao': {
       id: '/energia-solar/simulacao-radiacao'
       path: '/simulacao-radiacao'
@@ -1461,6 +1501,19 @@ const EnergiaSolarRouteWithChildren = EnergiaSolarRoute._addFileChildren(
   EnergiaSolarRouteChildren,
 )
 
+interface OrcamentoDomesticoRouteChildren {
+  OrcamentoDomesticoGastosMercadoRoute: typeof OrcamentoDomesticoGastosMercadoRoute
+  OrcamentoDomesticoGastosVeiculosRoute: typeof OrcamentoDomesticoGastosVeiculosRoute
+}
+
+const OrcamentoDomesticoRouteChildren: OrcamentoDomesticoRouteChildren = {
+  OrcamentoDomesticoGastosMercadoRoute: OrcamentoDomesticoGastosMercadoRoute,
+  OrcamentoDomesticoGastosVeiculosRoute: OrcamentoDomesticoGastosVeiculosRoute,
+}
+
+const OrcamentoDomesticoRouteWithChildren =
+  OrcamentoDomesticoRoute._addFileChildren(OrcamentoDomesticoRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
@@ -1493,7 +1546,7 @@ const rootRouteChildren: RootRouteChildren = {
   EquipeRoute: EquipeRoute,
   FaqRoute: FaqRoute,
   MetodologiaRoute: MetodologiaRoute,
-  OrcamentoDomesticoRoute: OrcamentoDomesticoRoute,
+  OrcamentoDomesticoRoute: OrcamentoDomesticoRouteWithChildren,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   PoliticaDmcaRoute: PoliticaDmcaRoute,
@@ -1506,3 +1559,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
