@@ -44,6 +44,22 @@ export const MarketInputSchema = z.object({
 
 export type MarketInput = z.infer<typeof MarketInputSchema>;
 
+export const VehicleInputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.enum(['gasolina', 'etanol', 'diesel', 'eletrico']),
+  kmPerMonth: z.number().min(0),
+  consumption: z.number().min(0.1), // km/L or kWh/100km
+  fuelPrice: z.number().min(0), // R$/L or R$/kWh
+  maintenanceMonthly: z.number().min(0).default(0),
+  insuranceAnnual: z.number().min(0).default(0),
+  ipvaAnnual: z.number().min(0).default(0),
+  vehicleValue: z.number().min(0).optional(),
+  depreciationRateAnnualPct: z.number().min(0).default(10),
+});
+
+export type VehicleInput = z.infer<typeof VehicleInputSchema>;
+
 export const BudgetInputSchema = z.object({
   consumptionMode: z.enum(['direct', 'appliances']),
   monthlyKwh: z.number().min(0).optional(),
@@ -52,6 +68,7 @@ export const BudgetInputSchema = z.object({
   taxPct: z.number().min(0).max(100).default(25),
   pv: PVInputSchema.optional(),
   market: MarketInputSchema.optional(),
+  vehicles: z.array(VehicleInputSchema).default([]),
 });
 
 export type BudgetInput = z.infer<typeof BudgetInputSchema>;
@@ -70,6 +87,19 @@ export interface MarketResult {
     amount: number;
     percentage: number;
   }>;
+}
+
+export interface VehicleResult {
+  id: string;
+  name: string;
+  monthlyFuelCost: number;
+  monthlyMaintenance: number;
+  monthlyInsurance: number;
+  monthlyIpva: number;
+  monthlyDepreciation: number;
+  totalMonthly: number;
+  totalAnnual: number;
+  costPerKm: number;
 }
 
 export interface BudgetResult {
@@ -92,5 +122,10 @@ export interface BudgetResult {
     costWithPV: number;
   }>;
   market?: MarketResult;
+  vehicles?: {
+    list: VehicleResult[];
+    totalMonthly: number;
+    totalAnnual: number;
+  };
 }
 
