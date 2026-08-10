@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site-layout";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
 import {
   calcIluminacao,
@@ -113,85 +111,80 @@ function IluminacaoPage() {
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,540px)_1fr]">
-          <div className="rounded-xl border border-border bg-card p-6">
-            <IluminacaoForm
-              ambientes={ambientes}
-              setAmbientes={setAmbientes}
-              onCalculate={() => setCalculado(true)}
-              onReset={() => {
-                setAmbientes([novoAmbiente(1)]);
-                setCalculado(false);
-              }}
+        <div className="rounded-xl border border-border bg-card p-6">
+          <IluminacaoForm
+            ambientes={ambientes}
+            setAmbientes={setAmbientes}
+            onCalculate={() => setCalculado(true)}
+            onReset={() => {
+              setAmbientes([novoAmbiente(1)]);
+              setCalculado(false);
+            }}
+          />
+        </div>
+
+        <div>
+          {calculado && erros.length > 0 ? (
+            <div
+              role="alert"
+              className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
+            >
+              <ul className="list-disc space-y-1 pl-5">
+                {erros.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            </div>
+          ) : !result ? (
+            <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
+              Preencha orientação, dimensões do vão, área do ambiente e faixas horárias e clique em{" "}
+              <strong>Calcular</strong> para ver o daylight factor, o gráfico horário e as
+              recomendações de proteção solar.
+            </div>
+          ) : (
+            <ResultsSummary
+              result={result}
+              onExportCSV={() =>
+                download("iluminacao-fachadas.csv", toCSVIluminacao(result), "text/csv")
+              }
+              onExportJSON={() =>
+                download(
+                  "iluminacao-fachadas.json",
+                  JSON.stringify({ inputs: ambientes, outputs: result }, null, 2),
+                  "application/json",
+                )
+              }
+              onCopy={() =>
+                navigator.clipboard.writeText(
+                  JSON.stringify({ inputs: ambientes, outputs: result }, null, 2),
+                )
+              }
             />
-          </div>
-
-          <div>
-            {calculado && erros.length > 0 ? (
-              <div
-                role="alert"
-                className="rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-foreground"
-              >
-                <ul className="list-disc space-y-1 pl-5">
-                  {erros.map((e) => (
-                    <li key={e}>{e}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : !result ? (
-              <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-sm text-muted-foreground">
-                Preencha orientação, dimensões do vão, área do ambiente e faixas horárias e clique em{" "}
-                <strong>Calcular</strong> para ver o daylight factor, o gráfico horário e as
-                recomendações de proteção solar.
-              </div>
-            ) : (
-              <ResultsSummary
-                result={result}
-                onExportCSV={() =>
-                  download("iluminacao-fachadas.csv", toCSVIluminacao(result), "text/csv")
-                }
-                onExportJSON={() =>
-                  download(
-                    "iluminacao-fachadas.json",
-                    JSON.stringify({ inputs: ambientes, outputs: result }, null, 2),
-                    "application/json",
-                  )
-                }
-                onCopy={() =>
-                  navigator.clipboard.writeText(
-                    JSON.stringify({ inputs: ambientes, outputs: result }, null, 2),
-                  )
-                }
-              />
-            )}
-          </div>
+          )}
         </div>
+      </div>
 
-        <div className="mt-10 grid gap-6 rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground sm:grid-cols-2">
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Como o cálculo funciona</h2>
-            <p className="mt-2">
-              O daylight factor é estimado por{" "}
-              <code>DF = 100 × Tv × (A_vidro / A_ambiente) × GF × MF</code>, com fator geométrico
-              dependente da relação entre altura do vão e profundidade do ambiente e fator de
-              manutenção 0,8. A iluminância horária usa a irradiância incidente na fachada e a
-              conversão simplificada de <code>1 W/m² ≈ 120 lux</code>, descontando a redução das
-              proteções solares selecionadas.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Limitações</h2>
-            <p className="mt-2">
-              Não há modelagem de inter-reflexões, prateleiras de luz, geometria real do entorno nem
-              variação de nebulosidade. Os presets de irradiância por cidade são valores médios de
-              céu limpo. Consulte a{" "}
-              <a href="/metodologia" className="underline">
-                metodologia
-              </a>{" "}
-              geral do ObraMétrica.
-            </p>
-          </div>
+      <div className="mt-10 grid gap-6 rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground sm:grid-cols-2">
+        <div>
+          <h2 className="text-base font-semibold text-foreground">Como o cálculo funciona</h2>
+          <p className="mt-2">
+            O daylight factor é estimado por{" "}
+            <code>DF = 100 × Tv × (A_vidro / A_ambiente) × GF × MF</code>, com fator geométrico
+            dependente da relação entre altura do vão e profundidade do ambiente e fator de
+            manutenção 0,8. A iluminância horária usa a irradiância incidente na fachada e a
+            conversão simplificada de <code>1 W/m² ≈ 120 lux</code>, descontando a redução das
+            proteções solares selecionadas.
+          </p>
         </div>
-      </section>
-    </SiteLayout>
+        <div>
+          <h2 className="text-base font-semibold text-foreground">Limitações</h2>
+          <p className="mt-2">
+            Não há modelagem de inter-reflexões, prateleiras de luz, geometria real do entorno nem
+            variação de nebulosidade. Os presets de irradiância por cidade são valores médios de céu
+            limpo.
+          </p>
+        </div>
+      </div>
+    </CalculatorShell>
   );
 }
