@@ -5,6 +5,7 @@
  */
 
 import { Appliance, MarketInput, MarketResult, MarketCategory, VehicleInput, VehicleResult } from '../types/budget';
+import { calculateMarketExpenses as calculateMarketExpensesBase } from './market';
 import { AmortizationRow, AmortizationSchedule, LoanParams } from '../types/index';
 
 export function nominalToPeriodicRate(annualRatePct: number, paymentsPerYear = 12): number {
@@ -112,40 +113,7 @@ export function calcCostWithTaxes(kwh: number, tariff: number, taxPct: number): 
  * Cálculos de Mercado / Alimentação
  */
 export function calculateMarketExpenses(input: MarketInput): MarketResult {
-  const monthlyTotal = input.mode === 'total' 
-    ? input.monthlyTotal 
-    : input.categories.reduce((sum, c) => sum + (c.amount || 0), 0);
-  
-  const familyMembers = Math.max(1, input.familyMembers);
-  const perCapitaMonth = monthlyTotal / familyMembers;
-  const annualTotal = monthlyTotal * 12;
-  const annualPerCapita = perCapitaMonth * 12;
-  
-  const inflationRate = input.annualInflationPct / 100;
-  const projection = Array.from({ length: input.projectionYears + 1 }, (_, t) => {
-    const amount = annualTotal * Math.pow(1 + inflationRate, t);
-    return {
-      year: t,
-      amount,
-      variationPct: (Math.pow(1 + inflationRate, t) - 1) * 100
-    };
-  });
-  
-  const categoryBreakdown = input.mode === 'categories' && monthlyTotal > 0
-    ? input.categories.map(c => ({
-        name: c.name,
-        amount: c.amount,
-        percentage: (c.amount / monthlyTotal) * 100
-      }))
-    : [];
-
-  return {
-    perCapitaMonth,
-    annualTotal,
-    annualPerCapita,
-    projection,
-    categoryBreakdown
-  };
+  return calculateMarketExpensesBase(input);
 }
 
 /**

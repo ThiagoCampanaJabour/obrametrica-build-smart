@@ -28,18 +28,22 @@ export type PVInput = z.infer<typeof PVInputSchema>;
 export const MarketCategorySchema = z.object({
   id: z.string(),
   name: z.string(),
+  parentCategory: z.string().optional(),
   amount: z.number().min(0),
+  quantity: z.number().min(0).optional(),
+  unit: z.string().optional(),
+  note: z.string().optional(),
+  isLocked: z.boolean().default(false),
 });
 
 export type MarketCategory = z.infer<typeof MarketCategorySchema>;
 
 export const MarketInputSchema = z.object({
-  mode: z.enum(['total', 'categories']),
-  monthlyTotal: z.number().min(0).default(1500),
+  budgetTotalMonth: z.number().min(0).default(0),
   categories: z.array(MarketCategorySchema).default([]),
   familyMembers: z.number().int().min(1).default(1),
   annualInflationPct: z.number().min(0).default(5),
-  projectionYears: z.number().int().min(1).max(10).default(1),
+  projectionYears: z.number().int().min(1).max(20).default(10),
 });
 
 export type MarketInput = z.infer<typeof MarketInputSchema>;
@@ -74,9 +78,13 @@ export const BudgetInputSchema = z.object({
 export type BudgetInput = z.infer<typeof BudgetInputSchema>;
 
 export interface MarketResult {
+  monthlyTotal: number;
   perCapitaMonth: number;
   annualTotal: number;
   annualPerCapita: number;
+  remainingBudget: number;
+  budgetExceeded: boolean;
+  exceededPct: number;
   projection: Array<{
     year: number;
     amount: number;
@@ -128,4 +136,3 @@ export interface BudgetResult {
     totalAnnual: number;
   };
 }
-
