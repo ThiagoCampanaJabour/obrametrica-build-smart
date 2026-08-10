@@ -1,31 +1,37 @@
-# Fontes de Dados para Presets de Veículos [FONTE_A_VERIFICAR]
+# Fontes Sugeridas para Presets Brasileiros [FONTE_A_VERIFICAR]
 
-Este documento lista as referências utilizadas para compor os valores base dos presets da calculadora de Gastos com Veículos. Todos os valores devem ser validados periodicamente.
+Para garantir a precisão dos cálculos de TCO (Total Cost of Ownership) no Brasil, recomenda-se a validação dos seguintes dados:
 
-## 1. Preços de Combustíveis (Brasil)
-- **Fonte:** ANP (Agência Nacional do Petróleo, Gás Natural e Biocombustíveis)
-- **Referência:** Levantamento Semanal de Preços
-- **URL:** [https://www.gov.br/anp/pt-br/assuntos/precos-e-custos-de-combustiveis](https://www.gov.br/anp/pt-br/assuntos/precos-e-custos-de-combustiveis)
-- **Data da Coleta:** Agosto/2026 (Projeção)
+## 1. Combustíveis (R$/Litro)
+- **Fonte:** ANP (Agência Nacional do Petróleo)
+- **Onde buscar:** [Levantamento Semanal de Preços](https://www.gov.br/anp/pt-br/assuntos/precos-e-custos-de-combustiveis)
+- **Frequência:** Semanal
 
-## 2. Tarifas de Energia Elétrica
+## 2. Energia Elétrica (R$/kWh)
 - **Fonte:** ANEEL (Agência Nacional de Energia Elétrica)
-- **Referência:** Ranking de Tarifas Residênciais (B1)
-- **URL:** [https://www.aneel.gov.br/ranking-das-tarifas](https://www.aneel.gov.br/ranking-das-tarifas)
-- **Média Utilizada:** R$ 0,95/kWh (com tributos)
+- **Onde buscar:** [Ranking de Tarifas](https://www.aneel.gov.br/ranking-das-tarifas)
+- **Nota:** Considerar a tarifa residencial B1 com impostos (ICMS/PIS/COFINS).
 
-## 3. Depreciação Automotiva
+## 3. Depreciação (%)
 - **Fonte:** Tabela FIPE / KBB Brasil
-- **Padrão:** 8% a 15% ao ano dependendo da categoria.
-- **Nota:** Elétricos tendem a ter menor depreciação mecânica, mas maior incerteza sobre vida útil da bateria.
+- **Onde buscar:** [FIPE](https://veiculos.fipe.org.br/)
+- **Benchmarks:**
+  - Carros populares: 10-12% ao ano.
+  - SUVs e Luxo: 12-18% ao ano.
+  - Elétricos: 8-12% ao ano (estimativa de mercado 2026).
 
 ## 4. Manutenção e Pneus
-- **Fonte:** Levantamento de mercado (Portais especializados: Quatro Rodas, AutoEsporte)
-- **Padrão:** Custo de revisão programada + troca de itens de desgaste.
+- **Fonte:** Sindipeças / Quatro Rodas (Melhor Compra)
+- **Onde buscar:** [Sindipeças - Frota Circulante](https://www.sindimec.org.br/)
+- **Referências:** 
+  - Pneus: R$ 1.600 a R$ 4.000 (jogo de 4).
+  - Óleo: Trocas a cada 10.000km ou 1 ano.
 
 ## 5. IPVA e Taxas
-- **Fonte:** SEFAZ (Secretaria da Fazenda por Estado)
-- **Padrão:** SP (4%), RJ (4%), MG (4%). Isenção para elétricos em diversos estados (utilizado 0% no preset EV).
+- **Fonte:** SEFAZ de cada estado.
+- **Benchmarks:**
+  - SP, RJ, MG: ~4% do valor FIPE.
+  - Elétricos: Isenção total ou parcial em SP, DF, PR, RS, RJ.
 
 ---
-*Nota: Estes valores são sugestões baseadas em médias nacionais e podem variar significativamente por região.*
+*Todos os dados em content/finance/vehicle-presets.json estão marcados como [FONTE_A_VERIFICAR].*

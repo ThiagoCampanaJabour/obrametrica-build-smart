@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Car, Fuel, ShieldCheck, Wrench, Settings, CreditCard, Plus, Trash2, Info, ChevronDown, ChevronUp, History, Calculator } from 'lucide-react';
-import { BudgetInput, VehicleInput } from '@/lib/types/budget';
+import { BudgetInput } from '@/lib/types/budget';
+import { VehicleInput } from '@/lib/types/vehicle';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -441,7 +442,7 @@ export const VehicleExpenses: React.FC<VehicleExpensesProps> = ({ input, onChang
 
       <div className="mt-6 flex flex-wrap gap-3">
         <button 
-          onClick={() => {}} // Integration handled by parent route or localized
+          onClick={() => {}} 
           className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
           data-testid="vehicle-save-scenario"
         >

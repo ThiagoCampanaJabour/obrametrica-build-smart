@@ -1,4 +1,4 @@
-import { VehicleInput, VehicleResult, VehicleBreakdown } from '../types/budget';
+import { VehicleInput, VehicleResult, VehicleBreakdown } from '../types/vehicle';
 import { generateAmortizationSchedule } from './budget';
 
 /**
