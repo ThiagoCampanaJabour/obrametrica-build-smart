@@ -8,10 +8,14 @@ interface ExportButtonsProps {
 
 export const ExportButtons: React.FC<ExportButtonsProps> = ({ results }) => {
   const handleExportCSV = () => {
-    let content = "Simulador Energetico\nMes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
-    results.monthlyData.forEach((d: any) => {
-      content += `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}\n`;
-    });
+    let content = "";
+    
+    if (results.monthlyData && results.monthlyData.length > 0) {
+      content += "Simulador Energetico\nMes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
+      results.monthlyData.forEach((d: any) => {
+        content += `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}\n`;
+      });
+    }
 
     if (results.market) {
       content += "\nGastos com Mercado\nAno,Gasto Anual (R$),Variacao (%)\n";
@@ -20,11 +24,18 @@ export const ExportButtons: React.FC<ExportButtonsProps> = ({ results }) => {
       });
     }
 
+    if (results.vehicles && results.vehicles.list.length > 0) {
+      content += "\nGastos com Veiculos\nVeiculo,Combustivel (Mes),Manutencao (Mes),Seguro/IPVA (Mes),Depreciacao (Mes),Total (Mes),Custo/KM\n";
+      results.vehicles.list.forEach((v: any) => {
+        content += `${v.name},${v.monthlyFuelCost.toFixed(2)},${v.monthlyMaintenance.toFixed(2)},${(v.monthlyInsurance + v.monthlyIpva).toFixed(2)},${v.monthlyDepreciation.toFixed(2)},${v.totalMonthly.toFixed(2)},${v.costPerKm.toFixed(2)}\n`;
+      });
+    }
+
     const blob = new Blob([content], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'obrametrica-orcamento-completo.csv';
+    a.download = 'obrametrica-orcamento.csv';
     a.click();
   };
 
@@ -34,7 +45,7 @@ export const ExportButtons: React.FC<ExportButtonsProps> = ({ results }) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'obrametrica-simulador-solar.json';
+    a.download = 'obrametrica-orcamento.json';
     a.click();
   };
 
