@@ -8,15 +8,23 @@ interface ExportButtonsProps {
 
 export const ExportButtons: React.FC<ExportButtonsProps> = ({ results }) => {
   const handleExportCSV = () => {
-    const headers = "Mes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
-    const rows = results.monthlyData.map((d: any) => 
-      `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}`
-    ).join("\n");
-    const blob = new Blob([headers + rows], { type: 'text/csv' });
+    let content = "Simulador Energetico\nMes,Consumo (kWh),Geracao (kWh),Custo Rede (R$),Custo com Solar (R$)\n";
+    results.monthlyData.forEach((d: any) => {
+      content += `${d.month},${d.consumption.toFixed(2)},${d.generation.toFixed(2)},${d.costRede.toFixed(2)},${d.costWithPV.toFixed(2)}\n`;
+    });
+
+    if (results.market) {
+      content += "\nGastos com Mercado\nAno,Gasto Anual (R$),Variacao (%)\n";
+      results.market.projection.forEach((p: any) => {
+        content += `${p.year},${p.amount.toFixed(2)},${p.variationPct.toFixed(2)}%\n`;
+      });
+    }
+
+    const blob = new Blob([content], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'obrametrica-simulador-solar.csv';
+    a.download = 'obrametrica-orcamento-completo.csv';
     a.click();
   };
 
