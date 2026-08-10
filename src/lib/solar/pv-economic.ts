@@ -154,6 +154,9 @@ export function calculateBudgetComparison(input: BudgetInput): BudgetResult {
     };
   });
 
+  // Calculate market expenses if input provided
+  const market = input.market ? (import.meta.env.SSR ? undefined : require('../finance/budget').calculateMarketExpenses(input.market)) : undefined;
+
   return {
     monthlyConsumptionKwh: monthlyKwh,
     annualConsumptionKwh: annualKwh,
@@ -165,6 +168,8 @@ export function calculateBudgetComparison(input: BudgetInput): BudgetResult {
     annualSavings,
     paybackYears: payback,
     lcoe,
-    monthlyData
+    monthlyData,
+    market
   };
 }
+
