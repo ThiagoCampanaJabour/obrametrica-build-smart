@@ -14,6 +14,7 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SimuladorSolarAvancadoRouteImport } from './routes/simulador-solar-avancado'
 import { Route as QuantasPlacasSolaresPrecisoRouteImport } from './routes/quantas-placas-solares-preciso'
+import { Route as PoliticaDmcaRouteImport } from './routes/politica-dmca'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PoliticaDeCookiesRouteImport } from './routes/politica-de-cookies'
 import { Route as MetodologiaRouteImport } from './routes/metodologia'
@@ -101,6 +102,11 @@ const QuantasPlacasSolaresPrecisoRoute =
     path: '/quantas-placas-solares-preciso',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PoliticaDmcaRoute = PoliticaDmcaRouteImport.update({
+  id: '/politica-dmca',
+  path: '/politica-dmca',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
   id: '/politica-de-privacidade',
   path: '/politica-de-privacidade',
@@ -460,6 +466,7 @@ export interface FileRoutesByFullPath {
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -525,6 +532,7 @@ export interface FileRoutesByTo {
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -593,6 +601,7 @@ export interface FileRoutesById {
   '/metodologia': typeof MetodologiaRoute
   '/politica-de-cookies': typeof PoliticaDeCookiesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/politica-dmca': typeof PoliticaDmcaRoute
   '/quantas-placas-solares-preciso': typeof QuantasPlacasSolaresPrecisoRoute
   '/simulador-solar-avancado': typeof SimuladorSolarAvancadoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -662,6 +671,7 @@ export interface FileRouteTypes {
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -727,6 +737,7 @@ export interface FileRouteTypes {
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -794,6 +805,7 @@ export interface FileRouteTypes {
     | '/metodologia'
     | '/politica-de-cookies'
     | '/politica-de-privacidade'
+    | '/politica-dmca'
     | '/quantas-placas-solares-preciso'
     | '/simulador-solar-avancado'
     | '/sitemap.xml'
@@ -862,6 +874,7 @@ export interface RootRouteChildren {
   MetodologiaRoute: typeof MetodologiaRoute
   PoliticaDeCookiesRoute: typeof PoliticaDeCookiesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  PoliticaDmcaRoute: typeof PoliticaDmcaRoute
   QuantasPlacasSolaresPrecisoRoute: typeof QuantasPlacasSolaresPrecisoRoute
   SimuladorSolarAvancadoRoute: typeof SimuladorSolarAvancadoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -904,6 +917,13 @@ declare module '@tanstack/react-router' {
       path: '/quantas-placas-solares-preciso'
       fullPath: '/quantas-placas-solares-preciso'
       preLoaderRoute: typeof QuantasPlacasSolaresPrecisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-dmca': {
+      id: '/politica-dmca'
+      path: '/politica-dmca'
+      fullPath: '/politica-dmca'
+      preLoaderRoute: typeof PoliticaDmcaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/politica-de-privacidade': {
@@ -1455,6 +1475,7 @@ const rootRouteChildren: RootRouteChildren = {
   MetodologiaRoute: MetodologiaRoute,
   PoliticaDeCookiesRoute: PoliticaDeCookiesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  PoliticaDmcaRoute: PoliticaDmcaRoute,
   QuantasPlacasSolaresPrecisoRoute: QuantasPlacasSolaresPrecisoRoute,
   SimuladorSolarAvancadoRoute: SimuladorSolarAvancadoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
