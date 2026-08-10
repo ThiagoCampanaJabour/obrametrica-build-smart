@@ -79,6 +79,9 @@ describe('VehicleExpenses Component', () => {
       </TooltipProvider>
     );
     
+    // Abrir o acordeão para mostrar os campos
+    fireEvent.click(screen.getByTestId('vehicle-0-label'));
+    
     const kmInput = screen.getByTestId('vehicle-0-km-per-month');
     fireEvent.change(kmInput, { target: { value: '2000' } });
     
