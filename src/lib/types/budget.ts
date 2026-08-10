@@ -25,32 +25,16 @@ export const PVInputSchema = z.object({
 
 export type PVInput = z.infer<typeof PVInputSchema>;
 
-export const MarketCategorySchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  parentCategory: z.string().optional(),
-  amount: z.number().min(0), // Remapped to value_month in export
-  value_month: z.number().min(0).optional(), // Direct mapping for value
-  quantity: z.number().min(0).nullable().optional(),
-  unit: z.string().optional(),
-  note: z.string().optional(),
-  isLocked: z.boolean().default(false),
-});
+// Removed MarketCategory, MarketInput and VehicleInput as part of chore removal
+// Keeping placeholders to avoid breaking common imports if any, but removing actual schemas
+export const MarketCategorySchema = z.any();
+export type MarketCategory = any;
+export const MarketInputSchema = z.any();
+export type MarketInput = any;
 
-export type MarketCategory = z.infer<typeof MarketCategorySchema>;
+export const VehicleInputSchema = z.any();
+export type VehicleInput = any;
 
-export const MarketInputSchema = z.object({
-  budgetTotalMonth: z.number().min(0).default(0),
-  categories: z.array(MarketCategorySchema).default([]),
-  familyMembers: z.number().int().min(1).default(1),
-  annualInflationPct: z.number().min(0).default(5),
-  projectionYears: z.number().int().min(1).max(20).default(10),
-});
-
-export type MarketInput = z.infer<typeof MarketInputSchema>;
-
-import { VehicleInputSchema, type VehicleInput } from './vehicle';
-export { type VehicleInput, VehicleInputSchema };
 
 
 

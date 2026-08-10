@@ -4,9 +4,11 @@
  * gastos domésticos e cálculos de mercado.
  */
 
-import { Appliance, MarketInput, MarketResult, MarketCategory, VehicleInput, VehicleResult } from '../types/budget';
-import { calculateMarketExpenses as calculateMarketExpensesBase } from './market';
-import { calculateVehicleExpenses as calculateVehicleExpensesBase } from './vehicle';
+import { Appliance } from '../types/budget';
+// Base implementations removed
+const calculateMarketExpensesBase = (input: any): any => ({});
+const calculateVehicleExpensesBase = (vehicles: any[]): any => ({ list: [], totalMonthly: 0, totalAnnual: 0 });
+
 import { AmortizationRow, AmortizationSchedule, LoanParams } from '../types/index';
 
 export function nominalToPeriodicRate(annualRatePct: number, paymentsPerYear = 12): number {
@@ -113,14 +115,17 @@ export function calcCostWithTaxes(kwh: number, tariff: number, taxPct: number): 
 /**
  * Cálculos de Mercado / Alimentação
  */
-export function calculateMarketExpenses(input: MarketInput): MarketResult {
+/**
+ * Cálculos de Mercado / Alimentação (Desativado)
+ */
+export function calculateMarketExpenses(input: any): any {
   return calculateMarketExpensesBase(input);
 }
 
 /**
- * Cálculos de Veículos
+ * Cálculos de Veículos (Desativado)
  */
-export function calculateVehicleExpenses(vehicles: VehicleInput[]): { list: VehicleResult[]; totalMonthly: number; totalAnnual: number } {
+export function calculateVehicleExpenses(vehicles: any[]): { list: any[]; totalMonthly: number; totalAnnual: number } {
   return calculateVehicleExpensesBase(vehicles);
 }
 
