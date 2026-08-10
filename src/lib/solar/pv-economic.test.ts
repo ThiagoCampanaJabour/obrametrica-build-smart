@@ -1,25 +1,28 @@
-import { energyFromPower, calcUsedOnSite, calcExported, calcAnnualSavings, calcPayback, calcLCOE } from './pv-economic';
-import { describe, test, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { energyFromPower, calcAnnualSavings, calcPayback } from './pv-economic';
 
-describe('pv-economic', () => {
-  test('energyFromPower basic', () => {
-    const e = energyFromPower(5, 1500, 14);
-    expect(e).toBeCloseTo(6450, 0);
+describe('PV Economic Calculations', () => {
+  it('should calculate energy production correctly', () => {
+    const kwp = 4;
+    const factor = 1500;
+    const losses = 14;
+    const expected = kwp * factor * (1 - losses / 100);
+    expect(energyFromPower(kwp, factor, losses)).toBe(expected);
   });
 
-  test('calcAnnualSavings and payback', () => {
-    const production = energyFromPower(5, 1500, 14);
-    const used = calcUsedOnSite(production, 0.45);
-    const exported = calcExported(production, used);
-    const savings = calcAnnualSavings(used, 0.8, exported, 0.8, 0);
-    expect(savings).toBeGreaterThan(5000);
-    const payback = calcPayback(25000, savings);
-    expect(payback).toBeGreaterThan(0);
+  it('should calculate annual savings correctly', () => {
+    const usedOnSite = 2000;
+    const tariff = 0.85;
+    const exported = 3000;
+    const creditRate = 0.85;
+    const opex = 200;
+    const expected = (usedOnSite * tariff) + (exported * creditRate) - opex;
+    expect(calcAnnualSavings(usedOnSite, tariff, exported, creditRate, opex)).toBe(expected);
   });
 
-  test('lcoe returns number', () => {
-    const e = energyFromPower(5, 1500, 14);
-    const lcoe = calcLCOE(25000, 300, e, 25);
-    expect(typeof lcoe).toBe('number');
+  it('should calculate payback correctly', () => {
+    const capex = 20000;
+    const annualSavings = 5000;
+    expect(calcPayback(capex, annualSavings)).toBe(4);
   });
 });

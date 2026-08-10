@@ -7,6 +7,7 @@ const LOGO_URL = "/LogoSite.png";
 const navItems = [
   { to: "/", label: "Início" },
   { to: "/construcao-civil", label: "Construção Civil" },
+  { to: "/orcamento-domestico", label: "Orçamento Doméstico" },
   { to: "/energia-solar", label: "Energia Solar" },
   { to: "/conversores", label: "Conversores" },
   { to: "/blog", label: "Blog" },

@@ -13,6 +13,7 @@ interface Entry {
 const ENTRIES: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/construcao-civil", changefreq: "weekly", priority: "0.9" },
+  { path: "/orcamento-domestico", changefreq: "weekly", priority: "0.9" },
   { path: "/energia-solar", changefreq: "weekly", priority: "0.9" },
   { path: "/conversores", changefreq: "weekly", priority: "0.9" },
   { path: "/metodologia", changefreq: "monthly", priority: "0.7" },
