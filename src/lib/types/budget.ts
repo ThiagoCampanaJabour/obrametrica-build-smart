@@ -67,39 +67,45 @@ export const VehicleFiniteItemsSchema = z.object({
     costPerChange: z.number().min(0).default(0),
     intervalKm: z.number().min(1).default(10000),
   }).default({}),
+  battery: z.object({
+    replaceCost: z.number().min(0).default(0),
+    lifetimeYears: z.number().min(1).default(10),
+  }).optional(),
 });
 
 export const VehicleInputSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: z.enum(['gasolina', 'etanol', 'diesel', 'hibrido', 'eletrico']),
+  type: z.enum(['gasolina', 'etanol', 'diesel', 'hibrido', 'eletrico', 'outro']),
   year: z.number().int().min(1900).max(2100).optional(),
   brand: z.string().optional(),
   model: z.string().optional(),
   kmPerMonth: z.number().min(0),
-  consumption: z.number().min(0.01), // km/L or kWh/100km
-  fuelPrice: z.number().min(0), // R$/L or R$/kWh
+  consumptionKmPerL: z.number().min(0.01).optional(),
+  consumptionKwhPer100Km: z.number().min(0.01).optional(),
+  fuelPricePerL: z.number().min(0).optional(),
+  electricityPricePerKwh: z.number().min(0).optional(),
+  chargingEfficiencyPct: z.number().min(1).max(100).default(95),
   
-  // Recarga elétrica específica
-  electricityPriceResidential: z.number().min(0).optional(),
-  chargingEfficiencyPct: z.number().min(1).max(100).default(90).optional(),
-
   maintenanceMonthly: z.number().min(0).default(0),
+  maintenanceAnnual: z.number().min(0).default(0),
   insuranceAnnual: z.number().min(0).default(0),
   ipvaAnnual: z.number().min(0).default(0),
-  licensingAnnual: z.number().min(0).default(0).optional(),
+  licensingAnnual: z.number().min(0).default(0),
   
   vehicleValue: z.number().min(0).optional(),
-  depreciationRateAnnualPct: z.number().min(0).default(10),
+  depreciationRateAnnualPct: z.number().min(0).optional(),
+  usefulLifeYears: z.number().min(1).optional(),
+  residualValue: z.number().min(0).optional(),
   
   financing: VehicleFinancingSchema.optional(),
   finiteItems: VehicleFiniteItemsSchema.optional(),
   
-  admin: z.object({
-    parkingMonthly: z.number().min(0).default(0),
-    tollsMonthly: z.number().min(0).default(0),
-    cleaningMonthly: z.number().min(0).default(0),
-  }).optional(),
+  parkingMonthly: z.number().min(0).default(0),
+  tollsMonthly: z.number().min(0).default(0),
+  carWashMonthly: z.number().min(0).default(0),
+  otherMonthly: z.number().min(0).default(0),
+  notes: z.string().optional(),
 });
 
 export type VehicleInput = z.infer<typeof VehicleInputSchema>;
@@ -137,21 +143,29 @@ export interface MarketResult {
   }>;
 }
 
+export interface VehicleBreakdown {
+  fuel: number;
+  energy: number;
+  maintenance: number;
+  tires: number;
+  oil: number;
+  insurance: number;
+  ipva: number;
+  financing: number;
+  depreciation: number;
+  parking: number;
+  tolls: number;
+  other: number;
+  total: number;
+}
+
 export interface VehicleResult {
   id: string;
   name: string;
-  monthlyFuelCost: number;
-  monthlyMaintenance: number;
-  monthlyInsurance: number;
-  monthlyIpva: number;
-  monthlyLicensing: number;
-  monthlyDepreciation: number;
-  monthlyFinancing: number;
-  monthlyAdmin: number;
-  monthlyFiniteItems: number;
-  totalMonthly: number;
-  totalAnnual: number;
-  costPerKm: number;
+  type: string;
+  monthly: VehicleBreakdown;
+  annual: VehicleBreakdown;
+  costPerKm: number | null;
   shares: {
     fuel: number;
     maintenance: number;

@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site-layout";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageHead } from "@/lib/seo";
-import { Car, Gauge, Fuel, ShieldCheck, Download, Plus, Trash2, Info } from "lucide-react";
+import { Car, Fuel, ShieldCheck, Info } from "lucide-react";
 import { useState, useMemo } from "react";
-import { VehicleInput } from "@/lib/types/budget";
+import { VehicleInput, BudgetInput } from "@/lib/types/budget";
 import { calculateVehicleExpenses } from "@/lib/finance/vehicle";
 import { ExportButtons } from "@/components/Orcamento/ExportButtons";
 import { VehicleExpenses } from "@/components/Orcamento/VehicleExpenses";
@@ -32,7 +32,7 @@ function GastosVeiculosPage() {
 
   const results = useMemo(() => calculateVehicleExpenses(vehicles), [vehicles]);
 
-  const mockBudgetInput = {
+  const mockBudgetInput: BudgetInput = {
     consumptionMode: 'direct' as const,
     tariff: 0.85,
     taxPct: 25,
@@ -98,36 +98,36 @@ function GastosVeiculosPage() {
                         <h3 className="text-lg font-bold text-slate-900">{v.name}</h3>
                         <div className="text-right">
                           <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Custo p/ KM</p>
-                          <p className="text-xl font-black text-primary">R$ {v.costPerKm.toFixed(2)}</p>
+                          <p className="text-xl font-black text-primary">R$ {v.costPerKm ? v.costPerKm.toFixed(2) : 'N/A'}</p>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div className="p-3 bg-slate-50 rounded-xl">
-                          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Combustível</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {v.monthlyFuelCost.toFixed(2)}</p>
+                          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Combustível/Energia</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthly.fuel + v.monthly.energy).toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Manutenção</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthlyMaintenance + v.monthlyFiniteItems).toFixed(2)}</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthly.maintenance + v.monthly.tires + v.monthly.oil).toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Tributos/Seguro</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthlyInsurance + v.monthlyIpva + v.monthlyLicensing).toFixed(2)}</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {(v.monthly.insurance + v.monthly.ipva).toFixed(2)}</p>
                         </div>
                         <div className="p-3 bg-slate-50 rounded-xl">
                           <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Depreciação</p>
-                          <p className="text-sm font-bold text-slate-900">R$ {v.monthlyDepreciation.toFixed(2)}</p>
+                          <p className="text-sm font-bold text-slate-900">R$ {v.monthly.depreciation.toFixed(2)}</p>
                         </div>
-                        {v.monthlyFinancing > 0 && (
+                        {v.monthly.financing > 0 && (
                           <div className="p-3 bg-slate-50 rounded-xl">
                             <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Financiamento</p>
-                            <p className="text-sm font-bold text-slate-900">R$ {v.monthlyFinancing.toFixed(2)}</p>
+                            <p className="text-sm font-bold text-slate-900">R$ {v.monthly.financing.toFixed(2)}</p>
                           </div>
                         )}
                         <div className="p-3 bg-primary/10 rounded-xl border border-primary/20 col-span-2 sm:col-span-1">
                           <p className="text-[10px] font-bold text-primary uppercase mb-1">Total Mês</p>
-                          <p className="text-sm font-black text-primary">R$ {v.totalMonthly.toFixed(2)}</p>
+                          <p className="text-sm font-black text-primary">R$ {v.monthly.total.toFixed(2)}</p>
                         </div>
                       </div>
                     </div>
