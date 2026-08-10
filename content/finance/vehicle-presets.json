@@ -1,72 +1,37 @@
-[
-  {
-    "id": "popular-gasolina",
-    "label": "Carro Popular 1.0 (Gasolina)",
-    "type": "gasolina",
-    "kmPerMonth": 1200,
-    "consumptionKmPerL": 12.5,
-    "fuelPricePerL": 5.85,
-    "maintenanceMonthly": 150,
-    "maintenanceAnnual": 800,
-    "insuranceAnnual": 2400,
-    "ipvaAnnual": 1800,
-    "licensingAnnual": 160,
-    "vehicleValue": 65000,
-    "depreciationRateAnnualPct": 12,
-    "finiteItems": {
-      "tires": { "costPerSet": 1600, "replacementIntervalKm": 45000, "numberOfTires": 4 },
-      "oilChange": { "costPerChange": 280, "intervalKm": 10000 }
-    },
-    "parkingMonthly": 100,
-    "tollsMonthly": 50,
-    "carWashMonthly": 60,
-    "otherMonthly": 0
+{
+  "fuel_prices_by_state": {
+    "SP": { "gasolina": 5.85, "etanol": 3.75, "diesel": 6.10 },
+    "RJ": { "gasolina": 6.15, "etanol": 4.10, "diesel": 6.30 },
+    "MG": { "gasolina": 5.95, "etanol": 3.90, "diesel": 6.20 },
+    "SC": { "gasolina": 6.05, "etanol": 4.25, "diesel": 6.15 }
   },
-  {
-    "id": "eletrico-compacto",
-    "label": "BYD Dolphin (Elétrico)",
-    "type": "eletrico",
-    "kmPerMonth": 1500,
-    "consumptionKwhPer100Km": 15.0,
-    "electricityPricePerKwh": 0.95,
-    "chargingEfficiencyPct": 95,
-    "maintenanceMonthly": 80,
-    "maintenanceAnnual": 400,
-    "insuranceAnnual": 3800,
-    "ipvaAnnual": 0,
-    "licensingAnnual": 160,
-    "vehicleValue": 150000,
-    "depreciationRateAnnualPct": 8,
-    "finiteItems": {
-      "tires": { "costPerSet": 2800, "replacementIntervalKm": 40000, "numberOfTires": 4 },
-      "oilChange": { "costPerChange": 0, "intervalKm": 999999 }
-    },
-    "parkingMonthly": 200,
-    "tollsMonthly": 80,
-    "carWashMonthly": 80,
-    "otherMonthly": 0
+  "electricity_price_by_state": {
+    "SP": 0.92,
+    "RJ": 1.05,
+    "MG": 0.98,
+    "SC": 0.88,
+    "BRAZIL_AVG": 0.95
   },
-  {
-    "id": "suv-diesel",
-    "label": "SUV Médio (Diesel 4x4)",
-    "type": "diesel",
-    "kmPerMonth": 2000,
-    "consumptionKmPerL": 10.5,
-    "fuelPricePerL": 6.20,
-    "maintenanceMonthly": 350,
-    "maintenanceAnnual": 1800,
-    "insuranceAnnual": 5500,
-    "ipvaAnnual": 6000,
-    "licensingAnnual": 160,
-    "vehicleValue": 220000,
-    "depreciationRateAnnualPct": 10,
-    "finiteItems": {
-      "tires": { "costPerSet": 4800, "replacementIntervalKm": 50000, "numberOfTires": 4 },
-      "oilChange": { "costPerChange": 650, "intervalKm": 10000 }
+  "benchmarks": {
+    "depreciation_annual_pct": {
+      "popular": 12,
+      "luxury": 15,
+      "electric": 10,
+      "commercial": 18
     },
-    "parkingMonthly": 300,
-    "tollsMonthly": 250,
-    "carWashMonthly": 120,
-    "otherMonthly": 50
+    "maintenance_km_cost": {
+      "popular": 0.15,
+      "premium": 0.35,
+      "electric": 0.08
+    }
+  },
+  "metadata": {
+    "status": "[FONTE_A_VERIFICAR]",
+    "sources": [
+      "ANP - Preços de combustíveis",
+      "ANEEL - Tarifas residenciais",
+      "FIPE - Depreciação",
+      "Sindipeças - Manutenção"
+    ]
   }
-]
+}
