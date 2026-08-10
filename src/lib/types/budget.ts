@@ -49,7 +49,9 @@ export const MarketInputSchema = z.object({
 
 export type MarketInput = z.infer<typeof MarketInputSchema>;
 
-export { type VehicleInput, VehicleInputSchema } from './vehicle';
+import { VehicleInputSchema, type VehicleInput } from './vehicle';
+export { type VehicleInput, VehicleInputSchema };
+
 
 
 export const BudgetInputSchema = z.object({
