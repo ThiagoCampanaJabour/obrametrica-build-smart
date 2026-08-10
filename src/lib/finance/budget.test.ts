@@ -1,5 +1,5 @@
 /**
- * tests/finance/budget.spec.ts
+ * src/lib/finance/budget.test.ts
  * Testes para funções financeiras do ObraMétrica.
  */
 
@@ -10,7 +10,7 @@ import {
   generateAmortizationSchedule, 
   futureValueMonthlyContributions,
   roundTo
-} from '../../src/lib/finance/budget';
+} from './budget';
 
 describe('Budget Finance Lib', () => {
   it('nominalToPeriodicRate converts annual to monthly', () => {

@@ -1,5 +1,5 @@
 /**
- * tests/solar/pv-economic.spec.ts
+ * src/lib/solar/pv-economic.test.ts
  * Testes para motor de cálculo fotovoltaico.
  */
 
@@ -10,7 +10,7 @@ import {
   calcPayback, 
   calcLCOE,
   roundTo 
-} from '../../src/lib/solar/pv-economic';
+} from './pv-economic';
 
 describe('PV Economic Lib', () => {
   it('energyFromPower calculates correct annual generation', () => {
