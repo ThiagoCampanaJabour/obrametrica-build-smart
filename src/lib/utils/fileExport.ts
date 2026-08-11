@@ -1,5 +1,24 @@
-import { BudgetWorkbook } from '../types/budget-sheets';
+import { BudgetWorkbook, SheetRow } from '../types/budget-sheets';
 import * as XLSX from 'xlsx';
+import JSZip from 'jszip';
+
+/**
+ * Prepara o workbook para exportação (remove funções, garante tipos)
+ */
+export function prepareWorkbookForExport(workbook: BudgetWorkbook): any {
+  return {
+    ...workbook,
+    sheets: workbook.sheets.map(sheet => ({
+      ...sheet,
+      rows: sheet.rows.map(row => ({
+        ...row,
+        date: row.date || null,
+        note: row.note || null,
+      }))
+    }))
+  };
+}
+
 import JSZip from 'jszip';
 
 /**
