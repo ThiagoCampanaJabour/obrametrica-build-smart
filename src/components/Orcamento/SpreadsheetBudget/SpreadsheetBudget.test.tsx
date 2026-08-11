@@ -38,8 +38,8 @@ describe('SpreadsheetBudget Save/Export UI', () => {
     const exportBtn = screen.getByTestId('workbook-export-button');
     fireEvent.click(exportBtn);
     
-    // DropdownMenu portal component might take a tick or be in a different root
-    const jsonOption = await screen.findByTestId('workbook-export-json');
+    // Use a longer timeout and waitFor for Radix DropdownMenu portals
+    const jsonOption = await screen.findByTestId('workbook-export-json', {}, { timeout: 2000 });
     expect(jsonOption).toBeDefined();
     
     const xlsxOption = screen.getByTestId('workbook-export-xlsx');
