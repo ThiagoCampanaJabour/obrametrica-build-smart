@@ -59,8 +59,9 @@ export function SpreadsheetBudget() {
   const [savedScenarios, setSavedScenarios] = useState<SavedScenarioInfo[]>([]);
 
   useEffect(() => {
-    setSavedScenarios(getSavedScenarios());
+    setSavedScenarios(listSavedScenarios());
   }, []);
+
 
 
 
