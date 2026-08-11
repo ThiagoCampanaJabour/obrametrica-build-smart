@@ -3,7 +3,7 @@ import {
   sanitizeFilename, 
   convertToCSV, 
   prepareWorkbookForExport 
-} from './fileExport';
+} from '../utils/fileExport';
 import { BudgetWorkbook } from '../types/budget-sheets';
 
 describe('File Export Utils', () => {
