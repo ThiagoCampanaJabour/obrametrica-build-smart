@@ -17,13 +17,16 @@ import { Input } from "@/components/ui/input";
 import { 
   Plus, 
   Save, 
-  Download, 
-  Upload, 
   Users, 
   Trash2,
   PieChart,
   FolderOpen,
-  ChevronDown
+  ChevronDown,
+  Settings,
+  History,
+  Copy,
+  Download,
+  Upload
 } from "lucide-react";
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
 import { 
@@ -32,10 +35,10 @@ import {
   listSavedScenarios,
   loadWorkbookById,
   migrateWorkbook,
-  SavedScenarioInfo
-
+  SavedScenarioInfo,
+  deleteSavedScenario,
+  duplicateSavedScenario
 } from '@/lib/finance/budgetSheets';
-
 import { toast } from "sonner";
 import { 
   DropdownMenu, 
@@ -43,49 +46,72 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-  DropdownMenuLabel
+  DropdownMenuLabel,
+  DropdownMenuCheckboxItem
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 
 // Componentes internos
 import { SheetTable } from './SheetTable';
 import { EditableTabTrigger } from './EditableTabTrigger';
 import { ExportControls } from './ExportControls';
 
-
-
-
 export function SpreadsheetBudget() {
   const [workbook, setWorkbook] = useState<BudgetWorkbook | null>(null);
   const [activeTab, setActiveTab] = useState<string>("");
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [savedScenarios, setSavedScenarios] = useState<SavedScenarioInfo[]>([]);
+  
+  // Modais
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [isSavesListOpen, setIsSavesListOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  
+  // Form de Save
+  const [saveName, setSaveName] = useState("");
+  const [saveDesc, setSaveDesc] = useState("");
+  
+  // Autosave
+  const [autosaveEnabled, setAutosaveEnabled] = useState(false);
 
   useEffect(() => {
     setSavedScenarios(listSavedScenarios());
+    const settings = localStorage.getItem('obrametrica_settings');
+    if (settings) {
+      const parsed = JSON.parse(settings);
+      setAutosaveEnabled(parsed.autosave || false);
+    }
   }, []);
-
-
-
 
   useEffect(() => {
     const saved = localStorage.getItem('obrametrica_workbook_latest');
     if (saved) {
       try {
         const loaded = migrateWorkbook(JSON.parse(saved));
-        if (loaded) setWorkbook(loaded);
-        else throw new Error("Fallback required");
+        if (loaded) {
+          setWorkbook(loaded);
+          setActiveTab(loaded.sheets[0]?.id || "resumo");
+        }
       } catch (e) {
         console.error("Erro ao carregar workbook", e);
       }
     } else {
-      // Workbook inicial
       const initial: BudgetWorkbook = {
         id: crypto.randomUUID(),
         name: "Meu Orçamento",
         members: 1,
         inflationRateAnnualPct: 4.5,
         schemaVersion: 1,
-
         sheets: [
           {
             id: crypto.randomUUID(),
@@ -103,42 +129,76 @@ export function SpreadsheetBudget() {
     }
   }, []);
 
-  const saveWorkbook = () => {
+  // Efeito de Autosave
+  useEffect(() => {
+    if (!autosaveEnabled || !workbook) return;
+
+    const timer = setTimeout(() => {
+      try {
+        atomicSaveWorkbook(workbook);
+      } catch (e) {
+        console.error("Erro no autosave", e);
+      }
+    }, 5000); // 5 segundos de idle
+
+    return () => clearTimeout(timer);
+  }, [workbook, autosaveEnabled]);
+
+  const handleOpenSaveModal = () => {
     if (!workbook) return;
-    
-    if (workbook.sheets.length === 0) {
-      toast.warning("Não é possível salvar um orçamento vazio.");
-      return;
-    }
+    setSaveName(workbook.name || "Orçamento — ");
+    setSaveDesc(workbook.description || "");
+    setIsSaveModalOpen(true);
+  };
+
+  const confirmSave = (isCopy = false) => {
+    if (!workbook || !saveName.trim()) return;
 
     try {
-      const updated = { ...workbook, updatedAt: new Date().toISOString() };
-      atomicSaveWorkbook(updated);
-      setWorkbook(updated);
+      const updated = { 
+        ...workbook, 
+        name: saveName.trim(),
+        description: saveDesc.trim(),
+        updatedAt: new Date().toISOString() 
+      };
+      const result = atomicSaveWorkbook(updated, isCopy);
+      setWorkbook(result.data);
       setSavedScenarios(listSavedScenarios());
-      toast.success("Orçamento salvo com sucesso!", {
-        id: "workbook-save-success"
-      });
+      setIsSaveModalOpen(false);
+      toast.success(isCopy ? "Cópia salva com sucesso!" : "Orçamento salvo!");
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Erro desconhecido";
-      toast.error(`Falha ao salvar: ${msg}`, {
-        id: "workbook-save-error"
-      });
+      if (e instanceof Error && e.message === "QUOTA_EXCEEDED") {
+        toast.error("Espaço insuficiente no navegador. Exporte para JSON para não perder os dados.");
+      } else {
+        toast.error("Erro ao salvar orçamento.");
+      }
     }
   };
 
-  const loadScenario = (id: string) => {
-    const loaded = loadWorkbookById(id);
-    if (loaded) {
-      setWorkbook(loaded);
-      setActiveTab(loaded.sheets[0]?.id || "resumo");
-      toast.success("Cenário carregado com sucesso!");
-    } else {
-      toast.error("Erro ao carregar o cenário salvo.");
+  const handleSettingsChange = (key: string, value: any) => {
+    const settings = JSON.parse(localStorage.getItem('obrametrica_settings') || '{}');
+    settings[key] = value;
+    localStorage.setItem('obrametrica_settings', JSON.stringify(settings));
+    if (key === 'autosave') setAutosaveEnabled(value);
+  };
+
+  const handleDuplicate = (id: string) => {
+    try {
+      duplicateSavedScenario(id);
+      setSavedScenarios(listSavedScenarios());
+      toast.success("Cenário duplicado!");
+    } catch (e) {
+      toast.error("Erro ao duplicar.");
     }
   };
 
-
+  const handleDelete = (id: string) => {
+    if (confirm("Deseja realmente excluir este cenário?")) {
+      deleteSavedScenario(id);
+      setSavedScenarios(listSavedScenarios());
+      toast.success("Cenário excluído.");
+    }
+  };
 
   const addSheet = (type: Sheet['type'] = 'Personalizado') => {
     if (!workbook) return;
@@ -155,29 +215,20 @@ export function SpreadsheetBudget() {
     };
     setWorkbook(updated);
     setActiveTab(newSheet.id);
-    setIsAddingNew(true); // Ativa o modo de edição no TabsBar
+    setIsAddingNew(true);
   };
 
   const renameSheet = (id: string, newName: string) => {
     if (!workbook) return;
-    
-    // Verifica duplicatas
     const nameExists = workbook.sheets.some(s => s.id !== id && s.name.trim().toLowerCase() === newName.trim().toLowerCase());
     if (nameExists) {
       toast.error("Já existe outra aba com este nome.");
       return;
     }
-
-    const updatedSheets = workbook.sheets.map(s => {
-      if (s.id === id) {
-        return { ...s, name: newName };
-      }
-      return s;
-    });
+    const updatedSheets = workbook.sheets.map(s => s.id === id ? { ...s, name: newName } : s);
     setWorkbook({ ...workbook, sheets: updatedSheets });
     setIsAddingNew(false);
   };
-
 
   const removeSheet = (id: string) => {
     if (!workbook || workbook.sheets.length <= 1) return;
@@ -186,25 +237,35 @@ export function SpreadsheetBudget() {
       sheets: workbook.sheets.filter(s => s.id !== id)
     };
     setWorkbook(updated);
-    if (activeTab === id) {
-      setActiveTab(updated.sheets[0].id);
-    }
+    if (activeTab === id) setActiveTab(updated.sheets[0].id);
   };
 
   const handleRowsChange = (sheetId: string, newRows: SheetRow[]) => {
     if (!workbook) return;
-    const updatedSheets = workbook.sheets.map(s => {
-      if (s.id === sheetId) {
-        return { ...s, rows: newRows };
-      }
-      return s;
-    });
+    const updatedSheets = workbook.sheets.map(s => s.id === sheetId ? { ...s, rows: newRows } : s);
     setWorkbook({ ...workbook, sheets: updatedSheets });
   };
 
+  const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const json = event.target?.result as string;
+        const loaded = migrateWorkbook(JSON.parse(json));
+        setWorkbook(loaded);
+        setActiveTab(loaded.sheets[0]?.id || "resumo");
+        toast.success("Orçamento importado com sucesso!");
+      } catch (err) {
+        toast.error("Falha ao importar JSON: arquivo inválido ou corrompido.");
+      }
+    };
+    reader.readAsText(file);
+  };
 
-  if (!workbook) return <div>Carregando...</div>;
+  if (!workbook) return <div className="p-8 text-center">Carregando...</div>;
 
   const totals = calculateWorkbookTotals(workbook);
 
@@ -230,33 +291,9 @@ export function SpreadsheetBudget() {
         </div>
         
         <div className="flex flex-wrap gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" data-testid="workbook-load-saved">
-                <FolderOpen className="h-4 w-4 mr-2" /> Abrir <ChevronDown className="ml-1 h-3 w-3 opacity-50" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64">
-              <DropdownMenuLabel>Cenários Salvos</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {savedScenarios.length === 0 ? (
-                <div className="px-2 py-4 text-center text-xs text-slate-400">
-                  Nenhum cenário salvo ainda.
-                </div>
-              ) : (
-                savedScenarios.map((scenario) => (
-                  <DropdownMenuItem key={scenario.key} onClick={() => loadScenario(scenario.key)}>
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-medium truncate">{scenario.name}</span>
-                      <span className="text-[10px] text-slate-500">
-                        {new Date(scenario.createdAt).toLocaleString('pt-BR')}
-                      </span>
-                    </div>
-                  </DropdownMenuItem>
-                ))
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button variant="outline" size="sm" onClick={() => setIsSavesListOpen(true)} data-testid="workbook-history-button">
+            <History className="h-4 w-4 mr-2" /> Histórico
+          </Button>
 
           <Button variant="outline" size="sm" onClick={() => addSheet()} data-testid="sheet-add-button">
             <Plus className="h-4 w-4 mr-2" /> Nova Aba
@@ -265,16 +302,48 @@ export function SpreadsheetBudget() {
           <Button 
             variant="default" 
             size="sm" 
-            onClick={saveWorkbook} 
-            data-testid="workbook-save"
+            onClick={handleOpenSaveModal} 
+            data-testid="workbook-save-button"
             className="bg-primary hover:bg-primary/90"
           >
             <Save className="h-4 w-4 mr-2" /> Salvar
           </Button>
           
           <ExportControls workbook={workbook} activeSheetId={activeTab} />
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Settings className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Configurações</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuCheckboxItem 
+                checked={autosaveEnabled}
+                onCheckedChange={(checked) => handleSettingsChange('autosave', checked)}
+                data-testid="workbook-autosave-toggle"
+              >
+                Autosave (5s idle)
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuSeparator />
+              <div className="p-2">
+                <Label htmlFor="import-json" className="cursor-pointer flex items-center gap-2 text-sm">
+                  <Upload className="h-4 w-4" /> Importar JSON
+                  <Input 
+                    id="import-json" 
+                    type="file" 
+                    accept=".json" 
+                    className="hidden" 
+                    onChange={handleImportJSON}
+                    data-testid="workbook-import-json"
+                  />
+                </Label>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -295,9 +364,7 @@ export function SpreadsheetBudget() {
                   isNew={isAddingNew && activeTab === sheet.id}
                   onRename={(newName) => renameSheet(sheet.id, newName)}
                   onCancelNew={() => {
-                    if (isAddingNew && activeTab === sheet.id) {
-                      removeSheet(sheet.id);
-                    }
+                    if (isAddingNew && activeTab === sheet.id) removeSheet(sheet.id);
                     setIsAddingNew(false);
                   }}
                 />
@@ -332,7 +399,6 @@ export function SpreadsheetBudget() {
                   type={sheet.type}
                 />
               </CardContent>
-
             </Card>
           </TabsContent>
         ))}
@@ -368,6 +434,92 @@ export function SpreadsheetBudget() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Modal de Salvar */}
+      <Dialog open={isSaveModalOpen} onOpenChange={setIsSaveModalOpen}>
+        <DialogContent data-testid="workbook-save-modal">
+          <DialogHeader>
+            <DialogTitle>Salvar Orçamento</DialogTitle>
+            <DialogDescription>
+              Os dados ficam apenas no seu navegador (localStorage).
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="save-name">Nome do Cenário</Label>
+              <Input 
+                id="save-name" 
+                value={saveName} 
+                onChange={(e) => setSaveName(e.target.value.substring(0, 100))}
+                placeholder="Ex: Orçamento Agosto 2026"
+                data-testid="workbook-save-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="save-desc">Descrição (Opcional)</Label>
+              <Textarea 
+                id="save-desc" 
+                value={saveDesc} 
+                onChange={(e) => setSaveDesc(e.target.value)}
+                placeholder="Detalhes adicionais sobre este cenário..."
+                data-testid="workbook-save-desc"
+              />
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => confirmSave(true)} data-testid="workbook-save-as-copy">
+              Salvar como Cópia
+            </Button>
+            <Button onClick={() => confirmSave(false)} data-testid="workbook-save-confirm">
+              Confirmar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal de Histórico/Cenários */}
+      <Dialog open={isSavesListOpen} onOpenChange={setIsSavesListOpen}>
+        <DialogContent className="max-w-2xl" data-testid="workbook-saves-panel">
+          <DialogHeader>
+            <DialogTitle>Cenários Salvos</DialogTitle>
+            <DialogDescription>
+              Gerencie seus orçamentos armazenados localmente.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="max-h-[400px] overflow-y-auto space-y-2 py-4" data-testid="workbook-saves-list">
+            {savedScenarios.length === 0 ? (
+              <div className="text-center py-8 text-slate-400">Nenhum cenário encontrado.</div>
+            ) : (
+              savedScenarios.map(s => (
+                <div key={s.id} className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                  <div className="flex-1 min-w-0 pr-4">
+                    <p className="font-semibold text-slate-900 truncate">{s.name}</p>
+                    <p className="text-xs text-slate-500">
+                      Atualizado em {new Date(s.updatedAt).toLocaleString('pt-BR')}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => { loadWorkbookById(s.id) && setWorkbook(loadWorkbookById(s.id)); setIsSavesListOpen(false); }}
+                      data-testid={`workbook-save-item-${s.id}-load`}
+                    >
+                      Abrir
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => handleDuplicate(s.id)}>
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(s.id)} data-testid={`workbook-save-item-${s.id}-delete`}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
