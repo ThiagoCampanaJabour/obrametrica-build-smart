@@ -120,7 +120,6 @@ export function calculateWorkbookTotals(workbook: BudgetWorkbook): WorkbookTotal
   };
 }
 
-
 const STORAGE_INDEX_KEY = 'obrametrica_workbook_index';
 const STORAGE_LATEST_KEY = 'obrametrica_workbook_latest';
 
@@ -146,15 +145,14 @@ export function migrateWorkbook(data: any): BudgetWorkbook {
     migrated.schemaVersion = 1;
     migrated.description = migrated.description || "";
     migrated.tags = migrated.tags || [];
-    // Garante campos opcionais
-    migrated.sheets = migrated.sheets.map((s: any) => ({
+    migrated.sheets = migrated.sheets?.map((s: any) => ({
       ...s,
       mode: s.mode || 'detailed',
-      rows: s.rows.map((r: any) => ({
+      rows: s.rows?.map((r: any) => ({
         ...r,
         periodicity: r.periodicity || 'mensal'
-      }))
-    }));
+      })) || []
+    })) || [];
   }
 
   return BudgetWorkbookSchema.parse(migrated);
@@ -165,9 +163,8 @@ export function migrateWorkbook(data: any): BudgetWorkbook {
  */
 export function atomicSaveWorkbook(workbook: BudgetWorkbook, isCopy = false) {
   try {
-    const id = isCopy ? uuidv4() : workbook.id;
+    const saveId = isCopy ? uuidv4() : workbook.id;
     const timestamp = new Date().toISOString();
-    const saveId = isCopy ? id : workbook.id;
     const key = `obrametrica_workbook_${saveId}`;
     const tempKey = `obrametrica_workbook_tmp_${saveId}`;
     
@@ -179,7 +176,6 @@ export function atomicSaveWorkbook(workbook: BudgetWorkbook, isCopy = false) {
     };
     const json = JSON.stringify(dataToSave);
 
-    // 1. Tenta salvar em chave temporária primeiro
     try {
       localStorage.setItem(tempKey, json);
     } catch (e) {
@@ -189,14 +185,10 @@ export function atomicSaveWorkbook(workbook: BudgetWorkbook, isCopy = false) {
       throw e;
     }
 
-    // 2. Move para a chave final
     localStorage.setItem(key, json);
     localStorage.removeItem(tempKey);
-
-    // 3. Atualiza latest pointer
     localStorage.setItem(STORAGE_LATEST_KEY, json);
 
-    // 4. Atualiza o índice
     const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
     let index: SavedScenarioInfo[] = indexRaw ? JSON.parse(indexRaw) : [];
     
