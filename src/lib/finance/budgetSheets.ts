@@ -6,9 +6,7 @@ import {
   WorkbookTotals,
   BudgetWorkbookSchema
 } from '../types/budget-sheets';
-import { toast } from "sonner";
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Normaliza valores anuais para mensais
@@ -84,7 +82,7 @@ export function calculateSheetTotals(sheet: Sheet, workbookContext?: { kmPerMont
     return {
       monthly,
       annual: monthly * 12,
-      perCapita: 0 // Será calculado no nível do workbook
+      perCapita: 0 
     };
   }
   
@@ -92,7 +90,6 @@ export function calculateSheetTotals(sheet: Sheet, workbookContext?: { kmPerMont
     return sum + normalizeRowToMonthly(row, workbookContext);
   }, 0);
 
-  
   return {
     monthly,
     annual: monthly * 12,
@@ -106,9 +103,6 @@ export function calculateSheetTotals(sheet: Sheet, workbookContext?: { kmPerMont
 export function calculateWorkbookTotals(workbook: BudgetWorkbook): WorkbookTotals {
   const bySheet: Record<string, SheetTotals> = {};
   let totalMonthly = 0;
-  
-  // Primeiro calculamos os totais por aba
-  // Nota: Implementação simplificada de kmPerMonth global por enquanto
   const context = { kmPerMonth: 1000 }; 
   
   workbook.sheets.forEach((sheet: Sheet) => {
@@ -126,70 +120,101 @@ export function calculateWorkbookTotals(workbook: BudgetWorkbook): WorkbookTotal
   };
 }
 
-/**
- * Projeção de inflação composta
- */
-export function calcInflationProjection(value: number, annualInflationPct: number, years: number): number {
-  return value * Math.pow(1 + annualInflationPct / 100, years);
-}
-
 const STORAGE_INDEX_KEY = 'obrametrica_workbook_index';
 const STORAGE_LATEST_KEY = 'obrametrica_workbook_latest';
 
 export interface SavedScenarioInfo {
   id: string;
   name: string;
+  description?: string | null;
+  tags?: string[] | null;
   createdAt: string;
+  updatedAt: string;
   key: string;
+  schemaVersion: number;
 }
 
 /**
- * Salva o workbook no localStorage e atualiza o índice
+ * Migrador de schema para garantir retrocompatibilidade
  */
-export function saveWorkbookToStorage(workbook: BudgetWorkbook) {
+export function migrateWorkbook(data: any): BudgetWorkbook {
+  const version = data.schemaVersion || 0;
+  let migrated = { ...data };
+
+  if (version < 1) {
+    migrated.schemaVersion = 1;
+    migrated.description = migrated.description || "";
+    migrated.tags = migrated.tags || [];
+    migrated.sheets = migrated.sheets?.map((s: any) => ({
+      ...s,
+      mode: s.mode || 'detailed',
+      rows: s.rows?.map((r: any) => ({
+        ...r,
+        periodicity: r.periodicity || 'mensal'
+      })) || []
+    })) || [];
+  }
+
+  return BudgetWorkbookSchema.parse(migrated);
+}
+
+/**
+ * Salva o workbook no localStorage de forma atômica e robusta
+ */
+export function atomicSaveWorkbook(workbook: BudgetWorkbook, isCopy = false) {
   try {
+    const saveId = isCopy ? uuidv4() : workbook.id;
     const timestamp = new Date().toISOString();
-    const key = `obrametrica_workbook_${timestamp.replace(/[:.]/g, '-')}`;
-    const data = JSON.stringify(workbook);
+    const key = `obrametrica_workbook_${saveId}`;
+    const tempKey = `obrametrica_workbook_tmp_${saveId}`;
+    
+    const dataToSave = { 
+      ...workbook, 
+      id: saveId,
+      updatedAt: timestamp,
+      schemaVersion: 1 
+    };
+    const json = JSON.stringify(dataToSave);
 
-    // 1. Salva o cenário específico
-    localStorage.setItem(key, data);
+    try {
+      localStorage.setItem(tempKey, json);
+    } catch (e) {
+      if (e instanceof Error && e.name === 'QuotaExceededError') {
+        throw new Error("QUOTA_EXCEEDED");
+      }
+      throw e;
+    }
 
-    // 2. Salva como latest
-    localStorage.setItem(STORAGE_LATEST_KEY, data);
+    localStorage.setItem(key, json);
+    localStorage.removeItem(tempKey);
+    localStorage.setItem(STORAGE_LATEST_KEY, json);
 
-    // 3. Atualiza o índice
     const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
     let index: SavedScenarioInfo[] = indexRaw ? JSON.parse(indexRaw) : [];
     
-    // Evita duplicados por ID (atualiza se já existe)
-    index = index.filter(item => item.id !== workbook.id);
+    index = index.filter(item => item.id !== saveId);
     index.unshift({
-      id: workbook.id,
+      id: saveId,
       name: workbook.name,
-      createdAt: timestamp,
-      key: key
+      description: workbook.description,
+      tags: workbook.tags,
+      createdAt: isCopy ? timestamp : workbook.createdAt,
+      updatedAt: timestamp,
+      key: key,
+      schemaVersion: 1
     });
 
-    // Mantém apenas os últimos 20
-    if (index.length > 20) index = index.slice(0, 20);
-    
+    if (index.length > 50) index = index.slice(0, 50);
     localStorage.setItem(STORAGE_INDEX_KEY, JSON.stringify(index));
     
-    return { success: true, key };
+    return { success: true, id: saveId, data: dataToSave };
   } catch (error) {
-    console.error("Erro ao salvar no localStorage", error);
-    if (error instanceof Error && error.name === 'QuotaExceededError') {
-      throw new Error("Espaço insuficiente no navegador para salvar.");
-    }
+    console.error("Erro ao salvar workbook", error);
     throw error;
   }
 }
 
-/**
- * Carrega a lista de cenários salvos
- */
-export function getSavedScenarios(): SavedScenarioInfo[] {
+export function listSavedScenarios(): SavedScenarioInfo[] {
   try {
     const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
     return indexRaw ? JSON.parse(indexRaw) : [];
@@ -198,21 +223,41 @@ export function getSavedScenarios(): SavedScenarioInfo[] {
   }
 }
 
-/**
- * Carrega um workbook específico
- */
-export function loadWorkbookFromStorage(keyOrData: string, isData = false): BudgetWorkbook | null {
+export function loadWorkbookById(id: string): BudgetWorkbook | null {
   try {
-    const raw = isData ? keyOrData : localStorage.getItem(keyOrData);
+    const key = `obrametrica_workbook_${id}`;
+    const raw = localStorage.getItem(key);
     if (!raw) return null;
-    
-    const parsed = JSON.parse(raw);
-    // Validação básica com Zod
-    const validated = BudgetWorkbookSchema.parse(parsed);
-    return validated;
+    return migrateWorkbook(JSON.parse(raw));
   } catch (e) {
-    console.error("Erro ao carregar workbook", e);
+    console.error("Erro ao carregar", e);
     return null;
   }
 }
 
+export function deleteSavedScenario(id: string) {
+  const key = `obrametrica_workbook_${id}`;
+  localStorage.removeItem(key);
+  
+  const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
+  if (indexRaw) {
+    const index: SavedScenarioInfo[] = JSON.parse(indexRaw);
+    const newIndex = index.filter(item => item.id !== id);
+    localStorage.setItem(STORAGE_INDEX_KEY, JSON.stringify(newIndex));
+  }
+}
+
+export function renameSavedScenario(id: string, newName: string) {
+  const workbook = loadWorkbookById(id);
+  if (workbook) {
+    atomicSaveWorkbook({ ...workbook, name: newName });
+  }
+}
+
+export function duplicateSavedScenario(id: string) {
+  const workbook = loadWorkbookById(id);
+  if (workbook) {
+    return atomicSaveWorkbook({ ...workbook, name: `${workbook.name} (Cópia)` }, true);
+  }
+  return null;
+}
