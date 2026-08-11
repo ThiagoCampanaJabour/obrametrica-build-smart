@@ -19,8 +19,6 @@ export function prepareWorkbookForExport(workbook: BudgetWorkbook): any {
   };
 }
 
-import JSZip from 'jszip';
-
 /**
  * Sanitiza nomes para uso em nomes de arquivos
  */
