@@ -4,7 +4,8 @@ import {
   FileJson, 
   FileSpreadsheet, 
   Archive,
-  ChevronDown
+  ChevronDown,
+  FileText
 } from "lucide-react";
 import { 
   DropdownMenu, 
@@ -15,12 +16,12 @@ import {
   DropdownMenuLabel
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { BudgetWorkbook, Sheet } from '@/lib/types/budget-sheets';
+import { BudgetWorkbook } from '@/lib/types/budget-sheets';
 import { 
-  sanitizeFilename, 
-  downloadBlob, 
-  convertToCSV, 
-  prepareWorkbookForExport 
+  exportToJSON,
+  exportSheetToCSV,
+  exportToXLSX,
+  exportAllAsZIP
 } from '@/lib/utils/fileExport';
 import { toast } from "sonner";
 
@@ -32,75 +33,76 @@ interface ExportControlsProps {
 export function ExportControls({ workbook, activeSheetId }: ExportControlsProps) {
   const currentSheet = workbook.sheets.find(s => s.id === activeSheetId);
   
-  const exportJSON = () => {
+  const handleExportJSON = async () => {
     try {
-      const exportData = prepareWorkbookForExport(workbook);
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-      const filename = `obrametrica_orcamento_${sanitizeFilename(workbook.name)}_${new Date().toISOString().split('T')[0]}.json`;
-      
-      downloadBlob(blob, filename);
-      toast.success("JSON exportado com sucesso!");
+      await exportToJSON(workbook);
+      toast.success("JSON exportado!");
     } catch (e) {
       toast.error("Erro ao exportar JSON");
     }
   };
 
-  const exportCSV = (sheet: Sheet) => {
+  const handleExportCSV = async () => {
+    if (!currentSheet) return;
     try {
-      const columns = [
-        'category', 'subcategory', 'unit', 'quantity', 
-        'unitPrice', 'periodicity', 'total', 'note'
-      ];
-      
-      const csv = convertToCSV(sheet.rows, columns);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const filename = `obrametrica_orcamento_${sanitizeFilename(sheet.name)}_${new Date().toISOString().split('T')[0]}.csv`;
-      
-      downloadBlob(blob, filename);
-      toast.success(`CSV da aba "${sheet.name}" exportado!`);
+      await exportSheetToCSV(currentSheet.name, currentSheet.rows);
+      toast.success(`CSV da aba "${currentSheet.name}" exportado!`);
     } catch (e) {
       toast.error("Erro ao exportar CSV");
     }
   };
 
-  const exportAll = () => {
-    // Como não temos lib de ZIP instalada e a regra prefere não adicionar novas, 
-    // vamos exportar um JSON combinado (que é o padrão do exportJSON atual)
-    // Mas se o usuário quiser especificamente "Exportar Tudo", podemos garantir que inclua totais calculados se necessário.
-    exportJSON();
+  const handleExportXLSX = async () => {
+    try {
+      await exportToXLSX(workbook);
+      toast.success("Excel (XLSX) exportado!");
+    } catch (e) {
+      toast.error("Erro ao exportar Excel");
+    }
+  };
+
+  const handleExportZIP = async () => {
+    try {
+      await exportAllAsZIP(workbook);
+      toast.success("ZIP completo exportado!");
+    } catch (e) {
+      toast.error("Erro ao gerar ZIP");
+    }
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" data-testid="workbook-export-trigger">
+        <Button variant="outline" size="sm" data-testid="workbook-export-button">
           <Download className="h-4 w-4 mr-2" /> Exportar <ChevronDown className="ml-1 h-3 w-3 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56" data-testid="workbook-export-modal">
         <DropdownMenuLabel>Opções de Exportação</DropdownMenuLabel>
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem onClick={exportJSON} data-testid="workbook-export-json">
-          <FileJson className="mr-2 h-4 w-4" />
-          <span>Exportar JSON (Full)</span>
+        <DropdownMenuItem onClick={handleExportJSON} data-testid="workbook-export-json">
+          <FileJson className="mr-2 h-4 w-4 text-amber-500" />
+          <span>Exportar JSON</span>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={handleExportXLSX} data-testid="workbook-export-xlsx">
+          <FileSpreadsheet className="mr-2 h-4 w-4 text-green-600" />
+          <span>Exportar Excel (XLSX)</span>
         </DropdownMenuItem>
 
         {currentSheet && (
-          <DropdownMenuItem 
-            onClick={() => exportCSV(currentSheet)} 
-            data-testid="workbook-export-csv"
-          >
-            <FileSpreadsheet className="mr-2 h-4 w-4" />
-            <span>CSV: Aba Atual</span>
+          <DropdownMenuItem onClick={handleExportCSV} data-testid="workbook-export-csv">
+            <FileText className="mr-2 h-4 w-4 text-blue-500" />
+            <span>CSV (Aba Atual)</span>
           </DropdownMenuItem>
         )}
 
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem onClick={exportAll} data-testid="workbook-export-all">
-          <Archive className="mr-2 h-4 w-4" />
-          <span>Exportar Tudo (JSON)</span>
+        <DropdownMenuItem onClick={handleExportZIP} data-testid="workbook-export-zip">
+          <Archive className="mr-2 h-4 w-4 text-slate-600" />
+          <span>Exportar Tudo (ZIP)</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
