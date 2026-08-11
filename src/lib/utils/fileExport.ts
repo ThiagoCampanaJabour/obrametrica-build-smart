@@ -26,9 +26,10 @@ export function sanitizeFilename(name: string): string {
   if (!name) return 'arquivo';
   return name
     .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s+/g, '_')
-    .replace(/[çÇ]/g, 'c')
-    .replace(/[^\w-]/gi, '')
+    .replace(/[^a-zA-Z0-9_\-.]/g, '')
     .substring(0, 200)
     .toLowerCase();
 }
