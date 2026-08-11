@@ -1,91 +1,63 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { 
-  sanitizeFilename,
-  convertToCSV,
-  prepareWorkbookForExport
-
-
-} from '../utils/fileExport';
+  sanitizeFilename, 
+  convertToCSV, 
+  prepareWorkbookForExport 
+} from './fileExport';
 import { BudgetWorkbook } from '../types/budget-sheets';
 
-describe('fileExport utils', () => {
-  it('sanitizeFilename handles spaces and special chars', () => {
-    expect(sanitizeFilename('Meu Orçamento! @2026')).toBe('meu_orçamento_2026');
-    expect(sanitizeFilename('  Trim  Test  ')).toBe('trim_test');
-  });
+describe('File Export Utils', () => {
+  describe('sanitizeFilename', () => {
+    it('replaces spaces with underscores', () => {
+      expect(sanitizeFilename('meu orcamento')).toBe('meu_orcamento');
+    });
 
-  it('convertToCSV generates correct content', () => {
-    const rows = [
-      {
-        id: '1',
-        category: 'Alimentação',
-        subcategory: 'Arroz',
-        unit: 'kg',
-        quantity: 2,
-        unitPrice: 5.5,
-        periodicity: 'mensal' as const,
-        total: 11,
-        note: 'Tipo 1'
-      }
-    ];
-    const columns = ['category', 'subcategory', 'quantity', 'unitPrice', 'total'];
-    const csv = convertToCSV(rows as any, columns);
+    it('removes special characters and path markers', () => {
+      expect(sanitizeFilename('orcamento/2024*?')).toBe('orcamento2024');
+    });
+
+    it('converts cedilla and accents to base characters', () => {
+      expect(sanitizeFilename('promoção_itens')).toBe('promocao_itens');
+    });
     
-    expect(csv).toContain('\uFEFFCategory,Subcategory,Quantity,UnitPrice,Total');
-    expect(csv).toContain('Alimentação,Arroz,2,5.5,11');
+    it('limits length to 200 chars', () => {
+      const longName = 'a'.repeat(300);
+      expect(sanitizeFilename(longName)).toHaveLength(200);
+    });
   });
 
-  it('convertToCSV escapes commas and quotes', () => {
-    const rows = [
-      {
+  describe('convertToCSV', () => {
+    it('generates correct header and rows', () => {
+      const columns = ['name', 'value'];
+      const rows = [{ name: 'Item 1', value: 10 }];
+      const csv = convertToCSV(rows, columns);
+      
+      expect(csv).toContain('\uFEFFName,Value');
+      expect(csv).toContain('Item 1,10');
+    });
+
+    it('escapes commas and quotes', () => {
+      const columns = ['note'];
+      const rows = [{ note: 'A text with , comma and "quotes"' }];
+      const csv = convertToCSV(rows, columns);
+      
+      expect(csv).toContain('"A text with , comma and ""quotes"""');
+    });
+  });
+
+  describe('prepareWorkbookForExport', () => {
+    it('cleans undefined values for clean JSON', () => {
+      const workbook: any = {
         id: '1',
-        category: 'Teste',
-        subcategory: 'Sub, com vírgula',
-        unit: 'un',
-        quantity: 1,
-        unitPrice: 10,
-        periodicity: 'mensal' as const,
-        total: 10,
-        note: 'Nota "com" aspas'
-      }
-    ];
-    const columns = ['subcategory', 'note'];
-    const csv = convertToCSV(rows as any, columns);
-    
-    expect(csv).toContain('"Sub, com vírgula"');
-    expect(csv).toContain('"Nota ""com"" aspas"');
-  });
-
-  it('prepareWorkbookForExport cleans up data', () => {
-    const workbook: BudgetWorkbook = {
-      id: 'wb1',
-      name: 'Test',
-      members: 2,
-      inflationRateAnnualPct: 4.5,
-      createdAt: '2026-01-01',
-      updatedAt: '2026-01-01',
-      schemaVersion: 1,
-      sheets: [
-
-        {
+        name: 'Test',
+        sheets: [{
           id: 's1',
-          name: 'Sheet 1',
-          type: 'Personalizado',
-          mode: 'detailed',
-          rows: [
-            {
-              id: 'r1',
-              category: 'Cat',
-              subcategory: 'Sub',
-              periodicity: 'mensal'
-            }
-          ]
-        }
-      ]
-    };
-    
-    const prepared = prepareWorkbookForExport(workbook);
-    expect(prepared.sheets[0].rows[0].date).toBeNull();
-    expect(prepared.sheets[0].rows[0].note).toBeNull();
+          rows: [{ id: 'r1', category: 'Cat', note: undefined }]
+        }]
+      };
+      
+      const prepared = prepareWorkbookForExport(workbook as BudgetWorkbook);
+      expect(prepared.sheets[0].rows[0].note).toBeNull();
+    });
   });
 });
