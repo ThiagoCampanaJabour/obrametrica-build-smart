@@ -64,7 +64,9 @@ describe('fileExport utils', () => {
       inflationRateAnnualPct: 4.5,
       createdAt: '2026-01-01',
       updatedAt: '2026-01-01',
+      schemaVersion: 1,
       sheets: [
+
         {
           id: 's1',
           name: 'Sheet 1',
