@@ -22,16 +22,31 @@ import {
   Users, 
   Trash2,
   PieChart,
-  Table as TableIcon,
-  Settings
+  FolderOpen
 } from "lucide-react";
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
-import { calculateWorkbookTotals } from '@/lib/finance/budgetSheets';
+import { 
+  calculateWorkbookTotals, 
+  saveWorkbookToStorage, 
+  getSavedScenarios,
+  loadWorkbookFromStorage,
+  SavedScenarioInfo
+} from '@/lib/finance/budgetSheets';
 import { toast } from "sonner";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel
+} from "@/components/ui/dropdown-menu";
 
 // Componentes internos
 import { SheetTable } from './SheetTable';
 import { EditableTabTrigger } from './EditableTabTrigger';
+import { ExportControls } from './ExportControls';
+
 
 
 
