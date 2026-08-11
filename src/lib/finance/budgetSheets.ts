@@ -132,3 +132,87 @@ export function calculateWorkbookTotals(workbook: BudgetWorkbook): WorkbookTotal
 export function calcInflationProjection(value: number, annualInflationPct: number, years: number): number {
   return value * Math.pow(1 + annualInflationPct / 100, years);
 }
+
+const STORAGE_INDEX_KEY = 'obrametrica_workbook_index';
+const STORAGE_LATEST_KEY = 'obrametrica_workbook_latest';
+
+export interface SavedScenarioInfo {
+  id: string;
+  name: string;
+  createdAt: string;
+  key: string;
+}
+
+/**
+ * Salva o workbook no localStorage e atualiza o índice
+ */
+export function saveWorkbookToStorage(workbook: BudgetWorkbook) {
+  try {
+    const timestamp = new Date().toISOString();
+    const key = `obrametrica_workbook_${timestamp.replace(/[:.]/g, '-')}`;
+    const data = JSON.stringify(workbook);
+
+    // 1. Salva o cenário específico
+    localStorage.setItem(key, data);
+
+    // 2. Salva como latest
+    localStorage.setItem(STORAGE_LATEST_KEY, data);
+
+    // 3. Atualiza o índice
+    const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
+    let index: SavedScenarioInfo[] = indexRaw ? JSON.parse(indexRaw) : [];
+    
+    // Evita duplicados por ID (atualiza se já existe)
+    index = index.filter(item => item.id !== workbook.id);
+    index.unshift({
+      id: workbook.id,
+      name: workbook.name,
+      createdAt: timestamp,
+      key: key
+    });
+
+    // Mantém apenas os últimos 20
+    if (index.length > 20) index = index.slice(0, 20);
+    
+    localStorage.setItem(STORAGE_INDEX_KEY, JSON.stringify(index));
+    
+    return { success: true, key };
+  } catch (error) {
+    console.error("Erro ao salvar no localStorage", error);
+    if (error instanceof Error && error.name === 'QuotaExceededError') {
+      throw new Error("Espaço insuficiente no navegador para salvar.");
+    }
+    throw error;
+  }
+}
+
+/**
+ * Carrega a lista de cenários salvos
+ */
+export function getSavedScenarios(): SavedScenarioInfo[] {
+  try {
+    const indexRaw = localStorage.getItem(STORAGE_INDEX_KEY);
+    return indexRaw ? JSON.parse(indexRaw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Carrega um workbook específico
+ */
+export function loadWorkbookFromStorage(keyOrData: string, isData = false): BudgetWorkbook | null {
+  try {
+    const raw = isData ? keyOrData : localStorage.getItem(keyOrData);
+    if (!raw) return null;
+    
+    const parsed = JSON.parse(raw);
+    // Validação básica com Zod
+    const validated = BudgetWorkbookSchema.parse(parsed);
+    return validated;
+  } catch (e) {
+    console.error("Erro ao carregar workbook", e);
+    return null;
+  }
+}
+
