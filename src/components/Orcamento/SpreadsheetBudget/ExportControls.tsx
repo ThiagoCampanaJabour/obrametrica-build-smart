@@ -89,7 +89,7 @@ export function ExportControls({ workbook, activeSheetId }: ExportControlsProps)
         {currentSheet && (
           <DropdownMenuItem 
             onClick={() => exportCSV(currentSheet)} 
-            data-testid={`workbook-export-csv-${activeSheetId}`}
+            data-testid="workbook-export-csv"
           >
             <FileSpreadsheet className="mr-2 h-4 w-4" />
             <span>CSV: Aba Atual</span>
