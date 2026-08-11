@@ -7,7 +7,7 @@ export function sanitizeFilename(name: string): string {
   return name
     .trim()
     .replace(/\s+/g, '_')
-    .replace(/[^\w-]/g, '')
+    .replace(/[^\wç-]/gi, '')
     .toLowerCase();
 }
 
