@@ -32,14 +32,17 @@ describe('SpreadsheetBudget Save/Export UI', () => {
     expect(screen.getByTestId('workbook-saves-panel')).toBeDefined();
   });
 
-  it('shows export menu options', () => {
+  it('shows export menu options', async () => {
     render(<SpreadsheetBudget />);
     
     const exportBtn = screen.getByTestId('workbook-export-button');
     fireEvent.click(exportBtn);
     
-    expect(screen.getByTestId('workbook-export-modal')).toBeDefined();
-    expect(screen.getByTestId('workbook-export-json')).toBeDefined();
-    expect(screen.getByTestId('workbook-export-xlsx')).toBeDefined();
+    // DropdownMenu portal component might take a tick or be in a different root
+    const jsonOption = await screen.findByTestId('workbook-export-json');
+    expect(jsonOption).toBeDefined();
+    
+    const xlsxOption = screen.getByTestId('workbook-export-xlsx');
+    expect(xlsxOption).toBeDefined();
   });
 });
