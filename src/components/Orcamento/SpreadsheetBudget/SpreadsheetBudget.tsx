@@ -22,16 +22,32 @@ import {
   Users, 
   Trash2,
   PieChart,
-  Table as TableIcon,
-  Settings
+  FolderOpen,
+  ChevronDown
 } from "lucide-react";
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
-import { calculateWorkbookTotals } from '@/lib/finance/budgetSheets';
+import { 
+  calculateWorkbookTotals, 
+  saveWorkbookToStorage, 
+  getSavedScenarios,
+  loadWorkbookFromStorage,
+  SavedScenarioInfo
+} from '@/lib/finance/budgetSheets';
 import { toast } from "sonner";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel
+} from "@/components/ui/dropdown-menu";
 
 // Componentes internos
 import { SheetTable } from './SheetTable';
 import { EditableTabTrigger } from './EditableTabTrigger';
+import { ExportControls } from './ExportControls';
+
 
 
 
@@ -39,13 +55,22 @@ export function SpreadsheetBudget() {
   const [workbook, setWorkbook] = useState<BudgetWorkbook | null>(null);
   const [activeTab, setActiveTab] = useState<string>("");
   const [isAddingNew, setIsAddingNew] = useState(false);
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenarioInfo[]>([]);
+
+  useEffect(() => {
+    setSavedScenarios(getSavedScenarios());
+  }, []);
+
 
 
   useEffect(() => {
-    const saved = localStorage.getItem('obrametrica_workbook_main');
+    const saved = localStorage.getItem('obrametrica_workbook_latest');
     if (saved) {
       try {
-        setWorkbook(JSON.parse(saved));
+        const loaded = loadWorkbookFromStorage(saved, true);
+        if (loaded) setWorkbook(loaded);
+        else throw new Error("Fallback required");
+
       } catch (e) {
         console.error("Erro ao carregar workbook", e);
       }
@@ -75,11 +100,39 @@ export function SpreadsheetBudget() {
 
   const saveWorkbook = () => {
     if (!workbook) return;
-    const updated = { ...workbook, updatedAt: new Date().toISOString() };
-    localStorage.setItem('obrametrica_workbook_main', JSON.stringify(updated));
-    setWorkbook(updated);
-    toast.success("Orçamento salvo com sucesso!");
+    
+    if (workbook.sheets.length === 0) {
+      toast.warning("Não é possível salvar um orçamento vazio.");
+      return;
+    }
+
+    try {
+      const updated = { ...workbook, updatedAt: new Date().toISOString() };
+      saveWorkbookToStorage(updated);
+      setWorkbook(updated);
+      setSavedScenarios(getSavedScenarios());
+      toast.success("Orçamento salvo com sucesso!", {
+        id: "workbook-save-success"
+      });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Erro desconhecido";
+      toast.error(`Falha ao salvar: ${msg}`, {
+        id: "workbook-save-error"
+      });
+    }
   };
+
+  const loadScenario = (key: string) => {
+    const loaded = loadWorkbookFromStorage(key);
+    if (loaded) {
+      setWorkbook(loaded);
+      setActiveTab(loaded.sheets[0]?.id || "resumo");
+      toast.success("Cenário carregado com sucesso!");
+    } else {
+      toast.error("Erro ao carregar o cenário salvo.");
+    }
+  };
+
 
   const addSheet = (type: Sheet['type'] = 'Personalizado') => {
     if (!workbook) return;
@@ -170,17 +223,51 @@ export function SpreadsheetBudget() {
         </div>
         
         <div className="flex flex-wrap gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" data-testid="workbook-load-saved">
+                <FolderOpen className="h-4 w-4 mr-2" /> Abrir <ChevronDown className="ml-1 h-3 w-3 opacity-50" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuLabel>Cenários Salvos</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {savedScenarios.length === 0 ? (
+                <div className="px-2 py-4 text-center text-xs text-slate-400">
+                  Nenhum cenário salvo ainda.
+                </div>
+              ) : (
+                savedScenarios.map((scenario) => (
+                  <DropdownMenuItem key={scenario.key} onClick={() => loadScenario(scenario.key)}>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium truncate">{scenario.name}</span>
+                      <span className="text-[10px] text-slate-500">
+                        {new Date(scenario.createdAt).toLocaleString('pt-BR')}
+                      </span>
+                    </div>
+                  </DropdownMenuItem>
+                ))
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Button variant="outline" size="sm" onClick={() => addSheet()} data-testid="sheet-add-button">
             <Plus className="h-4 w-4 mr-2" /> Nova Aba
           </Button>
 
-          <Button variant="outline" size="sm" onClick={saveWorkbook}>
+          <Button 
+            variant="default" 
+            size="sm" 
+            onClick={saveWorkbook} 
+            data-testid="workbook-save"
+            className="bg-primary hover:bg-primary/90"
+          >
             <Save className="h-4 w-4 mr-2" /> Salvar
           </Button>
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" /> Exportar
-          </Button>
+          
+          <ExportControls workbook={workbook} activeSheetId={activeTab} />
         </div>
+
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
