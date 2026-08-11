@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { 
-  saveWorkbookToStorage, 
-  loadWorkbookFromStorage, 
-  getSavedScenarios 
+  atomicSaveWorkbook, 
+  loadWorkbookById, 
+  listSavedScenarios 
 } from './budgetSheets';
 import { BudgetWorkbook } from '../types/budget-sheets';
 
@@ -14,6 +14,7 @@ const mockWorkbook: BudgetWorkbook = {
   sheets: [],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
+  schemaVersion: 1
 };
 
 describe('Budget Storage', () => {
@@ -23,11 +24,10 @@ describe('Budget Storage', () => {
   });
 
   it('saves workbook and updates index', () => {
-    const result = saveWorkbookToStorage(mockWorkbook);
+    const result = atomicSaveWorkbook(mockWorkbook);
     expect(result.success).toBe(true);
-    expect(result.key).toContain('obrametrica_workbook_');
     
-    const index = getSavedScenarios();
+    const index = listSavedScenarios();
     expect(index).toHaveLength(1);
     expect(index[0].id).toBe(mockWorkbook.id);
     expect(index[0].name).toBe(mockWorkbook.name);
@@ -37,9 +37,9 @@ describe('Budget Storage', () => {
     expect(JSON.parse(latest!).id).toBe(mockWorkbook.id);
   });
 
-  it('loads workbook from storage by key', () => {
-    const { key } = saveWorkbookToStorage(mockWorkbook);
-    const loaded = loadWorkbookFromStorage(key!);
+  it('loads workbook from storage by id', () => {
+    atomicSaveWorkbook(mockWorkbook);
+    const loaded = loadWorkbookById(mockWorkbook.id);
     expect(loaded).not.toBeNull();
     expect(loaded?.id).toBe(mockWorkbook.id);
   });
@@ -52,6 +52,6 @@ describe('Budget Storage', () => {
       throw error;
     });
 
-    expect(() => saveWorkbookToStorage(mockWorkbook)).toThrow("Espaço insuficiente no navegador para salvar.");
+    expect(() => atomicSaveWorkbook(mockWorkbook)).toThrow("QUOTA_EXCEEDED");
   });
 });
