@@ -69,10 +69,9 @@ export function SpreadsheetBudget() {
     const saved = localStorage.getItem('obrametrica_workbook_latest');
     if (saved) {
       try {
-        const loaded = loadWorkbookFromStorage(saved, true);
+        const loaded = migrateWorkbook(JSON.parse(saved));
         if (loaded) setWorkbook(loaded);
         else throw new Error("Fallback required");
-
       } catch (e) {
         console.error("Erro ao carregar workbook", e);
       }
@@ -83,6 +82,8 @@ export function SpreadsheetBudget() {
         name: "Meu Orçamento",
         members: 1,
         inflationRateAnnualPct: 4.5,
+        schemaVersion: 1,
+
         sheets: [
           {
             id: crypto.randomUUID(),
