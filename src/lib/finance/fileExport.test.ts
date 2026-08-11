@@ -29,7 +29,7 @@ describe('fileExport utils', () => {
     const columns = ['category', 'subcategory', 'quantity', 'unitPrice', 'total'];
     const csv = convertToCSV(rows as any, columns);
     
-    expect(csv).toContain('\uFEFFcategory,subcategory,quantity,unitPrice,total');
+    expect(csv).toContain('\uFEFFCategory,Subcategory,Quantity,UnitPrice,Total');
     expect(csv).toContain('Alimentação,Arroz,2,5.5,11');
   });
 
