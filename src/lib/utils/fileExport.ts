@@ -29,9 +29,9 @@ export function downloadBlob(blob: Blob, filename: string) {
  * Converte um array de objetos para CSV (simples)
  */
 export function convertToCSV(rows: SheetRow[], columns: string[]): string {
-  if (rows.length === 0) return columns.join(',');
+  if (rows.length === 0) return columns.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(',');
   
-  const header = columns.join(',');
+  const header = columns.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(',');
   const body = rows.map(row => {
     return columns.map(col => {
       const val = (row as any)[col];

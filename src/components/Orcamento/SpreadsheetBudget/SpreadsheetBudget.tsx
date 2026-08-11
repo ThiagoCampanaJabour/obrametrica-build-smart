@@ -216,6 +216,7 @@ export function SpreadsheetBudget() {
                   value={workbook.members} 
                   onChange={(e) => setWorkbook({ ...workbook, members: Number(e.target.value) })}
                   className="w-16 h-8 p-1 inline-flex"
+                  data-testid="workbook-members"
                 /> membros
               </span>
             </div>
