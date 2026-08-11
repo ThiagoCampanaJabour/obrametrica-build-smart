@@ -31,7 +31,9 @@ import {
   atomicSaveWorkbook, 
   listSavedScenarios,
   loadWorkbookById,
+  migrateWorkbook,
   SavedScenarioInfo
+
 } from '@/lib/finance/budgetSheets';
 
 import { toast } from "sonner";
