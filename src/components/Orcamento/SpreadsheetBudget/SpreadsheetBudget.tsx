@@ -113,9 +113,9 @@ export function SpreadsheetBudget() {
 
     try {
       const updated = { ...workbook, updatedAt: new Date().toISOString() };
-      saveWorkbookToStorage(updated);
+      atomicSaveWorkbook(updated);
       setWorkbook(updated);
-      setSavedScenarios(getSavedScenarios());
+      setSavedScenarios(listSavedScenarios());
       toast.success("Orçamento salvo com sucesso!", {
         id: "workbook-save-success"
       });
@@ -127,8 +127,8 @@ export function SpreadsheetBudget() {
     }
   };
 
-  const loadScenario = (key: string) => {
-    const loaded = loadWorkbookFromStorage(key);
+  const loadScenario = (id: string) => {
+    const loaded = loadWorkbookById(id);
     if (loaded) {
       setWorkbook(loaded);
       setActiveTab(loaded.sheets[0]?.id || "resumo");
@@ -137,6 +137,7 @@ export function SpreadsheetBudget() {
       toast.error("Erro ao carregar o cenário salvo.");
     }
   };
+
 
 
   const addSheet = (type: Sheet['type'] = 'Personalizado') => {
