@@ -28,11 +28,12 @@ import {
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
 import { 
   calculateWorkbookTotals, 
-  saveWorkbookToStorage, 
-  getSavedScenarios,
-  loadWorkbookFromStorage,
+  atomicSaveWorkbook, 
+  listSavedScenarios,
+  loadWorkbookById,
   SavedScenarioInfo
 } from '@/lib/finance/budgetSheets';
+
 import { toast } from "sonner";
 import { 
   DropdownMenu, 
