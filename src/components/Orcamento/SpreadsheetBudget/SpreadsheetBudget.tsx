@@ -22,7 +22,8 @@ import {
   Users, 
   Trash2,
   PieChart,
-  FolderOpen
+  FolderOpen,
+  ChevronDown
 } from "lucide-react";
 import { BudgetWorkbook, Sheet, SheetRow } from '@/lib/types/budget-sheets';
 import { 
