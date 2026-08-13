@@ -78,6 +78,7 @@ import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
 import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as DownloadsPlantasSlugRouteImport } from './routes/downloads/plantas/$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
 const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
@@ -452,6 +453,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const DownloadsPlantasSlugRoute = DownloadsPlantasSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => DownloadsPlantasRoute,
+} as any)
 const BlogCategoriaCategoriaRoute = BlogCategoriaCategoriaRouteImport.update({
   id: '/categoria/$categoria',
   path: '/categoria/$categoria',
@@ -513,7 +519,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRoute
+  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -529,6 +535,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -583,7 +590,7 @@ export interface FileRoutesByTo {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRoute
+  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -599,6 +606,7 @@ export interface FileRoutesByTo {
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -656,7 +664,7 @@ export interface FileRoutesById {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRoute
+  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -672,6 +680,7 @@ export interface FileRoutesById {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -746,6 +755,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -816,6 +826,7 @@ export interface FileRouteTypes {
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
   id:
     | '__root__'
     | '/'
@@ -888,6 +899,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -931,7 +943,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
-  DownloadsPlantasRoute: typeof DownloadsPlantasRoute
+  DownloadsPlantasRoute: typeof DownloadsPlantasRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -1419,6 +1431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/downloads/plantas/$slug': {
+      id: '/downloads/plantas/$slug'
+      path: '/$slug'
+      fullPath: '/downloads/plantas/$slug'
+      preLoaderRoute: typeof DownloadsPlantasSlugRouteImport
+      parentRoute: typeof DownloadsPlantasRoute
+    }
     '/blog/categoria/$categoria': {
       id: '/blog/categoria/$categoria'
       path: '/categoria/$categoria'
@@ -1534,6 +1553,17 @@ const OrcamentoDomesticoRouteChildren: OrcamentoDomesticoRouteChildren = {
 const OrcamentoDomesticoRouteWithChildren =
   OrcamentoDomesticoRoute._addFileChildren(OrcamentoDomesticoRouteChildren)
 
+interface DownloadsPlantasRouteChildren {
+  DownloadsPlantasSlugRoute: typeof DownloadsPlantasSlugRoute
+}
+
+const DownloadsPlantasRouteChildren: DownloadsPlantasRouteChildren = {
+  DownloadsPlantasSlugRoute: DownloadsPlantasSlugRoute,
+}
+
+const DownloadsPlantasRouteWithChildren =
+  DownloadsPlantasRoute._addFileChildren(DownloadsPlantasRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
@@ -1575,7 +1605,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
-  DownloadsPlantasRoute: DownloadsPlantasRoute,
+  DownloadsPlantasRoute: DownloadsPlantasRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

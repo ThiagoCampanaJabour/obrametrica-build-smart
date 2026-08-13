@@ -35,7 +35,13 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
   return (
     <Card 
       className="overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow cursor-pointer group"
-      onClick={() => onViewDetails(plant)}
+      onClick={() => {
+        if (plant.slug) {
+          window.location.href = `/downloads/plantas/${plant.slug}`;
+        } else {
+          onViewDetails(plant);
+        }
+      }}
       data-testid={`plant-card-${plant.id}`}
     >
 

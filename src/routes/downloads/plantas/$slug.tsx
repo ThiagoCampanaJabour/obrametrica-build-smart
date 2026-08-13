@@ -20,7 +20,7 @@ import {
   Waves
 } from 'lucide-react';
 import { CasaAuroraSVG } from '@/components/Downloads/Plants/CasaAurora/CasaAuroraSVG';
-import plantData from '../../../content/downloads/plantas/index.json';
+import plantData from '@/../content/downloads/plantas/index.json';
 import { PlantItem } from '@/lib/types/plant';
 import { toast } from 'sonner';
 
