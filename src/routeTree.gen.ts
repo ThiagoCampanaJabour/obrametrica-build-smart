@@ -77,6 +77,7 @@ import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
 import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as DownloadsPlantasIndexRouteImport } from './routes/downloads/plantas/index'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
 const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
@@ -446,6 +447,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const DownloadsPlantasIndexRoute = DownloadsPlantasIndexRouteImport.update({
+  id: '/downloads/plantas/',
+  path: '/downloads/plantas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogCategoriaCategoriaRoute = BlogCategoriaCategoriaRouteImport.update({
   id: '/categoria/$categoria',
   path: '/categoria/$categoria',
@@ -522,6 +528,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -591,6 +598,7 @@ export interface FileRoutesByTo {
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -663,6 +671,7 @@ export interface FileRoutesById {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -736,6 +745,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -805,6 +815,7 @@ export interface FileRouteTypes {
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas'
   id:
     | '__root__'
     | '/'
@@ -876,6 +887,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -919,6 +931,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  DownloadsPlantasIndexRoute: typeof DownloadsPlantasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1399,6 +1412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/downloads/plantas/': {
+      id: '/downloads/plantas/'
+      path: '/downloads/plantas'
+      fullPath: '/downloads/plantas/'
+      preLoaderRoute: typeof DownloadsPlantasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/categoria/$categoria': {
       id: '/blog/categoria/$categoria'
       path: '/categoria/$categoria'
@@ -1555,6 +1575,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  DownloadsPlantasIndexRoute: DownloadsPlantasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
