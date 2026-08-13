@@ -10,6 +10,7 @@ const navItems = [
   { to: "/orcamento-domestico", label: "Orçamento Doméstico" },
   { to: "/energia-solar", label: "Energia Solar" },
   { to: "/conversores", label: "Conversores" },
+  { to: "/downloads/plantas", label: "Plantas" },
   { to: "/blog", label: "Blog" },
   { to: "/sobre", label: "Sobre" },
   { to: "/contato", label: "Contato" },
