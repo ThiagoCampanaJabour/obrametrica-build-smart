@@ -1,0 +1,44 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "Casa Popular Sustentável - 50m²",
+    "description": "Projeto de residência unifamiliar com foco em economia de materiais e ventilação natural. Inclui planta baixa e cortes.",
+    "categories": ["Residencial", "Acessibilidade"],
+    "format": "PDF",
+    "fileUrl": "https://example.com/files/casa-popular-50m.pdf",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=400",
+    "hosted": false,
+    "sourceUrl": "https://github.com/example/public-architecture",
+    "author": "Arquitetura Aberta",
+    "license": {
+      "type": "CC0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "attributionText": "Arquitetura Aberta — Domínio Público (CC0)",
+    "tags": ["casa popular", "sustentável", "planta baixa"],
+    "createdAt": "2026-08-13T11:00:00Z",
+    "verifiedBy": "Thiago",
+    "verificationDate": "2026-08-13T11:05:00Z"
+  },
+  {
+    "id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+    "title": "Galpão Industrial Modular",
+    "description": "Estrutura metálica para galpão industrial com vãos livres de 20 metros. Detalhamento de terças e pilares.",
+    "categories": ["Galpões"],
+    "format": "DXF",
+    "fileUrl": "https://example.com/files/galpao-industrial.dxf",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400",
+    "hosted": false,
+    "sourceUrl": "https://archive.org/details/industrial-blueprints",
+    "author": "Open Industrial Designs",
+    "license": {
+      "type": "Public Domain",
+      "url": "https://creativecommons.org/publicdomain/mark/1.0/"
+    },
+    "attributionText": "Open Industrial Designs — Domínio Público",
+    "tags": ["galpão", "industrial", "estrutura metálica"],
+    "createdAt": "2026-08-13T11:10:00Z",
+    "verifiedBy": "Thiago",
+    "verificationDate": "2026-08-13T11:15:00Z"
+  }
+]
