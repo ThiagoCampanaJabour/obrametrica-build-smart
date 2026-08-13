@@ -17,6 +17,7 @@ const ENTRIES: Entry[] = [
   { path: "/energia-solar", changefreq: "weekly", priority: "0.9" },
   { path: "/conversores", changefreq: "weekly", priority: "0.9" },
   { path: "/metodologia", changefreq: "monthly", priority: "0.7" },
+  { path: "/downloads/plantas", changefreq: "weekly", priority: "0.8" },
   { path: "/calculadora-de-telhas", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-blocos", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-tijolos", changefreq: "monthly", priority: "0.8" },
