@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-export const CasaAuroraSVG: React.FC<{ className?: string; showDetails?: boolean }> = ({ 
+export const CasaAuroraSVG = forwardRef<SVGSVGElement, { className?: string; showDetails?: boolean }>(({ 
   className = "", 
   showDetails = true 
-}) => {
+}, ref) => {
   return (
     <svg 
       viewBox="0 0 800 1200" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      ref={ref}
     >
       {/* Background */}
       <rect width="800" height="1200" fill="#FCFCFA" />
@@ -138,4 +139,6 @@ export const CasaAuroraSVG: React.FC<{ className?: string; showDetails?: boolean
       </g>
     </svg>
   );
-};
+});
+
+CasaAuroraSVG.displayName = 'CasaAuroraSVG';
