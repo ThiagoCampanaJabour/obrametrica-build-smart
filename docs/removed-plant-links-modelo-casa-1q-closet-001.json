@@ -1,0 +1,33 @@
+{
+  "id": "modelo-casa-1q-closet-001",
+  "title": "Casa Moderna 1 Quarto com Closet — Modelo Conceitual",
+  "description": "Planta conceitual de casa moderna: 1 quarto com closet, sala integrada à cozinha, banheiro social, lavanderia e varanda técnica. Área estimada 55–75 m². Arquivo conceitual — consultar profissional antes de executar.",
+  "categories": ["Residencial"],
+  "format": ["SVG", "PNG", "PDF"],
+  "fileUrl": "/downloads/plantas/modelo-casa-1q-closet-001/casa-1q-closet-modelo.svg",
+  "thumbnailUrl": "/assets/plant-thumbs/modelo-casa-1q-closet-001.png",
+  "hosted": true,
+  "sourceUrl": null,
+  "author": "ObraMétrica (modelo original)",
+  "license": {
+    "type": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "attributionText": "ObraMétrica — Modelo Conceitual — CC BY 4.0",
+  "tags": ["residencial", "1 quarto", "closet", "planta baixa", "moderno", "conceitual"],
+  "createdAt": "2026-08-13T15:00:00Z",
+  "verifiedBy": "ObraMétrica",
+  "verificationDate": "2026-08-13T15:00:00Z",
+  "disclaimerShort": "Modelo conceitual — consulte profissional habilitado antes de construir.",
+  "disclaimerLong": "Este arquivo é um modelo conceitual criado para fins ilustrativos. Não inclui projeto executivo, dimensionamento estrutural, nem memoriais de cálculo. A execução exige projeto assinado por profissional habilitado (CREA/CAU). ObraMétrica não se responsabiliza pelo uso sem projeto técnico.",
+  "removedBy": "Lovable Agent (Thiago Campana Jabour context)",
+  "removedAt": "2026-08-13T17:25:13Z",
+  "originalFilePaths": [
+    "public/downloads/plantas/modelo-casa-1q-closet-001/casa-1q-closet-modelo.pdf",
+    "public/downloads/plantas/modelo-casa-1q-closet-001/casa-1q-closet-modelo.png",
+    "public/downloads/plantas/modelo-casa-1q-closet-001/casa-1q-closet-modelo.svg",
+    "public/downloads/plantas/modelo-casa-1q-closet-001/readme.html",
+    "public/assets/plant-thumbs/modelo-casa-1q-closet-001.png"
+  ],
+  "backupNote": "All assets and data archived in this log and the corresponding git removal commit."
+}
