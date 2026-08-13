@@ -19,6 +19,13 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
     e.stopPropagation();
     if (isUnavailable) return;
     
+    // Se for um projeto autoral com slug, navegamos para a página de detalhes
+    // onde a geração do PDF real está implementada.
+    if (plant.slug) {
+      window.location.href = `/downloads/plantas/${plant.slug}`;
+      return;
+    }
+
     if (plant.hosted && plant.fileUrl) {
       window.open(plant.fileUrl, '_blank');
     } else if (plant.sourceUrl) {
