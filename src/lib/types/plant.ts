@@ -9,7 +9,7 @@ export const PlantLicenseSchema = z.object({
 export const PlantItemSchema = z.object({
   id: z.string(),
   title: z.string().min(3).max(100),
-  description: z.string().max(500),
+  description: z.string().max(1000), // Increased for richer descriptions
   categories: z.array(z.string()),
   format: z.array(z.string()),
   fileUrl: z.string().nullable(),
@@ -28,6 +28,17 @@ export const PlantItemSchema = z.object({
   verificationDate: z.string(),
   disclaimerShort: z.string().optional(),
   disclaimerLong: z.string().optional(),
+  slug: z.string().optional(), // New for individual pages
+  area: z.number().optional(), // In m2
+  terreno: z.string().optional(), // e.g. "8m x 20m"
+  quartos: z.number().optional(),
+  banheiros: z.number().optional(),
+  vagas: z.number().optional(),
+  ambientes: z.array(z.object({
+    nome: z.string(),
+    area: z.number(),
+  })).optional(),
+  isAutoral: z.boolean().optional(),
 });
 
 export type PlantLicense = z.infer<typeof PlantLicenseSchema>;
