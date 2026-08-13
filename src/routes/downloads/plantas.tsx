@@ -32,13 +32,14 @@ function PlantsPageComponent() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const categories = Array.from(new Set(allPlants.flatMap(p => p.categories))).sort();
-  const formats = Array.from(new Set(allPlants.map(p => p.format))).sort();
+  const formats = Array.from(new Set(allPlants.flatMap(p => Array.isArray(p.format) ? p.format : [p.format]))).sort();
 
   const filteredPlants = allPlants.filter(plant => {
     const matchesSearch = plant.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          plant.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || plant.categories.includes(selectedCategory as PlantCategory);
-    const matchesFormat = selectedFormat === 'all' || plant.format === selectedFormat;
+    const matchesFormat = selectedFormat === 'all' || 
+                         (Array.isArray(plant.format) ? plant.format.includes(selectedFormat) : plant.format === selectedFormat);
     
     return matchesSearch && matchesCategory && matchesFormat;
   });
