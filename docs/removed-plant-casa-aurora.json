@@ -1,0 +1,14 @@
+{
+  "action": "permanent_removal",
+  "project": "Casa Aurora",
+  "id": "casa-aurora-001",
+  "slug": "casa-aurora",
+  "timestamp": "2026-08-13T20:45:00Z",
+  "reason": "Layout misalignment and quality concerns",
+  "files_removed": [
+    "src/components/Downloads/Plants/CasaAurora/CasaAuroraSVG.tsx",
+    "public/downloads/plantas/casa-aurora/thumb.svg",
+    "src/routes/downloads/plantas/$slug.tsx"
+  ],
+  "routes_affected": ["/downloads/plantas/casa-aurora"]
+}
