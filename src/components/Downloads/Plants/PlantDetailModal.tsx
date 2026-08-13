@@ -35,6 +35,8 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
 
   if (!plant) return null;
 
+  const isUnavailable = plant.status === 'unavailable';
+
   const copyAttribution = () => {
     navigator.clipboard.writeText(plant.attributionText);
     setCopied(true);
@@ -50,6 +52,9 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
             {plant.categories.map(cat => (
               <Badge key={cat} variant="secondary">{cat}</Badge>
             ))}
+            {isUnavailable && (
+              <Badge variant="destructive">Arquivo Indisponível</Badge>
+            )}
           </div>
           <DialogTitle className="text-2xl">{plant.title}</DialogTitle>
           <DialogDescription className="text-base mt-2">
@@ -82,6 +87,21 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
                 </div>
               </div>
             </div>
+
+            {isUnavailable && (
+              <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-lg">
+                <div className="flex gap-2 items-start">
+                  <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+                  <div className="text-xs text-destructive">
+                    <p className="font-bold mb-1">ARQUIVO INDISPONÍVEL:</p>
+                    <p>Este recurso não está mais disponível na fonte original. Ele foi marcado como indisponível no nosso catálogo para evitar redirecionamentos a páginas inexistentes.</p>
+                    <p className="mt-1 font-medium" data-testid={`plant-unavailable-lastchecked-${plant.id}`}>
+                      Última verificação: {plant.lastCheckedAt ? new Date(plant.lastCheckedAt).toLocaleString('pt-BR') : 'N/A'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="space-y-4">
@@ -150,18 +170,24 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
           <Button 
             variant="outline" 
             className="flex-grow sm:flex-grow-0 gap-2"
-            onClick={() => window.open(plant.sourceUrl, '_blank')}
+            onClick={() => plant.sourceUrl && window.open(plant.sourceUrl, '_blank')}
+            disabled={isUnavailable || !plant.sourceUrl}
           >
             <ExternalLink className="h-4 w-4" />
             Visitar Fonte Original
           </Button>
           <Button 
-            variant="default" 
+            variant={isUnavailable ? "secondary" : "default"} 
             className="flex-grow sm:flex-grow-0 gap-2"
-            onClick={() => window.open(plant.hosted ? plant.fileUrl : plant.sourceUrl, '_blank')}
+            onClick={() => {
+              if (isUnavailable) return;
+              const url = plant.hosted ? plant.fileUrl : plant.sourceUrl;
+              if (url) window.open(url, '_blank');
+            }}
+            disabled={isUnavailable}
           >
             <Download className="h-4 w-4" />
-            {plant.hosted ? 'Baixar Arquivo' : 'Download Externo'}
+            {isUnavailable ? 'Arquivo Indisponível' : (plant.hosted ? 'Baixar Arquivo' : 'Download Externo')}
           </Button>
         </DialogFooter>
       </DialogContent>
