@@ -1,6 +1,6 @@
 import React from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { Helmet } from 'react-helmet-async';
+
 import { PlantsList } from '@/components/Downloads/Plants/PlantsList';
 import { PlantFilters } from '@/components/Downloads/Plants/PlantFilters';
 import { PlantDetailModal } from '@/components/Downloads/Plants/PlantDetailModal';
