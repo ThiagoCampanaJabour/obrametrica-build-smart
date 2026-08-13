@@ -50,10 +50,11 @@ export function PlantUploadForm() {
       sourceUrl: '',
       category: '',
       description: '',
-      licenseConfirmed: false,
+      licenseConfirmed: false as unknown as true,
       email: '',
     },
   });
+
 
   async function onSubmit(data: UploadFormValues) {
     setIsSubmitting(true);
