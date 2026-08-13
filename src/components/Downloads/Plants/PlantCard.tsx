@@ -2,7 +2,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Download, ExternalLink, ShieldCheck, Info } from 'lucide-react';
+import { Download, ExternalLink, ShieldCheck, Info, AlertCircle } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import type { PlantItem } from '@/lib/types/plant';
 import { cn } from '@/lib/utils';
 
@@ -12,17 +13,22 @@ interface PlantCardProps {
 }
 
 export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
+  const isUnavailable = plant.status === 'unavailable';
+
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (plant.hosted) {
+    if (isUnavailable) return;
+    
+    if (plant.hosted && plant.fileUrl) {
       window.open(plant.fileUrl, '_blank');
-    } else {
+    } else if (plant.sourceUrl) {
       window.open(plant.sourceUrl, '_blank');
     }
   };
 
   const handleOpenSource = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isUnavailable || !plant.sourceUrl) return;
     window.open(plant.sourceUrl, '_blank');
   };
 
@@ -56,6 +62,11 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
           >
             {plant.license.type}
           </Badge>
+          {isUnavailable && (
+            <Badge variant="destructive" className="bg-destructive/90 text-destructive-foreground">
+              Indisponível
+            </Badge>
+          )}
         </div>
       </div>
       
@@ -80,25 +91,51 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
         </div>
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 grid grid-cols-2 gap-2">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="w-full text-xs gap-1"
-          onClick={handleOpenSource}
-        >
-          <ExternalLink className="h-3 w-3" />
-          Fonte
-        </Button>
-        <Button 
-          variant="default" 
-          size="sm" 
-          className="w-full text-xs gap-1"
-          onClick={handleDownload}
-        >
-          <Download className="h-3 w-3" />
-          {plant.hosted ? 'Baixar' : 'Acessar'}
-        </Button>
+      <CardFooter className="p-4 pt-0 flex flex-col gap-2">
+        {isUnavailable && (
+          <div className="flex items-center gap-1.5 text-[10px] text-destructive mb-1" data-testid={`plant-unavailable-reason-${plant.id}`}>
+            <AlertCircle className="h-3 w-3" />
+            <span>Arquivo indisponível na fonte</span>
+          </div>
+        )}
+        
+        <div className="grid grid-cols-2 gap-2 w-full">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full text-xs gap-1"
+            onClick={handleOpenSource}
+            disabled={isUnavailable}
+          >
+            <ExternalLink className="h-3 w-3" />
+            Fonte
+          </Button>
+          
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="w-full">
+                  <Button 
+                    variant={isUnavailable ? "secondary" : "default"} 
+                    size="sm" 
+                    className="w-full text-xs gap-1"
+                    onClick={handleDownload}
+                    disabled={isUnavailable}
+                    data-testid={isUnavailable ? `plant-unavailable-${plant.id}` : `plant-download-${plant.id}`}
+                  >
+                    <Download className="h-3 w-3" />
+                    {isUnavailable ? 'Indisponível' : (plant.hosted ? 'Baixar' : 'Acessar')}
+                  </Button>
+                </div>
+              </TooltipTrigger>
+              {isUnavailable && (
+                <TooltipContent>
+                  <p>Fonte retornou 404 (verificado em {plant.lastCheckedAt ? new Date(plant.lastCheckedAt).toLocaleDateString('pt-BR') : 'data desconhecida'})</p>
+                </TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </CardFooter>
     </Card>
   );

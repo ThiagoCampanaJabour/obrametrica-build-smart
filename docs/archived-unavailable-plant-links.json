@@ -1,0 +1,29 @@
+[
+  {
+    "itemId": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "Casa Popular Sustentável - 50m²",
+    "originalSourceUrl": "https://github.com/example/public-architecture",
+    "originalFileUrl": "https://example.com/files/casa-popular-50m.pdf",
+    "httpStatus": 404,
+    "checkedAt": "2026-08-13T14:56:00Z",
+    "actionTaken": "marked_unavailable"
+  },
+  {
+    "itemId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+    "title": "Galpão Industrial Modular (Vão 20m)",
+    "originalSourceUrl": "https://archive.org/details/industrial-blueprints",
+    "originalFileUrl": "https://example.com/files/galpao-industrial.dxf",
+    "httpStatus": 404,
+    "checkedAt": "2026-08-13T14:56:00Z",
+    "actionTaken": "marked_unavailable"
+  },
+  {
+    "itemId": "7ca7b810-9dad-11d1-80b4-00c04fd430c9",
+    "title": "Projeto Elétrico Residencial Padrão",
+    "originalSourceUrl": "https://example.com/source",
+    "originalFileUrl": "https://example.com/files/projeto-eletrico.dwg",
+    "httpStatus": 404,
+    "checkedAt": "2026-08-13T14:56:00Z",
+    "actionTaken": "marked_unavailable"
+  }
+]

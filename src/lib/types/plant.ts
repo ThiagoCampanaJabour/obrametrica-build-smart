@@ -7,7 +7,7 @@ export const PlantLicenseSchema = z.object({
 });
 
 export const PlantItemSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   title: z.string().min(3).max(100),
   description: z.string().max(500),
   categories: z.array(z.enum([
@@ -22,10 +22,13 @@ export const PlantItemSchema = z.object({
     'Estruturas Auxiliares'
   ])),
   format: z.enum(['PDF', 'DWG', 'DXF', 'SVG', 'JPG', 'PNG', 'ZIP']),
-  fileUrl: z.string().url(),
+  fileUrl: z.string().url().nullable(),
   thumbnailUrl: z.string().url().optional(),
   hosted: z.boolean(),
-  sourceUrl: z.string().url(),
+  sourceUrl: z.string().url().nullable(),
+  status: z.enum(['available', 'unavailable', 'archived']).default('available').optional(),
+  unavailableReason: z.string().optional(),
+  lastCheckedAt: z.string().optional(),
   author: z.string(),
   license: PlantLicenseSchema,
   attributionText: z.string(),
