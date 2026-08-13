@@ -93,14 +93,21 @@ function PlantsPageComponent() {
         </div>
       </div>
 
-      <div className="bg-muted/50 p-6 rounded-lg border border-dashed flex flex-col items-center text-center space-y-3">
-        <Info className="h-6 w-6 text-primary" />
-        <h3 className="font-semibold">Tem um projeto para compartilhar?</h3>
-        <p className="text-sm text-muted-foreground max-w-md">
-          Aceitamos sugestões de plantas em domínio público ou de sua autoria com licença permissiva.
-          Entre em contato para submeter seu material para nossa curadoria.
-        </p>
+      <div className="bg-muted/50 p-6 rounded-lg border border-dashed space-y-6">
+        <div className="flex flex-col items-center text-center space-y-3">
+          <Info className="h-6 w-6 text-primary" />
+          <h3 className="font-semibold">Tem um projeto para compartilhar?</h3>
+          <p className="text-sm text-muted-foreground max-w-md">
+            Aceitamos sugestões de plantas em domínio público ou de sua autoria com licença permissiva.
+            Utilize o formulário abaixo para submeter seu material para nossa curadoria.
+          </p>
+        </div>
+        
+        <div className="max-w-2xl mx-auto">
+          <PlantUploadForm />
+        </div>
       </div>
+
 
       <PlantDetailModal 
         plant={selectedPlant}
