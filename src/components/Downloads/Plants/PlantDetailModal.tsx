@@ -18,6 +18,7 @@ import {
   Tag, 
   FileText,
   AlertTriangle,
+  AlertCircle,
   Copy,
   Check
 } from 'lucide-react';
