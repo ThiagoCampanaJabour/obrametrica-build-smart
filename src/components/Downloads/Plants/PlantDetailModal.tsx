@@ -110,7 +110,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
               <div className="flex items-center gap-3 text-sm p-2 bg-muted/50 rounded-md">
                 <FileText className="h-4 w-4 text-muted-foreground" />
                 <span className="font-medium">Formato:</span>
-                <span>{plant.format}</span>
+                <span>{Array.isArray(plant.format) ? plant.format.join(', ') : plant.format}</span>
               </div>
               <div className="flex items-center gap-3 text-sm p-2 bg-muted/50 rounded-md">
                 <ShieldCheck className="h-4 w-4 text-green-600" />

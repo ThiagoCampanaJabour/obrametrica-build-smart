@@ -54,7 +54,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
         )}
         <div className="absolute top-2 right-2 flex gap-1">
           <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-            {plant.format}
+            {Array.isArray(plant.format) ? plant.format.join('/') : plant.format}
           </Badge>
           <Badge 
             variant={plant.license.type.includes('CC0') || plant.license.type.includes('Domain') ? 'default' : 'outline'}
@@ -106,6 +106,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
             className="w-full text-xs gap-1"
             onClick={handleOpenSource}
             disabled={isUnavailable}
+            data-testid={`plant-open-${plant.id}`}
           >
             <ExternalLink className="h-3 w-3" />
             Fonte
@@ -122,12 +123,18 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
                     onClick={handleDownload}
                     disabled={isUnavailable}
                     data-testid={isUnavailable ? `plant-unavailable-${plant.id}` : `plant-download-${plant.id}`}
+                    aria-label={isUnavailable ? "Projeto indisponível" : `Baixar ${plant.title}`}
                   >
                     <Download className="h-3 w-3" />
                     {isUnavailable ? 'Indisponível' : (plant.hosted ? 'Baixar' : 'Acessar')}
                   </Button>
                 </div>
               </TooltipTrigger>
+              {!isUnavailable && plant.id === 'modelo-casa-1q-closet-001' && (
+                <TooltipContent>
+                  <p>Disponível em SVG, PNG e PDF</p>
+                </TooltipContent>
+              )}
               {isUnavailable && (
                 <TooltipContent>
                   <p>Fonte retornou 404 (verificado em {plant.lastCheckedAt ? new Date(plant.lastCheckedAt).toLocaleDateString('pt-BR') : 'data desconhecida'})</p>

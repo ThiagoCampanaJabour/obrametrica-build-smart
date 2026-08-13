@@ -21,11 +21,11 @@ export const PlantItemSchema = z.object({
     'Acessibilidade',
     'Estruturas Auxiliares'
   ])),
-  format: z.enum(['PDF', 'DWG', 'DXF', 'SVG', 'JPG', 'PNG', 'ZIP']),
-  fileUrl: z.string().url().nullable(),
-  thumbnailUrl: z.string().url().optional(),
+  format: z.array(z.string()), // Changed from single enum to array of strings for multiple formats
+  fileUrl: z.string().nullable(), // Allow relative paths
+  thumbnailUrl: z.string().optional(), // Allow relative paths
   hosted: z.boolean(),
-  sourceUrl: z.string().url().nullable(),
+  sourceUrl: z.string().nullable(), // Allow nullable and potentially non-URL strings
   status: z.enum(['available', 'unavailable', 'archived']).default('available').optional(),
   unavailableReason: z.string().optional(),
   lastCheckedAt: z.string().optional(),
