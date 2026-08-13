@@ -2,8 +2,8 @@
   {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "Casa Popular Sustentável - 50m²",
-    "description": "Projeto de residência unifamiliar com foco em economia de materiais e ventilação natural. Inclui planta baixa e cortes.",
-    "categories": ["Residencial", "Acessibilidade"],
+    "description": "Projeto de residência unifamiliar com foco em economia de materiais e ventilação natural. Inclui planta baixa e cortes detalhados.",
+    "categories": ["Residencial"],
     "format": "PDF",
     "fileUrl": "https://example.com/files/casa-popular-50m.pdf",
     "thumbnailUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=400",
@@ -17,13 +17,13 @@
     "attributionText": "Arquitetura Aberta — Domínio Público (CC0)",
     "tags": ["casa popular", "sustentável", "planta baixa"],
     "createdAt": "2026-08-13T11:00:00Z",
-    "verifiedBy": "Thiago",
+    "verifiedBy": "Equipe ObraMétrica",
     "verificationDate": "2026-08-13T11:05:00Z"
   },
   {
     "id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-    "title": "Galpão Industrial Modular",
-    "description": "Estrutura metálica para galpão industrial com vãos livres de 20 metros. Detalhamento de terças e pilares.",
+    "title": "Galpão Industrial Modular (Vão 20m)",
+    "description": "Estrutura metálica para galpão industrial com vãos livres de 20 metros. Detalhamento completo de terças, pilares e fundações.",
     "categories": ["Galpões"],
     "format": "DXF",
     "fileUrl": "https://example.com/files/galpao-industrial.dxf",
@@ -38,7 +38,29 @@
     "attributionText": "Open Industrial Designs — Domínio Público",
     "tags": ["galpão", "industrial", "estrutura metálica"],
     "createdAt": "2026-08-13T11:10:00Z",
-    "verifiedBy": "Thiago",
+    "verifiedBy": "Equipe ObraMétrica",
     "verificationDate": "2026-08-13T11:15:00Z"
+  },
+  {
+    "id": "7ca7b810-9dad-11d1-80b4-00c04fd430c9",
+    "title": "Projeto Elétrico Residencial Padrão",
+    "description": "Esquema elétrico unifilar e multifilar para residência de até 100m², conforme NBR 5410.",
+    "categories": ["Complementares"],
+    "format": "DWG",
+    "fileUrl": "https://example.com/files/projeto-eletrico.dwg",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=400",
+    "hosted": false,
+    "sourceUrl": "https://example.com/source",
+    "author": "Engenharia Coletiva",
+    "license": {
+      "type": "CC0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "attributionText": "Engenharia Coletiva — CC0",
+    "tags": ["elétrico", "NBR 5410", "projeto"],
+    "createdAt": "2026-08-14T09:00:00Z",
+    "verifiedBy": "Equipe ObraMétrica",
+    "verificationDate": "2026-08-14T09:30:00Z"
   }
 ]
+
