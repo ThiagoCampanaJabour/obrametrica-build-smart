@@ -82,7 +82,7 @@ function PlantDetailPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="content-to-print">
         {/* Lado Esquerdo: Visualização Técnica */}
         <div className="lg:col-span-2 space-y-6">
           <Card className="overflow-hidden border-2 border-primary/10 shadow-xl bg-white dark:bg-zinc-950">
