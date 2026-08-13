@@ -130,9 +130,9 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
                   </Button>
                 </div>
               </TooltipTrigger>
-              {!isUnavailable && plant.id === 'modelo-casa-1q-closet-001' && (
+              {!isUnavailable && (
                 <TooltipContent>
-                  <p>Disponível em SVG, PNG e PDF</p>
+                  <p>Clique para baixar os arquivos do projeto</p>
                 </TooltipContent>
               )}
               {isUnavailable && (
