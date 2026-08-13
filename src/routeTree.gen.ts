@@ -63,7 +63,6 @@ import { Route as EnergiaSolarCalculadoraPaybackRouteImport } from './routes/ene
 import { Route as EnergiaSolarCalculadoraInversorRouteImport } from './routes/energia-solar.calculadora-inversor'
 import { Route as EnergiaSolarCalculadoraBateriaRouteImport } from './routes/energia-solar.calculadora-bateria'
 import { Route as EnergiaSolarCalculadoraAreaLayoutPaineisRouteImport } from './routes/energia-solar.calculadora-area-layout-paineis'
-import { Route as DownloadsPlantasRouteImport } from './routes/downloads/plantas'
 import { Route as ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport } from './routes/construcao-civil.simulador-iluminacao-fachadas'
 import { Route as ConstrucaoCivilQuantificacaoTelhasPecasRouteImport } from './routes/construcao-civil.quantificacao-telhas-pecas'
 import { Route as ConstrucaoCivilPerdaAtritoTubulacoesRouteImport } from './routes/construcao-civil.perda-atrito-tubulacoes'
@@ -78,6 +77,7 @@ import { Route as ConstrucaoCivilCalculadoraMaoObraRouteImport } from './routes/
 import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/construcao-civil.calculadora-lajes'
 import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as DownloadsPlantasIndexRouteImport } from './routes/downloads/plantas/index'
 import { Route as DownloadsPlantasSlugRouteImport } from './routes/downloads/plantas/$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
@@ -365,11 +365,6 @@ const EnergiaSolarCalculadoraAreaLayoutPaineisRoute =
     path: '/calculadora-area-layout-paineis',
     getParentRoute: () => EnergiaSolarRoute,
   } as any)
-const DownloadsPlantasRoute = DownloadsPlantasRouteImport.update({
-  id: '/downloads/plantas',
-  path: '/downloads/plantas',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ConstrucaoCivilSimuladorIluminacaoFachadasRoute =
   ConstrucaoCivilSimuladorIluminacaoFachadasRouteImport.update({
     id: '/simulador-iluminacao-fachadas',
@@ -453,10 +448,15 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const DownloadsPlantasIndexRoute = DownloadsPlantasIndexRouteImport.update({
+  id: '/downloads/plantas/',
+  path: '/downloads/plantas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DownloadsPlantasSlugRoute = DownloadsPlantasSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => DownloadsPlantasRoute,
+  id: '/downloads/plantas/$slug',
+  path: '/downloads/plantas/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogCategoriaCategoriaRoute = BlogCategoriaCategoriaRouteImport.update({
   id: '/categoria/$categoria',
@@ -519,7 +519,6 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -536,6 +535,7 @@ export interface FileRoutesByFullPath {
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
   '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
+  '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -590,7 +590,6 @@ export interface FileRoutesByTo {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -607,6 +606,7 @@ export interface FileRoutesByTo {
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
   '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
+  '/downloads/plantas': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -664,7 +664,6 @@ export interface FileRoutesById {
   '/construcao-civil/perda-atrito-tubulacoes': typeof ConstrucaoCivilPerdaAtritoTubulacoesRoute
   '/construcao-civil/quantificacao-telhas-pecas': typeof ConstrucaoCivilQuantificacaoTelhasPecasRoute
   '/construcao-civil/simulador-iluminacao-fachadas': typeof ConstrucaoCivilSimuladorIluminacaoFachadasRoute
-  '/downloads/plantas': typeof DownloadsPlantasRouteWithChildren
   '/energia-solar/calculadora-area-layout-paineis': typeof EnergiaSolarCalculadoraAreaLayoutPaineisRoute
   '/energia-solar/calculadora-bateria': typeof EnergiaSolarCalculadoraBateriaRoute
   '/energia-solar/calculadora-inversor': typeof EnergiaSolarCalculadoraInversorRoute
@@ -681,6 +680,7 @@ export interface FileRoutesById {
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
   '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
+  '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -739,7 +739,6 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
-    | '/downloads/plantas'
     | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -756,6 +755,7 @@ export interface FileRouteTypes {
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
     | '/downloads/plantas/$slug'
+    | '/downloads/plantas/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -810,7 +810,6 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
-    | '/downloads/plantas'
     | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -827,6 +826,7 @@ export interface FileRouteTypes {
     | '/energia-solar'
     | '/blog/categoria/$categoria'
     | '/downloads/plantas/$slug'
+    | '/downloads/plantas'
   id:
     | '__root__'
     | '/'
@@ -883,7 +883,6 @@ export interface FileRouteTypes {
     | '/construcao-civil/perda-atrito-tubulacoes'
     | '/construcao-civil/quantificacao-telhas-pecas'
     | '/construcao-civil/simulador-iluminacao-fachadas'
-    | '/downloads/plantas'
     | '/energia-solar/calculadora-area-layout-paineis'
     | '/energia-solar/calculadora-bateria'
     | '/energia-solar/calculadora-inversor'
@@ -900,6 +899,7 @@ export interface FileRouteTypes {
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
     | '/downloads/plantas/$slug'
+    | '/downloads/plantas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -943,7 +943,8 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
-  DownloadsPlantasRoute: typeof DownloadsPlantasRouteWithChildren
+  DownloadsPlantasSlugRoute: typeof DownloadsPlantasSlugRoute
+  DownloadsPlantasIndexRoute: typeof DownloadsPlantasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1326,13 +1327,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnergiaSolarCalculadoraAreaLayoutPaineisRouteImport
       parentRoute: typeof EnergiaSolarRoute
     }
-    '/downloads/plantas': {
-      id: '/downloads/plantas'
-      path: '/downloads/plantas'
-      fullPath: '/downloads/plantas'
-      preLoaderRoute: typeof DownloadsPlantasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/construcao-civil/simulador-iluminacao-fachadas': {
       id: '/construcao-civil/simulador-iluminacao-fachadas'
       path: '/simulador-iluminacao-fachadas'
@@ -1431,12 +1425,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/downloads/plantas/': {
+      id: '/downloads/plantas/'
+      path: '/downloads/plantas'
+      fullPath: '/downloads/plantas/'
+      preLoaderRoute: typeof DownloadsPlantasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/downloads/plantas/$slug': {
       id: '/downloads/plantas/$slug'
-      path: '/$slug'
+      path: '/downloads/plantas/$slug'
       fullPath: '/downloads/plantas/$slug'
       preLoaderRoute: typeof DownloadsPlantasSlugRouteImport
-      parentRoute: typeof DownloadsPlantasRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/categoria/$categoria': {
       id: '/blog/categoria/$categoria'
@@ -1553,17 +1554,6 @@ const OrcamentoDomesticoRouteChildren: OrcamentoDomesticoRouteChildren = {
 const OrcamentoDomesticoRouteWithChildren =
   OrcamentoDomesticoRoute._addFileChildren(OrcamentoDomesticoRouteChildren)
 
-interface DownloadsPlantasRouteChildren {
-  DownloadsPlantasSlugRoute: typeof DownloadsPlantasSlugRoute
-}
-
-const DownloadsPlantasRouteChildren: DownloadsPlantasRouteChildren = {
-  DownloadsPlantasSlugRoute: DownloadsPlantasSlugRoute,
-}
-
-const DownloadsPlantasRouteWithChildren =
-  DownloadsPlantasRoute._addFileChildren(DownloadsPlantasRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
@@ -1605,7 +1595,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
-  DownloadsPlantasRoute: DownloadsPlantasRouteWithChildren,
+  DownloadsPlantasSlugRoute: DownloadsPlantasSlugRoute,
+  DownloadsPlantasIndexRoute: DownloadsPlantasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
