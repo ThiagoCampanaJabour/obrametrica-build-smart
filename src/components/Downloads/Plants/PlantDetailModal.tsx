@@ -110,7 +110,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
               <div className="flex items-center gap-3 text-sm p-2 bg-muted/50 rounded-md">
                 <FileText className="h-4 w-4 text-muted-foreground" />
                 <span className="font-medium">Formato:</span>
-                <span>{plant.format}</span>
+                <span>{Array.isArray(plant.format) ? plant.format.join(', ') : plant.format}</span>
               </div>
               <div className="flex items-center gap-3 text-sm p-2 bg-muted/50 rounded-md">
                 <ShieldCheck className="h-4 w-4 text-green-600" />
@@ -120,6 +120,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-primary hover:underline flex items-center gap-1"
+                  data-testid={`plant-disclaimer-${plant.id}`}
                 >
                   {plant.license.type}
                   <ExternalLink className="h-3 w-3" />
@@ -190,6 +191,11 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({ plant, isOpe
             <Download className="h-4 w-4" />
             {isUnavailable ? 'Arquivo Indisponível' : (plant.hosted ? 'Baixar Arquivo' : 'Download Externo')}
           </Button>
+          {plant.disclaimerShort && (
+            <p className="text-[10px] text-muted-foreground mt-2 w-full text-center sm:text-left">
+              {plant.disclaimerShort}
+            </p>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
