@@ -1,6 +1,5 @@
 import React from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-
 import { PlantsList } from '@/components/Downloads/Plants/PlantsList';
 import { PlantFilters } from '@/components/Downloads/Plants/PlantFilters';
 import { PlantDetailModal } from '@/components/Downloads/Plants/PlantDetailModal';
@@ -9,7 +8,16 @@ import { Info, ShieldAlert, Download } from 'lucide-react';
 import type { PlantItem, PlantCategory, PlantFormat } from '@/lib/types/plant';
 import plantData from '../../../../content/downloads/plantas/index.json';
 
-export const Route = createFileRoute('/downloads/plantas/')({
+export const Route = createFileRoute('/downloads/plantas')({
+  head: () => ({
+    meta: [
+      { title: 'Downloads de Plantas e Projetos | ObraMétrica' },
+      { name: 'description', content: 'Catálogo curado de plantas de casas, galpões e projetos de engenharia em domínio público e CC0. Download gratuito de arquivos PDF, DWG e DXF.' },
+      { property: 'og:title', content: 'Downloads de Plantas e Projetos | ObraMétrica' },
+      { property: 'og:description', content: 'Baixe plantas baixas e projetos técnicos em domínio público e CC0 gratuitamente.' },
+      { name: 'twitter:card', content: 'summary_large_image' }
+    ]
+  }),
   component: PlantsPageComponent,
 });
 
@@ -40,11 +48,6 @@ function PlantsPageComponent() {
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-8">
-      <Helmet>
-        <title>Downloads de Plantas e Projetos | ObraMétrica</title>
-        <meta name="description" content="Catálogo curado de plantas de casas, galpões e projetos de engenharia em domínio público e CC0. Download gratuito de arquivos PDF, DWG e DXF." />
-      </Helmet>
-
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
           <Download className="h-8 w-8 text-primary" />
