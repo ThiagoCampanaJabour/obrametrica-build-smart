@@ -8,7 +8,7 @@ import { PlantUploadForm } from '@/components/Downloads/Plants/PlantUploadForm';
 
 import { Info, ShieldAlert, Download } from 'lucide-react';
 import type { PlantItem, PlantCategory, PlantFormat } from '@/lib/types/plant';
-import plantData from '../../../content/downloads/plantas/index.json';
+import plantData from '@/../content/downloads/plantas/index.json';
 
 export const Route = createFileRoute('/downloads/plantas')({
   head: () => ({
