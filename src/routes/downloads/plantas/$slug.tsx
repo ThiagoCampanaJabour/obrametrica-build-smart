@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
 import { createFileRoute } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
@@ -17,12 +17,14 @@ import {
   Compass,
   Map,
   Home,
-  Waves
+  Waves,
+  Loader2
 } from 'lucide-react';
 import { CasaAuroraSVG } from '@/components/Downloads/Plants/CasaAurora/CasaAuroraSVG';
 import plantData from '@/../content/downloads/plantas/index.json';
 import { PlantItem } from '@/lib/types/plant';
 import { toast } from 'sonner';
+import { downloadPlantaBaixaPDF, downloadFichaTecnicaPDF } from '@/lib/plant-download-utils';
 
 export const Route = createFileRoute('/downloads/plantas/$slug')({
   component: PlantDetailPage,
@@ -31,6 +33,9 @@ export const Route = createFileRoute('/downloads/plantas/$slug')({
 function PlantDetailPage() {
   const { slug } = useParams({ from: '/downloads/plantas/$slug' });
   const plant = (plantData as PlantItem[]).find(p => p.slug === slug);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [isDownloadingPlanta, setIsDownloadingPlanta] = useState(false);
+  const [isDownloadingFicha, setIsDownloadingFicha] = useState(false);
 
   if (!plant) {
     return (
@@ -43,14 +48,29 @@ function PlantDetailPage() {
     );
   }
 
-  const handleDownload = (format: string) => {
-    toast.success(`Iniciando download da ${format}...`);
-    // In a real scenario, this would trigger the actual file download
-    // For now we simulate the interaction
-    if (plant.fileUrl) {
-      window.open(plant.fileUrl, '_blank');
-    } else {
-      window.print();
+  const handleDownloadPlanta = async () => {
+    if (!svgRef.current) return;
+    
+    setIsDownloadingPlanta(true);
+    try {
+      await downloadPlantaBaixaPDF(plant, svgRef.current);
+      toast.success('Download da planta iniciado com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao gerar o PDF da planta. Tente novamente.');
+    } finally {
+      setIsDownloadingPlanta(false);
+    }
+  };
+
+  const handleDownloadFicha = async () => {
+    setIsDownloadingFicha(true);
+    try {
+      await downloadFichaTecnicaPDF(plant);
+      toast.success('Ficha técnica gerada com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao gerar a ficha técnica. Tente novamente.');
+    } finally {
+      setIsDownloadingFicha(false);
     }
   };
 
@@ -77,7 +97,7 @@ function PlantDetailPage() {
             </div>
             <div className="p-4 sm:p-8 flex justify-center items-center min-h-[500px] overflow-auto">
               <div className="w-full max-w-[600px] bg-white p-4 shadow-sm border rounded">
-                <CasaAuroraSVG className="w-full h-auto" />
+                <CasaAuroraSVG ref={svgRef} className="w-full h-auto" />
               </div>
             </div>
           </Card>
@@ -162,11 +182,40 @@ function PlantDetailPage() {
           </div>
 
           <div className="space-y-3 pt-4 border-t">
-            <Button className="w-full h-12 text-base gap-2" onClick={() => handleDownload('Planta PDF')}>
-              <Download className="h-5 w-5" /> Baixar Planta em PDF
+            <Button 
+              className="w-full h-12 text-base gap-2" 
+              onClick={handleDownloadPlanta}
+              disabled={isDownloadingPlanta}
+            >
+              {isDownloadingPlanta ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Preparando arquivo...
+                </>
+              ) : (
+                <>
+                  <Download className="h-5 w-5" />
+                  Baixar Planta em PDF
+                </>
+              )}
             </Button>
-            <Button variant="outline" className="w-full h-12 text-base gap-2" onClick={() => handleDownload('Ficha Técnica')}>
-              <FileText className="h-5 w-5" /> Baixar Ficha do Projeto
+            <Button 
+              variant="outline" 
+              className="w-full h-12 text-base gap-2" 
+              onClick={handleDownloadFicha}
+              disabled={isDownloadingFicha}
+            >
+              {isDownloadingFicha ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Preparando ficha...
+                </>
+              ) : (
+                <>
+                  <FileText className="h-5 w-5" />
+                  Baixar Ficha do Projeto
+                </>
+              )}
             </Button>
           </div>
 
