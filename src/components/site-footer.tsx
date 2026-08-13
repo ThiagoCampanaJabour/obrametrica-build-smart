@@ -31,6 +31,7 @@ export function SiteFooter() {
               <li><Link to="/energia-solar" className="hover:text-accent transition-colors">Energia Solar</Link></li>
               <li><Link to="/conversores" className="hover:text-accent transition-colors">Conversores Técnicos</Link></li>
               <li><Link to="/metodologia" className="hover:text-accent transition-colors">Nossa Metodologia</Link></li>
+              <li><Link to="/downloads/plantas" className="hover:text-accent transition-colors">Plantas Gratuitas</Link></li>
             </ul>
           </div>
 
