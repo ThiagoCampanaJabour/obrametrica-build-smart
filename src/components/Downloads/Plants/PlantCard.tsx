@@ -30,7 +30,9 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) =>
     <Card 
       className="overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow cursor-pointer group"
       onClick={() => onViewDetails(plant)}
+      data-testid={`plant-card-${plant.id}`}
     >
+
       <div className="relative aspect-video overflow-hidden bg-muted">
         {plant.thumbnailUrl ? (
           <img 
