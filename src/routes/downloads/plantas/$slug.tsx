@@ -19,7 +19,9 @@ import {
 import { toast } from 'sonner';
 import type { PlantItem } from '@/lib/types/plant';
 import plantData from '@/../content/downloads/plantas/index.json';
-import { Casa2Q6x10SVG } from '@/components/Downloads/Plants/Casa2Q6x10/Casa2Q6x10SVG';
+
+// Os componentes SVG específicos de cada planta devem ser importados condicionalmente 
+// ou mapeados conforme necessário. Se não houver plantas, mantemos as funções puras.
 import { downloadPlantaBaixaPDF, downloadPlantFile } from '@/lib/plant-download-utils';
 
 export const Route = createFileRoute('/downloads/plantas/$slug')({
