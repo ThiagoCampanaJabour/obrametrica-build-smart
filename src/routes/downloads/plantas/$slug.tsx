@@ -86,9 +86,10 @@ function PlantDetailComponent() {
               <Badge variant="outline" className="bg-background">Escala 1:100</Badge>
             </div>
             <div className="aspect-[3/4] p-8 flex items-center justify-center bg-white dark:bg-slate-900">
-               {plant.slug === 'casa-2q-6x10-v1' && (
-                 <Casa2Q6x10SVG ref={svgRef} className="w-full h-full max-h-[800px]" />
-               )}
+               <div className="flex flex-col items-center justify-center text-center p-8 space-y-4">
+                 <AlertTriangle className="h-12 w-12 text-muted-foreground/30" />
+                 <p className="text-muted-foreground font-medium">Nenhuma visualização técnica disponível para este projeto no momento.</p>
+               </div>
             </div>
           </div>
 
