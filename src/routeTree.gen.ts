@@ -78,6 +78,7 @@ import { Route as ConstrucaoCivilCalculadoraLajesRouteImport } from './routes/co
 import { Route as ConstrucaoCivilAndaimesEscorasRouteImport } from './routes/construcao-civil.andaimes-escoras'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as DownloadsPlantasIndexRouteImport } from './routes/downloads/plantas/index'
+import { Route as DownloadsPlantasSlugRouteImport } from './routes/downloads/plantas/$slug'
 import { Route as BlogCategoriaCategoriaRouteImport } from './routes/blog.categoria.$categoria'
 
 const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
@@ -452,6 +453,11 @@ const DownloadsPlantasIndexRoute = DownloadsPlantasIndexRouteImport.update({
   path: '/downloads/plantas/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DownloadsPlantasSlugRoute = DownloadsPlantasSlugRouteImport.update({
+  id: '/downloads/plantas/$slug',
+  path: '/downloads/plantas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogCategoriaCategoriaRoute = BlogCategoriaCategoriaRouteImport.update({
   id: '/categoria/$categoria',
   path: '/categoria/$categoria',
@@ -528,6 +534,7 @@ export interface FileRoutesByFullPath {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
   '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesByTo {
@@ -598,6 +605,7 @@ export interface FileRoutesByTo {
   '/construcao-civil': typeof ConstrucaoCivilIndexRoute
   '/energia-solar': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
   '/downloads/plantas': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRoutesById {
@@ -671,6 +679,7 @@ export interface FileRoutesById {
   '/construcao-civil/': typeof ConstrucaoCivilIndexRoute
   '/energia-solar/': typeof EnergiaSolarIndexRoute
   '/blog/categoria/$categoria': typeof BlogCategoriaCategoriaRoute
+  '/downloads/plantas/$slug': typeof DownloadsPlantasSlugRoute
   '/downloads/plantas/': typeof DownloadsPlantasIndexRoute
 }
 export interface FileRouteTypes {
@@ -745,6 +754,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
     | '/downloads/plantas/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -815,6 +825,7 @@ export interface FileRouteTypes {
     | '/construcao-civil'
     | '/energia-solar'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
     | '/downloads/plantas'
   id:
     | '__root__'
@@ -887,6 +898,7 @@ export interface FileRouteTypes {
     | '/construcao-civil/'
     | '/energia-solar/'
     | '/blog/categoria/$categoria'
+    | '/downloads/plantas/$slug'
     | '/downloads/plantas/'
   fileRoutesById: FileRoutesById
 }
@@ -931,6 +943,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   TermosDeUsoRoute: typeof TermosDeUsoRoute
+  DownloadsPlantasSlugRoute: typeof DownloadsPlantasSlugRoute
   DownloadsPlantasIndexRoute: typeof DownloadsPlantasIndexRoute
 }
 
@@ -1419,6 +1432,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DownloadsPlantasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/downloads/plantas/$slug': {
+      id: '/downloads/plantas/$slug'
+      path: '/downloads/plantas/$slug'
+      fullPath: '/downloads/plantas/$slug'
+      preLoaderRoute: typeof DownloadsPlantasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/categoria/$categoria': {
       id: '/blog/categoria/$categoria'
       path: '/categoria/$categoria'
@@ -1575,6 +1595,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   TermosDeUsoRoute: TermosDeUsoRoute,
+  DownloadsPlantasSlugRoute: DownloadsPlantasSlugRoute,
   DownloadsPlantasIndexRoute: DownloadsPlantasIndexRoute,
 }
 export const routeTree = rootRouteImport

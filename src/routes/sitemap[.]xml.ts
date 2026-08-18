@@ -18,6 +18,7 @@ const ENTRIES: Entry[] = [
   { path: "/conversores", changefreq: "weekly", priority: "0.9" },
   { path: "/metodologia", changefreq: "monthly", priority: "0.7" },
   { path: "/downloads/plantas", changefreq: "weekly", priority: "0.8" },
+  { path: "/downloads/plantas/casa-2q-6x10-v1", changefreq: "monthly", priority: "0.7" },
   
   { path: "/calculadora-de-telhas", changefreq: "monthly", priority: "0.8" },
   { path: "/calculadora-de-blocos", changefreq: "monthly", priority: "0.8" },
