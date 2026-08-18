@@ -20,7 +20,7 @@ import { toast } from 'sonner';
 import type { PlantItem } from '@/lib/types/plant';
 import plantData from '@/../content/downloads/plantas/index.json';
 import { Casa2Q6x10SVG } from '@/components/Downloads/Plants/Casa2Q6x10/Casa2Q6x10SVG';
-import { generatePlantPDF, downloadPlantFile } from '@/lib/plant-download-utils';
+import { downloadPlantaBaixaPDF, downloadPlantFile } from '@/lib/plant-download-utils';
 
 export const Route = createFileRoute('/downloads/plantas/$slug')({
   loader: ({ params }) => {
@@ -30,10 +30,10 @@ export const Route = createFileRoute('/downloads/plantas/$slug')({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData.title} | Downloads ObraMétrica` },
-      { name: 'description', content: loaderData.description },
-      { property: 'og:title', content: loaderData.title },
-      { property: 'og:description', content: loaderData.description },
+      { title: `${loaderData?.title || 'Planta'} | Downloads ObraMétrica` },
+      { name: 'description', content: loaderData?.description || '' },
+      { property: 'og:title', content: loaderData?.title || '' },
+      { property: 'og:description', content: loaderData?.description || '' },
       { name: 'twitter:card', content: 'summary_large_image' }
     ]
   }),
@@ -51,7 +51,7 @@ function PlantDetailComponent() {
     
     try {
       if (format === 'PDF' && svgRef.current) {
-        await generatePlantPDF(plant, svgRef.current);
+        await downloadPlantaBaixaPDF(plant, svgRef.current);
         toast.success('Download concluído!', { id: toastId });
       } else if (format === 'SVG' && svgRef.current) {
         const svgData = new XMLSerializer().serializeToString(svgRef.current);
