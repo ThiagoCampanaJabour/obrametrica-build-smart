@@ -1,0 +1,42 @@
+[
+  {
+    "id": "casa-2q-6x10-v1",
+    "slug": "casa-2q-6x10-v1",
+    "title": "Casa Térrea 2 Quartos (1 Suíte) — Terreno 6m × 10m",
+    "description": "Modelo conceitual de planta baixa para casa térrea moderna, otimizada para terreno estreito (6×10m), com open floor plan, suíte, quarto secundário, banheiro social e lavanderia. Área estimada: 48–52 m². Escala indicativa 1:100.",
+    "shortDescription": "Planta conceitual de casa térrea 2 quartos em terreno 6×10m com open floor plan e suíte.",
+    "categories": ["Casa", "Residencial", "Térrea"],
+    "format": ["PDF", "SVG"],
+    "fileUrl": null,
+    "thumbnailUrl": "/downloads/plantas/casa-2q-6x10-v1/thumb.svg",
+    "hosted": true,
+    "sourceUrl": null,
+    "status": "available",
+    "author": "ObraMétrica",
+    "license": {
+      "type": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "attributionText": "Planta Casa 2Q 6x10m por ObraMétrica (CC BY 4.0)",
+    "tags": [
+      "planta baixa",
+      "casa térrea",
+      "2 quartos",
+      "suíte",
+      "open floor plan",
+      "terreno pequeno",
+      "modelo conceitual",
+      "6x10m"
+    ],
+    "createdAt": "2026-08-18T00:00:00Z",
+    "verifiedBy": "Equipe ObraMétrica",
+    "verificationDate": "2026-08-18",
+    "disclaimerShort": "Modelo conceitual — consulte profissional habilitado antes de executar.",
+    "disclaimerLong": "Este documento apresenta um modelo conceitual de planta baixa e não constitui projeto executivo. As dimensões, áreas e posicionamentos são indicativos e de caráter ilustrativo, destinados apenas a orientar o planejamento inicial de um projeto residencial. Antes de iniciar qualquer obra ou reforma, é obrigatório contratar um profissional habilitado (engenheiro civil ou arquiteto registrado no CREA ou CAU) para desenvolver o projeto executivo completo, que inclua cálculos estruturais, dimensionamento de fundações, projetos de instalações (hidráulica, elétrica, gás) e análise de conformidade com a legislação local.",
+    "area": 50,
+    "terreno": "6.00m × 10.00m",
+    "quartos": 2,
+    "banheiros": 2,
+    "isAutoral": true
+  }
+]
